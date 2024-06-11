@@ -1,6 +1,6 @@
 {
   "name": "@prove-identity/prove-api",
-  "version": "0.2.10",
+  "version": "0.3.0",
   "author": "Speakeasy",  
   "main": "./index.js",
   "sideEffects": false,

@@ -4,7 +4,7 @@
 
 import { SDKHooks } from "../hooks";
 import { SDK_METADATA, SDKOptions, serverURLFromOptions } from "../lib/config";
-import * as enc$ from "../lib/encodings";
+import { encodeJSON as encodeJSON$ } from "../lib/encodings";
 import { HTTPClient } from "../lib/http";
 import * as schemas$ from "../lib/schemas";
 import { ClientSDK, RequestOptions } from "../lib/sdks";
@@ -40,6 +40,75 @@ export class V3 extends ClientSDK {
     }
 
     /**
+     * Request OAuth token.
+     *
+     * @remarks
+     * Send this request to request the OAuth token.
+     */
+    async v3TokenRequest(
+        request?: components.V3TokenRequest | undefined,
+        options?: RequestOptions
+    ): Promise<operations.V3TokenRequestResponse> {
+        const input$ = request;
+        const headers$ = new Headers();
+        headers$.set("user-agent", SDK_METADATA.userAgent);
+        headers$.set("Content-Type", "application/json");
+        headers$.set("Accept", "application/json");
+
+        const payload$ = schemas$.parse(
+            input$,
+            (value$) => components.V3TokenRequest$.outboundSchema.optional().parse(value$),
+            "Input validation failed"
+        );
+        const body$ =
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
+
+        const path$ = this.templateURLComponent("/realms/US/protocol/openid-connect/token")();
+
+        const query$ = "";
+
+        const security$ =
+            typeof this.options$.security === "function"
+                ? await this.options$.security()
+                : this.options$.security;
+
+        const context = {
+            operationID: "V3TokenRequest",
+            oAuth2Scopes: [],
+            securitySource: this.options$.security,
+        };
+        const securitySettings$ = this.resolveGlobalSecurity(security$);
+
+        const doOptions = { context, errorCodes: ["400", "4XX", "500", "5XX"] };
+        const request$ = this.createRequest$(
+            context,
+            {
+                security: securitySettings$,
+                method: "POST",
+                path: path$,
+                headers: headers$,
+                query: query$,
+                body: body$,
+            },
+            options
+        );
+
+        const response = await this.do$(request$, doOptions);
+
+        const responseFields$ = {
+            HttpMeta: { Response: response, Request: request$ },
+        };
+
+        const [result$] = await this.matcher<operations.V3TokenRequestResponse>()
+            .json(200, operations.V3TokenRequestResponse$, { key: "V3TokenResponse" })
+            .json([400, 500], errors.ErrorT$, { err: true })
+            .fail(["4XX", "5XX"])
+            .match(response, request$, { extraFields: responseFields$ });
+
+        return result$;
+    }
+
+    /**
      * Submit challenge.
      *
      * @remarks
@@ -61,24 +130,21 @@ export class V3 extends ClientSDK {
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/v3/challenge")();
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.auth === "function") {
-            security$ = { auth: await this.options$.auth() };
-        } else if (this.options$.auth) {
-            security$ = { auth: this.options$.auth };
-        } else {
-            security$ = {};
-        }
+        const security$ =
+            typeof this.options$.security === "function"
+                ? await this.options$.security()
+                : this.options$.security;
+
         const context = {
             operationID: "V3ChallengeRequest",
             oAuth2Scopes: [],
-            securitySource: this.options$.auth,
+            securitySource: this.options$.security,
         };
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
@@ -133,24 +199,21 @@ export class V3 extends ClientSDK {
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/v3/complete")();
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.auth === "function") {
-            security$ = { auth: await this.options$.auth() };
-        } else if (this.options$.auth) {
-            security$ = { auth: this.options$.auth };
-        } else {
-            security$ = {};
-        }
+        const security$ =
+            typeof this.options$.security === "function"
+                ? await this.options$.security()
+                : this.options$.security;
+
         const context = {
             operationID: "V3CompleteRequest",
             oAuth2Scopes: [],
-            securitySource: this.options$.auth,
+            securitySource: this.options$.security,
         };
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
@@ -205,24 +268,21 @@ export class V3 extends ClientSDK {
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/v3/start")();
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.auth === "function") {
-            security$ = { auth: await this.options$.auth() };
-        } else if (this.options$.auth) {
-            security$ = { auth: this.options$.auth };
-        } else {
-            security$ = {};
-        }
+        const security$ =
+            typeof this.options$.security === "function"
+                ? await this.options$.security()
+                : this.options$.security;
+
         const context = {
             operationID: "V3StartRequest",
             oAuth2Scopes: [],
-            securitySource: this.options$.auth,
+            securitySource: this.options$.security,
         };
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 
@@ -256,78 +316,6 @@ export class V3 extends ClientSDK {
     }
 
     /**
-     * Request OAuth token.
-     *
-     * @remarks
-     * Send this request to request the OAuth token.
-     */
-    async v3TokenRequest(
-        request?: components.V3TokenRequest | undefined,
-        options?: RequestOptions
-    ): Promise<operations.V3TokenRequestResponse> {
-        const input$ = request;
-        const headers$ = new Headers();
-        headers$.set("user-agent", SDK_METADATA.userAgent);
-        headers$.set("Content-Type", "application/json");
-        headers$.set("Accept", "application/json");
-
-        const payload$ = schemas$.parse(
-            input$,
-            (value$) => components.V3TokenRequest$.outboundSchema.optional().parse(value$),
-            "Input validation failed"
-        );
-        const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
-
-        const path$ = this.templateURLComponent("/v3/token")();
-
-        const query$ = "";
-
-        let security$;
-        if (typeof this.options$.auth === "function") {
-            security$ = { auth: await this.options$.auth() };
-        } else if (this.options$.auth) {
-            security$ = { auth: this.options$.auth };
-        } else {
-            security$ = {};
-        }
-        const context = {
-            operationID: "V3TokenRequest",
-            oAuth2Scopes: [],
-            securitySource: this.options$.auth,
-        };
-        const securitySettings$ = this.resolveGlobalSecurity(security$);
-
-        const doOptions = { context, errorCodes: ["400", "4XX", "500", "5XX"] };
-        const request$ = this.createRequest$(
-            context,
-            {
-                security: securitySettings$,
-                method: "POST",
-                path: path$,
-                headers: headers$,
-                query: query$,
-                body: body$,
-            },
-            options
-        );
-
-        const response = await this.do$(request$, doOptions);
-
-        const responseFields$ = {
-            HttpMeta: { Response: response, Request: request$ },
-        };
-
-        const [result$] = await this.matcher<operations.V3TokenRequestResponse>()
-            .json(200, operations.V3TokenRequestResponse$, { key: "V3TokenResponse" })
-            .json([400, 500], errors.ErrorT$, { err: true })
-            .fail(["4XX", "5XX"])
-            .match(response, request$, { extraFields: responseFields$ });
-
-        return result$;
-    }
-
-    /**
      * Validate phone number.
      *
      * @remarks
@@ -349,24 +337,21 @@ export class V3 extends ClientSDK {
             "Input validation failed"
         );
         const body$ =
-            payload$ === undefined ? null : enc$.encodeJSON("body", payload$, { explode: true });
+            payload$ === undefined ? null : encodeJSON$("body", payload$, { explode: true });
 
         const path$ = this.templateURLComponent("/v3/validate")();
 
         const query$ = "";
 
-        let security$;
-        if (typeof this.options$.auth === "function") {
-            security$ = { auth: await this.options$.auth() };
-        } else if (this.options$.auth) {
-            security$ = { auth: this.options$.auth };
-        } else {
-            security$ = {};
-        }
+        const security$ =
+            typeof this.options$.security === "function"
+                ? await this.options$.security()
+                : this.options$.security;
+
         const context = {
             operationID: "V3ValidateRequest",
             oAuth2Scopes: [],
-            securitySource: this.options$.auth,
+            securitySource: this.options$.security,
         };
         const securitySettings$ = this.resolveGlobalSecurity(security$);
 

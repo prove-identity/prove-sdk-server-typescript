@@ -116,16 +116,20 @@ import { Proveapi } from "@prove-identity/prove-api";
 import * as errors from "@prove-identity/prove-api/models/errors";
 
 const proveapi = new Proveapi({
-    auth: "<YOUR_AUTH_HERE>",
+    security: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+    },
 });
 
 async function run() {
     let result;
     try {
-        result = await proveapi.v3.v3ChallengeRequest({
-            correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-            dob: "2024-05-02T00:00:00Z",
-            last4SSN: "1234",
+        result = await proveapi.v3.v3TokenRequest({
+            clientId: "customer_id",
+            clientSecret: "secret",
+            grantType: "client_credentials",
+            password: "password",
+            username: "jdoe",
         });
     } catch (err) {
         switch (true) {
@@ -172,14 +176,18 @@ import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
     server: "prod-us",
-    auth: "<YOUR_AUTH_HERE>",
+    security: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+    },
 });
 
 async function run() {
-    const result = await proveapi.v3.v3ChallengeRequest({
-        correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-        dob: "2024-05-02T00:00:00Z",
-        last4SSN: "1234",
+    const result = await proveapi.v3.v3TokenRequest({
+        clientId: "customer_id",
+        clientSecret: "secret",
+        grantType: "client_credentials",
+        password: "password",
+        username: "jdoe",
     });
 
     // Handle the result
@@ -200,14 +208,18 @@ import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
     serverURL: "https://platform.uat.proveapis.com",
-    auth: "<YOUR_AUTH_HERE>",
+    security: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+    },
 });
 
 async function run() {
-    const result = await proveapi.v3.v3ChallengeRequest({
-        correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-        dob: "2024-05-02T00:00:00Z",
-        last4SSN: "1234",
+    const result = await proveapi.v3.v3TokenRequest({
+        clientId: "customer_id",
+        clientSecret: "secret",
+        grantType: "client_credentials",
+        password: "password",
+        username: "jdoe",
     });
 
     // Handle the result
@@ -273,25 +285,30 @@ const sdk = new Proveapi({ httpClient });
 
 ### Per-Client Security Schemes
 
-This SDK supports the following security scheme globally:
+This SDK supports the following security schemes globally:
 
-| Name         | Type         | Scheme       |
-| ------------ | ------------ | ------------ |
-| `auth`       | oauth2       | OAuth2 token |
+| Name           | Type           | Scheme         |
+| -------------- | -------------- | -------------- |
+| `clientID`     | oauth2         | OAuth2 token   |
+| `clientSecret` | oauth2         | OAuth2 token   |
 
-To authenticate with the API the `auth` parameter must be set when initializing the SDK client instance. For example:
+You can set the security parameters through the `security` optional parameter when initializing the SDK client instance. The selected scheme will be used by default to authenticate with the API for all operations that support it. For example:
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
-    auth: "<YOUR_AUTH_HERE>",
+    security: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+    },
 });
 
 async function run() {
-    const result = await proveapi.v3.v3ChallengeRequest({
-        correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-        dob: "2024-05-02T00:00:00Z",
-        last4SSN: "1234",
+    const result = await proveapi.v3.v3TokenRequest({
+        clientId: "customer_id",
+        clientSecret: "secret",
+        grantType: "client_credentials",
+        password: "password",
+        username: "jdoe",
     });
 
     // Handle the result

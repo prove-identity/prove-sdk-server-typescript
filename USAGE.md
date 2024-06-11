@@ -3,14 +3,18 @@
 import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
-    auth: "<YOUR_AUTH_HERE>",
+    security: {
+        clientID: "<YOUR_CLIENT_ID_HERE>",
+    },
 });
 
 async function run() {
-    const result = await proveapi.v3.v3ChallengeRequest({
-        correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-        dob: "2024-05-02T00:00:00Z",
-        last4SSN: "1234",
+    const result = await proveapi.v3.v3TokenRequest({
+        clientId: "customer_id",
+        clientSecret: "secret",
+        grantType: "client_credentials",
+        password: "password",
+        username: "jdoe",
     });
 
     // Handle the result

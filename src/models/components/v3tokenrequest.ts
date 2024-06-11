@@ -11,17 +11,21 @@ export type V3TokenRequest = {
      */
     clientId?: string | undefined;
     /**
+     * ClientSecret is the client secret ID provided to the customer during onboarding.
+     */
+    clientSecret?: string | undefined;
+    /**
      * GrantType only allows option: `password`.
      */
     grantType: string;
     /**
      * Password is the secret ID provided to the customer during onboarding.
      */
-    password: string;
+    password?: string | undefined;
     /**
      * Username is the ID provided to the customer during onboarding.
      */
-    username: string;
+    username?: string | undefined;
 };
 
 /** @internal */
@@ -29,34 +33,39 @@ export namespace V3TokenRequest$ {
     export const inboundSchema: z.ZodType<V3TokenRequest, z.ZodTypeDef, unknown> = z
         .object({
             client_id: z.string().optional(),
+            client_secret: z.string().optional(),
             grant_type: z.string(),
-            password: z.string(),
-            username: z.string(),
+            password: z.string().optional(),
+            username: z.string().optional(),
         })
         .transform((v) => {
             return remap$(v, {
                 client_id: "clientId",
+                client_secret: "clientSecret",
                 grant_type: "grantType",
             });
         });
 
     export type Outbound = {
         client_id?: string | undefined;
+        client_secret?: string | undefined;
         grant_type: string;
-        password: string;
-        username: string;
+        password?: string | undefined;
+        username?: string | undefined;
     };
 
     export const outboundSchema: z.ZodType<Outbound, z.ZodTypeDef, V3TokenRequest> = z
         .object({
             clientId: z.string().optional(),
+            clientSecret: z.string().optional(),
             grantType: z.string(),
-            password: z.string(),
-            username: z.string(),
+            password: z.string().optional(),
+            username: z.string().optional(),
         })
         .transform((v) => {
             return remap$(v, {
                 clientId: "client_id",
+                clientSecret: "client_secret",
                 grantType: "grant_type",
             });
         });

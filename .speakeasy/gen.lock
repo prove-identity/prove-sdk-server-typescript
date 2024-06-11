@@ -1,23 +1,23 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 3ace75c14085428cab256fef5a032253
+  docChecksum: 8b49a0908236b7f587c6751d94fbf61b
   docVersion: 1.0.0
-  speakeasyVersion: 1.300.1
-  generationVersion: 2.339.1
-  releaseVersion: 0.2.10
-  configChecksum: 35dbacefa307180d5e6fd9ae901065cc
+  speakeasyVersion: 1.303.4
+  generationVersion: 2.340.2
+  releaseVersion: 0.3.0
+  configChecksum: 9768a408d88ecf79867884184faf3b3f
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.9.12
+    core: 3.9.13
     globalSecurity: 2.82.9
     globalSecurityCallbacks: 0.1.0
-    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.4
+    oauth2ClientCredentials: 0.1.4
     responseFormat: 0.2.3
     sdkHooks: 0.1.0
     serverIDs: 2.81.2
@@ -50,15 +50,17 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - tsconfig.json
+  - src/models/operations/v3tokenrequest.ts
   - src/models/operations/v3challengerequest.ts
   - src/models/operations/v3completerequest.ts
   - src/models/operations/v3startrequest.ts
-  - src/models/operations/v3tokenrequest.ts
   - src/models/operations/v3validaterequest.ts
+  - src/models/components/v3tokenresponse.ts
+  - src/models/components/httpmetadata.ts
+  - src/models/components/v3tokenrequest.ts
   - src/models/components/v3challengeresponse.ts
   - src/models/components/v3challengeindividualrequest.ts
   - src/models/components/v3challengeaddressentryrequest.ts
-  - src/models/components/httpmetadata.ts
   - src/models/components/v3challengerequest.ts
   - src/models/components/v3completeresponse.ts
   - src/models/components/v3completerequest.ts
@@ -66,8 +68,6 @@ generatedFiles:
   - src/models/components/v3completeaddressentryrequest.ts
   - src/models/components/v3startresponse.ts
   - src/models/components/v3startrequest.ts
-  - src/models/components/v3tokenresponse.ts
-  - src/models/components/v3tokenrequest.ts
   - src/models/components/v3validateresponse.ts
   - src/models/components/v3validaterequest.ts
   - src/models/components/security.ts
@@ -75,15 +75,17 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/operations/index.ts
   - src/models/components/index.ts
+  - docs/models/operations/v3tokenrequestresponse.md
   - docs/models/operations/v3challengerequestresponse.md
   - docs/models/operations/v3completerequestresponse.md
   - docs/models/operations/v3startrequestresponse.md
-  - docs/models/operations/v3tokenrequestresponse.md
   - docs/models/operations/v3validaterequestresponse.md
+  - docs/models/components/v3tokenresponse.md
+  - docs/models/components/httpmetadata.md
+  - docs/models/components/v3tokenrequest.md
   - docs/models/components/v3challengeresponse.md
   - docs/models/components/v3challengeindividualrequest.md
   - docs/models/components/v3challengeaddressentryrequest.md
-  - docs/models/components/httpmetadata.md
   - docs/models/components/v3challengerequest.md
   - docs/models/components/v3completeresponse.md
   - docs/models/components/v3completerequest.md
@@ -91,8 +93,6 @@ generatedFiles:
   - docs/models/components/v3completeaddressentryrequest.md
   - docs/models/components/v3startresponse.md
   - docs/models/components/v3startrequest.md
-  - docs/models/components/v3tokenresponse.md
-  - docs/models/components/v3tokenrequest.md
   - docs/models/components/v3validateresponse.md
   - docs/models/components/v3validaterequest.md
   - docs/models/components/security.md
@@ -102,3 +102,4 @@ generatedFiles:
   - src/hooks/hooks.ts
   - src/hooks/types.ts
   - src/hooks/index.ts
+  - src/hooks/clientcredentials.ts
