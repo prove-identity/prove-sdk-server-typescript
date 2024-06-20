@@ -18,11 +18,7 @@ Send this request to request the OAuth token.
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
 
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-  },
-});
+const proveapi = new Proveapi();
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
@@ -69,6 +65,7 @@ import { Proveapi } from "@prove-identity/prove-api";
 const proveapi = new Proveapi({
   security: {
     clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
   },
 });
 
@@ -117,6 +114,7 @@ import { Proveapi } from "@prove-identity/prove-api";
 const proveapi = new Proveapi({
   security: {
     clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
   },
 });
 
@@ -190,6 +188,7 @@ import { Proveapi } from "@prove-identity/prove-api";
 const proveapi = new Proveapi({
   security: {
     clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
   },
 });
 
@@ -244,6 +243,7 @@ import { Proveapi } from "@prove-identity/prove-api";
 const proveapi = new Proveapi({
   security: {
     clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
   },
 });
 

@@ -5,6 +5,7 @@ import { Proveapi } from "@prove-identity/prove-api";
 const proveapi = new Proveapi({
     security: {
         clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
     },
 });
 

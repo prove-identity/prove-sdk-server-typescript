@@ -5,7 +5,7 @@
 import {
     V3ChallengeAddressEntryRequest,
     V3ChallengeAddressEntryRequest$,
-} from "./v3challengeaddressentryrequest";
+} from "./v3challengeaddressentryrequest.js";
 import * as z from "zod";
 
 export type V3ChallengeIndividualRequest = {

@@ -13,10 +13,25 @@
 npm add @prove-identity/prove-api
 ```
 
+### PNPM
+
+```bash
+pnpm add @prove-identity/prove-api
+```
+
+### Bun
+
+```bash
+bun add @prove-identity/prove-api
+```
+
 ### Yarn
 
 ```bash
-yarn add @prove-identity/prove-api
+yarn add @prove-identity/prove-api zod
+
+# Note that Yarn does not install peer dependencies automatically. You will need
+# to install zod as shown above.
 ```
 <!-- End SDK Installation [installation] -->
 
@@ -152,13 +167,9 @@ Validation errors can also occur when either method arguments or data returned f
 
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
-import * as errors from "@prove-identity/prove-api/models/errors";
+import { SDKValidationError } from "@prove-identity/prove-api/models/errors";
 
-const proveapi = new Proveapi({
-    security: {
-        clientID: "<YOUR_CLIENT_ID_HERE>",
-    },
-});
+const proveapi = new Proveapi();
 
 async function run() {
     let result;
@@ -170,7 +181,7 @@ async function run() {
         });
     } catch (err) {
         switch (true) {
-            case err instanceof errors.SDKValidationError: {
+            case err instanceof SDKValidationError: {
                 // Validation errors can be pretty-printed
                 console.error(err.pretty());
                 // Raw value may also be inspected
@@ -213,9 +224,6 @@ import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
     server: "prod-us",
-    security: {
-        clientID: "<YOUR_CLIENT_ID_HERE>",
-    },
 });
 
 async function run() {
@@ -243,9 +251,6 @@ import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
     serverURL: "https://platform.uat.proveapis.com",
-    security: {
-        clientID: "<YOUR_CLIENT_ID_HERE>",
-    },
 });
 
 async function run() {
@@ -332,6 +337,7 @@ import { Proveapi } from "@prove-identity/prove-api";
 const proveapi = new Proveapi({
     security: {
         clientID: "<YOUR_CLIENT_ID_HERE>",
+        clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
     },
 });
 

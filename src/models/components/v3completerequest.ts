@@ -5,7 +5,7 @@
 import {
     V3CompleteIndividualRequest,
     V3CompleteIndividualRequest$,
-} from "./v3completeindividualrequest";
+} from "./v3completeindividualrequest.js";
 import * as z from "zod";
 
 export type V3CompleteRequest = {

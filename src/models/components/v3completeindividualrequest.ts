@@ -5,7 +5,7 @@
 import {
     V3CompleteAddressEntryRequest,
     V3CompleteAddressEntryRequest$,
-} from "./v3completeaddressentryrequest";
+} from "./v3completeaddressentryrequest.js";
 import * as z from "zod";
 
 export type V3CompleteIndividualRequest = {

@@ -10,7 +10,7 @@ export type V3StartRequest = {
      */
     deviceId?: string | undefined;
     /**
-     * DOB, an optional challenge, is the date of birth in this format: YYYYY-MM-DD. Acceptable characters are: numeric with symbol '-'.
+     * DOB, an optional challenge, is the date of birth in this format: YYYY-MM-DD. Acceptable characters are: numeric with symbol '-'.
      */
     dob?: string | undefined;
     /**

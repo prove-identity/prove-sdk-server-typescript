@@ -5,7 +5,7 @@
 import {
     V3ChallengeIndividualRequest,
     V3ChallengeIndividualRequest$,
-} from "./v3challengeindividualrequest";
+} from "./v3challengeindividualrequest.js";
 import * as z from "zod";
 
 export type V3ChallengeResponse = {
