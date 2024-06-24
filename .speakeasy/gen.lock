@@ -3,17 +3,17 @@ id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
   docChecksum: 19777513376edaeea7b792577b099de5
   docVersion: 1.0.0
-  speakeasyVersion: 1.313.2
-  generationVersion: 2.347.8
-  releaseVersion: 0.4.1
-  configChecksum: ff29591b1dab2f20ce3a80994d520d71
+  speakeasyVersion: 1.314.2
+  generationVersion: 2.349.6
+  releaseVersion: 0.4.2
+  configChecksum: 318839eef4edcc369badea9717668c7e
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.10.1
+    core: 3.10.2
     examples: 2.81.4
     globalSecurity: 2.82.9
     globalSecurityCallbacks: 0.1.0
