@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type KYCFieldTypeResponseInternal = {
   name?: string | undefined;
@@ -50,4 +53,24 @@ export namespace KYCFieldTypeResponseInternal$ {
   export const outboundSchema = KYCFieldTypeResponseInternal$outboundSchema;
   /** @deprecated use `KYCFieldTypeResponseInternal$Outbound` instead. */
   export type Outbound = KYCFieldTypeResponseInternal$Outbound;
+}
+
+export function kycFieldTypeResponseInternalToJSON(
+  kycFieldTypeResponseInternal: KYCFieldTypeResponseInternal,
+): string {
+  return JSON.stringify(
+    KYCFieldTypeResponseInternal$outboundSchema.parse(
+      kycFieldTypeResponseInternal,
+    ),
+  );
+}
+
+export function kycFieldTypeResponseInternalFromJSON(
+  jsonString: string,
+): SafeParseResult<KYCFieldTypeResponseInternal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => KYCFieldTypeResponseInternal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'KYCFieldTypeResponseInternal' from JSON`,
+  );
 }

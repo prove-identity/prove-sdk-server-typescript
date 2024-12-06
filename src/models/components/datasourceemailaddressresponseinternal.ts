@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DataSourceEmailAddressResponseInternal = {
   emailAddress?: boolean | undefined;
@@ -44,4 +47,26 @@ export namespace DataSourceEmailAddressResponseInternal$ {
     DataSourceEmailAddressResponseInternal$outboundSchema;
   /** @deprecated use `DataSourceEmailAddressResponseInternal$Outbound` instead. */
   export type Outbound = DataSourceEmailAddressResponseInternal$Outbound;
+}
+
+export function dataSourceEmailAddressResponseInternalToJSON(
+  dataSourceEmailAddressResponseInternal:
+    DataSourceEmailAddressResponseInternal,
+): string {
+  return JSON.stringify(
+    DataSourceEmailAddressResponseInternal$outboundSchema.parse(
+      dataSourceEmailAddressResponseInternal,
+    ),
+  );
+}
+
+export function dataSourceEmailAddressResponseInternalFromJSON(
+  jsonString: string,
+): SafeParseResult<DataSourceEmailAddressResponseInternal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DataSourceEmailAddressResponseInternal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DataSourceEmailAddressResponseInternal' from JSON`,
+  );
 }

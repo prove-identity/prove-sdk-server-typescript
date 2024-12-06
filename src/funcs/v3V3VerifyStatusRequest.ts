@@ -24,18 +24,18 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Submit challenge.
+ * Perform checks for verified users session.
  *
  * @remarks
- * Send this request to submit challenge information. Either a DOB or last 4 of SSN needs to be submitted if neither was submitted to the /start endpoint (challenge fields submitted to this endpoint will overwrite the /start endpoint fields submitted). It will return a correlation ID, user information, and the next step to call in the flow. This capability is only available in Pre-Fill®, it's not available in Prove Identity®. You'll notice that when using Prove Identity®, if /validate is successful, it will then return `v3-complete` as one of the keys in the `Next` field map instead of `v3-challenge`.
+ * Send this request to perform the necessary checks for a Verified Users session. It will return the results of the possession and verify checks, as well as the overall success.
  */
-export async function v3V3ChallengeRequest(
+export async function v3V3VerifyStatusRequest(
   client: ProveapiCore,
-  request?: components.V3ChallengeRequest | undefined,
+  request?: components.V3VerifyStatusRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   Result<
-    operations.V3ChallengeRequestResponse,
+    operations.V3VerifyStatusRequestResponse,
     | errors.Error400
     | errors.ErrorT
     | SDKError
@@ -50,7 +50,7 @@ export async function v3V3ChallengeRequest(
   const parsed = safeParse(
     request,
     (value) =>
-      components.V3ChallengeRequest$outboundSchema.optional().parse(value),
+      components.V3VerifyStatusRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -61,7 +61,7 @@ export async function v3V3ChallengeRequest(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/challenge")();
+  const path = pathToFunc("/v3/verify-status")();
 
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export async function v3V3ChallengeRequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    operationID: "V3ChallengeRequest",
+    operationID: "V3VerifyStatusRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -113,7 +113,7 @@ export async function v3V3ChallengeRequest(
   };
 
   const [result] = await M.match<
-    operations.V3ChallengeRequestResponse,
+    operations.V3VerifyStatusRequestResponse,
     | errors.Error400
     | errors.ErrorT
     | SDKError
@@ -124,8 +124,9 @@ export async function v3V3ChallengeRequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.V3ChallengeRequestResponse$inboundSchema, {
-      key: "V3ChallengeResponse",
+    M.json(200, operations.V3VerifyStatusRequestResponse$inboundSchema, {
+      hdrs: true,
+      key: "V3VerifyStatusResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

@@ -15,3 +15,7 @@ targets:
         publish:
             npm:
                 token: $npm_token
+        codeSamples:
+            registry:
+                location: registry.speakeasyapi.dev/prove/prove-dev/my-source-typescript-code-samples
+            blocking: false

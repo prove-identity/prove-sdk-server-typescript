@@ -4,7 +4,10 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3ValidateRequestResponse = {
   httpMeta: components.HTTPMetadata;
@@ -61,4 +64,22 @@ export namespace V3ValidateRequestResponse$ {
   export const outboundSchema = V3ValidateRequestResponse$outboundSchema;
   /** @deprecated use `V3ValidateRequestResponse$Outbound` instead. */
   export type Outbound = V3ValidateRequestResponse$Outbound;
+}
+
+export function v3ValidateRequestResponseToJSON(
+  v3ValidateRequestResponse: V3ValidateRequestResponse,
+): string {
+  return JSON.stringify(
+    V3ValidateRequestResponse$outboundSchema.parse(v3ValidateRequestResponse),
+  );
+}
+
+export function v3ValidateRequestResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<V3ValidateRequestResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3ValidateRequestResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3ValidateRequestResponse' from JSON`,
+  );
 }

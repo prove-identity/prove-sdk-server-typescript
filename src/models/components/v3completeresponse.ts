@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   IDVDataInternal,
   IDVDataInternal$inboundSchema,
@@ -72,4 +75,22 @@ export namespace V3CompleteResponse$ {
   export const outboundSchema = V3CompleteResponse$outboundSchema;
   /** @deprecated use `V3CompleteResponse$Outbound` instead. */
   export type Outbound = V3CompleteResponse$Outbound;
+}
+
+export function v3CompleteResponseToJSON(
+  v3CompleteResponse: V3CompleteResponse,
+): string {
+  return JSON.stringify(
+    V3CompleteResponse$outboundSchema.parse(v3CompleteResponse),
+  );
+}
+
+export function v3CompleteResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<V3CompleteResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3CompleteResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3CompleteResponse' from JSON`,
+  );
 }

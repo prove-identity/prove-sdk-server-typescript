@@ -7,3 +7,5 @@ export * from "./v3completerequest.js";
 export * from "./v3startrequest.js";
 export * from "./v3tokenrequest.js";
 export * from "./v3validaterequest.js";
+export * from "./v3verifyrequest.js";
+export * from "./v3verifystatusrequest.js";

@@ -1,21 +1,21 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 03492019bf34656d6d3863a59b68936b
+  docChecksum: 428ace181e239a8e3bc815d988aa1fc6
   docVersion: 1.0.0
-  speakeasyVersion: 1.400.1
-  generationVersion: 2.420.2
-  releaseVersion: 0.7.0
-  configChecksum: d738c5d3750ffb44add66c73b356df8f
+  speakeasyVersion: 1.453.0
+  generationVersion: 2.472.1
+  releaseVersion: 0.8.0
+  configChecksum: a112a48b597563fe314efb6a8735fed4
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
 features:
   typescript:
     additionalDependencies: 0.1.0
-    core: 3.17.5
+    core: 3.18.8
     defaultEnabledRetries: 0.1.0
-    envVarSecurityUsage: 0.1.1
+    envVarSecurityUsage: 0.1.2
     examples: 2.81.4
     globalSecurity: 2.82.11
     globalSecurityCallbacks: 0.1.0
@@ -23,7 +23,7 @@ features:
     oauth2ClientCredentials: 0.2.0
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.1.0
+    sdkHooks: 0.2.0
     serverIDs: 2.81.2
 generatedFiles:
   - .eslintrc.cjs
@@ -59,6 +59,10 @@ generatedFiles:
   - docs/models/components/v3tokenresponse.md
   - docs/models/components/v3validaterequest.md
   - docs/models/components/v3validateresponse.md
+  - docs/models/components/v3verifyrequest.md
+  - docs/models/components/v3verifyresponse.md
+  - docs/models/components/v3verifystatusrequest.md
+  - docs/models/components/v3verifystatusresponse.md
   - docs/models/errors/error400.md
   - docs/models/errors/errort.md
   - docs/models/operations/v3challengerequestresponse.md
@@ -66,6 +70,8 @@ generatedFiles:
   - docs/models/operations/v3startrequestresponse.md
   - docs/models/operations/v3tokenrequestresponse.md
   - docs/models/operations/v3validaterequestresponse.md
+  - docs/models/operations/v3verifyrequestresponse.md
+  - docs/models/operations/v3verifystatusrequestresponse.md
   - docs/sdks/proveapi/README.md
   - docs/sdks/v3/README.md
   - jsr.json
@@ -76,6 +82,8 @@ generatedFiles:
   - src/funcs/v3V3StartRequest.ts
   - src/funcs/v3V3TokenRequest.ts
   - src/funcs/v3V3ValidateRequest.ts
+  - src/funcs/v3V3VerifyRequest.ts
+  - src/funcs/v3V3VerifyStatusRequest.ts
   - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
   - src/hooks/index.ts
@@ -122,6 +130,10 @@ generatedFiles:
   - src/models/components/v3tokenresponse.ts
   - src/models/components/v3validaterequest.ts
   - src/models/components/v3validateresponse.ts
+  - src/models/components/v3verifyrequest.ts
+  - src/models/components/v3verifyresponse.ts
+  - src/models/components/v3verifystatusrequest.ts
+  - src/models/components/v3verifystatusresponse.ts
   - src/models/errors/error.ts
   - src/models/errors/error400.ts
   - src/models/errors/httpclienterrors.ts
@@ -134,6 +146,8 @@ generatedFiles:
   - src/models/operations/v3startrequest.ts
   - src/models/operations/v3tokenrequest.ts
   - src/models/operations/v3validaterequest.ts
+  - src/models/operations/v3verifyrequest.ts
+  - src/models/operations/v3verifystatusrequest.ts
   - src/sdk/index.ts
   - src/sdk/sdk.ts
   - src/sdk/v3.ts
@@ -203,7 +217,7 @@ examples:
   V3StartRequest:
     speakeasy-default-v3-start-request:
       requestBody:
-        application/json: {"dob": "1981-01", "emailAddress": "mpinsonm@dyndns.org", "finalTargetUrl": "https://www.example.com/landing-page", "flowType": "mobile", "ipAddress": "10.0.0.1", "phoneNumber": "2001001695", "smsMessage": "\"Your code is: ####.\"", "ssn": "0596"}
+        application/json: {"dob": "1981-01", "emailAddress": "mpinsonm@dyndns.org", "finalTargetUrl": "https://www.example.com/landing-page", "flowType": "mobile", "ipAddress": "10.0.0.1", "phoneNumber": "2001001695", "smsMessage": "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.", "ssn": "0596"}
       responses:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "next": {"v3-validate": "/v3/validate"}}
@@ -222,3 +236,26 @@ examples:
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3VerifyRequest:
+    speakeasy-default-v3-verify-request:
+      requestBody:
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "firstName": "Sheilakathryn", "lastName": "Butrimovich", "phoneNumber": "2001004011", "possessionType": "mobile", "smsMessage": "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."}
+      responses:
+        "200":
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "possessionResult": "possessionResult", "success": "success", "verifyResult": "verifyResult"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3VerifyStatusRequest:
+    speakeasy-default-v3-verify-status-request:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
+      responses:
+        "200":
+          application/json: {"possessionResult": "possessionResult", "success": "success", "verifyResult": "verifyResult"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+generatedTests: {}

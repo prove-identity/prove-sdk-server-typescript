@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3ChallengeAddressEntryRequest = {
   /**
@@ -73,4 +76,24 @@ export namespace V3ChallengeAddressEntryRequest$ {
   export const outboundSchema = V3ChallengeAddressEntryRequest$outboundSchema;
   /** @deprecated use `V3ChallengeAddressEntryRequest$Outbound` instead. */
   export type Outbound = V3ChallengeAddressEntryRequest$Outbound;
+}
+
+export function v3ChallengeAddressEntryRequestToJSON(
+  v3ChallengeAddressEntryRequest: V3ChallengeAddressEntryRequest,
+): string {
+  return JSON.stringify(
+    V3ChallengeAddressEntryRequest$outboundSchema.parse(
+      v3ChallengeAddressEntryRequest,
+    ),
+  );
+}
+
+export function v3ChallengeAddressEntryRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<V3ChallengeAddressEntryRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3ChallengeAddressEntryRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3ChallengeAddressEntryRequest' from JSON`,
+  );
 }

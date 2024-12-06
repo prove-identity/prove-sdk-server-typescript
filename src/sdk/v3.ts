@@ -7,6 +7,8 @@ import { v3V3CompleteRequest } from "../funcs/v3V3CompleteRequest.js";
 import { v3V3StartRequest } from "../funcs/v3V3StartRequest.js";
 import { v3V3TokenRequest } from "../funcs/v3V3TokenRequest.js";
 import { v3V3ValidateRequest } from "../funcs/v3V3ValidateRequest.js";
+import { v3V3VerifyRequest } from "../funcs/v3V3VerifyRequest.js";
+import { v3V3VerifyStatusRequest } from "../funcs/v3V3VerifyStatusRequest.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
@@ -92,6 +94,40 @@ export class V3 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.V3ValidateRequestResponse> {
     return unwrapAsync(v3V3ValidateRequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Initiate verified users session.
+   *
+   * @remarks
+   * Send this request to initiate a Verified Users session. It will return a correlation ID, authToken for the client SDK, and the results of the possession and verify checks (usually pending from this API).
+   */
+  async v3VerifyRequest(
+    request?: components.V3VerifyRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3VerifyRequestResponse> {
+    return unwrapAsync(v3V3VerifyRequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Perform checks for verified users session.
+   *
+   * @remarks
+   * Send this request to perform the necessary checks for a Verified Users session. It will return the results of the possession and verify checks, as well as the overall success.
+   */
+  async v3VerifyStatusRequest(
+    request?: components.V3VerifyStatusRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3VerifyStatusRequestResponse> {
+    return unwrapAsync(v3V3VerifyStatusRequest(
       this,
       request,
       options,

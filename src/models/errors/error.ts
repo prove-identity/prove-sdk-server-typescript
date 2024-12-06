@@ -4,9 +4,6 @@
 
 import * as z from "zod";
 
-/**
- * Internal Server Error. The server encountered an unexpected condition that prevented it from fulfilling the request.
- */
 export type ErrorTData = {
   /**
    * Code is an internal error code that describes the problem category of the request.
@@ -18,9 +15,6 @@ export type ErrorTData = {
   message: string;
 };
 
-/**
- * Internal Server Error. The server encountered an unexpected condition that prevented it from fulfilling the request.
- */
 export class ErrorT extends Error {
   /**
    * Code is an internal error code that describes the problem category of the request.
