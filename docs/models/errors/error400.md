@@ -1,7 +1,5 @@
 # Error400
 
-Bad Request. The server cannot process the request due to a client error.
-
 ## Example Usage
 
 ```typescript

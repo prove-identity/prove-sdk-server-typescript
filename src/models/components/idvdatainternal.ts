@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   DataSourceInternal,
   DataSourceInternal$inboundSchema,
@@ -56,4 +59,20 @@ export namespace IDVDataInternal$ {
   export const outboundSchema = IDVDataInternal$outboundSchema;
   /** @deprecated use `IDVDataInternal$Outbound` instead. */
   export type Outbound = IDVDataInternal$Outbound;
+}
+
+export function idvDataInternalToJSON(
+  idvDataInternal: IDVDataInternal,
+): string {
+  return JSON.stringify(IDVDataInternal$outboundSchema.parse(idvDataInternal));
+}
+
+export function idvDataInternalFromJSON(
+  jsonString: string,
+): SafeParseResult<IDVDataInternal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IDVDataInternal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IDVDataInternal' from JSON`,
+  );
 }

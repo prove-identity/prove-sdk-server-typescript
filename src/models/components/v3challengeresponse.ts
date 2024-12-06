@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   V3ChallengeIndividualRequest,
   V3ChallengeIndividualRequest$inboundSchema,
@@ -62,4 +65,22 @@ export namespace V3ChallengeResponse$ {
   export const outboundSchema = V3ChallengeResponse$outboundSchema;
   /** @deprecated use `V3ChallengeResponse$Outbound` instead. */
   export type Outbound = V3ChallengeResponse$Outbound;
+}
+
+export function v3ChallengeResponseToJSON(
+  v3ChallengeResponse: V3ChallengeResponse,
+): string {
+  return JSON.stringify(
+    V3ChallengeResponse$outboundSchema.parse(v3ChallengeResponse),
+  );
+}
+
+export function v3ChallengeResponseFromJSON(
+  jsonString: string,
+): SafeParseResult<V3ChallengeResponse, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3ChallengeResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3ChallengeResponse' from JSON`,
+  );
 }

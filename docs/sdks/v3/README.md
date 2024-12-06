@@ -10,6 +10,8 @@
 * [v3CompleteRequest](#v3completerequest) - Complete flow.
 * [v3StartRequest](#v3startrequest) - Start flow.
 * [v3ValidateRequest](#v3validaterequest) - Validate phone number.
+* [v3VerifyRequest](#v3verifyrequest) - Initiate verified users session.
+* [v3VerifyStatusRequest](#v3verifystatusrequest) - Perform checks for verified users session.
 
 ## v3TokenRequest
 
@@ -28,9 +30,9 @@ async function run() {
     clientSecret: "secret",
     grantType: "client_credentials",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -62,7 +64,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -83,12 +85,11 @@ run();
 
 ### Errors
 
-| Error Object     | Status Code      | Content Type     |
+| Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
 | errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4xx-5xx          | */*              |
-
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3ChallengeRequest
 
@@ -112,9 +113,9 @@ async function run() {
     dob: "1981-01",
     ssn: "0596",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -151,7 +152,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -172,12 +173,11 @@ run();
 
 ### Errors
 
-| Error Object     | Status Code      | Content Type     |
+| Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
 | errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4xx-5xx          | */*              |
-
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3CompleteRequest
 
@@ -225,9 +225,9 @@ async function run() {
       ssn: "265228370",
     },
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -288,7 +288,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -309,12 +309,11 @@ run();
 
 ### Errors
 
-| Error Object     | Status Code      | Content Type     |
+| Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
 | errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4xx-5xx          | */*              |
-
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3StartRequest
 
@@ -340,12 +339,12 @@ async function run() {
     flowType: "mobile",
     ipAddress: "10.0.0.1",
     phoneNumber: "2001001695",
-    smsMessage: "\"Your code is: ####.\"",
+    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
     ssn: "0596",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -376,7 +375,7 @@ async function run() {
     flowType: "mobile",
     ipAddress: "10.0.0.1",
     phoneNumber: "2001001695",
-    smsMessage: "\"Your code is: ####.\"",
+    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
     ssn: "0596",
   });
 
@@ -387,7 +386,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -408,12 +407,11 @@ run();
 
 ### Errors
 
-| Error Object     | Status Code      | Content Type     |
+| Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
 | errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4xx-5xx          | */*              |
-
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3ValidateRequest
 
@@ -435,9 +433,9 @@ async function run() {
   const result = await proveapi.v3.v3ValidateRequest({
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
   });
-  
+
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -472,7 +470,7 @@ async function run() {
   const { value: result } = res;
 
   // Handle the result
-  console.log(result)
+  console.log(result);
 }
 
 run();
@@ -493,8 +491,194 @@ run();
 
 ### Errors
 
-| Error Object     | Status Code      | Content Type     |
+| Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
 | errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4xx-5xx          | */*              |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3VerifyRequest
+
+Send this request to initiate a Verified Users session. It will return a correlation ID, authToken for the client SDK, and the results of the possession and verify checks (usually pending from this API).
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.v3.v3VerifyRequest({
+    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    emailAddress: "sbutrimovichb@who.int",
+    finalTargetUrl: "https://www.example.com/landing-page",
+    firstName: "Sheilakathryn",
+    lastName: "Butrimovich",
+    phoneNumber: "2001004011",
+    possessionType: "mobile",
+    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { v3V3VerifyRequest } from "@prove-identity/prove-api/funcs/v3V3VerifyRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await v3V3VerifyRequest(proveapi, {
+    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    emailAddress: "sbutrimovichb@who.int",
+    finalTargetUrl: "https://www.example.com/landing-page",
+    firstName: "Sheilakathryn",
+    lastName: "Butrimovich",
+    phoneNumber: "2001004011",
+    possessionType: "mobile",
+    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3VerifyRequest](../../models/components/v3verifyrequest.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3VerifyRequestResponse](../../models/operations/v3verifyrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3VerifyStatusRequest
+
+Send this request to perform the necessary checks for a Verified Users session. It will return the results of the possession and verify checks, as well as the overall success.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.v3.v3VerifyStatusRequest({
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { v3V3VerifyStatusRequest } from "@prove-identity/prove-api/funcs/v3V3VerifyStatusRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await v3V3VerifyStatusRequest(proveapi, {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3VerifyStatusRequest](../../models/components/v3verifystatusrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3VerifyStatusRequestResponse](../../models/operations/v3verifystatusrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |

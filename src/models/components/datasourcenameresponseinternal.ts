@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DataSourceNameResponseInternal = {
   firstName?: number | undefined;
@@ -50,4 +53,24 @@ export namespace DataSourceNameResponseInternal$ {
   export const outboundSchema = DataSourceNameResponseInternal$outboundSchema;
   /** @deprecated use `DataSourceNameResponseInternal$Outbound` instead. */
   export type Outbound = DataSourceNameResponseInternal$Outbound;
+}
+
+export function dataSourceNameResponseInternalToJSON(
+  dataSourceNameResponseInternal: DataSourceNameResponseInternal,
+): string {
+  return JSON.stringify(
+    DataSourceNameResponseInternal$outboundSchema.parse(
+      dataSourceNameResponseInternal,
+    ),
+  );
+}
+
+export function dataSourceNameResponseInternalFromJSON(
+  jsonString: string,
+): SafeParseResult<DataSourceNameResponseInternal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DataSourceNameResponseInternal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DataSourceNameResponseInternal' from JSON`,
+  );
 }

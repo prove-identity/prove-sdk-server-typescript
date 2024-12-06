@@ -3,9 +3,9 @@
  */
 
 import { ProveapiCore } from "../core.js";
-import { encodeJSON as encodeJSON$ } from "../lib/encodings.js";
-import * as m$ from "../lib/matchers.js";
-import * as schemas$ from "../lib/schemas.js";
+import { encodeJSON } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Send this request to verify the user and complete the flow. It will return a correlation ID, user information, and the next step to call in the flow. There is a validation check that requires at least first + last name or SSN passed in, else an HTTP 400 is returned. Additionally, specific to the Pre-Fill® or Prove Identity® with KYC use case, you need to pass in first name, last name, DOB and SSN (or address) to ensure you receive back the KYC elements and correct CIP values.
  */
 export async function v3V3CompleteRequest(
-  client$: ProveapiCore,
+  client: ProveapiCore,
   request?: components.V3CompleteRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -47,67 +47,72 @@ export async function v3V3CompleteRequest(
     | ConnectionError
   >
 > {
-  const input$ = request;
-
-  const parsed$ = schemas$.safeParse(
-    input$,
-    (value$) =>
-      components.V3CompleteRequest$outboundSchema.optional().parse(value$),
+  const parsed = safeParse(
+    request,
+    (value) =>
+      components.V3CompleteRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
-  if (!parsed$.ok) {
-    return parsed$;
+  if (!parsed.ok) {
+    return parsed;
   }
-  const payload$ = parsed$.value;
-  const body$ = payload$ === undefined
+  const payload = parsed.value;
+  const body = payload === undefined
     ? null
-    : encodeJSON$("body", payload$, { explode: true });
+    : encodeJSON("body", payload, { explode: true });
 
-  const path$ = pathToFunc("/v3/complete")();
+  const path = pathToFunc("/v3/complete")();
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     "Content-Type": "application/json",
     Accept: "application/json",
   });
 
-  const security$ = await extractSecurity(client$.options$.security);
+  const securityInput = await extractSecurity(client._options.security);
+  const requestSecurity = resolveGlobalSecurity(securityInput);
+
   const context = {
     operationID: "V3CompleteRequest",
     oAuth2Scopes: [],
-    securitySource: client$.options$.security,
-  };
-  const securitySettings$ = resolveGlobalSecurity(security$);
 
-  const requestRes = client$.createRequest$(context, {
-    security: securitySettings$,
+    resolvedSecurity: requestSecurity,
+
+    securitySource: client._options.security,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+  };
+
+  const requestRes = client._createRequest(context, {
+    security: requestSecurity,
     method: "POST",
-    path: path$,
-    headers: headers$,
-    body: body$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    body: body,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["400", "4XX", "500", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: request$ },
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.V3CompleteRequestResponse,
     | errors.Error400
     | errors.ErrorT
@@ -119,16 +124,16 @@ export async function v3V3CompleteRequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.V3CompleteRequestResponse$inboundSchema, {
+    M.json(200, operations.V3CompleteRequestResponse$inboundSchema, {
       key: "V3CompleteResponse",
     }),
-    m$.jsonErr(400, errors.Error400$inboundSchema),
-    m$.jsonErr(500, errors.ErrorT$inboundSchema),
-    m$.fail(["4XX", "5XX"]),
-  )(response, request$, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(500, errors.ErrorT$inboundSchema),
+    M.fail(["4XX", "5XX"]),
+  )(response, req, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

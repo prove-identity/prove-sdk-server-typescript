@@ -8,6 +8,6 @@ import { V3 } from "./v3.js";
 export class Proveapi extends ClientSDK {
   private _v3?: V3;
   get v3(): V3 {
-    return (this._v3 ??= new V3(this.options$));
+    return (this._v3 ??= new V3(this._options));
   }
 }

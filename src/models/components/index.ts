@@ -27,3 +27,7 @@ export * from "./v3tokenrequest.js";
 export * from "./v3tokenresponse.js";
 export * from "./v3validaterequest.js";
 export * from "./v3validateresponse.js";
+export * from "./v3verifyrequest.js";
+export * from "./v3verifyresponse.js";
+export * from "./v3verifystatusrequest.js";
+export * from "./v3verifystatusresponse.js";

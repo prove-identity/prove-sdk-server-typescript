@@ -3,9 +3,9 @@
  */
 
 import { ProveapiCore } from "../core.js";
-import { encodeBodyForm as encodeBodyForm$ } from "../lib/encodings.js";
-import * as m$ from "../lib/matchers.js";
-import * as schemas$ from "../lib/schemas.js";
+import { encodeBodyForm } from "../lib/encodings.js";
+import * as M from "../lib/matchers.js";
+import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { pathToFunc } from "../lib/url.js";
 import * as components from "../models/components/index.js";
@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Send this request to request the OAuth token.
  */
 export async function v3V3TokenRequest(
-  client$: ProveapiCore,
+  client: ProveapiCore,
   request?: components.V3TokenRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -46,26 +46,23 @@ export async function v3V3TokenRequest(
     | ConnectionError
   >
 > {
-  const input$ = request;
-
-  const parsed$ = schemas$.safeParse(
-    input$,
-    (value$) =>
-      components.V3TokenRequest$outboundSchema.optional().parse(value$),
+  const parsed = safeParse(
+    request,
+    (value) => components.V3TokenRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
-  if (!parsed$.ok) {
-    return parsed$;
+  if (!parsed.ok) {
+    return parsed;
   }
-  const payload$ = parsed$.value;
+  const payload = parsed.value;
 
-  const body$ = Object.entries(payload$ || {}).map(([k, v]) => {
-    return encodeBodyForm$(k, v, { charEncoding: "percent" });
+  const body = Object.entries(payload || {}).map(([k, v]) => {
+    return encodeBodyForm(k, v, { charEncoding: "percent" });
   }).join("&");
 
-  const path$ = pathToFunc("/token")();
+  const path = pathToFunc("/token")();
 
-  const headers$ = new Headers({
+  const headers = new Headers({
     "Content-Type": "application/x-www-form-urlencoded",
     Accept: "application/json",
   });
@@ -73,38 +70,44 @@ export async function v3V3TokenRequest(
   const context = {
     operationID: "V3TokenRequest",
     oAuth2Scopes: [],
+
+    resolvedSecurity: null,
+
     securitySource: null,
+    retryConfig: options?.retries
+      || client._options.retryConfig
+      || { strategy: "none" },
+    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
   };
 
-  const requestRes = client$.createRequest$(context, {
+  const requestRes = client._createRequest(context, {
     method: "POST",
-    path: path$,
-    headers: headers$,
-    body: body$,
-    timeoutMs: options?.timeoutMs || client$.options$.timeoutMs || -1,
+    path: path,
+    headers: headers,
+    body: body,
+    timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
     return requestRes;
   }
-  const request$ = requestRes.value;
+  const req = requestRes.value;
 
-  const doResult = await client$.do$(request$, {
+  const doResult = await client._do(req, {
     context,
     errorCodes: ["400", "4XX", "500", "5XX"],
-    retryConfig: options?.retries
-      || client$.options$.retryConfig,
-    retryCodes: options?.retryCodes || ["429", "500", "502", "503", "504"],
+    retryConfig: context.retryConfig,
+    retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
     return doResult;
   }
   const response = doResult.value;
 
-  const responseFields$ = {
-    HttpMeta: { Response: response, Request: request$ },
+  const responseFields = {
+    HttpMeta: { Response: response, Request: req },
   };
 
-  const [result$] = await m$.match<
+  const [result] = await M.match<
     operations.V3TokenRequestResponse,
     | errors.Error400
     | errors.ErrorT
@@ -116,16 +119,16 @@ export async function v3V3TokenRequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    m$.json(200, operations.V3TokenRequestResponse$inboundSchema, {
+    M.json(200, operations.V3TokenRequestResponse$inboundSchema, {
       key: "V3TokenResponse",
     }),
-    m$.jsonErr(400, errors.Error400$inboundSchema),
-    m$.jsonErr(500, errors.ErrorT$inboundSchema),
-    m$.fail(["4XX", "5XX"]),
-  )(response, request$, { extraFields: responseFields$ });
-  if (!result$.ok) {
-    return result$;
+    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(500, errors.ErrorT$inboundSchema),
+    M.fail(["4XX", "5XX"]),
+  )(response, req, { extraFields: responseFields });
+  if (!result.ok) {
+    return result;
   }
 
-  return result$;
+  return result;
 }

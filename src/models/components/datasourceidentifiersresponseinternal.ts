@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DataSourceIdentifiersResponseInternal = {
   dob?: boolean | undefined;
@@ -52,4 +55,25 @@ export namespace DataSourceIdentifiersResponseInternal$ {
     DataSourceIdentifiersResponseInternal$outboundSchema;
   /** @deprecated use `DataSourceIdentifiersResponseInternal$Outbound` instead. */
   export type Outbound = DataSourceIdentifiersResponseInternal$Outbound;
+}
+
+export function dataSourceIdentifiersResponseInternalToJSON(
+  dataSourceIdentifiersResponseInternal: DataSourceIdentifiersResponseInternal,
+): string {
+  return JSON.stringify(
+    DataSourceIdentifiersResponseInternal$outboundSchema.parse(
+      dataSourceIdentifiersResponseInternal,
+    ),
+  );
+}
+
+export function dataSourceIdentifiersResponseInternalFromJSON(
+  jsonString: string,
+): SafeParseResult<DataSourceIdentifiersResponseInternal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DataSourceIdentifiersResponseInternal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DataSourceIdentifiersResponseInternal' from JSON`,
+  );
 }

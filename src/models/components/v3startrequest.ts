@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3StartRequest = {
   /**
@@ -34,10 +37,13 @@ export type V3StartRequest = {
    *
    * @remarks
    * If not provided, the following default messages will be used:
-   * For Instant Link: "Complete your verification. If you did not make this request, do not click link. ####"
-   * For OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."
+   * 1. For Instant Link: "Complete your verification. If you did not make this request, do not click the link. ####"
+   * 2. For OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."
    * Max length is 160 characters. Only ASCII characters are allowed.
-   * The template must include the '####' placeholder, which will be replaced with the actual URL or OTP.
+   *
+   * The placeholder format varies by flow type:
+   * 1. For OTP (mobile flow): Use ####, #####, or ###### to generate 4-6 digit verification codes respectively.
+   * 2. For Instant Link (desktop flow): Must use exactly #### which will be replaced with the verification URL.
    */
   smsMessage?: string | undefined;
   /**
@@ -101,4 +107,18 @@ export namespace V3StartRequest$ {
   export const outboundSchema = V3StartRequest$outboundSchema;
   /** @deprecated use `V3StartRequest$Outbound` instead. */
   export type Outbound = V3StartRequest$Outbound;
+}
+
+export function v3StartRequestToJSON(v3StartRequest: V3StartRequest): string {
+  return JSON.stringify(V3StartRequest$outboundSchema.parse(v3StartRequest));
+}
+
+export function v3StartRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<V3StartRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3StartRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3StartRequest' from JSON`,
+  );
 }

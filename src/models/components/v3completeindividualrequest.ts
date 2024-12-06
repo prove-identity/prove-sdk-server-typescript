@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   V3CompleteAddressEntryRequest,
   V3CompleteAddressEntryRequest$inboundSchema,
@@ -86,4 +89,24 @@ export namespace V3CompleteIndividualRequest$ {
   export const outboundSchema = V3CompleteIndividualRequest$outboundSchema;
   /** @deprecated use `V3CompleteIndividualRequest$Outbound` instead. */
   export type Outbound = V3CompleteIndividualRequest$Outbound;
+}
+
+export function v3CompleteIndividualRequestToJSON(
+  v3CompleteIndividualRequest: V3CompleteIndividualRequest,
+): string {
+  return JSON.stringify(
+    V3CompleteIndividualRequest$outboundSchema.parse(
+      v3CompleteIndividualRequest,
+    ),
+  );
+}
+
+export function v3CompleteIndividualRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<V3CompleteIndividualRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3CompleteIndividualRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3CompleteIndividualRequest' from JSON`,
+  );
 }

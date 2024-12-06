@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   KYCFieldTypeResponseInternal,
   KYCFieldTypeResponseInternal$inboundSchema,
@@ -56,4 +59,24 @@ export namespace AmlTypeListResponseInternal$ {
   export const outboundSchema = AmlTypeListResponseInternal$outboundSchema;
   /** @deprecated use `AmlTypeListResponseInternal$Outbound` instead. */
   export type Outbound = AmlTypeListResponseInternal$Outbound;
+}
+
+export function amlTypeListResponseInternalToJSON(
+  amlTypeListResponseInternal: AmlTypeListResponseInternal,
+): string {
+  return JSON.stringify(
+    AmlTypeListResponseInternal$outboundSchema.parse(
+      amlTypeListResponseInternal,
+    ),
+  );
+}
+
+export function amlTypeListResponseInternalFromJSON(
+  jsonString: string,
+): SafeParseResult<AmlTypeListResponseInternal, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => AmlTypeListResponseInternal$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'AmlTypeListResponseInternal' from JSON`,
+  );
 }

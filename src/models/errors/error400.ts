@@ -4,9 +4,6 @@
 
 import * as z from "zod";
 
-/**
- * Bad Request. The server cannot process the request due to a client error.
- */
 export type Error400Data = {
   /**
    * Code is an internal error code that describes the problem category of the request.
@@ -18,9 +15,6 @@ export type Error400Data = {
   message: string;
 };
 
-/**
- * Bad Request. The server cannot process the request due to a client error.
- */
 export class Error400 extends Error {
   /**
    * Code is an internal error code that describes the problem category of the request.

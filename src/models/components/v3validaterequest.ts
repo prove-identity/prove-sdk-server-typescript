@@ -3,6 +3,9 @@
  */
 
 import * as z from "zod";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3ValidateRequest = {
   /**
@@ -45,4 +48,22 @@ export namespace V3ValidateRequest$ {
   export const outboundSchema = V3ValidateRequest$outboundSchema;
   /** @deprecated use `V3ValidateRequest$Outbound` instead. */
   export type Outbound = V3ValidateRequest$Outbound;
+}
+
+export function v3ValidateRequestToJSON(
+  v3ValidateRequest: V3ValidateRequest,
+): string {
+  return JSON.stringify(
+    V3ValidateRequest$outboundSchema.parse(v3ValidateRequest),
+  );
+}
+
+export function v3ValidateRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<V3ValidateRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3ValidateRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3ValidateRequest' from JSON`,
+  );
 }

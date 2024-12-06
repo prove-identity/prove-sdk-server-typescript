@@ -4,6 +4,9 @@
 
 import * as z from "zod";
 import { remap as remap$ } from "../../lib/primitives.js";
+import { safeParse } from "../../lib/schemas.js";
+import { Result as SafeParseResult } from "../../types/fp.js";
+import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3TokenRequest = {
   /**
@@ -72,4 +75,18 @@ export namespace V3TokenRequest$ {
   export const outboundSchema = V3TokenRequest$outboundSchema;
   /** @deprecated use `V3TokenRequest$Outbound` instead. */
   export type Outbound = V3TokenRequest$Outbound;
+}
+
+export function v3TokenRequestToJSON(v3TokenRequest: V3TokenRequest): string {
+  return JSON.stringify(V3TokenRequest$outboundSchema.parse(v3TokenRequest));
+}
+
+export function v3TokenRequestFromJSON(
+  jsonString: string,
+): SafeParseResult<V3TokenRequest, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3TokenRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3TokenRequest' from JSON`,
+  );
 }
