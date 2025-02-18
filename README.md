@@ -180,6 +180,8 @@ run();
 * [v3TokenRequest](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
 * [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 * [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
+* [v3MFARequest](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
+* [v3MFAStatusRequest](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 * [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
 * [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
@@ -503,6 +505,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
+- [`v3V3MFARequest`](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
+- [`v3V3MFAStatusRequest`](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 - [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.

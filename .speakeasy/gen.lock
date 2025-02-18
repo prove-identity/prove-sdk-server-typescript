@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 428ace181e239a8e3bc815d988aa1fc6
+  docChecksum: 07cf61315270e441180ccf1dd51f1466
   docVersion: 1.0.0
   speakeasyVersion: 1.494.0
   generationVersion: 2.515.0
-  releaseVersion: 0.9.0
-  configChecksum: fadf763ea92fd276d180c73556b6d200
+  releaseVersion: 0.9.1
+  configChecksum: e028b156f54de094108aa87cfc2c3fee
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -51,6 +51,10 @@ generatedFiles:
   - docs/models/components/v3completeindividualrequest.md
   - docs/models/components/v3completerequest.md
   - docs/models/components/v3completeresponse.md
+  - docs/models/components/v3mfarequest.md
+  - docs/models/components/v3mfaresponse.md
+  - docs/models/components/v3mfastatusrequest.md
+  - docs/models/components/v3mfastatusresponse.md
   - docs/models/components/v3startrequest.md
   - docs/models/components/v3startresponse.md
   - docs/models/components/v3tokenrequest.md
@@ -65,6 +69,8 @@ generatedFiles:
   - docs/models/errors/errort.md
   - docs/models/operations/v3challengerequestresponse.md
   - docs/models/operations/v3completerequestresponse.md
+  - docs/models/operations/v3mfarequestresponse.md
+  - docs/models/operations/v3mfastatusrequestresponse.md
   - docs/models/operations/v3startrequestresponse.md
   - docs/models/operations/v3tokenrequestresponse.md
   - docs/models/operations/v3validaterequestresponse.md
@@ -78,6 +84,8 @@ generatedFiles:
   - src/core.ts
   - src/funcs/v3V3ChallengeRequest.ts
   - src/funcs/v3V3CompleteRequest.ts
+  - src/funcs/v3V3MFARequest.ts
+  - src/funcs/v3V3MFAStatusRequest.ts
   - src/funcs/v3V3StartRequest.ts
   - src/funcs/v3V3TokenRequest.ts
   - src/funcs/v3V3ValidateRequest.ts
@@ -123,6 +131,10 @@ generatedFiles:
   - src/models/components/v3completeindividualrequest.ts
   - src/models/components/v3completerequest.ts
   - src/models/components/v3completeresponse.ts
+  - src/models/components/v3mfarequest.ts
+  - src/models/components/v3mfaresponse.ts
+  - src/models/components/v3mfastatusrequest.ts
+  - src/models/components/v3mfastatusresponse.ts
   - src/models/components/v3startrequest.ts
   - src/models/components/v3startresponse.ts
   - src/models/components/v3tokenrequest.ts
@@ -142,6 +154,8 @@ generatedFiles:
   - src/models/operations/index.ts
   - src/models/operations/v3challengerequest.ts
   - src/models/operations/v3completerequest.ts
+  - src/models/operations/v3mfarequest.ts
+  - src/models/operations/v3mfastatusrequest.ts
   - src/models/operations/v3startrequest.ts
   - src/models/operations/v3tokenrequest.ts
   - src/models/operations/v3validaterequest.ts
@@ -254,6 +268,28 @@ examples:
       responses:
         "200":
           application/json: {"possessionResult": "possessionResult", "success": "success", "verifyResult": "verifyResult"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3MFARequest:
+    speakeasy-default-v3-MFA-request:
+      requestBody:
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "user@example.com", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.1.1", "phoneNumber": "2001004011", "possessionType": "mobile", "smsMessage": "#### is your verification code"}
+      responses:
+        "200":
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "success"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3MFAStatusRequest:
+    speakeasy-default-v3-MFA-status-request:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
+      responses:
+        "200":
+          application/json: {"phoneNumber": "2001004011", "success": "success"}
         "400":
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
