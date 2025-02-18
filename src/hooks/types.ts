@@ -7,7 +7,6 @@ import { RetryConfig } from "../lib/retries.js";
 import { SecurityState } from "../lib/security.js";
 
 export type HookContext = {
-  baseURL: string | URL;
   operationID: string;
   oAuth2Scopes?: string[];
   securitySource?: any | (() => Promise<any>);
@@ -101,10 +100,3 @@ export interface Hooks {
   /** Registers a hook to be used by the SDK for the after error event. */
   registerAfterErrorHook(hook: AfterErrorHook): void;
 }
-
-export type Hook =
-  | SDKInitHook
-  | BeforeCreateRequestHook
-  | BeforeRequestHook
-  | AfterSuccessHook
-  | AfterErrorHook;

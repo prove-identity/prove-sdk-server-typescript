@@ -180,8 +180,6 @@ run();
 * [v3TokenRequest](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
 * [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 * [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
-* [v3MFARequest](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
-* [v3MFAStatusRequest](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 * [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
 * [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
@@ -193,15 +191,25 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `v3TokenRequest` method may throw the following errors:
+All SDK methods return a response object or throw an error. By default, an API error will throw a `errors.SDKError`.
+
+If a HTTP request fails, an operation my also throw an error from the `models/errors/httpclienterrors.ts` module:
+
+| HTTP Client Error                                    | Description                                          |
+| ---------------------------------------------------- | ---------------------------------------------------- |
+| RequestAbortedError                                  | HTTP request was aborted by the client               |
+| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
+| ConnectionError                                      | HTTP client was unable to make a request to a server |
+| InvalidRequestError                                  | Any input used to create a request is invalid        |
+| UnexpectedClientError                                | Unrecognised or unexpected error                     |
+
+In addition, when custom error responses are specified for an operation, the SDK may throw their associated Error type. You can refer to respective *Errors* tables in SDK docs for more details on possible error types for each operation. For example, the `v3TokenRequest` method may throw the following errors:
 
 | Error Type      | Status Code | Content Type     |
 | --------------- | ----------- | ---------------- |
 | errors.Error400 | 400         | application/json |
 | errors.ErrorT   | 500         | application/json |
 | errors.SDKError | 4XX, 5XX    | \*/\*            |
-
-If the method throws an error and it is not captured by the known errors, it will default to throwing a `SDKError`.
 
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
@@ -226,9 +234,8 @@ async function run() {
     console.log(result);
   } catch (err) {
     switch (true) {
-      // The server response does not match the expected SDK schema
       case (err instanceof SDKValidationError): {
-        // Pretty-print will provide a human-readable multi-line error message
+        // Validation errors can be pretty-printed
         console.error(err.pretty());
         // Raw value may also be inspected
         console.error(err.rawValue);
@@ -245,7 +252,6 @@ async function run() {
         return;
       }
       default: {
-        // Other errors such as network errors, see HTTPClientErrors for more details
         throw err;
       }
     }
@@ -256,17 +262,7 @@ run();
 
 ```
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted multi-line string since validation errors can list many issues and the plain error string may be difficult read when debugging.
-
-In some rare cases, the SDK can fail to get a response from the server or even make the request due to unexpected circumstances such as network conditions. These types of errors are captured in the `models/errors/httpclienterrors.ts` module:
-
-| HTTP Client Error                                    | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| RequestAbortedError                                  | HTTP request was aborted by the client               |
-| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
-| ConnectionError                                      | HTTP client was unable to make a request to a server |
-| InvalidRequestError                                  | Any input used to create a request is invalid        |
-| UnexpectedClientError                                | Unrecognised or unexpected error                     |
+Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted string since validation errors can list many issues and the plain error string may be difficult read when debugging.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -276,10 +272,10 @@ In some rare cases, the SDK can fail to get a response from the server or even m
 
 You can override the default server globally by passing a server name to the `server: keyof typeof ServerList` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name      | Server                               | Description        |
-| --------- | ------------------------------------ | ------------------ |
-| `uat-us`  | `https://platform.uat.proveapis.com` | UAT for US Region  |
-| `prod-us` | `https://platform.proveapis.com`     | Prod for US Region |
+| Name      | Server                               |
+| --------- | ------------------------------------ |
+| `uat-us`  | `https://platform.uat.proveapis.com` |
+| `prod-us` | `https://platform.proveapis.com`     |
 
 #### Example
 
@@ -505,8 +501,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
-- [`v3V3MFARequest`](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
-- [`v3V3MFAStatusRequest`](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 - [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.

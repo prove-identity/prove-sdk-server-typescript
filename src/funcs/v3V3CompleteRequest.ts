@@ -5,7 +5,6 @@
 import { ProveapiCore } from "../core.js";
 import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
-import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
@@ -22,7 +21,6 @@ import * as errors from "../models/errors/index.js";
 import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
@@ -31,11 +29,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Send this request to verify the user and complete the flow. It will return a correlation ID, user information, and the next step to call in the flow. There is a validation check that requires at least first + last name or SSN passed in, else an HTTP 400 is returned. Additionally, specific to the Pre-Fill® or Prove Identity® with KYC use case, you need to pass in first name, last name, DOB and SSN (or address) to ensure you receive back the KYC elements and correct CIP values.
  */
-export function v3V3CompleteRequest(
+export async function v3V3CompleteRequest(
   client: ProveapiCore,
   request?: components.V3CompleteRequest | undefined,
   options?: RequestOptions,
-): APIPromise<
+): Promise<
   Result<
     operations.V3CompleteRequestResponse,
     | errors.Error400
@@ -49,34 +47,6 @@ export function v3V3CompleteRequest(
     | ConnectionError
   >
 > {
-  return new APIPromise($do(
-    client,
-    request,
-    options,
-  ));
-}
-
-async function $do(
-  client: ProveapiCore,
-  request?: components.V3CompleteRequest | undefined,
-  options?: RequestOptions,
-): Promise<
-  [
-    Result<
-      operations.V3CompleteRequestResponse,
-      | errors.Error400
-      | errors.ErrorT
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
-      | RequestAbortedError
-      | RequestTimeoutError
-      | ConnectionError
-    >,
-    APICall,
-  ]
-> {
   const parsed = safeParse(
     request,
     (value) =>
@@ -84,7 +54,7 @@ async function $do(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
+    return parsed;
   }
   const payload = parsed.value;
   const body = payload === undefined
@@ -93,16 +63,15 @@ async function $do(
 
   const path = pathToFunc("/v3/complete")();
 
-  const headers = new Headers(compactMap({
+  const headers = new Headers({
     "Content-Type": "application/json",
     Accept: "application/json",
-  }));
+  });
 
   const securityInput = await extractSecurity(client._options.security);
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    baseURL: options?.serverURL ?? "",
     operationID: "V3CompleteRequest",
     oAuth2Scopes: [],
 
@@ -118,14 +87,13 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
     path: path,
     headers: headers,
     body: body,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return [requestRes, { status: "invalid" }];
+    return requestRes;
   }
   const req = requestRes.value;
 
@@ -136,7 +104,7 @@ async function $do(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return [doResult, { status: "request-error", request: req }];
+    return doResult;
   }
   const response = doResult.value;
 
@@ -161,12 +129,11 @@ async function $do(
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail("4XX"),
-    M.fail("5XX"),
+    M.fail(["4XX", "5XX"]),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return [result, { status: "complete", request: req, response }];
+    return result;
   }
 
-  return [result, { status: "complete", request: req, response }];
+  return result;
 }

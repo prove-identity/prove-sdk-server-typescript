@@ -16,7 +16,7 @@ export type V3VerifyStatusRequest = {
    */
   clientRequestId?: string | undefined;
   /**
-   * Correlation ID is the unique ID that Prove generates for the flow. It is returned from the v3/verify endpoint and cannot be reused outside of a single flow.
+   * Correlation ID is the unique ID that Prove generates for the flow. It is returned from the Start endpoint and cannot be reused outside of a single flow.
    */
   correlationId?: string | undefined;
 };
