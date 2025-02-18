@@ -42,10 +42,6 @@ export type RequestOptions = {
    */
   retryCodes?: string[];
   /**
-   * Overrides the base server URL that will be used by an operation.
-   */
-  serverURL?: string | URL;
-  /**
    * Sets various request options on the `fetch` call made by an SDK method.
    *
    * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options|Request}
@@ -56,7 +52,7 @@ export type RequestOptions = {
 type RequestConfig = {
   method: string;
   path: string;
-  baseURL?: string | URL | undefined;
+  baseURL?: string | URL;
   query?: string;
   body?: RequestInit["body"];
   headers?: HeadersInit;
@@ -123,7 +119,6 @@ export class ClientSDK {
     const inputURL = new URL(path, reqURL);
 
     if (path) {
-      reqURL.pathname += reqURL.pathname.endsWith("/") ? "" : "/";
       reqURL.pathname += inputURL.pathname.replace(/^\/+/, "");
     }
 
@@ -131,10 +126,7 @@ export class ClientSDK {
 
     const secQuery: string[] = [];
     for (const [k, v] of Object.entries(security?.queryParams || {})) {
-      const q = encodeForm(k, v, { charEncoding: "percent" });
-      if (typeof q !== "undefined") {
-        secQuery.push(q);
-      }
+      secQuery.push(encodeForm(k, v, { charEncoding: "percent" }));
     }
     if (secQuery.length) {
       finalQuery += `&${secQuery.join("&")}`;

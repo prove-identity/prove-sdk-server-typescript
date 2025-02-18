@@ -7,15 +7,13 @@ generation:
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
-    nameResolutionFeb2025: false
     parameterOrderingFeb2024: true
     requestResponseComponentNamesFeb2024: true
-    securityFeb2025: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
 typescript:
-  version: 0.9.0
+  version: 0.8.0
   additionalDependencies:
     dependencies:
       url: ^0.11.3
@@ -26,7 +24,6 @@ typescript:
   author: Speakeasy
   clientServerStatusCodesAsErrors: true
   defaultErrorName: SDKError
-  enableCustomCodeRegions: false
   enableReactQuery: false
   enumFormat: enum
   flattenGlobalSecurity: true

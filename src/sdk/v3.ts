@@ -4,8 +4,6 @@
 
 import { v3V3ChallengeRequest } from "../funcs/v3V3ChallengeRequest.js";
 import { v3V3CompleteRequest } from "../funcs/v3V3CompleteRequest.js";
-import { v3V3MFARequest } from "../funcs/v3V3MFARequest.js";
-import { v3V3MFAStatusRequest } from "../funcs/v3V3MFAStatusRequest.js";
 import { v3V3StartRequest } from "../funcs/v3V3StartRequest.js";
 import { v3V3TokenRequest } from "../funcs/v3V3TokenRequest.js";
 import { v3V3ValidateRequest } from "../funcs/v3V3ValidateRequest.js";
@@ -62,41 +60,6 @@ export class V3 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.V3CompleteRequestResponse> {
     return unwrapAsync(v3V3CompleteRequest(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Initiate possession check.
-   *
-   * @remarks
-   * Send this request to initiate a possession check. It will return a correlation ID
-   * and authToken for the client SDK.
-   */
-  async v3MFARequest(
-    request?: components.V3MFARequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3MFARequestResponse> {
-    return unwrapAsync(v3V3MFARequest(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Check status of MFA session.
-   *
-   * @remarks
-   * Send this request to check the status of an MFA session and get the possession result.
-   */
-  async v3MFAStatusRequest(
-    request?: components.V3MFAStatusRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3MFAStatusRequestResponse> {
-    return unwrapAsync(v3V3MFAStatusRequest(
       this,
       request,
       options,
