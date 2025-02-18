@@ -26,18 +26,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Validate phone number.
+ * Check status of MFA session.
  *
  * @remarks
- * Send this request to check the phone number entered/discovered earlier in the flow is validated. It will return a correlation ID and the next step.
+ * Send this request to check the status of an MFA session and get the possession result.
  */
-export function v3V3ValidateRequest(
+export function v3V3MFAStatusRequest(
   client: ProveapiCore,
-  request?: components.V3ValidateRequest | undefined,
+  request?: components.V3MFAStatusRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3ValidateRequestResponse,
+    operations.V3MFAStatusRequestResponse,
     | errors.Error400
     | errors.ErrorT
     | SDKError
@@ -58,12 +58,12 @@ export function v3V3ValidateRequest(
 
 async function $do(
   client: ProveapiCore,
-  request?: components.V3ValidateRequest | undefined,
+  request?: components.V3MFAStatusRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.V3ValidateRequestResponse,
+      operations.V3MFAStatusRequestResponse,
       | errors.Error400
       | errors.ErrorT
       | SDKError
@@ -80,7 +80,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      components.V3ValidateRequest$outboundSchema.optional().parse(value),
+      components.V3MFAStatusRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -91,7 +91,7 @@ async function $do(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/validate")();
+  const path = pathToFunc("/v3/mfa-status")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -103,7 +103,7 @@ async function $do(
 
   const context = {
     baseURL: options?.serverURL ?? "",
-    operationID: "V3ValidateRequest",
+    operationID: "V3MFAStatusRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -145,7 +145,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3ValidateRequestResponse,
+    operations.V3MFAStatusRequestResponse,
     | errors.Error400
     | errors.ErrorT
     | SDKError
@@ -156,8 +156,9 @@ async function $do(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.V3ValidateRequestResponse$inboundSchema, {
-      key: "V3ValidateResponse",
+    M.json(200, operations.V3MFAStatusRequestResponse$inboundSchema, {
+      hdrs: true,
+      key: "V3MFAStatusResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
