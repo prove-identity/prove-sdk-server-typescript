@@ -3,6 +3,7 @@
  */
 
 import * as components from "../models/components/index.js";
+
 type OAuth2PasswordFlow = {
   username: string;
   password?: string | undefined;

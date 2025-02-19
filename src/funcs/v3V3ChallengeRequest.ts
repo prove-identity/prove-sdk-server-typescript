@@ -22,7 +22,6 @@ import * as errors from "../models/errors/index.js";
 import { SDKError } from "../models/errors/sdkerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
-import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
@@ -31,11 +30,11 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Send this request to submit challenge information. Either a DOB or last 4 of SSN needs to be submitted if neither was submitted to the /start endpoint (challenge fields submitted to this endpoint will overwrite the /start endpoint fields submitted). It will return a correlation ID, user information, and the next step to call in the flow. This capability is only available in Pre-Fill®, it's not available in Prove Identity®. You'll notice that when using Prove Identity®, if /validate is successful, it will then return `v3-complete` as one of the keys in the `Next` field map instead of `v3-challenge`.
  */
-export function v3V3ChallengeRequest(
+export async function v3V3ChallengeRequest(
   client: ProveapiCore,
   request?: components.V3ChallengeRequest | undefined,
   options?: RequestOptions,
-): APIPromise<
+): Promise<
   Result<
     operations.V3ChallengeRequestResponse,
     | errors.Error400
@@ -49,34 +48,6 @@ export function v3V3ChallengeRequest(
     | ConnectionError
   >
 > {
-  return new APIPromise($do(
-    client,
-    request,
-    options,
-  ));
-}
-
-async function $do(
-  client: ProveapiCore,
-  request?: components.V3ChallengeRequest | undefined,
-  options?: RequestOptions,
-): Promise<
-  [
-    Result<
-      operations.V3ChallengeRequestResponse,
-      | errors.Error400
-      | errors.ErrorT
-      | SDKError
-      | SDKValidationError
-      | UnexpectedClientError
-      | InvalidRequestError
-      | RequestAbortedError
-      | RequestTimeoutError
-      | ConnectionError
-    >,
-    APICall,
-  ]
-> {
   const parsed = safeParse(
     request,
     (value) =>
@@ -84,7 +55,7 @@ async function $do(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return [parsed, { status: "invalid" }];
+    return parsed;
   }
   const payload = parsed.value;
   const body = payload === undefined
@@ -102,7 +73,6 @@ async function $do(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    baseURL: options?.serverURL ?? "",
     operationID: "V3ChallengeRequest",
     oAuth2Scopes: [],
 
@@ -125,7 +95,7 @@ async function $do(
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return [requestRes, { status: "invalid" }];
+    return requestRes;
   }
   const req = requestRes.value;
 
@@ -136,7 +106,7 @@ async function $do(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return [doResult, { status: "request-error", request: req }];
+    return doResult;
   }
   const response = doResult.value;
 
@@ -165,8 +135,8 @@ async function $do(
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return [result, { status: "complete", request: req, response }];
+    return result;
   }
 
-  return [result, { status: "complete", request: req, response }];
+  return result;
 }
