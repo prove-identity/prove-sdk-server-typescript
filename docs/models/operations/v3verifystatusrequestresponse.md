@@ -13,9 +13,9 @@ let value: V3VerifyStatusRequestResponse = {
     request: new Request("https://example.com"),
   },
   v3VerifyStatusResponse: {
-    possessionResult: "possessionResult",
-    success: "success",
-    verifyResult: "verifyResult",
+    possessionResult: {},
+    success: {},
+    verifyResult: {},
   },
   headers: {
     "key": [
@@ -27,8 +27,8 @@ let value: V3VerifyStatusRequestResponse = {
 
 ## Fields
 
-| Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      | Example                                                                                          |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `httpMeta`                                                                                       | [components.HTTPMetadata](../../models/components/httpmetadata.md)                               | :heavy_check_mark:                                                                               | N/A                                                                                              |                                                                                                  |
-| `v3VerifyStatusResponse`                                                                         | [components.V3VerifyStatusResponse](../../models/components/v3verifystatusresponse.md)           | :heavy_minus_sign:                                                                               | Successful Request                                                                               | {<br/>"success": "success",<br/>"possessionResult": "possessionResult",<br/>"verifyResult": "verifyResult"<br/>} |
-| `headers`                                                                                        | Record<string, *string*[]>                                                                       | :heavy_check_mark:                                                                               | N/A                                                                                              |                                                                                                  |
+| Field                                                                                  | Type                                                                                   | Required                                                                               | Description                                                                            | Example                                                                                |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `httpMeta`                                                                             | [components.HTTPMetadata](../../models/components/httpmetadata.md)                     | :heavy_check_mark:                                                                     | N/A                                                                                    |                                                                                        |
+| `v3VerifyStatusResponse`                                                               | [components.V3VerifyStatusResponse](../../models/components/v3verifystatusresponse.md) | :heavy_minus_sign:                                                                     | Successful Request                                                                     | {<br/>"success": "pending",<br/>"possessionResult": "pending",<br/>"verifyResult": "pending"<br/>} |
+| `headers`                                                                              | Record<string, *string*[]>                                                             | :heavy_check_mark:                                                                     | N/A                                                                                    |                                                                                        |

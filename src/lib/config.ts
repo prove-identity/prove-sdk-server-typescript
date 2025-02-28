@@ -17,11 +17,21 @@ export const ServerUatUs = "uat-us";
  */
 export const ServerProdUs = "prod-us";
 /**
+ * UAT for EU Region
+ */
+export const ServerUatEu = "uat-eu";
+/**
+ * Prod for EU Region
+ */
+export const ServerProdEu = "prod-eu";
+/**
  * Contains the list of servers available to the SDK
  */
 export const ServerList = {
   [ServerUatUs]: "https://platform.uat.proveapis.com",
   [ServerProdUs]: "https://platform.proveapis.com",
+  [ServerUatEu]: "https://platform.uat.eu.proveapis.com",
+  [ServerProdEu]: "https://platform.eu.proveapis.com",
 } as const;
 
 export type SDKOptions = {
@@ -64,8 +74,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.0.0",
-  sdkVersion: "0.9.2",
+  sdkVersion: "0.9.3",
   genVersion: "2.506.0",
   userAgent:
-    "speakeasy-sdk/typescript 0.9.2 2.506.0 1.0.0 @prove-identity/prove-api",
+    "speakeasy-sdk/typescript 0.9.3 2.506.0 1.0.0 @prove-identity/prove-api",
 } as const;
