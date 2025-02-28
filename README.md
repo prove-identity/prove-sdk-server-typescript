@@ -276,10 +276,12 @@ In some rare cases, the SDK can fail to get a response from the server or even m
 
 You can override the default server globally by passing a server name to the `server: keyof typeof ServerList` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name      | Server                               |
-| --------- | ------------------------------------ |
-| `uat-us`  | `https://platform.uat.proveapis.com` |
-| `prod-us` | `https://platform.proveapis.com`     |
+| Name      | Server                                  |
+| --------- | --------------------------------------- |
+| `uat-us`  | `https://platform.uat.proveapis.com`    |
+| `prod-us` | `https://platform.proveapis.com`        |
+| `uat-eu`  | `https://platform.uat.eu.proveapis.com` |
+| `prod-eu` | `https://platform.eu.proveapis.com`     |
 
 #### Example
 
@@ -287,7 +289,7 @@ You can override the default server globally by passing a server name to the `se
 import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
-  server: "prod-us",
+  server: "prod-eu",
 });
 
 async function run() {
