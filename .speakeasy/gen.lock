@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 07cf61315270e441180ccf1dd51f1466
+  docChecksum: 2b07811b69c232866eddd1a4a72915c1
   docVersion: 1.0.0
   speakeasyVersion: 1.487.1
   generationVersion: 2.506.0
-  releaseVersion: 0.9.2
-  configChecksum: 5423337096763931f03eb323c5357fa3
+  releaseVersion: 0.9.3
+  configChecksum: 8039e1c6788e8c04469ffcc9af18c6eb
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -42,7 +42,9 @@ generatedFiles:
   - docs/models/components/idvdatainternal.md
   - docs/models/components/kycfieldtyperesponseinternal.md
   - docs/models/components/kycinternal.md
+  - docs/models/components/possessionresult.md
   - docs/models/components/security.md
+  - docs/models/components/success.md
   - docs/models/components/v3challengeaddressentryrequest.md
   - docs/models/components/v3challengeindividualrequest.md
   - docs/models/components/v3challengerequest.md
@@ -65,6 +67,10 @@ generatedFiles:
   - docs/models/components/v3verifyresponse.md
   - docs/models/components/v3verifystatusrequest.md
   - docs/models/components/v3verifystatusresponse.md
+  - docs/models/components/v3verifystatusresponsepossessionresult.md
+  - docs/models/components/v3verifystatusresponsesuccess.md
+  - docs/models/components/v3verifystatusresponseverifyresult.md
+  - docs/models/components/verifyresult.md
   - docs/models/errors/error400.md
   - docs/models/errors/errort.md
   - docs/models/operations/v3challengerequestresponse.md
@@ -255,7 +261,7 @@ examples:
         application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "firstName": "Sheilakathryn", "lastName": "Butrimovich", "phoneNumber": "2001004011", "possessionType": "mobile", "smsMessage": "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."}
       responses:
         "200":
-          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "possessionResult": "possessionResult", "success": "success", "verifyResult": "verifyResult"}
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "possessionResult": {}, "success": {}, "verifyResult": {}}
         "400":
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
@@ -266,7 +272,7 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"possessionResult": "possessionResult", "success": "success", "verifyResult": "verifyResult"}
+          application/json: {"possessionResult": {}, "success": {}, "verifyResult": {}}
         "400":
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
