@@ -25,19 +25,18 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Initiate possession check.
+ * Check status of MFA session.
  *
  * @remarks
- * Send this request to initiate a possession check. It will return a correlation ID
- * and authToken for the client SDK.
+ * Send this request to bind Prove Key to a phone nuymber of an MFA session and get the possession result.
  */
-export async function v3V3MFARequest(
+export async function v3V3MFABindRequest(
   client: ProveapiCore,
-  request?: components.V3MFARequest | undefined,
+  request?: components.V3MFABindRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   Result<
-    operations.V3MFARequestResponse,
+    operations.V3MFABindRequestResponse,
     | errors.Error400
     | errors.Error403
     | errors.ErrorT
@@ -52,7 +51,8 @@ export async function v3V3MFARequest(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.V3MFARequest$outboundSchema.optional().parse(value),
+    (value) =>
+      components.V3MFABindRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -63,7 +63,7 @@ export async function v3V3MFARequest(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/mfa")();
+  const path = pathToFunc("/v3/mfa-bind")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -74,7 +74,7 @@ export async function v3V3MFARequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    operationID: "V3MFARequest",
+    operationID: "V3MFABindRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -116,7 +116,7 @@ export async function v3V3MFARequest(
   };
 
   const [result] = await M.match<
-    operations.V3MFARequestResponse,
+    operations.V3MFABindRequestResponse,
     | errors.Error400
     | errors.Error403
     | errors.ErrorT
@@ -128,8 +128,9 @@ export async function v3V3MFARequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.V3MFARequestResponse$inboundSchema, {
-      key: "V3MFAResponse",
+    M.json(200, operations.V3MFABindRequestResponse$inboundSchema, {
+      hdrs: true,
+      key: "V3MFABindResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
