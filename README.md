@@ -181,6 +181,7 @@ run();
 * [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 * [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
 * [v3MFARequest](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
+* [v3MFABindRequest](docs/sdks/v3/README.md#v3mfabindrequest) - Check status of MFA session.
 * [v3MFAStatusRequest](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 * [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
@@ -276,10 +277,12 @@ In some rare cases, the SDK can fail to get a response from the server or even m
 
 You can override the default server globally by passing a server name to the `server: keyof typeof ServerList` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name      | Server                               |
-| --------- | ------------------------------------ |
-| `uat-us`  | `https://platform.uat.proveapis.com` |
-| `prod-us` | `https://platform.proveapis.com`     |
+| Name      | Server                                  |
+| --------- | --------------------------------------- |
+| `uat-us`  | `https://platform.uat.proveapis.com`    |
+| `prod-us` | `https://platform.proveapis.com`        |
+| `uat-eu`  | `https://platform.uat.eu.proveapis.com` |
+| `prod-eu` | `https://platform.eu.proveapis.com`     |
 
 #### Example
 
@@ -287,7 +290,7 @@ You can override the default server globally by passing a server name to the `se
 import { Proveapi } from "@prove-identity/prove-api";
 
 const proveapi = new Proveapi({
-  server: "prod-us",
+  server: "prod-eu",
 });
 
 async function run() {
@@ -505,6 +508,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
+- [`v3V3MFABindRequest`](docs/sdks/v3/README.md#v3mfabindrequest) - Check status of MFA session.
 - [`v3V3MFARequest`](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
 - [`v3V3MFAStatusRequest`](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start flow.

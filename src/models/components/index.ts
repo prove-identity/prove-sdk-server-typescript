@@ -21,6 +21,8 @@ export * from "./v3completeaddressentryrequest.js";
 export * from "./v3completeindividualrequest.js";
 export * from "./v3completerequest.js";
 export * from "./v3completeresponse.js";
+export * from "./v3mfabindrequest.js";
+export * from "./v3mfabindresponse.js";
 export * from "./v3mfarequest.js";
 export * from "./v3mfaresponse.js";
 export * from "./v3mfastatusrequest.js";

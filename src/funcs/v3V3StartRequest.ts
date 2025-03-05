@@ -38,6 +38,7 @@ export async function v3V3StartRequest(
   Result<
     operations.V3StartRequestResponse,
     | errors.Error400
+    | errors.Error403
     | errors.ErrorT
     | SDKError
     | SDKValidationError
@@ -100,7 +101,7 @@ export async function v3V3StartRequest(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -116,6 +117,7 @@ export async function v3V3StartRequest(
   const [result] = await M.match<
     operations.V3StartRequestResponse,
     | errors.Error400
+    | errors.Error403
     | errors.ErrorT
     | SDKError
     | SDKValidationError
@@ -129,8 +131,9 @@ export async function v3V3StartRequest(
       key: "V3StartResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail("4XX"),
+    M.fail([401, "4XX"]),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

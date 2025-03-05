@@ -4,6 +4,7 @@
 
 import { v3V3ChallengeRequest } from "../funcs/v3V3ChallengeRequest.js";
 import { v3V3CompleteRequest } from "../funcs/v3V3CompleteRequest.js";
+import { v3V3MFABindRequest } from "../funcs/v3V3MFABindRequest.js";
 import { v3V3MFARequest } from "../funcs/v3V3MFARequest.js";
 import { v3V3MFAStatusRequest } from "../funcs/v3V3MFAStatusRequest.js";
 import { v3V3StartRequest } from "../funcs/v3V3StartRequest.js";
@@ -80,6 +81,23 @@ export class V3 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.V3MFARequestResponse> {
     return unwrapAsync(v3V3MFARequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Check status of MFA session.
+   *
+   * @remarks
+   * Send this request to bind Prove Key to a phone nuymber of an MFA session and get the possession result.
+   */
+  async v3MFABindRequest(
+    request?: components.V3MFABindRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3MFABindRequestResponse> {
+    return unwrapAsync(v3V3MFABindRequest(
       this,
       request,
       options,
