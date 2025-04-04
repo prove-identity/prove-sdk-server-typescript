@@ -31,14 +31,15 @@ import { Result } from "../types/fp.js";
  * Send this request to initiate a possession check. It will return a correlation ID
  * and authToken for the client SDK.
  */
-export async function v3V3MFARequest(
+export async function v3V3UnifyRequest(
   client: ProveapiCore,
-  request?: components.V3MFARequest | undefined,
+  request?: components.V3UnifyRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   Result<
-    operations.V3MFARequestResponse,
+    operations.V3UnifyRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -52,7 +53,7 @@ export async function v3V3MFARequest(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.V3MFARequest$outboundSchema.optional().parse(value),
+    (value) => components.V3UnifyRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -63,7 +64,7 @@ export async function v3V3MFARequest(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/mfa")();
+  const path = pathToFunc("/v3/unify")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export async function v3V3MFARequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    operationID: "V3MFARequest",
+    operationID: "V3UnifyRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -116,8 +117,9 @@ export async function v3V3MFARequest(
   };
 
   const [result] = await M.match<
-    operations.V3MFARequestResponse,
+    operations.V3UnifyRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -128,13 +130,14 @@ export async function v3V3MFARequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.V3MFARequestResponse$inboundSchema, {
-      key: "V3MFAResponse",
+    M.json(200, operations.V3UnifyRequestResponse$inboundSchema, {
+      key: "V3UnifyResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

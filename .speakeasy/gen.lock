@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: f30b340e2369f7f6435ebf9a6145a3cf
+  docChecksum: 631e98723f8d838276a7dfc50d6c60de
   docVersion: 1.0.0
   speakeasyVersion: 1.487.1
   generationVersion: 2.506.0
-  releaseVersion: 0.9.3
-  configChecksum: 8039e1c6788e8c04469ffcc9af18c6eb
+  releaseVersion: 0.9.4
+  configChecksum: 9e46bcde03644a2194a6e07b2ab5b5e1
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -53,16 +53,16 @@ generatedFiles:
   - docs/models/components/v3completeindividualrequest.md
   - docs/models/components/v3completerequest.md
   - docs/models/components/v3completeresponse.md
-  - docs/models/components/v3mfabindrequest.md
-  - docs/models/components/v3mfabindresponse.md
-  - docs/models/components/v3mfarequest.md
-  - docs/models/components/v3mfaresponse.md
-  - docs/models/components/v3mfastatusrequest.md
-  - docs/models/components/v3mfastatusresponse.md
   - docs/models/components/v3startrequest.md
   - docs/models/components/v3startresponse.md
   - docs/models/components/v3tokenrequest.md
   - docs/models/components/v3tokenresponse.md
+  - docs/models/components/v3unifybindrequest.md
+  - docs/models/components/v3unifybindresponse.md
+  - docs/models/components/v3unifyrequest.md
+  - docs/models/components/v3unifyresponse.md
+  - docs/models/components/v3unifystatusrequest.md
+  - docs/models/components/v3unifystatusresponse.md
   - docs/models/components/v3validaterequest.md
   - docs/models/components/v3validateresponse.md
   - docs/models/components/v3verifyrequest.md
@@ -74,15 +74,16 @@ generatedFiles:
   - docs/models/components/v3verifystatusresponseverifyresult.md
   - docs/models/components/verifyresult.md
   - docs/models/errors/error400.md
+  - docs/models/errors/error401.md
   - docs/models/errors/error403.md
   - docs/models/errors/errort.md
   - docs/models/operations/v3challengerequestresponse.md
   - docs/models/operations/v3completerequestresponse.md
-  - docs/models/operations/v3mfabindrequestresponse.md
-  - docs/models/operations/v3mfarequestresponse.md
-  - docs/models/operations/v3mfastatusrequestresponse.md
   - docs/models/operations/v3startrequestresponse.md
   - docs/models/operations/v3tokenrequestresponse.md
+  - docs/models/operations/v3unifybindrequestresponse.md
+  - docs/models/operations/v3unifyrequestresponse.md
+  - docs/models/operations/v3unifystatusrequestresponse.md
   - docs/models/operations/v3validaterequestresponse.md
   - docs/models/operations/v3verifyrequestresponse.md
   - docs/models/operations/v3verifystatusrequestresponse.md
@@ -94,11 +95,11 @@ generatedFiles:
   - src/core.ts
   - src/funcs/v3V3ChallengeRequest.ts
   - src/funcs/v3V3CompleteRequest.ts
-  - src/funcs/v3V3MFABindRequest.ts
-  - src/funcs/v3V3MFARequest.ts
-  - src/funcs/v3V3MFAStatusRequest.ts
   - src/funcs/v3V3StartRequest.ts
   - src/funcs/v3V3TokenRequest.ts
+  - src/funcs/v3V3UnifyBindRequest.ts
+  - src/funcs/v3V3UnifyRequest.ts
+  - src/funcs/v3V3UnifyStatusRequest.ts
   - src/funcs/v3V3ValidateRequest.ts
   - src/funcs/v3V3VerifyRequest.ts
   - src/funcs/v3V3VerifyStatusRequest.ts
@@ -142,16 +143,16 @@ generatedFiles:
   - src/models/components/v3completeindividualrequest.ts
   - src/models/components/v3completerequest.ts
   - src/models/components/v3completeresponse.ts
-  - src/models/components/v3mfabindrequest.ts
-  - src/models/components/v3mfabindresponse.ts
-  - src/models/components/v3mfarequest.ts
-  - src/models/components/v3mfaresponse.ts
-  - src/models/components/v3mfastatusrequest.ts
-  - src/models/components/v3mfastatusresponse.ts
   - src/models/components/v3startrequest.ts
   - src/models/components/v3startresponse.ts
   - src/models/components/v3tokenrequest.ts
   - src/models/components/v3tokenresponse.ts
+  - src/models/components/v3unifybindrequest.ts
+  - src/models/components/v3unifybindresponse.ts
+  - src/models/components/v3unifyrequest.ts
+  - src/models/components/v3unifyresponse.ts
+  - src/models/components/v3unifystatusrequest.ts
+  - src/models/components/v3unifystatusresponse.ts
   - src/models/components/v3validaterequest.ts
   - src/models/components/v3validateresponse.ts
   - src/models/components/v3verifyrequest.ts
@@ -160,6 +161,7 @@ generatedFiles:
   - src/models/components/v3verifystatusresponse.ts
   - src/models/errors/error.ts
   - src/models/errors/error400.ts
+  - src/models/errors/error401.ts
   - src/models/errors/error403.ts
   - src/models/errors/httpclienterrors.ts
   - src/models/errors/index.ts
@@ -168,11 +170,11 @@ generatedFiles:
   - src/models/operations/index.ts
   - src/models/operations/v3challengerequest.ts
   - src/models/operations/v3completerequest.ts
-  - src/models/operations/v3mfabindrequest.ts
-  - src/models/operations/v3mfarequest.ts
-  - src/models/operations/v3mfastatusrequest.ts
   - src/models/operations/v3startrequest.ts
   - src/models/operations/v3tokenrequest.ts
+  - src/models/operations/v3unifybindrequest.ts
+  - src/models/operations/v3unifyrequest.ts
+  - src/models/operations/v3unifystatusrequest.ts
   - src/models/operations/v3validaterequest.ts
   - src/models/operations/v3verifyrequest.ts
   - src/models/operations/v3verifystatusrequest.ts
@@ -200,6 +202,8 @@ examples:
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
   V3ChallengeRequest:
     speakeasy-default-v3-challenge-request:
       requestBody:
@@ -213,6 +217,8 @@ examples:
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
   V3CompleteRequest:
     Example1:
       requestBody:
@@ -287,6 +293,8 @@ examples:
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
   V3ValidateRequest:
     speakeasy-default-v3-validate-request:
       requestBody:
@@ -300,6 +308,8 @@ examples:
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
   V3VerifyRequest:
     speakeasy-default-v3-verify-request:
       requestBody:
@@ -313,6 +323,8 @@ examples:
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
   V3VerifyStatusRequest:
     speakeasy-default-v3-verify-status-request:
       requestBody:
@@ -326,6 +338,8 @@ examples:
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
   V3MFARequest:
     speakeasy-default-v3-MFA-request:
       requestBody:
@@ -360,6 +374,51 @@ examples:
         "200":
           application/json: {"phoneNumber": "2001004011", "success": "success"}
         "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3UnifyRequest:
+    speakeasy-default-v3-unify-request:
+      requestBody:
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "finalTargetUrl": "https://www.example.com/landing-page", "phoneNumber": "2001004011", "possessionType": "mobile", "smsMessage": "#### is your verification code"}
+      responses:
+        "200":
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "success"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3UnifyBindRequest:
+    speakeasy-default-v3-unify-bind-request:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
+      responses:
+        "200":
+          application/json: {"phoneNumber": "2001004011", "success": "success"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3UnifyStatusRequest:
+    speakeasy-default-v3-unify-status-request:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
+      responses:
+        "200":
+          application/json: {"phoneNumber": "2001004011", "success": "success"}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}

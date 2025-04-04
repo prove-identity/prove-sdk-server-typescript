@@ -8,10 +8,10 @@
 * [v3TokenRequest](#v3tokenrequest) - Request OAuth token.
 * [v3ChallengeRequest](#v3challengerequest) - Submit challenge.
 * [v3CompleteRequest](#v3completerequest) - Complete flow.
-* [v3MFARequest](#v3mfarequest) - Initiate possession check.
-* [v3MFABindRequest](#v3mfabindrequest) - Check status of MFA session.
-* [v3MFAStatusRequest](#v3mfastatusrequest) - Check status of MFA session.
 * [v3StartRequest](#v3startrequest) - Start flow.
+* [v3UnifyRequest](#v3unifyrequest) - Initiate possession check.
+* [v3UnifyBindRequest](#v3unifybindrequest) - Check status of Unify session.
+* [v3UnifyStatusRequest](#v3unifystatusrequest) - Check status of Unify session.
 * [v3ValidateRequest](#v3validaterequest) - Validate phone number.
 * [v3VerifyRequest](#v3verifyrequest) - Initiate verified users session.
 * [v3VerifyStatusRequest](#v3verifystatusrequest) - Perform checks for verified users session.
@@ -91,6 +91,7 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
@@ -179,6 +180,7 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -316,284 +318,7 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
-## v3MFARequest
-
-Send this request to initiate a possession check. It will return a correlation ID
-and authToken for the client SDK.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.v3.v3MFARequest({
-    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    emailAddress: "user@example.com",
-    finalTargetUrl: "https://www.example.com/landing-page",
-    ipAddress: "192.168.1.1",
-    phoneNumber: "2001004011",
-    possessionType: "mobile",
-    smsMessage: "#### is your verification code",
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { v3V3MFARequest } from "@prove-identity/prove-api/funcs/v3V3MFARequest.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await v3V3MFARequest(proveapi, {
-    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    emailAddress: "user@example.com",
-    finalTargetUrl: "https://www.example.com/landing-page",
-    ipAddress: "192.168.1.1",
-    phoneNumber: "2001004011",
-    possessionType: "mobile",
-    smsMessage: "#### is your verification code",
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.V3MFARequest](../../models/components/v3mfarequest.md)                                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.V3MFARequestResponse](../../models/operations/v3mfarequestresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
-## v3MFABindRequest
-
-Send this request to bind Prove Key to a phone nuymber of an MFA session and get the possession result.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.v3.v3MFABindRequest({
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    phoneNumber: "2001004011",
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { v3V3MFABindRequest } from "@prove-identity/prove-api/funcs/v3V3MFABindRequest.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await v3V3MFABindRequest(proveapi, {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    phoneNumber: "2001004011",
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.V3MFABindRequest](../../models/components/v3mfabindrequest.md)                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.V3MFABindRequestResponse](../../models/operations/v3mfabindrequestresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
-## v3MFAStatusRequest
-
-Send this request to check the status of an MFA session and get the possession result.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.v3.v3MFAStatusRequest({
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    phoneNumber: "2001004011",
-  });
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { v3V3MFAStatusRequest } from "@prove-identity/prove-api/funcs/v3V3MFAStatusRequest.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await v3V3MFAStatusRequest(proveapi, {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    phoneNumber: "2001004011",
-  });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.V3MFAStatusRequest](../../models/components/v3mfastatusrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.V3MFAStatusRequestResponse](../../models/operations/v3mfastatusrequestresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -693,6 +418,284 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3UnifyRequest
+
+Send this request to initiate a possession check. It will return a correlation ID
+and authToken for the client SDK.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.v3.v3UnifyRequest({
+    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    finalTargetUrl: "https://www.example.com/landing-page",
+    phoneNumber: "2001004011",
+    possessionType: "mobile",
+    smsMessage: "#### is your verification code",
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { v3V3UnifyRequest } from "@prove-identity/prove-api/funcs/v3V3UnifyRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await v3V3UnifyRequest(proveapi, {
+    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    finalTargetUrl: "https://www.example.com/landing-page",
+    phoneNumber: "2001004011",
+    possessionType: "mobile",
+    smsMessage: "#### is your verification code",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3UnifyRequest](../../models/components/v3unifyrequest.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3UnifyRequestResponse](../../models/operations/v3unifyrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3UnifyBindRequest
+
+Send this request to bind Prove Key to a phone nuymber of an Unify session and get the possession result.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.v3.v3UnifyBindRequest({
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+    phoneNumber: "2001004011",
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { v3V3UnifyBindRequest } from "@prove-identity/prove-api/funcs/v3V3UnifyBindRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await v3V3UnifyBindRequest(proveapi, {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+    phoneNumber: "2001004011",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3UnifyBindRequest](../../models/components/v3unifybindrequest.md)                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3UnifyBindRequestResponse](../../models/operations/v3unifybindrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3UnifyStatusRequest
+
+Send this request to check the status of an Unify session and get the possession result.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.v3.v3UnifyStatusRequest({
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+    phoneNumber: "2001004011",
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { v3V3UnifyStatusRequest } from "@prove-identity/prove-api/funcs/v3V3UnifyStatusRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await v3V3UnifyStatusRequest(proveapi, {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+    phoneNumber: "2001004011",
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3UnifyStatusRequest](../../models/components/v3unifystatusrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3UnifyStatusRequestResponse](../../models/operations/v3unifystatusrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -778,6 +781,7 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -879,6 +883,7 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -966,6 +971,7 @@ run();
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
 | errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |

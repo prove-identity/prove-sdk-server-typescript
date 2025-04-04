@@ -37,6 +37,7 @@ export async function v3V3TokenRequest(
   Result<
     operations.V3TokenRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.ErrorT
     | SDKError
     | SDKValidationError
@@ -112,6 +113,7 @@ export async function v3V3TokenRequest(
   const [result] = await M.match<
     operations.V3TokenRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.ErrorT
     | SDKError
     | SDKValidationError
@@ -125,8 +127,9 @@ export async function v3V3TokenRequest(
       key: "V3TokenResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

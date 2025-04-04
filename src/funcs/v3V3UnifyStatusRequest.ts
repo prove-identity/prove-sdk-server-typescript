@@ -25,19 +25,20 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Check status of MFA session.
+ * Check status of Unify session.
  *
  * @remarks
- * Send this request to check the status of an MFA session and get the possession result.
+ * Send this request to check the status of an Unify session and get the possession result.
  */
-export async function v3V3MFAStatusRequest(
+export async function v3V3UnifyStatusRequest(
   client: ProveapiCore,
-  request?: components.V3MFAStatusRequest | undefined,
+  request?: components.V3UnifyStatusRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   Result<
-    operations.V3MFAStatusRequestResponse,
+    operations.V3UnifyStatusRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -52,7 +53,7 @@ export async function v3V3MFAStatusRequest(
   const parsed = safeParse(
     request,
     (value) =>
-      components.V3MFAStatusRequest$outboundSchema.optional().parse(value),
+      components.V3UnifyStatusRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -63,7 +64,7 @@ export async function v3V3MFAStatusRequest(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/mfa-status")();
+  const path = pathToFunc("/v3/unify-status")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export async function v3V3MFAStatusRequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    operationID: "V3MFAStatusRequest",
+    operationID: "V3UnifyStatusRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -116,8 +117,9 @@ export async function v3V3MFAStatusRequest(
   };
 
   const [result] = await M.match<
-    operations.V3MFAStatusRequestResponse,
+    operations.V3UnifyStatusRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -128,14 +130,15 @@ export async function v3V3MFAStatusRequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.V3MFAStatusRequestResponse$inboundSchema, {
+    M.json(200, operations.V3UnifyStatusRequestResponse$inboundSchema, {
       hdrs: true,
-      key: "V3MFAStatusResponse",
+      key: "V3UnifyStatusResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

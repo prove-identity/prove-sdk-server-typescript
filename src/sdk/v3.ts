@@ -4,11 +4,11 @@
 
 import { v3V3ChallengeRequest } from "../funcs/v3V3ChallengeRequest.js";
 import { v3V3CompleteRequest } from "../funcs/v3V3CompleteRequest.js";
-import { v3V3MFABindRequest } from "../funcs/v3V3MFABindRequest.js";
-import { v3V3MFARequest } from "../funcs/v3V3MFARequest.js";
-import { v3V3MFAStatusRequest } from "../funcs/v3V3MFAStatusRequest.js";
 import { v3V3StartRequest } from "../funcs/v3V3StartRequest.js";
 import { v3V3TokenRequest } from "../funcs/v3V3TokenRequest.js";
+import { v3V3UnifyBindRequest } from "../funcs/v3V3UnifyBindRequest.js";
+import { v3V3UnifyRequest } from "../funcs/v3V3UnifyRequest.js";
+import { v3V3UnifyStatusRequest } from "../funcs/v3V3UnifyStatusRequest.js";
 import { v3V3ValidateRequest } from "../funcs/v3V3ValidateRequest.js";
 import { v3V3VerifyRequest } from "../funcs/v3V3VerifyRequest.js";
 import { v3V3VerifyStatusRequest } from "../funcs/v3V3VerifyStatusRequest.js";
@@ -70,58 +70,6 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Initiate possession check.
-   *
-   * @remarks
-   * Send this request to initiate a possession check. It will return a correlation ID
-   * and authToken for the client SDK.
-   */
-  async v3MFARequest(
-    request?: components.V3MFARequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3MFARequestResponse> {
-    return unwrapAsync(v3V3MFARequest(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Check status of MFA session.
-   *
-   * @remarks
-   * Send this request to bind Prove Key to a phone nuymber of an MFA session and get the possession result.
-   */
-  async v3MFABindRequest(
-    request?: components.V3MFABindRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3MFABindRequestResponse> {
-    return unwrapAsync(v3V3MFABindRequest(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Check status of MFA session.
-   *
-   * @remarks
-   * Send this request to check the status of an MFA session and get the possession result.
-   */
-  async v3MFAStatusRequest(
-    request?: components.V3MFAStatusRequest | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3MFAStatusRequestResponse> {
-    return unwrapAsync(v3V3MFAStatusRequest(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Start flow.
    *
    * @remarks
@@ -132,6 +80,58 @@ export class V3 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.V3StartRequestResponse> {
     return unwrapAsync(v3V3StartRequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Initiate possession check.
+   *
+   * @remarks
+   * Send this request to initiate a possession check. It will return a correlation ID
+   * and authToken for the client SDK.
+   */
+  async v3UnifyRequest(
+    request?: components.V3UnifyRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3UnifyRequestResponse> {
+    return unwrapAsync(v3V3UnifyRequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Check status of Unify session.
+   *
+   * @remarks
+   * Send this request to bind Prove Key to a phone nuymber of an Unify session and get the possession result.
+   */
+  async v3UnifyBindRequest(
+    request?: components.V3UnifyBindRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3UnifyBindRequestResponse> {
+    return unwrapAsync(v3V3UnifyBindRequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Check status of Unify session.
+   *
+   * @remarks
+   * Send this request to check the status of an Unify session and get the possession result.
+   */
+  async v3UnifyStatusRequest(
+    request?: components.V3UnifyStatusRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3UnifyStatusRequestResponse> {
+    return unwrapAsync(v3V3UnifyStatusRequest(
       this,
       request,
       options,

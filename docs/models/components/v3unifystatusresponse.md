@@ -1,13 +1,13 @@
-# V3MFABindResponse
+# V3UnifyStatusResponse
 
-Response body for the V3 MFA Bind API
+Response body for the V3 Unify Status API
 
 ## Example Usage
 
 ```typescript
-import { V3MFABindResponse } from "@prove-identity/prove-api/models/components";
+import { V3UnifyStatusResponse } from "@prove-identity/prove-api/models/components";
 
-let value: V3MFABindResponse = {
+let value: V3UnifyStatusResponse = {
   phoneNumber: "2001004011",
   success: "success",
 };

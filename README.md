@@ -180,10 +180,10 @@ run();
 * [v3TokenRequest](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
 * [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 * [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
-* [v3MFARequest](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
-* [v3MFABindRequest](docs/sdks/v3/README.md#v3mfabindrequest) - Check status of MFA session.
-* [v3MFAStatusRequest](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 * [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start flow.
+* [v3UnifyRequest](docs/sdks/v3/README.md#v3unifyrequest) - Initiate possession check.
+* [v3UnifyBindRequest](docs/sdks/v3/README.md#v3unifybindrequest) - Check status of Unify session.
+* [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check status of Unify session.
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
 * [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
 * [v3VerifyStatusRequest](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform checks for verified users session.
@@ -199,6 +199,7 @@ Some methods specify known errors which can be thrown. All the known errors are 
 | Error Type      | Status Code | Content Type     |
 | --------------- | ----------- | ---------------- |
 | errors.Error400 | 400         | application/json |
+| errors.Error401 | 401         | application/json |
 | errors.ErrorT   | 500         | application/json |
 | errors.SDKError | 4XX, 5XX    | \*/\*            |
 
@@ -208,6 +209,7 @@ If the method throws an error and it is not captured by the known errors, it wil
 import { Proveapi } from "@prove-identity/prove-api";
 import {
   Error400,
+  Error401,
   ErrorT,
   SDKValidationError,
 } from "@prove-identity/prove-api/models/errors";
@@ -237,6 +239,11 @@ async function run() {
       }
       case (err instanceof Error400): {
         // Handle err.data$: Error400Data
+        console.error(err);
+        return;
+      }
+      case (err instanceof Error401): {
+        // Handle err.data$: Error401Data
         console.error(err);
         return;
       }
@@ -508,11 +515,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 - [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
-- [`v3V3MFABindRequest`](docs/sdks/v3/README.md#v3mfabindrequest) - Check status of MFA session.
-- [`v3V3MFARequest`](docs/sdks/v3/README.md#v3mfarequest) - Initiate possession check.
-- [`v3V3MFAStatusRequest`](docs/sdks/v3/README.md#v3mfastatusrequest) - Check status of MFA session.
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 - [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
+- [`v3V3UnifyBindRequest`](docs/sdks/v3/README.md#v3unifybindrequest) - Check status of Unify session.
+- [`v3V3UnifyRequest`](docs/sdks/v3/README.md#v3unifyrequest) - Initiate possession check.
+- [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check status of Unify session.
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
 - [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
 - [`v3V3VerifyStatusRequest`](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform checks for verified users session.

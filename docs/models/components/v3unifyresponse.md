@@ -1,13 +1,13 @@
-# V3MFAResponse
+# V3UnifyResponse
 
-Response body for the V3 MFA API
+Response body for the V3 Unify API
 
 ## Example Usage
 
 ```typescript
-import { V3MFAResponse } from "@prove-identity/prove-api/models/components";
+import { V3UnifyResponse } from "@prove-identity/prove-api/models/components";
 
-let value: V3MFAResponse = {
+let value: V3UnifyResponse = {
   authToken: "eyJhbGciOi...",
   correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
   success: "success",

@@ -8,9 +8,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Request body for the V3 MFA Status API
+ * Request body for the V3 Unify Status API
  */
-export type V3MFAStatusRequest = {
+export type V3UnifyStatusRequest = {
   /**
    * Client Request ID is a client-generated unique ID for a specific request.
    *
@@ -24,11 +24,11 @@ export type V3MFAStatusRequest = {
    * Correlation ID is the unique ID that Prove generates for the flow. It is returned
    *
    * @remarks
-   * from the v3/mfa endpoint and cannot be reused outside of a single flow.
+   * from the v3/unify endpoint and cannot be reused outside of a single flow.
    */
   correlationId?: string | undefined;
   /**
-   * Phone number is only allowed when possessionType=none from the initial MFA request.
+   * Phone number is only allowed when possessionType=none from the initial Unify request.
    *
    * @remarks
    * Required for BYO Possession flow on the third call.
@@ -37,8 +37,8 @@ export type V3MFAStatusRequest = {
 };
 
 /** @internal */
-export const V3MFAStatusRequest$inboundSchema: z.ZodType<
-  V3MFAStatusRequest,
+export const V3UnifyStatusRequest$inboundSchema: z.ZodType<
+  V3UnifyStatusRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -48,17 +48,17 @@ export const V3MFAStatusRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type V3MFAStatusRequest$Outbound = {
+export type V3UnifyStatusRequest$Outbound = {
   clientRequestId?: string | undefined;
   correlationId?: string | undefined;
   phoneNumber?: string | undefined;
 };
 
 /** @internal */
-export const V3MFAStatusRequest$outboundSchema: z.ZodType<
-  V3MFAStatusRequest$Outbound,
+export const V3UnifyStatusRequest$outboundSchema: z.ZodType<
+  V3UnifyStatusRequest$Outbound,
   z.ZodTypeDef,
-  V3MFAStatusRequest
+  V3UnifyStatusRequest
 > = z.object({
   clientRequestId: z.string().optional(),
   correlationId: z.string().optional(),
@@ -69,29 +69,29 @@ export const V3MFAStatusRequest$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3MFAStatusRequest$ {
-  /** @deprecated use `V3MFAStatusRequest$inboundSchema` instead. */
-  export const inboundSchema = V3MFAStatusRequest$inboundSchema;
-  /** @deprecated use `V3MFAStatusRequest$outboundSchema` instead. */
-  export const outboundSchema = V3MFAStatusRequest$outboundSchema;
-  /** @deprecated use `V3MFAStatusRequest$Outbound` instead. */
-  export type Outbound = V3MFAStatusRequest$Outbound;
+export namespace V3UnifyStatusRequest$ {
+  /** @deprecated use `V3UnifyStatusRequest$inboundSchema` instead. */
+  export const inboundSchema = V3UnifyStatusRequest$inboundSchema;
+  /** @deprecated use `V3UnifyStatusRequest$outboundSchema` instead. */
+  export const outboundSchema = V3UnifyStatusRequest$outboundSchema;
+  /** @deprecated use `V3UnifyStatusRequest$Outbound` instead. */
+  export type Outbound = V3UnifyStatusRequest$Outbound;
 }
 
-export function v3MFAStatusRequestToJSON(
-  v3MFAStatusRequest: V3MFAStatusRequest,
+export function v3UnifyStatusRequestToJSON(
+  v3UnifyStatusRequest: V3UnifyStatusRequest,
 ): string {
   return JSON.stringify(
-    V3MFAStatusRequest$outboundSchema.parse(v3MFAStatusRequest),
+    V3UnifyStatusRequest$outboundSchema.parse(v3UnifyStatusRequest),
   );
 }
 
-export function v3MFAStatusRequestFromJSON(
+export function v3UnifyStatusRequestFromJSON(
   jsonString: string,
-): SafeParseResult<V3MFAStatusRequest, SDKValidationError> {
+): SafeParseResult<V3UnifyStatusRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3MFAStatusRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3MFAStatusRequest' from JSON`,
+    (x) => V3UnifyStatusRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3UnifyStatusRequest' from JSON`,
   );
 }

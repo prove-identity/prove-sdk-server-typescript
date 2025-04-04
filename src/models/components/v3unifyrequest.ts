@@ -8,9 +8,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Request body for the V3 MFA API
+ * Request body for the V3 Unify API
  */
-export type V3MFARequest = {
+export type V3UnifyRequest = {
   /**
    * Client Customer ID is a client-generated unique ID for a specific customer.
    */
@@ -20,10 +20,6 @@ export type V3MFARequest = {
    */
   clientRequestId?: string | undefined;
   /**
-   * Email is the email address of the customer.
-   */
-  emailAddress?: string | undefined;
-  /**
    * Final target URL is only required when possessionType=desktop. The final target
    *
    * @remarks
@@ -31,10 +27,6 @@ export type V3MFARequest = {
    * Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
    */
   finalTargetUrl?: string | undefined;
-  /**
-   * IP Address of the customer.
-   */
-  ipAddress?: string | undefined;
   /**
    * Phone number is the number of the mobile phone. Optional in US, required in EU.
    *
@@ -61,44 +53,38 @@ export type V3MFARequest = {
 };
 
 /** @internal */
-export const V3MFARequest$inboundSchema: z.ZodType<
-  V3MFARequest,
+export const V3UnifyRequest$inboundSchema: z.ZodType<
+  V3UnifyRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
-  emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
-  ipAddress: z.string().optional(),
   phoneNumber: z.string().optional(),
   possessionType: z.string(),
   smsMessage: z.string().optional(),
 });
 
 /** @internal */
-export type V3MFARequest$Outbound = {
+export type V3UnifyRequest$Outbound = {
   clientCustomerId?: string | undefined;
   clientRequestId?: string | undefined;
-  emailAddress?: string | undefined;
   finalTargetUrl?: string | undefined;
-  ipAddress?: string | undefined;
   phoneNumber?: string | undefined;
   possessionType: string;
   smsMessage?: string | undefined;
 };
 
 /** @internal */
-export const V3MFARequest$outboundSchema: z.ZodType<
-  V3MFARequest$Outbound,
+export const V3UnifyRequest$outboundSchema: z.ZodType<
+  V3UnifyRequest$Outbound,
   z.ZodTypeDef,
-  V3MFARequest
+  V3UnifyRequest
 > = z.object({
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
-  emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
-  ipAddress: z.string().optional(),
   phoneNumber: z.string().optional(),
   possessionType: z.string(),
   smsMessage: z.string().optional(),
@@ -108,25 +94,25 @@ export const V3MFARequest$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3MFARequest$ {
-  /** @deprecated use `V3MFARequest$inboundSchema` instead. */
-  export const inboundSchema = V3MFARequest$inboundSchema;
-  /** @deprecated use `V3MFARequest$outboundSchema` instead. */
-  export const outboundSchema = V3MFARequest$outboundSchema;
-  /** @deprecated use `V3MFARequest$Outbound` instead. */
-  export type Outbound = V3MFARequest$Outbound;
+export namespace V3UnifyRequest$ {
+  /** @deprecated use `V3UnifyRequest$inboundSchema` instead. */
+  export const inboundSchema = V3UnifyRequest$inboundSchema;
+  /** @deprecated use `V3UnifyRequest$outboundSchema` instead. */
+  export const outboundSchema = V3UnifyRequest$outboundSchema;
+  /** @deprecated use `V3UnifyRequest$Outbound` instead. */
+  export type Outbound = V3UnifyRequest$Outbound;
 }
 
-export function v3MFARequestToJSON(v3MFARequest: V3MFARequest): string {
-  return JSON.stringify(V3MFARequest$outboundSchema.parse(v3MFARequest));
+export function v3UnifyRequestToJSON(v3UnifyRequest: V3UnifyRequest): string {
+  return JSON.stringify(V3UnifyRequest$outboundSchema.parse(v3UnifyRequest));
 }
 
-export function v3MFARequestFromJSON(
+export function v3UnifyRequestFromJSON(
   jsonString: string,
-): SafeParseResult<V3MFARequest, SDKValidationError> {
+): SafeParseResult<V3UnifyRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3MFARequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3MFARequest' from JSON`,
+    (x) => V3UnifyRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3UnifyRequest' from JSON`,
   );
 }
