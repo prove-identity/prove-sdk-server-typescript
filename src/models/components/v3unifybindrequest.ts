@@ -8,9 +8,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Request body for the V3 MFA Bind API
+ * Request body for the V3 Unify Bind API
  */
-export type V3MFABindRequest = {
+export type V3UnifyBindRequest = {
   /**
    * Client Request ID is a client-generated unique ID for a specific request.
    *
@@ -24,11 +24,11 @@ export type V3MFABindRequest = {
    * Correlation ID is the unique ID that Prove generates for the flow. It is returned
    *
    * @remarks
-   * from the v3/mfa endpoint and cannot be reused outside of a single flow.
+   * from the v3/unify endpoint and cannot be reused outside of a single flow.
    */
   correlationId?: string | undefined;
   /**
-   * Phone number is only allowed when possessionType=none from the initial MFA request.
+   * Phone number is only allowed when possessionType=none from the initial Unify request.
    *
    * @remarks
    * Required for BYO Possession flow on the third call.
@@ -37,8 +37,8 @@ export type V3MFABindRequest = {
 };
 
 /** @internal */
-export const V3MFABindRequest$inboundSchema: z.ZodType<
-  V3MFABindRequest,
+export const V3UnifyBindRequest$inboundSchema: z.ZodType<
+  V3UnifyBindRequest,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -48,17 +48,17 @@ export const V3MFABindRequest$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type V3MFABindRequest$Outbound = {
+export type V3UnifyBindRequest$Outbound = {
   clientRequestId?: string | undefined;
   correlationId?: string | undefined;
   phoneNumber?: string | undefined;
 };
 
 /** @internal */
-export const V3MFABindRequest$outboundSchema: z.ZodType<
-  V3MFABindRequest$Outbound,
+export const V3UnifyBindRequest$outboundSchema: z.ZodType<
+  V3UnifyBindRequest$Outbound,
   z.ZodTypeDef,
-  V3MFABindRequest
+  V3UnifyBindRequest
 > = z.object({
   clientRequestId: z.string().optional(),
   correlationId: z.string().optional(),
@@ -69,29 +69,29 @@ export const V3MFABindRequest$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3MFABindRequest$ {
-  /** @deprecated use `V3MFABindRequest$inboundSchema` instead. */
-  export const inboundSchema = V3MFABindRequest$inboundSchema;
-  /** @deprecated use `V3MFABindRequest$outboundSchema` instead. */
-  export const outboundSchema = V3MFABindRequest$outboundSchema;
-  /** @deprecated use `V3MFABindRequest$Outbound` instead. */
-  export type Outbound = V3MFABindRequest$Outbound;
+export namespace V3UnifyBindRequest$ {
+  /** @deprecated use `V3UnifyBindRequest$inboundSchema` instead. */
+  export const inboundSchema = V3UnifyBindRequest$inboundSchema;
+  /** @deprecated use `V3UnifyBindRequest$outboundSchema` instead. */
+  export const outboundSchema = V3UnifyBindRequest$outboundSchema;
+  /** @deprecated use `V3UnifyBindRequest$Outbound` instead. */
+  export type Outbound = V3UnifyBindRequest$Outbound;
 }
 
-export function v3MFABindRequestToJSON(
-  v3MFABindRequest: V3MFABindRequest,
+export function v3UnifyBindRequestToJSON(
+  v3UnifyBindRequest: V3UnifyBindRequest,
 ): string {
   return JSON.stringify(
-    V3MFABindRequest$outboundSchema.parse(v3MFABindRequest),
+    V3UnifyBindRequest$outboundSchema.parse(v3UnifyBindRequest),
   );
 }
 
-export function v3MFABindRequestFromJSON(
+export function v3UnifyBindRequestFromJSON(
   jsonString: string,
-): SafeParseResult<V3MFABindRequest, SDKValidationError> {
+): SafeParseResult<V3UnifyBindRequest, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3MFABindRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3MFABindRequest' from JSON`,
+    (x) => V3UnifyBindRequest$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3UnifyBindRequest' from JSON`,
   );
 }

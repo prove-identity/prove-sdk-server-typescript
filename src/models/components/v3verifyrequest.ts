@@ -36,7 +36,7 @@ export type V3VerifyRequest = {
    */
   lastName: string;
   /**
-   * Phone number is the number of the mobile phone. The field is required in the Sandbox environment. In Production, you will likely pass the phone number via the Prove Link client SDK instead of within the Start call depending on how your user experience is implemented. Acceptable characters are: alphanumeric with symbols '+'.
+   * Phone number is the number of the mobile phone. The field is required in the Sandbox environment. US phone numbers can be passed in with or without a leading `+1`. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
   /**

@@ -25,19 +25,20 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Check status of MFA session.
+ * Check status of Unify session.
  *
  * @remarks
- * Send this request to bind Prove Key to a phone nuymber of an MFA session and get the possession result.
+ * Send this request to bind Prove Key to a phone nuymber of an Unify session and get the possession result.
  */
-export async function v3V3MFABindRequest(
+export async function v3V3UnifyBindRequest(
   client: ProveapiCore,
-  request?: components.V3MFABindRequest | undefined,
+  request?: components.V3UnifyBindRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   Result<
-    operations.V3MFABindRequestResponse,
+    operations.V3UnifyBindRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -52,7 +53,7 @@ export async function v3V3MFABindRequest(
   const parsed = safeParse(
     request,
     (value) =>
-      components.V3MFABindRequest$outboundSchema.optional().parse(value),
+      components.V3UnifyBindRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -63,7 +64,7 @@ export async function v3V3MFABindRequest(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/mfa-bind")();
+  const path = pathToFunc("/v3/unify-bind")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -74,7 +75,7 @@ export async function v3V3MFABindRequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
-    operationID: "V3MFABindRequest",
+    operationID: "V3UnifyBindRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -116,8 +117,9 @@ export async function v3V3MFABindRequest(
   };
 
   const [result] = await M.match<
-    operations.V3MFABindRequestResponse,
+    operations.V3UnifyBindRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -128,14 +130,15 @@ export async function v3V3MFABindRequest(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, operations.V3MFABindRequestResponse$inboundSchema, {
+    M.json(200, operations.V3UnifyBindRequestResponse$inboundSchema, {
       hdrs: true,
-      key: "V3MFABindResponse",
+      key: "V3UnifyBindResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {

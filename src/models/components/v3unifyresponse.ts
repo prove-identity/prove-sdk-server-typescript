@@ -8,9 +8,9 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Response body for the V3 MFA API
+ * Response body for the V3 Unify API
  */
-export type V3MFAResponse = {
+export type V3UnifyResponse = {
   /**
    * AuthToken is a one-time use JWT for client side possession SDK
    *
@@ -26,8 +26,8 @@ export type V3MFAResponse = {
 };
 
 /** @internal */
-export const V3MFAResponse$inboundSchema: z.ZodType<
-  V3MFAResponse,
+export const V3UnifyResponse$inboundSchema: z.ZodType<
+  V3UnifyResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -37,17 +37,17 @@ export const V3MFAResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type V3MFAResponse$Outbound = {
+export type V3UnifyResponse$Outbound = {
   authToken?: string | undefined;
   correlationId: string;
   success: string;
 };
 
 /** @internal */
-export const V3MFAResponse$outboundSchema: z.ZodType<
-  V3MFAResponse$Outbound,
+export const V3UnifyResponse$outboundSchema: z.ZodType<
+  V3UnifyResponse$Outbound,
   z.ZodTypeDef,
-  V3MFAResponse
+  V3UnifyResponse
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
@@ -58,25 +58,27 @@ export const V3MFAResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3MFAResponse$ {
-  /** @deprecated use `V3MFAResponse$inboundSchema` instead. */
-  export const inboundSchema = V3MFAResponse$inboundSchema;
-  /** @deprecated use `V3MFAResponse$outboundSchema` instead. */
-  export const outboundSchema = V3MFAResponse$outboundSchema;
-  /** @deprecated use `V3MFAResponse$Outbound` instead. */
-  export type Outbound = V3MFAResponse$Outbound;
+export namespace V3UnifyResponse$ {
+  /** @deprecated use `V3UnifyResponse$inboundSchema` instead. */
+  export const inboundSchema = V3UnifyResponse$inboundSchema;
+  /** @deprecated use `V3UnifyResponse$outboundSchema` instead. */
+  export const outboundSchema = V3UnifyResponse$outboundSchema;
+  /** @deprecated use `V3UnifyResponse$Outbound` instead. */
+  export type Outbound = V3UnifyResponse$Outbound;
 }
 
-export function v3MFAResponseToJSON(v3MFAResponse: V3MFAResponse): string {
-  return JSON.stringify(V3MFAResponse$outboundSchema.parse(v3MFAResponse));
+export function v3UnifyResponseToJSON(
+  v3UnifyResponse: V3UnifyResponse,
+): string {
+  return JSON.stringify(V3UnifyResponse$outboundSchema.parse(v3UnifyResponse));
 }
 
-export function v3MFAResponseFromJSON(
+export function v3UnifyResponseFromJSON(
   jsonString: string,
-): SafeParseResult<V3MFAResponse, SDKValidationError> {
+): SafeParseResult<V3UnifyResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3MFAResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3MFAResponse' from JSON`,
+    (x) => V3UnifyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3UnifyResponse' from JSON`,
   );
 }

@@ -38,6 +38,7 @@ export async function v3V3StartRequest(
   Result<
     operations.V3StartRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -117,6 +118,7 @@ export async function v3V3StartRequest(
   const [result] = await M.match<
     operations.V3StartRequestResponse,
     | errors.Error400
+    | errors.Error401
     | errors.Error403
     | errors.ErrorT
     | SDKError
@@ -131,9 +133,10 @@ export async function v3V3StartRequest(
       key: "V3StartResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
-    M.fail([401, "4XX"]),
+    M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
