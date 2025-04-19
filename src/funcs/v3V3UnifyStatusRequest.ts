@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Check status of Unify session.
+ * Check Status of Unify Session
  *
  * @remarks
- * Send this request to check the status of an Unify session and get the possession result.
+ * This endpoint allows you to check the status of a Unify session and get the possession result.
  */
 export async function v3V3UnifyStatusRequest(
   client: ProveapiCore,
