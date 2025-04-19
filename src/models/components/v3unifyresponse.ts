@@ -7,19 +7,13 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Response body for the V3 Unify API
- */
 export type V3UnifyResponse = {
   /**
-   * AuthToken is a one-time use JWT for client side possession SDK
-   *
-   * @remarks
-   * authentication/authorization.
+   * The one-time use JWT for the client-side SDK.
    */
   authToken?: string | undefined;
   /**
-   * Correlation ID is the unique ID that Prove generates for the flow.
+   * The unique ID that Prove generates for the flow.
    */
   correlationId: string;
   success: string;

@@ -7,12 +7,9 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Response body for the V3 Unify Bind API
- */
 export type V3UnifyBindResponse = {
   /**
-   * Phone number that may have been discovered via Mobile Auth during the process.
+   * The number of the mobile phone used during the process.
    */
   phoneNumber: string;
   success: string;

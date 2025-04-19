@@ -7,31 +7,20 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Request body for the V3 Unify Status API
- */
 export type V3UnifyStatusRequest = {
   /**
-   * Client Request ID is a client-generated unique ID for a specific request.
-   *
-   * @remarks
-   * This can be used by clients to identify specific requests made to Prove Link.
-   * The format of this ID is defined by the client - Prove recommends using a GUID,
-   * but any format can be accepted.
+   * A client-generated unique ID for a specific request.
    */
   clientRequestId?: string | undefined;
   /**
-   * Correlation ID is the unique ID that Prove generates for the flow. It is returned
+   * The unique ID that Prove generates for the flow. It is returned
    *
    * @remarks
    * from the v3/unify endpoint and cannot be reused outside of a single flow.
    */
   correlationId?: string | undefined;
   /**
-   * Phone number is only allowed when possessionType=none from the initial Unify request.
-   *
-   * @remarks
-   * Required for BYO Possession flow on the third call.
+   * The number of the mobile phone. Required when `possessionType=none` in the initial Unify request.
    */
   phoneNumber?: string | undefined;
 };
