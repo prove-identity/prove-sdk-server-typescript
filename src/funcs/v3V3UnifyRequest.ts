@@ -25,11 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Initiate possession check.
+ * Initiate Possession Check
  *
  * @remarks
- * Send this request to initiate a possession check. It will return a correlation ID
- * and authToken for the client SDK.
+ * This endpoint allows you to initiate the possession check.
  */
 export async function v3V3UnifyRequest(
   client: ProveapiCore,

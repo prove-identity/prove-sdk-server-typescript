@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Check status of Unify session.
+ * Bind Prove Key
  *
  * @remarks
- * Send this request to bind Prove Key to a phone nuymber of an Unify session and get the possession result.
+ * This endpoint allows you to bind a Prove Key to a phone number of a Unify session and get the possession result.
  */
 export async function v3V3UnifyBindRequest(
   client: ProveapiCore,
