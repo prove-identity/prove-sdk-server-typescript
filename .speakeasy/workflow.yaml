@@ -18,4 +18,5 @@ targets:
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/prove/prove-dev/my-source-typescript-code-samples
+            output: codeSamples.yaml
             blocking: false
