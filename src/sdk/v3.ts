@@ -87,11 +87,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Initiate possession check.
+   * Initiate Possession Check
    *
    * @remarks
-   * Send this request to initiate a possession check. It will return a correlation ID
-   * and authToken for the client SDK.
+   * This endpoint allows you to initiate the possession check.
    */
   async v3UnifyRequest(
     request?: components.V3UnifyRequest | undefined,
@@ -105,10 +104,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Check status of Unify session.
+   * Bind Prove Key
    *
    * @remarks
-   * Send this request to bind Prove Key to a phone nuymber of an Unify session and get the possession result.
+   * This endpoint allows you to bind a Prove Key to a phone number of a Unify session and get the possession result.
    */
   async v3UnifyBindRequest(
     request?: components.V3UnifyBindRequest | undefined,
@@ -122,10 +121,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Check status of Unify session.
+   * Check Status of Unify Session
    *
    * @remarks
-   * Send this request to check the status of an Unify session and get the possession result.
+   * This endpoint allows you to check the status of a Unify session and get the possession result.
    */
   async v3UnifyStatusRequest(
     request?: components.V3UnifyStatusRequest | undefined,

@@ -1,0 +1,305 @@
+overlay: 1.0.0
+info:
+  title: CodeSamples overlay for typescript target
+  version: 0.0.0
+actions:
+  - target: $["paths"]["/token"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3TokenRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi();
+
+            async function run() {
+              const result = await proveapi.v3.v3TokenRequest({
+                clientId: "customer_id",
+                clientSecret: "secret",
+                grantType: "client_credentials",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/challenge"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3ChallengeRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3ChallengeRequest({
+                correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+                dob: "1981-01",
+                ssn: "0596",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/complete"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3CompleteRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3CompleteRequest({
+                correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+                individual: {
+                  addresses: [
+                    {
+                      address: "39 South Trail",
+                      city: "San Antonio",
+                      extendedAddress: "Apt 23",
+                      postalCode: "78285",
+                      region: "TX",
+                    },
+                    {
+                      address: "4861 Jay Junction",
+                      city: "Boston",
+                      extendedAddress: "Apt 78",
+                      postalCode: "02208",
+                      region: "MS",
+                    },
+                  ],
+                  dob: "1981-01",
+                  emailAddresses: [
+                    "jdoe@example.com",
+                    "dsmith@example.com",
+                  ],
+                  firstName: "Tod",
+                  lastName: "Weedall",
+                  ssn: "265228370",
+                },
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/start"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3StartRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3StartRequest({
+                dob: "1981-01",
+                emailAddress: "mpinsonm@dyndns.org",
+                finalTargetUrl: "https://www.example.com/landing-page",
+                flowType: "mobile",
+                ipAddress: "10.0.0.1",
+                phoneNumber: "2001001695",
+                smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+                ssn: "0596",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/unify"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3UnifyRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3UnifyRequest({
+                clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                finalTargetUrl: "https://www.example.com/landing-page",
+                phoneNumber: "2001004011",
+                possessionType: "mobile",
+                smsMessage: "#### is your verification code",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/unify-bind"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3UnifyBindRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3UnifyBindRequest({
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+                phoneNumber: "2001004011",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/unify-status"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3UnifyStatusRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3UnifyStatusRequest({
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+                phoneNumber: "2001004011",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/validate"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3ValidateRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3ValidateRequest({
+                correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/verify"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3VerifyRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3VerifyRequest({
+                clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                emailAddress: "sbutrimovichb@who.int",
+                finalTargetUrl: "https://www.example.com/landing-page",
+                firstName: "Sheilakathryn",
+                lastName: "Butrimovich",
+                phoneNumber: "2001004011",
+                possessionType: "mobile",
+                smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/verify-status"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3VerifyStatusRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3VerifyStatusRequest({
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();

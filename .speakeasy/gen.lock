@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 631e98723f8d838276a7dfc50d6c60de
+  docChecksum: 881b3374972f56d6a834287fb698b669
   docVersion: 1.0.0
   speakeasyVersion: 1.487.1
   generationVersion: 2.506.0
-  releaseVersion: 0.9.4
-  configChecksum: 9e46bcde03644a2194a6e07b2ab5b5e1
+  releaseVersion: 0.9.5
+  configChecksum: e388f2692026debc25421de766287258
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true

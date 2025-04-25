@@ -7,47 +7,43 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Request body for the V3 Unify API
- */
 export type V3UnifyRequest = {
   /**
-   * Client Customer ID is a client-generated unique ID for a specific customer.
+   * A client-generated unique ID for a specific customer.
    */
   clientCustomerId?: string | undefined;
   /**
-   * Client Request ID is a client-generated unique ID for a specific session.
+   * A client-generated unique ID for a specific session.
    */
   clientRequestId?: string | undefined;
   /**
-   * Final target URL is only required when possessionType=desktop. The final target
+   * The final target URL is where the end user will be redirected at the end of Instant Link flow. Required when `possessionType=desktop`.
    *
    * @remarks
-   * URL is where the end user will be redirected at the end of Instant Link flow.
    * Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
    */
   finalTargetUrl?: string | undefined;
   /**
-   * Phone number is the number of the mobile phone. Optional in US, required in EU.
+   * The number of the mobile phone. Optional in US, required in EU.
    *
    * @remarks
-   * Not allowed when possessionType is 'none'. Acceptable characters are:
+   * Not allowed when possessionType is `none`. Acceptable characters are:
    * alphanumeric with symbols '+'.
    */
   phoneNumber?: string | undefined;
   /**
-   * Possession type is based on the method used - either 'desktop' if using desktop,
+   * The type of device being used - either `desktop` if using a desktop,
    *
    * @remarks
-   * 'mobile' for iOS/Android native apps and mobile web, or 'none' if no possession
-   * check is required. Acceptable options are: 'desktop', 'mobile', and 'none'.
+   * `mobile` for iOS/Android native apps and mobile web, or `none` if no possession
+   * check is required.
    */
   possessionType: string;
   /**
-   * SMSMessage is an optional field to customize the message body sent in the
+   * The message body sent in the
    *
    * @remarks
-   * Instant Link (possessionType=desktop) or OTP (on mobile) SMS message.
+   * Instant Link (`possessionType=desktop`) or OTP (`possessionType=mobile`) SMS message.
    */
   smsMessage?: string | undefined;
 };

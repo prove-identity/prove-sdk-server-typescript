@@ -12,7 +12,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 export type V3UnifyBindRequestResponse = {
   httpMeta: components.HTTPMetadata;
   /**
-   * Successful Request
+   * Successful Request.
    */
   v3UnifyBindResponse?: components.V3UnifyBindResponse | undefined;
   headers: { [k: string]: Array<string> };

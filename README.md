@@ -181,9 +181,9 @@ run();
 * [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
 * [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
 * [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start flow.
-* [v3UnifyRequest](docs/sdks/v3/README.md#v3unifyrequest) - Initiate possession check.
-* [v3UnifyBindRequest](docs/sdks/v3/README.md#v3unifybindrequest) - Check status of Unify session.
-* [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check status of Unify session.
+* [v3UnifyRequest](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
+* [v3UnifyBindRequest](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key
+* [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status of Unify Session
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
 * [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
 * [v3VerifyStatusRequest](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform checks for verified users session.
@@ -517,9 +517,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start flow.
 - [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
-- [`v3V3UnifyBindRequest`](docs/sdks/v3/README.md#v3unifybindrequest) - Check status of Unify session.
-- [`v3V3UnifyRequest`](docs/sdks/v3/README.md#v3unifyrequest) - Initiate possession check.
-- [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check status of Unify session.
+- [`v3V3UnifyBindRequest`](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key
+- [`v3V3UnifyRequest`](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
+- [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status of Unify Session
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
 - [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
 - [`v3V3VerifyStatusRequest`](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform checks for verified users session.
