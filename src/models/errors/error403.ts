@@ -6,18 +6,18 @@ import * as z from "zod";
 
 export type Error403Data = {
   /**
-   * An internal error code that identifies the specific authorization issue.
+   * An error code that identifies the specific authorization issue.
    */
   code?: number | undefined;
   /**
-   * An error message describing why access is forbidden.
+   * The error message describing why access is forbidden.
    */
   message: string;
 };
 
 export class Error403 extends Error {
   /**
-   * An internal error code that identifies the specific authorization issue.
+   * An error code that identifies the specific authorization issue.
    */
   code?: number | undefined;
 

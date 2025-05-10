@@ -5,20 +5,20 @@
 
 ### Available Operations
 
-* [v3TokenRequest](#v3tokenrequest) - Request OAuth token.
-* [v3ChallengeRequest](#v3challengerequest) - Submit challenge.
-* [v3CompleteRequest](#v3completerequest) - Complete flow.
-* [v3StartRequest](#v3startrequest) - Start flow.
+* [v3TokenRequest](#v3tokenrequest) - Request OAuth Token
+* [v3ChallengeRequest](#v3challengerequest) - Submit Challenge
+* [v3CompleteRequest](#v3completerequest) - Complete Flow
+* [v3StartRequest](#v3startrequest) - Start Flow
 * [v3UnifyRequest](#v3unifyrequest) - Initiate Possession Check
 * [v3UnifyBindRequest](#v3unifybindrequest) - Bind Prove Key
-* [v3UnifyStatusRequest](#v3unifystatusrequest) - Check Status of Unify Session
-* [v3ValidateRequest](#v3validaterequest) - Validate phone number.
-* [v3VerifyRequest](#v3verifyrequest) - Initiate verified users session.
-* [v3VerifyStatusRequest](#v3verifystatusrequest) - Perform checks for verified users session.
+* [v3UnifyStatusRequest](#v3unifystatusrequest) - Check Status
+* [v3ValidateRequest](#v3validaterequest) - Validate Phone Number
+* [v3VerifyRequest](#v3verifyrequest) - Initiate Verified Users Session
+* [v3VerifyStatusRequest](#v3verifystatusrequest) - Perform Checks for Verified Users Session
 
 ## v3TokenRequest
 
-Send this request to request the OAuth token.
+This endpoint allows you to request an OAuth token.
 
 ### Example Usage
 
@@ -90,14 +90,14 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3ChallengeRequest
 
-Send this request to submit challenge information. Either a DOB or last 4 of SSN needs to be submitted if neither was submitted to the /start endpoint (challenge fields submitted to this endpoint will overwrite the /start endpoint fields submitted). It will return a correlation ID, user information, and the next step to call in the flow. This capability is only available in Pre-Fill®, it's not available in Prove Identity®. You'll notice that when using Prove Identity®, if /validate is successful, it will then return `v3-complete` as one of the keys in the `Next` field map instead of `v3-challenge`.
+This endpoint allows you to submit challenge information.
 
 ### Example Usage
 
@@ -179,7 +179,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -187,7 +187,7 @@ run();
 
 ## v3CompleteRequest
 
-Send this request to verify the user and complete the flow. It will return a correlation ID, user information, and the next step to call in the flow. There is a validation check that requires at least first + last name or SSN passed in, else an HTTP 400 is returned. Additionally, specific to the Pre-Fill® or Prove Identity® with KYC use case, you need to pass in first name, last name, DOB and SSN (or address) to ensure you receive back the KYC elements and correct CIP values.
+This endpoint allows you to verify the user and complete the flow.
 
 ### Example Usage
 
@@ -317,7 +317,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -325,7 +325,7 @@ run();
 
 ## v3StartRequest
 
-Send this request to start a Prove flow. It will return a correlation ID and an authToken for the client SDK.
+This endpoint allows you to start the solution flow.
 
 ### Example Usage
 
@@ -347,7 +347,7 @@ async function run() {
     flowType: "mobile",
     ipAddress: "10.0.0.1",
     phoneNumber: "2001001695",
-    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+    smsMessage: "1234 is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
     ssn: "0596",
   });
 
@@ -383,7 +383,7 @@ async function run() {
     flowType: "mobile",
     ipAddress: "10.0.0.1",
     phoneNumber: "2001001695",
-    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+    smsMessage: "1234 is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
     ssn: "0596",
   });
 
@@ -417,7 +417,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -446,7 +446,7 @@ async function run() {
     finalTargetUrl: "https://www.example.com/landing-page",
     phoneNumber: "2001004011",
     possessionType: "mobile",
-    smsMessage: "#### is your verification code",
+    smsMessage: "#### is your verification code.",
   });
 
   // Handle the result
@@ -480,7 +480,7 @@ async function run() {
     finalTargetUrl: "https://www.example.com/landing-page",
     phoneNumber: "2001004011",
     possessionType: "mobile",
-    smsMessage: "#### is your verification code",
+    smsMessage: "#### is your verification code.",
   });
 
   if (!res.ok) {
@@ -513,7 +513,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -603,7 +603,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -693,7 +693,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -701,7 +701,7 @@ run();
 
 ## v3ValidateRequest
 
-Send this request to check the phone number entered/discovered earlier in the flow is validated. It will return a correlation ID and the next step.
+This endpoint allows you to check if the phone number entered/discovered earlier in the flow is validated.
 
 ### Example Usage
 
@@ -779,7 +779,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -787,7 +787,7 @@ run();
 
 ## v3VerifyRequest
 
-Send this request to initiate a Verified Users session. It will return a correlation ID, authToken for the client SDK, and the results of the possession and verify checks (usually pending from this API).
+This endpoint allows you to initiate a Verified Users session.
 
 ### Example Usage
 
@@ -811,7 +811,7 @@ async function run() {
     lastName: "Butrimovich",
     phoneNumber: "2001004011",
     possessionType: "mobile",
-    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+    smsMessage: "1234 is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
   });
 
   // Handle the result
@@ -848,7 +848,7 @@ async function run() {
     lastName: "Butrimovich",
     phoneNumber: "2001004011",
     possessionType: "mobile",
-    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+    smsMessage: "1234 is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
   });
 
   if (!res.ok) {
@@ -881,7 +881,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -889,7 +889,7 @@ run();
 
 ## v3VerifyStatusRequest
 
-Send this request to perform the necessary checks for a Verified Users session. It will return the results of the possession and verify checks, as well as the overall success.
+This endpoint allows you to perform the necessary checks for a Verified Users session.
 
 ### Example Usage
 
@@ -969,7 +969,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |

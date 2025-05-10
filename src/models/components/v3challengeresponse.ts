@@ -16,11 +16,11 @@ import {
 export type V3ChallengeResponse = {
   individual?: V3ChallengeIndividualRequest | undefined;
   /**
-   * Next contains the next set of allowed calls in the same flow.
+   * The next set of allowed calls in the same flow.
    */
   next: { [k: string]: string };
   /**
-   * Success returns true if the challenge was accepted and user info retrieved.
+   * True if the challenge was accepted and user info retrieved.
    */
   success: boolean;
 };
