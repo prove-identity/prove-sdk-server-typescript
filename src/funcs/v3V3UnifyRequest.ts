@@ -37,7 +37,7 @@ export async function v3V3UnifyRequest(
 ): Promise<
   Result<
     operations.V3UnifyRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -117,7 +117,7 @@ export async function v3V3UnifyRequest(
 
   const [result] = await M.match<
     operations.V3UnifyRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -132,7 +132,7 @@ export async function v3V3UnifyRequest(
     M.json(200, operations.V3UnifyRequestResponse$inboundSchema, {
       key: "V3UnifyResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

@@ -23,11 +23,11 @@ export type V3CompleteResponse = {
   idv?: IDVDataInternal | undefined;
   kyc?: KYCInternal | undefined;
   /**
-   * Next contains the next set of allowed calls in the same flow.
+   * The next set of allowed calls in the same flow.
    */
   next: { [k: string]: string };
   /**
-   * Success returns true if the individual was verified successfully.
+   * True if the individual was verified successfully.
    */
   success: boolean;
 };
