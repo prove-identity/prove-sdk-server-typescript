@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Submit challenge.
+ * Submit Challenge
  *
  * @remarks
- * Send this request to submit challenge information. Either a DOB or last 4 of SSN needs to be submitted if neither was submitted to the /start endpoint (challenge fields submitted to this endpoint will overwrite the /start endpoint fields submitted). It will return a correlation ID, user information, and the next step to call in the flow. This capability is only available in Pre-Fill®, it's not available in Prove Identity®. You'll notice that when using Prove Identity®, if /validate is successful, it will then return `v3-complete` as one of the keys in the `Next` field map instead of `v3-challenge`.
+ * This endpoint allows you to submit challenge information.
  */
 export async function v3V3ChallengeRequest(
   client: ProveapiCore,
@@ -37,7 +37,7 @@ export async function v3V3ChallengeRequest(
 ): Promise<
   Result<
     operations.V3ChallengeRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -118,7 +118,7 @@ export async function v3V3ChallengeRequest(
 
   const [result] = await M.match<
     operations.V3ChallengeRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -133,7 +133,7 @@ export async function v3V3ChallengeRequest(
     M.json(200, operations.V3ChallengeRequestResponse$inboundSchema, {
       key: "V3ChallengeResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

@@ -1,6 +1,6 @@
 # V3VerifyStatusResponsePossessionResult
 
-Possession Result represents the result of the Possession check. Possible values are "success", "pending", "failed", and "not applicable".
+The result of the possession check. Possible values are `success`, `pending`, `failed`, and `not_applicable`.
 
 ## Example Usage
 

@@ -8,34 +8,35 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Possession Result represents the result of the Possession check. Possible values are "success", "pending", "failed", and "not applicable".
+ * The result of the possession check. Possible values are `success`, `pending`, `failed`, and `not_applicable`.
  */
 export type V3VerifyStatusResponsePossessionResult = {};
 
 /**
- * Success is the result of the combination of Verify Result and Possession Result. Possible values are "true", "pending", and "false". The success value will be "pending" until the results of both Verify and Possession are returned or one of them fails, blocking the other.
+ * The result of the combination of Verify Result and Possession Result. Possible values are `true`, `pending`, and `false`. The success value will be `pending` until the results of both Verify and Possession are returned or one of them fails, blocking the other.
  */
 export type V3VerifyStatusResponseSuccess = {};
 
 /**
- * Verify Result represents the result of the Verify process. Possible values are "success", "pending", "failed", and "not applicable".
+ * The result of the Verify process. Possible values are `success`, `pending`, `failed`, and `not_applicable`.
  */
 export type V3VerifyStatusResponseVerifyResult = {};
 
-/**
- * Response body for the V3 Verify Status API
- */
 export type V3VerifyStatusResponse = {
   /**
-   * Possession Result represents the result of the Possession check. Possible values are "success", "pending", "failed", and "not applicable".
+   * A unique ID that Prove generates to refer to a specific identity.
+   */
+  identityId?: string | undefined;
+  /**
+   * The result of the possession check. Possible values are `success`, `pending`, `failed`, and `not_applicable`.
    */
   possessionResult: V3VerifyStatusResponsePossessionResult;
   /**
-   * Success is the result of the combination of Verify Result and Possession Result. Possible values are "true", "pending", and "false". The success value will be "pending" until the results of both Verify and Possession are returned or one of them fails, blocking the other.
+   * The result of the combination of Verify Result and Possession Result. Possible values are `true`, `pending`, and `false`. The success value will be `pending` until the results of both Verify and Possession are returned or one of them fails, blocking the other.
    */
   success: V3VerifyStatusResponseSuccess;
   /**
-   * Verify Result represents the result of the Verify process. Possible values are "success", "pending", "failed", and "not applicable".
+   * The result of the Verify process. Possible values are `success`, `pending`, `failed`, and `not_applicable`.
    */
   verifyResult: V3VerifyStatusResponseVerifyResult;
 };
@@ -202,6 +203,7 @@ export const V3VerifyStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  identityId: z.string().optional(),
   possessionResult: z.lazy(() =>
     V3VerifyStatusResponsePossessionResult$inboundSchema
   ),
@@ -211,6 +213,7 @@ export const V3VerifyStatusResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3VerifyStatusResponse$Outbound = {
+  identityId?: string | undefined;
   possessionResult: V3VerifyStatusResponsePossessionResult$Outbound;
   success: V3VerifyStatusResponseSuccess$Outbound;
   verifyResult: V3VerifyStatusResponseVerifyResult$Outbound;
@@ -222,6 +225,7 @@ export const V3VerifyStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyStatusResponse
 > = z.object({
+  identityId: z.string().optional(),
   possessionResult: z.lazy(() =>
     V3VerifyStatusResponsePossessionResult$outboundSchema
   ),
