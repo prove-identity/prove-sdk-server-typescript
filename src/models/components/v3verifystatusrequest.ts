@@ -7,16 +7,13 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Request body for the V3 Verify Status API
- */
 export type V3VerifyStatusRequest = {
   /**
-   * Client Request ID is a client-generated unique ID for a specific request. This can be used by clients to identify specific requests made to Prove Link. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Request ID at this time, and this is expected to be added in a future release. NOTE: Do not include Personally Identifiable Information (PII) in this field.
+   * A client-generated unique ID for a specific request. This can be used by clients to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Request ID. Do not include personally identifiable information (PII) in this field.
    */
   clientRequestId?: string | undefined;
   /**
-   * Correlation ID is the unique ID that Prove generates for the flow. It is returned from the v3/verify endpoint and cannot be reused outside of a single flow.
+   * The unique ID that Prove generates for the flow. It is returned from the v3/verify endpoint and cannot be reused outside of a single flow.
    */
   correlationId?: string | undefined;
 };
