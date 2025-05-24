@@ -10,23 +10,23 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3TokenResponse = {
   /**
-   * AccessToken returns the access token as a string.
+   * The access token used to authenticate API calls.
    */
   accessToken: string;
   /**
-   * ExpiresIn returns the lifetime of the token in seconds.
+   * The lifetime of the token in seconds.
    */
   expiresIn: number;
   /**
-   * RefreshExpiresIn returns the lifetime of the token in seconds. Not currently supported.
+   * The lifetime of the refresh token in seconds. Not currently supported.
    */
   refreshExpiresIn?: number | undefined;
   /**
-   * RefreshToken returns the refresh token as a string. Not currently supported.
+   * The token used to refresh the expiration time. Not currently supported.
    */
   refreshToken?: string | undefined;
   /**
-   * TokenType returns the type of token.
+   * The type of token.
    */
   tokenType: string;
 };
