@@ -24,11 +24,10 @@ export type V3UnifyRequest = {
    */
   finalTargetUrl?: string | undefined;
   /**
-   * The number of the mobile phone. Optional in US, required in EU.
+   * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    *
    * @remarks
-   * Not allowed when possessionType is `none`. Acceptable characters are:
-   * alphanumeric with symbols '+'.
+   * Not allowed when `possessionType=none`. Acceptable characters are alphanumeric with symbols '+'.
    */
   phoneNumber?: string | undefined;
   /**
@@ -40,10 +39,12 @@ export type V3UnifyRequest = {
    */
   possessionType: string;
   /**
-   * The message body sent in the
+   * The message body sent in the Instant Link (`flowType=desktop`) or OTP (`flowType=mobile`) SMS message. If not provided, the following default messages will be used:
    *
    * @remarks
-   * Instant Link (`possessionType=desktop`) or OTP (`possessionType=mobile`) SMS message.
+   * Instant Link: "Complete your verification. If you did not make this request, do not click the link. ####" The verification URL replaces ####.
+   * OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone." Use ####, #####, or ###### to generate 4-6 digit verification codes respectively.
+   * Default language is English. Max length is 160 characters. Only ASCII characters are allowed.
    */
   smsMessage?: string | undefined;
 };
