@@ -37,7 +37,7 @@ export async function v3V3UnifyBindRequest(
 ): Promise<
   Result<
     operations.V3UnifyBindRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -118,7 +118,7 @@ export async function v3V3UnifyBindRequest(
 
   const [result] = await M.match<
     operations.V3UnifyBindRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -134,7 +134,7 @@ export async function v3V3UnifyBindRequest(
       hdrs: true,
       key: "V3UnifyBindResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

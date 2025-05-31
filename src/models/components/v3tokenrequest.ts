@@ -10,15 +10,15 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3TokenRequest = {
   /**
-   * ClientID is the optional client ID.
+   * The client ID retrieved from the [Developer Portal](https://developer.prove.com/reference/authentication).
    */
   clientId: string;
   /**
-   * ClientSecret is the client secret ID provided to the customer during onboarding.
+   * The client secret retrieved from the [Developer Portal](https://developer.prove.com/reference/authentication).
    */
   clientSecret: string;
   /**
-   * GrantType only allows option: `client_credentials`.
+   * The grant type. This field only accepts `client_credentials`.
    */
   grantType: string;
 };

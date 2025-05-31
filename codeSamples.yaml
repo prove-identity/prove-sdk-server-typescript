@@ -79,18 +79,10 @@ actions:
                       postalCode: "78285",
                       region: "TX",
                     },
-                    {
-                      address: "4861 Jay Junction",
-                      city: "Boston",
-                      extendedAddress: "Apt 78",
-                      postalCode: "02208",
-                      region: "MS",
-                    },
                   ],
                   dob: "1981-01",
                   emailAddresses: [
                     "jdoe@example.com",
-                    "dsmith@example.com",
                   ],
                   firstName: "Tod",
                   lastName: "Weedall",
@@ -120,6 +112,7 @@ actions:
 
             async function run() {
               const result = await proveapi.v3.v3StartRequest({
+                allowOTPRetry: true,
                 dob: "1981-01",
                 emailAddress: "mpinsonm@dyndns.org",
                 finalTargetUrl: "https://www.example.com/landing-page",
@@ -152,12 +145,14 @@ actions:
 
             async function run() {
               const result = await proveapi.v3.v3UnifyRequest({
+                allowOTPRetry: true,
                 clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
                 finalTargetUrl: "https://www.example.com/landing-page",
                 phoneNumber: "2001004011",
                 possessionType: "mobile",
-                smsMessage: "#### is your verification code",
+                rebind: true,
+                smsMessage: "#### is your verification code.",
               });
 
               // Handle the result
@@ -261,6 +256,7 @@ actions:
 
             async function run() {
               const result = await proveapi.v3.v3VerifyRequest({
+                allowOTPRetry: true,
                 clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
                 emailAddress: "sbutrimovichb@who.int",

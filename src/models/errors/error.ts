@@ -6,18 +6,18 @@ import * as z from "zod";
 
 export type ErrorTData = {
   /**
-   * An internal error code that describes the problem category of the request.
+   * Code is an internal error code that describes the problem category of the request.
    */
   code?: number | undefined;
   /**
-   * An error message describing the problem with the request.
+   * Message is an error message describing the problem with the request.
    */
   message: string;
 };
 
 export class ErrorT extends Error {
   /**
-   * An internal error code that describes the problem category of the request.
+   * Code is an internal error code that describes the problem category of the request.
    */
   code?: number | undefined;
 

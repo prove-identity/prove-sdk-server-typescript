@@ -6,18 +6,18 @@ import * as z from "zod";
 
 export type Error401Data = {
   /**
-   * An internal error code that describes the problem category of the request.
+   * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
   /**
-   * An error message describing the problem with the request.
+   * The error message describing the problem with the request.
    */
   message: string;
 };
 
 export class Error401 extends Error {
   /**
-   * An internal error code that describes the problem category of the request.
+   * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
 
