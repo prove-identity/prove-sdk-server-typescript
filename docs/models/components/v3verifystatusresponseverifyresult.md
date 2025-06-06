@@ -1,6 +1,6 @@
 # V3VerifyStatusResponseVerifyResult
 
-Verify Result represents the result of the Verify process. Possible values are "success", "pending", "failed", and "not applicable".
+The result of the Verify process. Possible values are `success`, `pending`, `failed`, and `not_applicable`.
 
 ## Example Usage
 

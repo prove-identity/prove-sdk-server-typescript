@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Complete flow.
+ * Complete Flow
  *
  * @remarks
- * Send this request to verify the user and complete the flow. It will return a correlation ID, user information, and the next step to call in the flow. There is a validation check that requires at least first + last name or SSN passed in, else an HTTP 400 is returned. Additionally, specific to the Pre-Fill® or Prove Identity® with KYC use case, you need to pass in first name, last name, DOB and SSN (or address) to ensure you receive back the KYC elements and correct CIP values.
+ * This endpoint allows you to verify the user and complete the flow.
  */
 export async function v3V3CompleteRequest(
   client: ProveapiCore,
@@ -37,7 +37,7 @@ export async function v3V3CompleteRequest(
 ): Promise<
   Result<
     operations.V3CompleteRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -118,7 +118,7 @@ export async function v3V3CompleteRequest(
 
   const [result] = await M.match<
     operations.V3CompleteRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -133,7 +133,7 @@ export async function v3V3CompleteRequest(
     M.json(200, operations.V3CompleteRequestResponse$inboundSchema, {
       key: "V3CompleteResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

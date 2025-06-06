@@ -9,45 +9,47 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3StartRequest = {
   /**
-   * DOB, an optional challenge, is the date of birth in one of these formats: YYYY-MM-DD, YYYY-MM, or MM-DD. Acceptable characters are: numeric with symbol '-'.
+   * If true, the customer can request additional OTP codes if the initial code verification failed.
+   */
+  allowOTPRetry?: boolean | undefined;
+  /**
+   * The date of birth in one of these formats: YYYY-MM-DD, YYYY-MM, or MM-DD. Acceptable characters are: numeric with symbol '-'.
    */
   dob?: string | undefined;
   /**
-   * Email is the email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
+   * The email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
    */
   emailAddress?: string | undefined;
   /**
-   * Final target URL is only required for when flowType=desktop. The final target URL is where the end user will be redirected at the end of Instant Link flow. Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
+   * The URL where the end user will be redirected at the end of the Instant Link flow. Required only when `flowType=desktop`. Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
    */
   finalTargetUrl?: string | undefined;
   /**
-   * Flow type is based on the method used - either 'desktop' if using desktop or 'mobile' for iOS/Android native apps and mobile web. Acceptable options are: 'desktop' or 'mobile'.
+   * The type of device being user - either `desktop` for desktop web or `mobile` for iOS/Android native apps and mobile web.
    */
   flowType: string;
   /**
-   * IP address is the IP address of the device of the customer. Acceptable characters are: numeric with symbols ':.'.
+   * The IP address of the mobile device. Acceptable characters are: numeric with symbols ':.'.
    */
   ipAddress?: string | undefined;
   /**
-   * Phone number is the number of the mobile phone. Refer to the Prove Pre-Fill with Mobile Auth and Prove Identity with Mobile Auth documentation for situations where this field is not required. US phone numbers can be passed in with or without a leading +1. Acceptable characters are: alphanumeric with symbols '+'.
+   * The number of the mobile phone. Refer to the [Prove Pre-Fill Implementation guide](https://developer.prove.com/docs/prove-pre-fill-implementation-guide#implement-prove-pre-fill) and [Prove Identity Implementation guide](https://developer.prove.com/docs/prove-identity-implementation-guide#implement-prove-identity) for situations where this field is not required. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber?: string | undefined;
   /**
-   * SMSMessage is an optional field to customize the message body sent in the Instant Link (flowType=desktop) or OTP (on mobile) SMS message.
+   * The message body sent in the Instant Link (`flowType=desktop`) or OTP (`flowType=mobile`) SMS message. If not provided, the following default messages will be used:
    *
    * @remarks
-   * If not provided, the following default messages will be used:
-   * 1. For Instant Link: "Complete your verification. If you did not make this request, do not click the link. ####"
-   * 2. For OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."
-   * Max length is 160 characters. Only ASCII characters are allowed.
    *
-   * The placeholder format varies by flow type:
-   * 1. For OTP (mobile flow): Use ####, #####, or ###### to generate 4-6 digit verification codes respectively.
-   * 2. For Instant Link (desktop flow): Must use exactly #### which will be replaced with the verification URL.
+   * Instant Link: "Complete your verification. If you did not make this request, do not click the link. ####" _The verification URL replaces ####._
+   *
+   * OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone." _Use ####, #####, or ###### to generate 4-6 digit verification codes respectively._
+   *
+   * Max length is 160 characters. Non-ASCII characters are allowed.
    */
   smsMessage?: string | undefined;
   /**
-   * SSN, an optional challenge, is either the full or last 4 digits of the social security number. Acceptable characters are: numeric.
+   * The full or last 4 digits of the social security number. Acceptable characters are: numeric.
    */
   ssn?: string | undefined;
 };
@@ -58,6 +60,7 @@ export const V3StartRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  allowOTPRetry: z.boolean().optional(),
   dob: z.string().optional(),
   emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
@@ -70,6 +73,7 @@ export const V3StartRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3StartRequest$Outbound = {
+  allowOTPRetry?: boolean | undefined;
   dob?: string | undefined;
   emailAddress?: string | undefined;
   finalTargetUrl?: string | undefined;
@@ -86,6 +90,7 @@ export const V3StartRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3StartRequest
 > = z.object({
+  allowOTPRetry: z.boolean().optional(),
   dob: z.string().optional(),
   emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),

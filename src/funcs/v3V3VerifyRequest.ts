@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Initiate verified users session.
+ * Initiate Verified Users Session
  *
  * @remarks
- * Send this request to initiate a Verified Users session. It will return a correlation ID, authToken for the client SDK, and the results of the possession and verify checks (usually pending from this API).
+ * This endpoint allows you to initiate a Verified Users session.
  */
 export async function v3V3VerifyRequest(
   client: ProveapiCore,
@@ -37,7 +37,7 @@ export async function v3V3VerifyRequest(
 ): Promise<
   Result<
     operations.V3VerifyRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -118,7 +118,7 @@ export async function v3V3VerifyRequest(
 
   const [result] = await M.match<
     operations.V3VerifyRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -133,7 +133,7 @@ export async function v3V3VerifyRequest(
     M.json(200, operations.V3VerifyRequestResponse$inboundSchema, {
       key: "V3VerifyResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

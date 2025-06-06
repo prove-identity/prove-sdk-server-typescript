@@ -19,10 +19,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class V3 extends ClientSDK {
   /**
-   * Request OAuth token.
+   * Request OAuth Token
    *
    * @remarks
-   * Send this request to request the OAuth token.
+   * This endpoint allows you to request an OAuth token.
    */
   async v3TokenRequest(
     request?: components.V3TokenRequest | undefined,
@@ -36,10 +36,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Submit challenge.
+   * Submit Challenge
    *
    * @remarks
-   * Send this request to submit challenge information. Either a DOB or last 4 of SSN needs to be submitted if neither was submitted to the /start endpoint (challenge fields submitted to this endpoint will overwrite the /start endpoint fields submitted). It will return a correlation ID, user information, and the next step to call in the flow. This capability is only available in Pre-Fill®, it's not available in Prove Identity®. You'll notice that when using Prove Identity®, if /validate is successful, it will then return `v3-complete` as one of the keys in the `Next` field map instead of `v3-challenge`.
+   * This endpoint allows you to submit challenge information.
    */
   async v3ChallengeRequest(
     request?: components.V3ChallengeRequest | undefined,
@@ -53,10 +53,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Complete flow.
+   * Complete Flow
    *
    * @remarks
-   * Send this request to verify the user and complete the flow. It will return a correlation ID, user information, and the next step to call in the flow. There is a validation check that requires at least first + last name or SSN passed in, else an HTTP 400 is returned. Additionally, specific to the Pre-Fill® or Prove Identity® with KYC use case, you need to pass in first name, last name, DOB and SSN (or address) to ensure you receive back the KYC elements and correct CIP values.
+   * This endpoint allows you to verify the user and complete the flow.
    */
   async v3CompleteRequest(
     request?: components.V3CompleteRequest | undefined,
@@ -70,10 +70,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Start flow.
+   * Start Flow
    *
    * @remarks
-   * Send this request to start a Prove flow. It will return a correlation ID and an authToken for the client SDK.
+   * This endpoint allows you to start the solution flow.
    */
   async v3StartRequest(
     request?: components.V3StartRequest | undefined,
@@ -121,7 +121,7 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Check Status of Unify Session
+   * Check Status
    *
    * @remarks
    * This endpoint allows you to check the status of a Unify session and get the possession result.
@@ -138,10 +138,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Validate phone number.
+   * Validate Phone Number
    *
    * @remarks
-   * Send this request to check the phone number entered/discovered earlier in the flow is validated. It will return a correlation ID and the next step.
+   * This endpoint allows you to check if the phone number entered/discovered earlier in the flow is validated.
    */
   async v3ValidateRequest(
     request?: components.V3ValidateRequest | undefined,
@@ -155,10 +155,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Initiate verified users session.
+   * Initiate Verified Users Session
    *
    * @remarks
-   * Send this request to initiate a Verified Users session. It will return a correlation ID, authToken for the client SDK, and the results of the possession and verify checks (usually pending from this API).
+   * This endpoint allows you to initiate a Verified Users session.
    */
   async v3VerifyRequest(
     request?: components.V3VerifyRequest | undefined,
@@ -172,10 +172,10 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Perform checks for verified users session.
+   * Perform Checks for Verified Users Session
    *
    * @remarks
-   * Send this request to perform the necessary checks for a Verified Users session. It will return the results of the possession and verify checks, as well as the overall success.
+   * This endpoint allows you to perform the necessary checks for a Verified Users session.
    */
   async v3VerifyStatusRequest(
     request?: components.V3VerifyStatusRequest | undefined,

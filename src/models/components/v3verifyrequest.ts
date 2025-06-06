@@ -7,54 +7,50 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Request body for the V3 Verify API
- */
 export type V3VerifyRequest = {
   /**
-   * Client Customer ID is a client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions.  The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Request ID at this time, and this is expected to be added in a future release. NOTE: Do not include Personally Identifiable Information (PII) in this field.
+   * If true, the customer can request additional OTP codes if the initial code verification failed.
+   */
+  allowOTPRetry?: boolean | undefined;
+  /**
+   * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions.  The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
    */
   clientCustomerId?: string | undefined;
   /**
-   * Client Request ID is a client-generated unique ID for a specific session. This can be used by clients to identify specific requests made to Prove Link. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Request ID at this time, and this is expected to be added in a future release. NOTE: Do not include Personally Identifiable Information (PII) in this field.
+   * A client-generated unique ID for a specific session. This can be used by clients to identify specific requests made. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Request ID. Do not include personally identifiable information (PII) in this field.
    */
   clientRequestId?: string | undefined;
   /**
-   * Email is the email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
+   * The email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
    */
   emailAddress?: string | undefined;
   /**
-   * Final target URL is only required for when flowType=desktop. The final target URL is where the end user will be redirected at the end of Instant Link flow. Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
+   * The URL where the end user will be redirected at the end of the Instant Link flow. Required only when `flowType=desktop`. Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
    */
   finalTargetUrl?: string | undefined;
   /**
-   * First name of the individual.
+   * The first name of the individual.
    */
   firstName: string;
   /**
-   * Last name of the individual.
+   * The last name of the individual.
    */
   lastName: string;
   /**
-   * Phone number is the number of the mobile phone. The field is required in the Sandbox environment. US phone numbers can be passed in with or without a leading `+1`. Acceptable characters are: alphanumeric with symbols '+'.
+   * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
   /**
-   * Possession type is based on the method used - either 'desktop' if using desktop, 'mobile' for iOS/Android native apps and mobile web, or 'none' if no possession check is required. Acceptable options are: 'desktop', 'mobile', and 'none'.
+   * The type of device being user - either `desktop` for desktop web or `mobile` for iOS/Android native apps and mobile web.
    */
   possessionType: string;
   /**
-   * SMSMessage is an optional field to customize the message body sent in the Instant Link (flowType=desktop) or OTP (on mobile) SMS message.
+   * The message body sent in the Instant Link (`flowType=desktop`) or OTP (`flowType=mobile`) SMS message. If not provided, the following default messages will be used:
    *
    * @remarks
-   * If not provided, the following default messages will be used:
-   * 1. For Instant Link: "Complete your verification. If you did not make this request, do not click the link. ####"
-   * 2. For OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."
-   * Max length is 160 characters. Only ASCII characters are allowed.
-   *
-   * The placeholder format varies by flow type:
-   * 1. For OTP (mobile flow): Use ####, #####, or ###### to generate 4-6 digit verification codes respectively.
-   * 2. For Instant Link (desktop flow): Must use exactly #### which will be replaced with the verification URL.
+   * Instant Link: "Complete your verification. If you did not make this request, do not click the link. ####" The verification URL replaces ####.
+   * OTP: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone." Use ####, #####, or ###### to generate 4-6 digit verification codes respectively.
+   * Default language is English. Max length is 160 characters. Non-ASCII characters are allowed.
    */
   smsMessage?: string | undefined;
 };
@@ -65,6 +61,7 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  allowOTPRetry: z.boolean().optional(),
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
   emailAddress: z.string().optional(),
@@ -78,6 +75,7 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3VerifyRequest$Outbound = {
+  allowOTPRetry?: boolean | undefined;
   clientCustomerId?: string | undefined;
   clientRequestId?: string | undefined;
   emailAddress?: string | undefined;
@@ -95,6 +93,7 @@ export const V3VerifyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyRequest
 > = z.object({
+  allowOTPRetry: z.boolean().optional(),
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
   emailAddress: z.string().optional(),
