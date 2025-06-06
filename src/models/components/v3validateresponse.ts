@@ -9,19 +9,19 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3ValidateResponse = {
   /**
-   * Challenge missing returns true if a DOB or SSN needs to be passed in on the next step.
+   * True if a DOB or SSN needs to be passed in on the next step.
    */
   challengeMissing: boolean;
   /**
-   * Next contains the next set of allowed calls in the same flow.
+   * The next set of allowed calls in the same flow.
    */
   next: { [k: string]: string };
   /**
-   * PhoneNumber is the number of the mobile phone for which validation was performed.
+   * The number of the mobile phone for which validation was performed.
    */
   phoneNumber?: string | undefined;
   /**
-   * Success returns true if the phone number was validated.
+   * True if the phone number was validated.
    */
   success: boolean;
 };

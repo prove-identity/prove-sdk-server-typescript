@@ -8,39 +8,39 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Possession Result represents the result of the Possession check. Possible values are "pending" and "not_applicable", based on the Possession Type passed in the input. Clients will have to call the Verify Status API to get a result if Possession Result is pending.
+ * The result of the possession check. Possible values are `pending` and `not_applicable`, based on the `possessionType` passed in the input. Clients will have to call the Verify Status API to get a result if `possessionResult=pending`.
  */
 export type PossessionResult = {};
 
 /**
- * Success is the result of the combination of Verify Result and Possession Result. Possible values are "true", "pending", and "false". The success value will be "pending" until the results of both Verify and Possession are returned or one of them fails, blocking the other.
+ * The result of the combination of `verifyResult` and `possessionResult`. Possible values are `true`, `pending`, and `false`. The value will be `pending` until the results of both Verify and Possession are returned or one of them fails, blocking the other.
  */
-export type Success = {};
+export type V3VerifyResponseSuccess = {};
 
 /**
- * Verify Result represents the result of the Verify process. Possible values are "success", "pending", and "failed". If the Verify result is pending, clients will need to call the Verify Status API to get a result.
+ * The result of the Verify process. Possible values are `success`, `pending`, and `failed`. If the Verify result is `pending`, clients will need to call the Verify Status API to get a result.
  */
 export type VerifyResult = {};
 
 export type V3VerifyResponse = {
   /**
-   * AuthToken is a bearer token for use by the Prove Client SDK.
+   * A bearer token for use by the Prove client SDK.
    */
   authToken?: string | undefined;
   /**
-   * Correlation ID is the unique ID that Prove generates for the flow. To continue the flow, the field will also be used for each of the subsequent API calls in the same flow - it cannot be reused outside of a single flow.
+   * The unique ID that Prove generates for the flow. To continue the flow, the field will also be used for each of the subsequent API calls in the same flow - it cannot be reused outside of a single flow.
    */
   correlationId: string;
   /**
-   * Possession Result represents the result of the Possession check. Possible values are "pending" and "not_applicable", based on the Possession Type passed in the input. Clients will have to call the Verify Status API to get a result if Possession Result is pending.
+   * The result of the possession check. Possible values are `pending` and `not_applicable`, based on the `possessionType` passed in the input. Clients will have to call the Verify Status API to get a result if `possessionResult=pending`.
    */
   possessionResult: PossessionResult;
   /**
-   * Success is the result of the combination of Verify Result and Possession Result. Possible values are "true", "pending", and "false". The success value will be "pending" until the results of both Verify and Possession are returned or one of them fails, blocking the other.
+   * The result of the combination of `verifyResult` and `possessionResult`. Possible values are `true`, `pending`, and `false`. The value will be `pending` until the results of both Verify and Possession are returned or one of them fails, blocking the other.
    */
-  success: Success;
+  success: V3VerifyResponseSuccess;
   /**
-   * Verify Result represents the result of the Verify process. Possible values are "success", "pending", and "failed". If the Verify result is pending, clients will need to call the Verify Status API to get a result.
+   * The result of the Verify process. Possible values are `success`, `pending`, and `failed`. If the Verify result is `pending`, clients will need to call the Verify Status API to get a result.
    */
   verifyResult: VerifyResult;
 };
@@ -94,43 +94,50 @@ export function possessionResultFromJSON(
 }
 
 /** @internal */
-export const Success$inboundSchema: z.ZodType<Success, z.ZodTypeDef, unknown> =
-  z.object({});
-
-/** @internal */
-export type Success$Outbound = {};
-
-/** @internal */
-export const Success$outboundSchema: z.ZodType<
-  Success$Outbound,
+export const V3VerifyResponseSuccess$inboundSchema: z.ZodType<
+  V3VerifyResponseSuccess,
   z.ZodTypeDef,
-  Success
+  unknown
+> = z.object({});
+
+/** @internal */
+export type V3VerifyResponseSuccess$Outbound = {};
+
+/** @internal */
+export const V3VerifyResponseSuccess$outboundSchema: z.ZodType<
+  V3VerifyResponseSuccess$Outbound,
+  z.ZodTypeDef,
+  V3VerifyResponseSuccess
 > = z.object({});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Success$ {
-  /** @deprecated use `Success$inboundSchema` instead. */
-  export const inboundSchema = Success$inboundSchema;
-  /** @deprecated use `Success$outboundSchema` instead. */
-  export const outboundSchema = Success$outboundSchema;
-  /** @deprecated use `Success$Outbound` instead. */
-  export type Outbound = Success$Outbound;
+export namespace V3VerifyResponseSuccess$ {
+  /** @deprecated use `V3VerifyResponseSuccess$inboundSchema` instead. */
+  export const inboundSchema = V3VerifyResponseSuccess$inboundSchema;
+  /** @deprecated use `V3VerifyResponseSuccess$outboundSchema` instead. */
+  export const outboundSchema = V3VerifyResponseSuccess$outboundSchema;
+  /** @deprecated use `V3VerifyResponseSuccess$Outbound` instead. */
+  export type Outbound = V3VerifyResponseSuccess$Outbound;
 }
 
-export function successToJSON(success: Success): string {
-  return JSON.stringify(Success$outboundSchema.parse(success));
+export function v3VerifyResponseSuccessToJSON(
+  v3VerifyResponseSuccess: V3VerifyResponseSuccess,
+): string {
+  return JSON.stringify(
+    V3VerifyResponseSuccess$outboundSchema.parse(v3VerifyResponseSuccess),
+  );
 }
 
-export function successFromJSON(
+export function v3VerifyResponseSuccessFromJSON(
   jsonString: string,
-): SafeParseResult<Success, SDKValidationError> {
+): SafeParseResult<V3VerifyResponseSuccess, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Success$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Success' from JSON`,
+    (x) => V3VerifyResponseSuccess$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3VerifyResponseSuccess' from JSON`,
   );
 }
 
@@ -187,7 +194,7 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   authToken: z.string().optional(),
   correlationId: z.string(),
   possessionResult: z.lazy(() => PossessionResult$inboundSchema),
-  success: z.lazy(() => Success$inboundSchema),
+  success: z.lazy(() => V3VerifyResponseSuccess$inboundSchema),
   verifyResult: z.lazy(() => VerifyResult$inboundSchema),
 });
 
@@ -196,7 +203,7 @@ export type V3VerifyResponse$Outbound = {
   authToken?: string | undefined;
   correlationId: string;
   possessionResult: PossessionResult$Outbound;
-  success: Success$Outbound;
+  success: V3VerifyResponseSuccess$Outbound;
   verifyResult: VerifyResult$Outbound;
 };
 
@@ -209,7 +216,7 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   authToken: z.string().optional(),
   correlationId: z.string(),
   possessionResult: z.lazy(() => PossessionResult$outboundSchema),
-  success: z.lazy(() => Success$outboundSchema),
+  success: z.lazy(() => V3VerifyResponseSuccess$outboundSchema),
   verifyResult: z.lazy(() => VerifyResult$outboundSchema),
 });
 

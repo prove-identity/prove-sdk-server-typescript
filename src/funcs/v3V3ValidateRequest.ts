@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Validate phone number.
+ * Validate Phone Number
  *
  * @remarks
- * Send this request to check the phone number entered/discovered earlier in the flow is validated. It will return a correlation ID and the next step.
+ * This endpoint allows you to check if the phone number entered/discovered earlier in the flow is validated.
  */
 export async function v3V3ValidateRequest(
   client: ProveapiCore,
@@ -37,7 +37,7 @@ export async function v3V3ValidateRequest(
 ): Promise<
   Result<
     operations.V3ValidateRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -118,7 +118,7 @@ export async function v3V3ValidateRequest(
 
   const [result] = await M.match<
     operations.V3ValidateRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -133,7 +133,7 @@ export async function v3V3ValidateRequest(
     M.json(200, operations.V3ValidateRequestResponse$inboundSchema, {
       key: "V3ValidateResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

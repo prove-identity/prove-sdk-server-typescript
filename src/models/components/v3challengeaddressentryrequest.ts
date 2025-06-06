@@ -9,23 +9,23 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3ChallengeAddressEntryRequest = {
   /**
-   * Address is the street address of the individual.
+   * The street address of the individual.
    */
   address?: string | undefined;
   /**
-   * City of the individual.
+   * The city of the individual.
    */
   city?: string | undefined;
   /**
-   * Extended address is the apartment number or other extended address information.
+   * The apartment number or other extended address information.
    */
   extendedAddress?: string | undefined;
   /**
-   * Postal code is the zip code of the individual. It can be either 5 digits (XXXXX) or ZIP+4 (XXXXX-XXXX).
+   * The zip code of the individual. It can be either 5 digits (XXXXX) or ZIP+4 (XXXXX-XXXX).
    */
   postalCode?: string | undefined;
   /**
-   * Region is the state or locality of the individual.
+   * The state or locality of the individual.
    */
   region?: string | undefined;
 };

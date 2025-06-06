@@ -24,10 +24,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Request OAuth token.
+ * Request OAuth Token
  *
  * @remarks
- * Send this request to request the OAuth token.
+ * This endpoint allows you to request an OAuth token.
  */
 export async function v3V3TokenRequest(
   client: ProveapiCore,
@@ -36,7 +36,7 @@ export async function v3V3TokenRequest(
 ): Promise<
   Result<
     operations.V3TokenRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.ErrorT
     | SDKError
@@ -112,7 +112,7 @@ export async function v3V3TokenRequest(
 
   const [result] = await M.match<
     operations.V3TokenRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.ErrorT
     | SDKError
@@ -126,7 +126,7 @@ export async function v3V3TokenRequest(
     M.json(200, operations.V3TokenRequestResponse$inboundSchema, {
       key: "V3TokenResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),

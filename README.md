@@ -177,16 +177,16 @@ run();
 
 ### [v3](docs/sdks/v3/README.md)
 
-* [v3TokenRequest](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
-* [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
-* [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
-* [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start flow.
+* [v3TokenRequest](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth Token
+* [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit Challenge
+* [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete Flow
+* [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start Flow
 * [v3UnifyRequest](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
 * [v3UnifyBindRequest](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key
-* [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status of Unify Session
-* [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
-* [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
-* [v3VerifyStatusRequest](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform checks for verified users session.
+* [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
+* [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
+* [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate Verified Users Session
+* [v3VerifyStatusRequest](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform Checks for Verified Users Session
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -198,7 +198,7 @@ Some methods specify known errors which can be thrown. All the known errors are 
 
 | Error Type      | Status Code | Content Type     |
 | --------------- | ----------- | ---------------- |
-| errors.Error400 | 400         | application/json |
+| errors.ErrorT   | 400         | application/json |
 | errors.Error401 | 401         | application/json |
 | errors.ErrorT   | 500         | application/json |
 | errors.SDKError | 4XX, 5XX    | \*/\*            |
@@ -208,7 +208,6 @@ If the method throws an error and it is not captured by the known errors, it wil
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
 import {
-  Error400,
   Error401,
   ErrorT,
   SDKValidationError,
@@ -237,8 +236,8 @@ async function run() {
         console.error(err.rawValue);
         return;
       }
-      case (err instanceof Error400): {
-        // Handle err.data$: Error400Data
+      case (err instanceof ErrorT): {
+        // Handle err.data$: ErrorTData
         console.error(err);
         return;
       }
@@ -513,16 +512,16 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit challenge.
-- [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete flow.
-- [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start flow.
-- [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth token.
+- [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit Challenge
+- [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete Flow
+- [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start Flow
+- [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth Token
 - [`v3V3UnifyBindRequest`](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key
 - [`v3V3UnifyRequest`](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
-- [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status of Unify Session
-- [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate phone number.
-- [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Initiate verified users session.
-- [`v3V3VerifyStatusRequest`](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform checks for verified users session.
+- [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
+- [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
+- [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Initiate Verified Users Session
+- [`v3V3VerifyStatusRequest`](docs/sdks/v3/README.md#v3verifystatusrequest) - Perform Checks for Verified Users Session
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

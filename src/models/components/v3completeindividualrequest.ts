@@ -15,27 +15,27 @@ import {
 
 export type V3CompleteIndividualRequest = {
   /**
-   * Addresses that belong to the individual.
+   * Address of the individual. Note that though this is an array, only the first address in the array will be processed.
    */
   addresses?: Array<V3CompleteAddressEntryRequest> | undefined;
   /**
-   * DOB is the date of birth of the individual in one of these formats: YYYY-MM-DD, YYYY-MM, or MM-DD. Acceptable characters are: numeric with symbol '-'.
+   * The date of birth of the individual in one of these formats: YYYY-MM-DD, YYYY-MM, or MM-DD. Acceptable characters are: numeric with symbol '-'.
    */
   dob?: string | undefined;
   /**
-   * Email addresses that belong to the individual.
+   * Email address of the individual. Note that though this is an array, only the first email address in the array will be processed.
    */
   emailAddresses?: Array<string> | undefined;
   /**
-   * First name of the individual.
+   * The first name of the individual.
    */
   firstName?: string | undefined;
   /**
-   * Last name of the individual.
+   * The last name of the individual.
    */
   lastName?: string | undefined;
   /**
-   * SSN is the social security number of the individual.
+   * The social security number of the individual.
    */
   ssn?: string | undefined;
 };

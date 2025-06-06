@@ -14,7 +14,7 @@ let value: V3UnifyStatusRequestResponse = {
   },
   v3UnifyStatusResponse: {
     phoneNumber: "2001004011",
-    success: "success",
+    success: {},
   },
   headers: {
     "key": [
@@ -29,5 +29,5 @@ let value: V3UnifyStatusRequestResponse = {
 | Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          | Example                                                                              |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `httpMeta`                                                                           | [components.HTTPMetadata](../../models/components/httpmetadata.md)                   | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |
-| `v3UnifyStatusResponse`                                                              | [components.V3UnifyStatusResponse](../../models/components/v3unifystatusresponse.md) | :heavy_minus_sign:                                                                   | Successful Request.                                                                  | {<br/>"phoneNumber": "2001004011",<br/>"success": "success"<br/>}                    |
+| `v3UnifyStatusResponse`                                                              | [components.V3UnifyStatusResponse](../../models/components/v3unifystatusresponse.md) | :heavy_minus_sign:                                                                   | Successful Request.                                                                  | {<br/>"phoneNumber": "2001004011",<br/>"success": "true"<br/>}                       |
 | `headers`                                                                            | Record<string, *string*[]>                                                           | :heavy_check_mark:                                                                   | N/A                                                                                  |                                                                                      |

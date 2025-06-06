@@ -25,10 +25,10 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Start flow.
+ * Start Flow
  *
  * @remarks
- * Send this request to start a Prove flow. It will return a correlation ID and an authToken for the client SDK.
+ * This endpoint allows you to start the solution flow.
  */
 export async function v3V3StartRequest(
   client: ProveapiCore,
@@ -37,7 +37,7 @@ export async function v3V3StartRequest(
 ): Promise<
   Result<
     operations.V3StartRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -117,7 +117,7 @@ export async function v3V3StartRequest(
 
   const [result] = await M.match<
     operations.V3StartRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -132,7 +132,7 @@ export async function v3V3StartRequest(
     M.json(200, operations.V3StartRequestResponse$inboundSchema, {
       key: "V3StartResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

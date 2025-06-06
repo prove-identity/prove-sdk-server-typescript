@@ -15,27 +15,27 @@ import {
 
 export type V3ChallengeIndividualRequest = {
   /**
-   * Addresses that belong to the individual.
+   * An array of addresses that belong to the individual.
    */
   addresses?: Array<V3ChallengeAddressEntryRequest> | undefined;
   /**
-   * DOB is the date of birth of the individual.
+   * The date of birth of the individual.
    */
   dob?: string | undefined;
   /**
-   * Email addresses that belong to the individual.
+   * An array of email addresses that belong to the individual.
    */
   emailAddresses?: Array<string> | undefined;
   /**
-   * First name of the individual.
+   * The first name of the individual.
    */
   firstName?: string | undefined;
   /**
-   * Last name of the individual.
+   * The last name of the individual.
    */
   lastName?: string | undefined;
   /**
-   * SSN is the social security number of the individual.
+   * The social security number of the individual.
    */
   ssn?: string | undefined;
 };

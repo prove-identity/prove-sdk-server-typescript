@@ -34,6 +34,7 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await v3V3StartRequest(proveapi, {
+    allowOTPRetry: true,
     dob: "1981-01",
     emailAddress: "mpinsonm@dyndns.org",
     finalTargetUrl: "https://www.example.com/landing-page",

@@ -25,7 +25,7 @@ import * as operations from "../models/operations/index.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Check Status of Unify Session
+ * Check Status
  *
  * @remarks
  * This endpoint allows you to check the status of a Unify session and get the possession result.
@@ -37,7 +37,7 @@ export async function v3V3UnifyStatusRequest(
 ): Promise<
   Result<
     operations.V3UnifyStatusRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -118,7 +118,7 @@ export async function v3V3UnifyStatusRequest(
 
   const [result] = await M.match<
     operations.V3UnifyStatusRequestResponse,
-    | errors.Error400
+    | errors.ErrorT
     | errors.Error401
     | errors.Error403
     | errors.ErrorT
@@ -134,7 +134,7 @@ export async function v3V3UnifyStatusRequest(
       hdrs: true,
       key: "V3UnifyStatusResponse",
     }),
-    M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
