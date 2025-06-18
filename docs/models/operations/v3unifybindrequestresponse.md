@@ -14,7 +14,7 @@ let value: V3UnifyBindRequestResponse = {
   },
   v3UnifyBindResponse: {
     phoneNumber: "2001004011",
-    success: {},
+    success: "true",
   },
   headers: {
     "key": [

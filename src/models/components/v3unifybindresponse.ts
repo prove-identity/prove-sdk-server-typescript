@@ -7,14 +7,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * The result of the possession check.
- *
- * @remarks
- * Possible values are `true`, `false`, `pending`, and `possession_required`.
- */
-export type V3UnifyBindResponseSuccess = {};
-
 export type V3UnifyBindResponse = {
   /**
    * The number of the mobile phone used during the process.
@@ -26,56 +18,8 @@ export type V3UnifyBindResponse = {
    * @remarks
    * Possible values are `true`, `false`, `pending`, and `possession_required`.
    */
-  success: V3UnifyBindResponseSuccess;
+  success: string;
 };
-
-/** @internal */
-export const V3UnifyBindResponseSuccess$inboundSchema: z.ZodType<
-  V3UnifyBindResponseSuccess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type V3UnifyBindResponseSuccess$Outbound = {};
-
-/** @internal */
-export const V3UnifyBindResponseSuccess$outboundSchema: z.ZodType<
-  V3UnifyBindResponseSuccess$Outbound,
-  z.ZodTypeDef,
-  V3UnifyBindResponseSuccess
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace V3UnifyBindResponseSuccess$ {
-  /** @deprecated use `V3UnifyBindResponseSuccess$inboundSchema` instead. */
-  export const inboundSchema = V3UnifyBindResponseSuccess$inboundSchema;
-  /** @deprecated use `V3UnifyBindResponseSuccess$outboundSchema` instead. */
-  export const outboundSchema = V3UnifyBindResponseSuccess$outboundSchema;
-  /** @deprecated use `V3UnifyBindResponseSuccess$Outbound` instead. */
-  export type Outbound = V3UnifyBindResponseSuccess$Outbound;
-}
-
-export function v3UnifyBindResponseSuccessToJSON(
-  v3UnifyBindResponseSuccess: V3UnifyBindResponseSuccess,
-): string {
-  return JSON.stringify(
-    V3UnifyBindResponseSuccess$outboundSchema.parse(v3UnifyBindResponseSuccess),
-  );
-}
-
-export function v3UnifyBindResponseSuccessFromJSON(
-  jsonString: string,
-): SafeParseResult<V3UnifyBindResponseSuccess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => V3UnifyBindResponseSuccess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3UnifyBindResponseSuccess' from JSON`,
-  );
-}
 
 /** @internal */
 export const V3UnifyBindResponse$inboundSchema: z.ZodType<
@@ -84,13 +28,13 @@ export const V3UnifyBindResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   phoneNumber: z.string(),
-  success: z.lazy(() => V3UnifyBindResponseSuccess$inboundSchema),
+  success: z.string(),
 });
 
 /** @internal */
 export type V3UnifyBindResponse$Outbound = {
   phoneNumber: string;
-  success: V3UnifyBindResponseSuccess$Outbound;
+  success: string;
 };
 
 /** @internal */
@@ -100,7 +44,7 @@ export const V3UnifyBindResponse$outboundSchema: z.ZodType<
   V3UnifyBindResponse
 > = z.object({
   phoneNumber: z.string(),
-  success: z.lazy(() => V3UnifyBindResponseSuccess$outboundSchema),
+  success: z.string(),
 });
 
 /**

@@ -1,0 +1,32 @@
+# V3BatchEnrollIdentitiesRequest
+
+Request body for the V3 Batch Enroll Identities API.
+
+## Example Usage
+
+```typescript
+import { V3BatchEnrollIdentitiesRequest } from "@prove-identity/prove-api/models/components";
+
+let value: V3BatchEnrollIdentitiesRequest = {
+  clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  items: [
+    {
+      clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+      deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+      phoneNumber: "2001001695",
+    },
+    {
+      clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+      deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+      phoneNumber: "2001001695",
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  | Example                                                                                                                                                                                                                                                                                      |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. | 71010d88-d0e7-4a24-9297-d1be6fefde81                                                                                                                                                                                                                                                         |
+| `items`                                                                                                                                                                                                                                                                                      | [components.IdentityItem](../../models/components/identityitem.md)[]                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                                                              |

@@ -174,6 +174,17 @@ run();
 <details open>
 <summary>Available methods</summary>
 
+### [identity](docs/sdks/identity/README.md)
+
+* [v3BatchGetIdentities](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
+* [v3EnrollIdentity](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity
+* [v3BatchEnrollIdentities](docs/sdks/identity/README.md#v3batchenrollidentities) - Batch Enroll Identities
+* [v3DisenrollIdentity](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
+* [v3GetIdentity](docs/sdks/identity/README.md#v3getidentity) - Get Identity
+* [v3ActivateIdentity](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
+* [v3DeactivateIdentity](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
+* [v3GetIdentitiesByPhoneNumber](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
+
 
 ### [v3](docs/sdks/v3/README.md)
 
@@ -512,6 +523,14 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`identityV3ActivateIdentity`](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
+- [`identityV3BatchEnrollIdentities`](docs/sdks/identity/README.md#v3batchenrollidentities) - Batch Enroll Identities
+- [`identityV3BatchGetIdentities`](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
+- [`identityV3DeactivateIdentity`](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
+- [`identityV3DisenrollIdentity`](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
+- [`identityV3EnrollIdentity`](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity
+- [`identityV3GetIdentitiesByPhoneNumber`](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
+- [`identityV3GetIdentity`](docs/sdks/identity/README.md#v3getidentity) - Get Identity
 - [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit Challenge
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete Flow
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start Flow

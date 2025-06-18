@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3UnifyRequest = {
   /**
-   * If true, the customer can request additional OTP codes if the initial code verification failed.
+   * If true, the customer can re-enter the OTP pin up to three times. Code must also be implemented. See client-side SDK guide for more details.
    */
   allowOTPRetry?: boolean | undefined;
   /**
@@ -17,11 +17,11 @@ export type V3UnifyRequest = {
    */
   clientCustomerId?: string | undefined;
   /**
-   * A client-generated unique ID for a specific session.
+   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
    */
   clientRequestId?: string | undefined;
   /**
-   * The final target URL is where the end user will be redirected at the end of Instant Link flow. Required when `possessionType=desktop`.
+   * The URL where the end user will be redirected at the end of Instant Link flow. Required when `possessionType=desktop`.
    *
    * @remarks
    * Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
@@ -43,10 +43,7 @@ export type V3UnifyRequest = {
    */
   possessionType: string;
   /**
-   * Rebind should be set to `true` if the previous transaction failed with `success=false` because the Prove Key could not be validated.
-   *
-   * @remarks
-   * When `true`, it will re-associate the Prove Key with the newly verified phone number.
+   * If `true`, rebinds the Prove Key with the newly verified phone number.
    */
   rebind?: boolean | undefined;
   /**

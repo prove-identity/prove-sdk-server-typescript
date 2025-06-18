@@ -7,11 +7,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * The status of the Unify request.
- */
-export type Success = {};
-
 export type V3UnifyResponse = {
   /**
    * The one-time use JWT for the client-side SDK.
@@ -24,49 +19,8 @@ export type V3UnifyResponse = {
   /**
    * The status of the Unify request.
    */
-  success: Success;
+  success: string;
 };
-
-/** @internal */
-export const Success$inboundSchema: z.ZodType<Success, z.ZodTypeDef, unknown> =
-  z.object({});
-
-/** @internal */
-export type Success$Outbound = {};
-
-/** @internal */
-export const Success$outboundSchema: z.ZodType<
-  Success$Outbound,
-  z.ZodTypeDef,
-  Success
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Success$ {
-  /** @deprecated use `Success$inboundSchema` instead. */
-  export const inboundSchema = Success$inboundSchema;
-  /** @deprecated use `Success$outboundSchema` instead. */
-  export const outboundSchema = Success$outboundSchema;
-  /** @deprecated use `Success$Outbound` instead. */
-  export type Outbound = Success$Outbound;
-}
-
-export function successToJSON(success: Success): string {
-  return JSON.stringify(Success$outboundSchema.parse(success));
-}
-
-export function successFromJSON(
-  jsonString: string,
-): SafeParseResult<Success, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Success$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Success' from JSON`,
-  );
-}
 
 /** @internal */
 export const V3UnifyResponse$inboundSchema: z.ZodType<
@@ -76,14 +30,14 @@ export const V3UnifyResponse$inboundSchema: z.ZodType<
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
-  success: z.lazy(() => Success$inboundSchema),
+  success: z.string(),
 });
 
 /** @internal */
 export type V3UnifyResponse$Outbound = {
   authToken?: string | undefined;
   correlationId: string;
-  success: Success$Outbound;
+  success: string;
 };
 
 /** @internal */
@@ -94,7 +48,7 @@ export const V3UnifyResponse$outboundSchema: z.ZodType<
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
-  success: z.lazy(() => Success$outboundSchema),
+  success: z.string(),
 });
 
 /**

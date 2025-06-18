@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3StartRequest = {
   /**
-   * If true, the customer can request additional OTP codes if the initial code verification failed.
+   * If true, the customer can re-enter the OTP pin up to three times. Code must also be implemented. See client-side SDK guide for more details.
    */
   allowOTPRetry?: boolean | undefined;
   /**

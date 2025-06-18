@@ -15,7 +15,7 @@ let value: V3UnifyRequestResponse = {
   v3UnifyResponse: {
     authToken: "eyJhbGciOi...",
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    success: {},
+    success: "pending",
   },
 };
 ```

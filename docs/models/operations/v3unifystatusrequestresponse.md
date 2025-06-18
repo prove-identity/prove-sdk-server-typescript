@@ -14,7 +14,7 @@ let value: V3UnifyStatusRequestResponse = {
   },
   v3UnifyStatusResponse: {
     phoneNumber: "2001004011",
-    success: {},
+    success: "true",
   },
   headers: {
     "key": [
