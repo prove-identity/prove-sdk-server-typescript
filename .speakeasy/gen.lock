@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: d8d42bb673d31e95d70b6cf1c5449c7f
+  docChecksum: c1826e3fe102d83e0ada290519069596
   docVersion: 1.0.0
   speakeasyVersion: 1.487.1
   generationVersion: 2.506.0
-  releaseVersion: 0.10.1
-  configChecksum: 001ff19f38901d8668e3f73f32e2d31f
+  releaseVersion: 0.10.2
+  configChecksum: 9058cd62cd1b0631d8aa644d6d4ce481
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -46,7 +46,6 @@ generatedFiles:
   - docs/models/components/kycfieldtyperesponseinternal.md
   - docs/models/components/kycinternal.md
   - docs/models/components/lookupidentityitem.md
-  - docs/models/components/possessionresult.md
   - docs/models/components/postbatchresultitem.md
   - docs/models/components/security.md
   - docs/models/components/v3activateidentityrequest.md
@@ -389,7 +388,7 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"identityId": "498ce2a7-a7c1-48aa-8bd3-77621f780919", "possessionResult": {}, "success": "pending", "verifyResult": "pending"}
+          application/json: {"identityId": "498ce2a7-a7c1-48aa-8bd3-77621f780919", "possessionResult": "pending", "success": "pending", "verifyResult": "pending"}
         "400":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "500":
