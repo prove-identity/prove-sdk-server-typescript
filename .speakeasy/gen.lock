@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: bba93633e3456439de4fa119d96d8cf1
+  docChecksum: 3d6b8645575c189cfc08477d4ad043bf
   docVersion: 1.0.0
   speakeasyVersion: 1.487.1
   generationVersion: 2.506.0
-  releaseVersion: 0.9.6
-  configChecksum: 26dc625891b9df285d172823f069614c
+  releaseVersion: 0.10.0
+  configChecksum: 72787901a3bf5118b8712d18b7f94e2c
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -17,6 +17,7 @@ features:
     defaultEnabledRetries: 0.1.0
     envVarSecurityUsage: 0.1.2
     examples: 2.81.5
+    flattening: 2.82.1
     globalSecurity: 2.82.12
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.4
@@ -38,13 +39,21 @@ generatedFiles:
   - docs/models/components/datasourceidentifiersresponseinternal.md
   - docs/models/components/datasourceinternal.md
   - docs/models/components/datasourcenameresponseinternal.md
+  - docs/models/components/getbatchidentityitem.md
   - docs/models/components/httpmetadata.md
+  - docs/models/components/identityitem.md
   - docs/models/components/idvdatainternal.md
   - docs/models/components/kycfieldtyperesponseinternal.md
   - docs/models/components/kycinternal.md
+  - docs/models/components/lookupidentityitem.md
   - docs/models/components/possessionresult.md
+  - docs/models/components/postbatchresultitem.md
   - docs/models/components/security.md
-  - docs/models/components/success.md
+  - docs/models/components/v3activateidentityrequest.md
+  - docs/models/components/v3activateidentityresponse.md
+  - docs/models/components/v3batchenrollidentitiesrequest.md
+  - docs/models/components/v3batchenrollidentitiesresponse.md
+  - docs/models/components/v3batchgetidentitiesresponse.md
   - docs/models/components/v3challengeaddressentryrequest.md
   - docs/models/components/v3challengeindividualrequest.md
   - docs/models/components/v3challengerequest.md
@@ -53,34 +62,51 @@ generatedFiles:
   - docs/models/components/v3completeindividualrequest.md
   - docs/models/components/v3completerequest.md
   - docs/models/components/v3completeresponse.md
+  - docs/models/components/v3deactivateidentityresponse.md
+  - docs/models/components/v3disenrollidentityresponse.md
+  - docs/models/components/v3enrollidentityrequest.md
+  - docs/models/components/v3enrollidentityresponse.md
+  - docs/models/components/v3getidentitiesbyphonenumberresponse.md
+  - docs/models/components/v3getidentityresponse.md
+  - docs/models/components/v3identitydeactivaterequest.md
   - docs/models/components/v3startrequest.md
   - docs/models/components/v3startresponse.md
   - docs/models/components/v3tokenrequest.md
   - docs/models/components/v3tokenresponse.md
   - docs/models/components/v3unifybindrequest.md
   - docs/models/components/v3unifybindresponse.md
-  - docs/models/components/v3unifybindresponsesuccess.md
   - docs/models/components/v3unifyrequest.md
   - docs/models/components/v3unifyresponse.md
   - docs/models/components/v3unifystatusrequest.md
   - docs/models/components/v3unifystatusresponse.md
-  - docs/models/components/v3unifystatusresponsesuccess.md
   - docs/models/components/v3validaterequest.md
   - docs/models/components/v3validateresponse.md
   - docs/models/components/v3verifyrequest.md
   - docs/models/components/v3verifyresponse.md
-  - docs/models/components/v3verifyresponsesuccess.md
   - docs/models/components/v3verifystatusrequest.md
   - docs/models/components/v3verifystatusresponse.md
   - docs/models/components/v3verifystatusresponsepossessionresult.md
-  - docs/models/components/v3verifystatusresponsesuccess.md
   - docs/models/components/v3verifystatusresponseverifyresult.md
   - docs/models/components/verifyresult.md
   - docs/models/errors/error401.md
   - docs/models/errors/error403.md
   - docs/models/errors/errort.md
+  - docs/models/operations/v3activateidentityrequest.md
+  - docs/models/operations/v3activateidentityresponse.md
+  - docs/models/operations/v3batchenrollidentitiesresponse.md
+  - docs/models/operations/v3batchgetidentitiesrequest.md
+  - docs/models/operations/v3batchgetidentitiesresponse.md
   - docs/models/operations/v3challengerequestresponse.md
   - docs/models/operations/v3completerequestresponse.md
+  - docs/models/operations/v3deactivateidentityrequest.md
+  - docs/models/operations/v3deactivateidentityresponse.md
+  - docs/models/operations/v3disenrollidentityrequest.md
+  - docs/models/operations/v3disenrollidentityresponse.md
+  - docs/models/operations/v3enrollidentityresponse.md
+  - docs/models/operations/v3getidentitiesbyphonenumberrequest.md
+  - docs/models/operations/v3getidentitiesbyphonenumberresponse.md
+  - docs/models/operations/v3getidentityrequest.md
+  - docs/models/operations/v3getidentityresponse.md
   - docs/models/operations/v3startrequestresponse.md
   - docs/models/operations/v3tokenrequestresponse.md
   - docs/models/operations/v3unifybindrequestresponse.md
@@ -89,12 +115,21 @@ generatedFiles:
   - docs/models/operations/v3validaterequestresponse.md
   - docs/models/operations/v3verifyrequestresponse.md
   - docs/models/operations/v3verifystatusrequestresponse.md
+  - docs/sdks/identity/README.md
   - docs/sdks/proveapi/README.md
   - docs/sdks/v3/README.md
   - eslint.config.mjs
   - jsr.json
   - package.json
   - src/core.ts
+  - src/funcs/identityV3ActivateIdentity.ts
+  - src/funcs/identityV3BatchEnrollIdentities.ts
+  - src/funcs/identityV3BatchGetIdentities.ts
+  - src/funcs/identityV3DeactivateIdentity.ts
+  - src/funcs/identityV3DisenrollIdentity.ts
+  - src/funcs/identityV3EnrollIdentity.ts
+  - src/funcs/identityV3GetIdentitiesByPhoneNumber.ts
+  - src/funcs/identityV3GetIdentity.ts
   - src/funcs/v3V3ChallengeRequest.ts
   - src/funcs/v3V3CompleteRequest.ts
   - src/funcs/v3V3StartRequest.ts
@@ -131,12 +166,21 @@ generatedFiles:
   - src/models/components/datasourceidentifiersresponseinternal.ts
   - src/models/components/datasourceinternal.ts
   - src/models/components/datasourcenameresponseinternal.ts
+  - src/models/components/getbatchidentityitem.ts
   - src/models/components/httpmetadata.ts
+  - src/models/components/identityitem.ts
   - src/models/components/idvdatainternal.ts
   - src/models/components/index.ts
   - src/models/components/kycfieldtyperesponseinternal.ts
   - src/models/components/kycinternal.ts
+  - src/models/components/lookupidentityitem.ts
+  - src/models/components/postbatchresultitem.ts
   - src/models/components/security.ts
+  - src/models/components/v3activateidentityrequest.ts
+  - src/models/components/v3activateidentityresponse.ts
+  - src/models/components/v3batchenrollidentitiesrequest.ts
+  - src/models/components/v3batchenrollidentitiesresponse.ts
+  - src/models/components/v3batchgetidentitiesresponse.ts
   - src/models/components/v3challengeaddressentryrequest.ts
   - src/models/components/v3challengeindividualrequest.ts
   - src/models/components/v3challengerequest.ts
@@ -145,6 +189,13 @@ generatedFiles:
   - src/models/components/v3completeindividualrequest.ts
   - src/models/components/v3completerequest.ts
   - src/models/components/v3completeresponse.ts
+  - src/models/components/v3deactivateidentityresponse.ts
+  - src/models/components/v3disenrollidentityresponse.ts
+  - src/models/components/v3enrollidentityrequest.ts
+  - src/models/components/v3enrollidentityresponse.ts
+  - src/models/components/v3getidentitiesbyphonenumberresponse.ts
+  - src/models/components/v3getidentityresponse.ts
+  - src/models/components/v3identitydeactivaterequest.ts
   - src/models/components/v3startrequest.ts
   - src/models/components/v3startresponse.ts
   - src/models/components/v3tokenrequest.ts
@@ -169,8 +220,16 @@ generatedFiles:
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
   - src/models/operations/index.ts
+  - src/models/operations/v3activateidentity.ts
+  - src/models/operations/v3batchenrollidentities.ts
+  - src/models/operations/v3batchgetidentities.ts
   - src/models/operations/v3challengerequest.ts
   - src/models/operations/v3completerequest.ts
+  - src/models/operations/v3deactivateidentity.ts
+  - src/models/operations/v3disenrollidentity.ts
+  - src/models/operations/v3enrollidentity.ts
+  - src/models/operations/v3getidentitiesbyphonenumber.ts
+  - src/models/operations/v3getidentity.ts
   - src/models/operations/v3startrequest.ts
   - src/models/operations/v3tokenrequest.ts
   - src/models/operations/v3unifybindrequest.ts
@@ -179,6 +238,7 @@ generatedFiles:
   - src/models/operations/v3validaterequest.ts
   - src/models/operations/v3verifyrequest.ts
   - src/models/operations/v3verifystatusrequest.ts
+  - src/sdk/identity.ts
   - src/sdk/index.ts
   - src/sdk/sdk.ts
   - src/sdk/v3.ts
@@ -317,7 +377,7 @@ examples:
         application/json: {"allowOTPRetry": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "firstName": "Sheilakathryn", "lastName": "Butrimovich", "phoneNumber": "2001004011", "possessionType": "mobile", "smsMessage": "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."}
       responses:
         "200":
-          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "possessionResult": {}, "success": {}, "verifyResult": {}}
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "possessionResult": {}, "success": "pending", "verifyResult": {}}
         "400":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "500":
@@ -332,7 +392,7 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"identityId": "498ce2a7-a7c1-48aa-8bd3-77621f780919", "possessionResult": {}, "success": {}, "verifyResult": {}}
+          application/json: {"identityId": "498ce2a7-a7c1-48aa-8bd3-77621f780919", "possessionResult": {}, "success": "pending", "verifyResult": {}}
         "400":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "500":
@@ -386,7 +446,7 @@ examples:
         application/json: {"allowOTPRetry": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "finalTargetUrl": "https://www.example.com/landing-page", "phoneNumber": "2001004011", "possessionType": "mobile", "rebind": true, "smsMessage": "#### is your verification code."}
       responses:
         "200":
-          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": {}}
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "pending"}
         "400":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
@@ -401,7 +461,7 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
       responses:
         "200":
-          application/json: {"phoneNumber": "2001004011", "success": {}}
+          application/json: {"phoneNumber": "2001004011", "success": "true"}
         "400":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
@@ -416,7 +476,137 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
       responses:
         "200":
-          application/json: {"phoneNumber": "2001004011", "success": {}}
+          application/json: {"phoneNumber": "2001004011", "success": "true"}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3BatchGetIdentities:
+    speakeasy-default-v3-batch-get-identities:
+      responses:
+        "200":
+          application/json: {"lastKey": "fNqtI2wVPka+yAFC5qRtrQ==", "results": [{"identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}]}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3EnrollIdentity:
+    speakeasy-default-v3-enroll-identity:
+      requestBody:
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "phoneNumber": "2001001695"}
+      responses:
+        "200":
+          application/json: {"identityId": "863189q5-5555-4c15-89ba-15d08710aecz", "success": true}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3BatchEnrollIdentities:
+    speakeasy-default-v3-batch-enroll-identities:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "items": [{"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "phoneNumber": "2001001695"}]}
+      responses:
+        "200":
+          application/json: {"results": [{"error": "Invalid Phone Number", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}]}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DisenrollIdentity:
+    speakeasy-default-v3-disenroll-identity:
+      parameters:
+        path:
+          identityId: "<id>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3GetIdentity:
+    speakeasy-default-v3-get-identity:
+      parameters:
+        path:
+          identityId: "<id>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3ActivateIdentity:
+    speakeasy-default-v3-activate-identity:
+      parameters:
+        path:
+          identityId: "<id>"
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81"}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DeactivateIdentity:
+    speakeasy-default-v3-deactivate-identity:
+      parameters:
+        path:
+          identityId: "<id>"
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81"}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3GetIdentitiesByPhoneNumber:
+    speakeasy-default-v3-get-identities-by-phone-number:
+      parameters:
+        path:
+          mobileNumber: "<value>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"items": [{"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}]}
         "400":
           application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":

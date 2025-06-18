@@ -7,14 +7,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * The result of the possession check.
- *
- * @remarks
- * Possible values are `true`, `false`, `pending`, and `possession_required`.
- */
-export type V3UnifyStatusResponseSuccess = {};
-
 export type V3UnifyStatusResponse = {
   /**
    * The number of the mobile phone used during the process.
@@ -26,58 +18,8 @@ export type V3UnifyStatusResponse = {
    * @remarks
    * Possible values are `true`, `false`, `pending`, and `possession_required`.
    */
-  success: V3UnifyStatusResponseSuccess;
+  success: string;
 };
-
-/** @internal */
-export const V3UnifyStatusResponseSuccess$inboundSchema: z.ZodType<
-  V3UnifyStatusResponseSuccess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type V3UnifyStatusResponseSuccess$Outbound = {};
-
-/** @internal */
-export const V3UnifyStatusResponseSuccess$outboundSchema: z.ZodType<
-  V3UnifyStatusResponseSuccess$Outbound,
-  z.ZodTypeDef,
-  V3UnifyStatusResponseSuccess
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace V3UnifyStatusResponseSuccess$ {
-  /** @deprecated use `V3UnifyStatusResponseSuccess$inboundSchema` instead. */
-  export const inboundSchema = V3UnifyStatusResponseSuccess$inboundSchema;
-  /** @deprecated use `V3UnifyStatusResponseSuccess$outboundSchema` instead. */
-  export const outboundSchema = V3UnifyStatusResponseSuccess$outboundSchema;
-  /** @deprecated use `V3UnifyStatusResponseSuccess$Outbound` instead. */
-  export type Outbound = V3UnifyStatusResponseSuccess$Outbound;
-}
-
-export function v3UnifyStatusResponseSuccessToJSON(
-  v3UnifyStatusResponseSuccess: V3UnifyStatusResponseSuccess,
-): string {
-  return JSON.stringify(
-    V3UnifyStatusResponseSuccess$outboundSchema.parse(
-      v3UnifyStatusResponseSuccess,
-    ),
-  );
-}
-
-export function v3UnifyStatusResponseSuccessFromJSON(
-  jsonString: string,
-): SafeParseResult<V3UnifyStatusResponseSuccess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => V3UnifyStatusResponseSuccess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3UnifyStatusResponseSuccess' from JSON`,
-  );
-}
 
 /** @internal */
 export const V3UnifyStatusResponse$inboundSchema: z.ZodType<
@@ -86,13 +28,13 @@ export const V3UnifyStatusResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   phoneNumber: z.string(),
-  success: z.lazy(() => V3UnifyStatusResponseSuccess$inboundSchema),
+  success: z.string(),
 });
 
 /** @internal */
 export type V3UnifyStatusResponse$Outbound = {
   phoneNumber: string;
-  success: V3UnifyStatusResponseSuccess$Outbound;
+  success: string;
 };
 
 /** @internal */
@@ -102,7 +44,7 @@ export const V3UnifyStatusResponse$outboundSchema: z.ZodType<
   V3UnifyStatusResponse
 > = z.object({
   phoneNumber: z.string(),
-  success: z.lazy(() => V3UnifyStatusResponseSuccess$outboundSchema),
+  success: z.string(),
 });
 
 /**

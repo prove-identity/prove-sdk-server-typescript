@@ -95,6 +95,208 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/v3/identity/"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3BatchGetIdentities
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3BatchGetIdentities();
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3EnrollIdentity
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3EnrollIdentity({
+                clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+                phoneNumber: "2001001695",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/batch"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3BatchEnrollIdentities
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3BatchEnrollIdentities({
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                items: [
+                  {
+                    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+                    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+                    phoneNumber: "2001001695",
+                  },
+                ],
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/{identityId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DisenrollIdentity
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3DisenrollIdentity("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/{identityId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3GetIdentity
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3GetIdentity("<id>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/{identityId}/activate"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3ActivateIdentity
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3ActivateIdentity("<id>", {
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/{identityId}/deactivate"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DeactivateIdentity
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3DeactivateIdentity("<id>", {
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+              });
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/{mobileNumber}/lookup"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3GetIdentitiesByPhoneNumber
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3GetIdentitiesByPhoneNumber("<value>");
+
+              // Handle the result
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/v3/start"]["post"]
     update:
       x-codeSamples:
