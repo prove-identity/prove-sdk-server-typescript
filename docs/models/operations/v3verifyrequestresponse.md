@@ -15,9 +15,9 @@ let value: V3VerifyRequestResponse = {
   v3VerifyResponse: {
     authToken: "eyJhbGciOi...",
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    possessionResult: {},
+    possessionResult: "pending",
     success: "pending",
-    verifyResult: {},
+    verifyResult: "pending",
   },
 };
 ```

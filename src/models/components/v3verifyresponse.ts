@@ -7,16 +7,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * The result of the possession check. Possible values are `pending` and `not_applicable`, based on the `possessionType` passed in the input. Clients will have to call the Verify Status API to get a result if `possessionResult=pending`.
- */
-export type PossessionResult = {};
-
-/**
- * The result of the Verify process. Possible values are `success`, `pending`, and `failed`. If the Verify result is `pending`, clients will need to call the Verify Status API to get a result.
- */
-export type VerifyResult = {};
-
 export type V3VerifyResponse = {
   /**
    * A bearer token for use by the Prove client SDK.
@@ -29,7 +19,7 @@ export type V3VerifyResponse = {
   /**
    * The result of the possession check. Possible values are `pending` and `not_applicable`, based on the `possessionType` passed in the input. Clients will have to call the Verify Status API to get a result if `possessionResult=pending`.
    */
-  possessionResult: PossessionResult;
+  possessionResult: string;
   /**
    * The result of the combination of `verifyResult` and `possessionResult`. Possible values are `true`, `pending`, and `false`. The value will be `pending` until the results of both Verify and Possession are returned or one of them fails, blocking the other.
    */
@@ -37,100 +27,8 @@ export type V3VerifyResponse = {
   /**
    * The result of the Verify process. Possible values are `success`, `pending`, and `failed`. If the Verify result is `pending`, clients will need to call the Verify Status API to get a result.
    */
-  verifyResult: VerifyResult;
+  verifyResult: string;
 };
-
-/** @internal */
-export const PossessionResult$inboundSchema: z.ZodType<
-  PossessionResult,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type PossessionResult$Outbound = {};
-
-/** @internal */
-export const PossessionResult$outboundSchema: z.ZodType<
-  PossessionResult$Outbound,
-  z.ZodTypeDef,
-  PossessionResult
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PossessionResult$ {
-  /** @deprecated use `PossessionResult$inboundSchema` instead. */
-  export const inboundSchema = PossessionResult$inboundSchema;
-  /** @deprecated use `PossessionResult$outboundSchema` instead. */
-  export const outboundSchema = PossessionResult$outboundSchema;
-  /** @deprecated use `PossessionResult$Outbound` instead. */
-  export type Outbound = PossessionResult$Outbound;
-}
-
-export function possessionResultToJSON(
-  possessionResult: PossessionResult,
-): string {
-  return JSON.stringify(
-    PossessionResult$outboundSchema.parse(possessionResult),
-  );
-}
-
-export function possessionResultFromJSON(
-  jsonString: string,
-): SafeParseResult<PossessionResult, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PossessionResult$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PossessionResult' from JSON`,
-  );
-}
-
-/** @internal */
-export const VerifyResult$inboundSchema: z.ZodType<
-  VerifyResult,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type VerifyResult$Outbound = {};
-
-/** @internal */
-export const VerifyResult$outboundSchema: z.ZodType<
-  VerifyResult$Outbound,
-  z.ZodTypeDef,
-  VerifyResult
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace VerifyResult$ {
-  /** @deprecated use `VerifyResult$inboundSchema` instead. */
-  export const inboundSchema = VerifyResult$inboundSchema;
-  /** @deprecated use `VerifyResult$outboundSchema` instead. */
-  export const outboundSchema = VerifyResult$outboundSchema;
-  /** @deprecated use `VerifyResult$Outbound` instead. */
-  export type Outbound = VerifyResult$Outbound;
-}
-
-export function verifyResultToJSON(verifyResult: VerifyResult): string {
-  return JSON.stringify(VerifyResult$outboundSchema.parse(verifyResult));
-}
-
-export function verifyResultFromJSON(
-  jsonString: string,
-): SafeParseResult<VerifyResult, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => VerifyResult$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VerifyResult' from JSON`,
-  );
-}
 
 /** @internal */
 export const V3VerifyResponse$inboundSchema: z.ZodType<
@@ -140,18 +38,18 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
-  possessionResult: z.lazy(() => PossessionResult$inboundSchema),
+  possessionResult: z.string(),
   success: z.string(),
-  verifyResult: z.lazy(() => VerifyResult$inboundSchema),
+  verifyResult: z.string(),
 });
 
 /** @internal */
 export type V3VerifyResponse$Outbound = {
   authToken?: string | undefined;
   correlationId: string;
-  possessionResult: PossessionResult$Outbound;
+  possessionResult: string;
   success: string;
-  verifyResult: VerifyResult$Outbound;
+  verifyResult: string;
 };
 
 /** @internal */
@@ -162,9 +60,9 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
-  possessionResult: z.lazy(() => PossessionResult$outboundSchema),
+  possessionResult: z.string(),
   success: z.string(),
-  verifyResult: z.lazy(() => VerifyResult$outboundSchema),
+  verifyResult: z.string(),
 });
 
 /**
