@@ -16,7 +16,7 @@ let value: V3VerifyStatusRequestResponse = {
     identityId: "498ce2a7-a7c1-48aa-8bd3-77621f780919",
     possessionResult: {},
     success: "pending",
-    verifyResult: {},
+    verifyResult: "pending",
   },
   headers: {
     "key": [
