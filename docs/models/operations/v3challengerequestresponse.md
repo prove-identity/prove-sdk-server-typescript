@@ -5,46 +5,7 @@
 ```typescript
 import { V3ChallengeRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3ChallengeRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3ChallengeResponse: {
-    individual: {
-      addresses: [
-        {
-          address: "39 South Trail",
-          city: "San Antonio",
-          extendedAddress: "Apt 23",
-          postalCode: "78285",
-          region: "TX",
-        },
-        {
-          address: "4861 Jay Junction",
-          city: "Boston",
-          extendedAddress: "Apt 78",
-          postalCode: "02208",
-          region: "MS",
-        },
-      ],
-      dob: "1981-01-17",
-      emailAddresses: [
-        "jdoe@example.com",
-        "dsmith@example.com",
-      ],
-      firstName: "Tod",
-      lastName: "Weedall",
-      ssn: "265228370",
-    },
-    next: {
-      "v3-complete": "/v3/complete",
-    },
-    success: true,
-  },
-};
+let value: V3ChallengeRequestResponse = {};
 ```
 
 ## Fields

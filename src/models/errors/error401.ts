@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ProveapiError } from "./proveapierror.js";
 
 export type Error401Data = {
   /**
@@ -15,7 +16,7 @@ export type Error401Data = {
   message: string;
 };
 
-export class Error401 extends Error {
+export class Error401 extends ProveapiError {
   /**
    * An error code that describes the problem category of the request.
    */
@@ -24,13 +25,13 @@ export class Error401 extends Error {
   /** The original data that was passed to this error instance. */
   data$: Error401Data;
 
-  constructor(err: Error401Data) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: Error401Data,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
     if (err.code != null) this.code = err.code;
 
     this.name = "Error401";
@@ -45,9 +46,16 @@ export const Error401$inboundSchema: z.ZodType<
 > = z.object({
   code: z.number().int().optional(),
   message: z.string(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new Error401(v);
+    return new Error401(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */

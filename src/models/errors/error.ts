@@ -3,6 +3,7 @@
  */
 
 import * as z from "zod";
+import { ProveapiError } from "./proveapierror.js";
 
 export type ErrorTData = {
   /**
@@ -15,7 +16,7 @@ export type ErrorTData = {
   message: string;
 };
 
-export class ErrorT extends Error {
+export class ErrorT extends ProveapiError {
   /**
    * Code is an internal error code that describes the problem category of the request.
    */
@@ -24,13 +25,13 @@ export class ErrorT extends Error {
   /** The original data that was passed to this error instance. */
   data$: ErrorTData;
 
-  constructor(err: ErrorTData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ErrorTData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
     if (err.code != null) this.code = err.code;
 
     this.name = "ErrorT";
@@ -42,9 +43,16 @@ export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
   .object({
     code: z.number().int().optional(),
     message: z.string(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
   })
   .transform((v) => {
-    return new ErrorT(v);
+    return new ErrorT(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */

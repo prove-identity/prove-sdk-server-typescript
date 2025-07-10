@@ -34,7 +34,6 @@ async function run() {
     grantType: "client_credentials",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -59,15 +58,12 @@ async function run() {
     clientSecret: "secret",
     grantType: "client_credentials",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3TokenRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -118,7 +114,6 @@ async function run() {
     ssn: "0596",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -148,15 +143,12 @@ async function run() {
     dob: "1981-01",
     ssn: "0596",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3ChallengeRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -213,18 +205,10 @@ async function run() {
           postalCode: "78285",
           region: "TX",
         },
-        {
-          address: "4861 Jay Junction",
-          city: "Boston",
-          extendedAddress: "Apt 78",
-          postalCode: "02208",
-          region: "MS",
-        },
       ],
       dob: "1981-01",
       emailAddresses: [
         "jdoe@example.com",
-        "dsmith@example.com",
       ],
       firstName: "Tod",
       lastName: "Weedall",
@@ -232,7 +216,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -268,33 +251,22 @@ async function run() {
           postalCode: "78285",
           region: "TX",
         },
-        {
-          address: "4861 Jay Junction",
-          city: "Boston",
-          extendedAddress: "Apt 78",
-          postalCode: "02208",
-          region: "MS",
-        },
       ],
       dob: "1981-01",
       emailAddresses: [
         "jdoe@example.com",
-        "dsmith@example.com",
       ],
       firstName: "Tod",
       lastName: "Weedall",
       ssn: "265228370",
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3CompleteRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -352,7 +324,6 @@ async function run() {
     ssn: "0596",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -388,15 +359,12 @@ async function run() {
     smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
     ssn: "0596",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3StartRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -453,7 +421,6 @@ async function run() {
     smsMessage: "#### is your verification code.",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -488,15 +455,12 @@ async function run() {
     rebind: true,
     smsMessage: "#### is your verification code.",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3UnifyRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -548,7 +512,6 @@ async function run() {
     phoneNumber: "2001004011",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -578,15 +541,12 @@ async function run() {
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
     phoneNumber: "2001004011",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3UnifyBindRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -638,7 +598,6 @@ async function run() {
     phoneNumber: "2001004011",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -668,15 +627,12 @@ async function run() {
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
     phoneNumber: "2001004011",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3UnifyStatusRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -726,7 +682,6 @@ async function run() {
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -754,15 +709,12 @@ async function run() {
   const res = await v3V3ValidateRequest(proveapi, {
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3ValidateRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -821,7 +773,6 @@ async function run() {
     smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -858,15 +809,12 @@ async function run() {
     possessionType: "mobile",
     smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3VerifyRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -917,7 +865,6 @@ async function run() {
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -946,15 +893,12 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3VerifyStatusRequest failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

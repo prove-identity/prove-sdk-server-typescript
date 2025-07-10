@@ -6,19 +6,12 @@
 import { V3UnifyStatusRequestResponse } from "@prove-identity/prove-api/models/operations";
 
 let value: V3UnifyStatusRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3UnifyStatusResponse: {
-    phoneNumber: "2001004011",
-    success: "true",
-  },
   headers: {
     "key": [
-      "<value>",
+      "<value 1>",
+    ],
+    "key1": [
+      "<value 1>",
     ],
   },
 };

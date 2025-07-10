@@ -33,7 +33,6 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.identity.v3BatchGetIdentities();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -59,15 +58,12 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await identityV3BatchGetIdentities(proveapi);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3BatchGetIdentities failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -123,7 +119,6 @@ async function run() {
     phoneNumber: "2001001695",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -154,15 +149,12 @@ async function run() {
     deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
     phoneNumber: "2001001695",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3EnrollIdentity failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -216,10 +208,14 @@ async function run() {
         deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
         phoneNumber: "2001001695",
       },
+      {
+        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+        deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+        phoneNumber: "2001001695",
+      },
     ],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -252,17 +248,19 @@ async function run() {
         deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
         phoneNumber: "2001001695",
       },
+      {
+        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+        deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+        phoneNumber: "2001001695",
+      },
     ],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3BatchEnrollIdentities failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -310,7 +308,6 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.identity.v3DisenrollIdentity("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -336,15 +333,12 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await identityV3DisenrollIdentity(proveapi, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3DisenrollIdentity failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -393,7 +387,6 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.identity.v3GetIdentity("<id>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -419,15 +412,12 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await identityV3GetIdentity(proveapi, "<id>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3GetIdentity failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -478,7 +468,6 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -506,15 +495,12 @@ async function run() {
   const res = await identityV3ActivateIdentity(proveapi, "<id>", {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3ActivateIdentity failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -565,7 +551,6 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -593,15 +578,12 @@ async function run() {
   const res = await identityV3DeactivateIdentity(proveapi, "<id>", {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3DeactivateIdentity failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -650,7 +632,6 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.identity.v3GetIdentitiesByPhoneNumber("<value>");
 
-  // Handle the result
   console.log(result);
 }
 
@@ -676,15 +657,12 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await identityV3GetIdentitiesByPhoneNumber(proveapi, "<value>");
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3GetIdentitiesByPhoneNumber failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

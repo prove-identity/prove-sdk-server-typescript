@@ -7,9 +7,6 @@ import { V3DeactivateIdentityRequest } from "@prove-identity/prove-api/models/op
 
 let value: V3DeactivateIdentityRequest = {
   identityId: "<id>",
-  v3IdentityDeactivateRequest: {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-  },
 };
 ```
 

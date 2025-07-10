@@ -6,23 +6,7 @@
 import { V3VerifyStatusRequestResponse } from "@prove-identity/prove-api/models/operations";
 
 let value: V3VerifyStatusRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3VerifyStatusResponse: {
-    identityId: "498ce2a7-a7c1-48aa-8bd3-77621f780919",
-    possessionResult: "pending",
-    success: "pending",
-    verifyResult: "pending",
-  },
-  headers: {
-    "key": [
-      "<value>",
-    ],
-  },
+  headers: {},
 };
 ```
 

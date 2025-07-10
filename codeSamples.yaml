@@ -20,7 +20,6 @@ actions:
                 grantType: "client_credentials",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -47,7 +46,6 @@ actions:
                 ssn: "0596",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -90,7 +88,6 @@ actions:
                 },
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -113,7 +110,6 @@ actions:
             async function run() {
               const result = await proveapi.identity.v3BatchGetIdentities();
 
-              // Handle the result
               console.log(result);
             }
 
@@ -141,7 +137,6 @@ actions:
                 phoneNumber: "2001001695",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -170,10 +165,14 @@ actions:
                     deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
                     phoneNumber: "2001001695",
                   },
+                  {
+                    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+                    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+                    phoneNumber: "2001001695",
+                  },
                 ],
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -196,7 +195,6 @@ actions:
             async function run() {
               const result = await proveapi.identity.v3DisenrollIdentity("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -219,7 +217,6 @@ actions:
             async function run() {
               const result = await proveapi.identity.v3GetIdentity("<id>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -244,7 +241,6 @@ actions:
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -269,7 +265,6 @@ actions:
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -292,7 +287,6 @@ actions:
             async function run() {
               const result = await proveapi.identity.v3GetIdentitiesByPhoneNumber("<value>");
 
-              // Handle the result
               console.log(result);
             }
 
@@ -325,7 +319,6 @@ actions:
                 ssn: "0596",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -357,7 +350,6 @@ actions:
                 smsMessage: "#### is your verification code.",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -384,7 +376,6 @@ actions:
                 phoneNumber: "2001004011",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -411,7 +402,6 @@ actions:
                 phoneNumber: "2001004011",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -436,7 +426,6 @@ actions:
                 correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -470,7 +459,6 @@ actions:
                 smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
               });
 
-              // Handle the result
               console.log(result);
             }
 
@@ -496,7 +484,6 @@ actions:
                 correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
               });
 
-              // Handle the result
               console.log(result);
             }
 

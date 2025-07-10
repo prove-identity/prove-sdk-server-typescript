@@ -5,19 +5,7 @@
 ```typescript
 import { V3UnifyRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3UnifyRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3UnifyResponse: {
-    authToken: "eyJhbGciOi...",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    success: "pending",
-  },
-};
+let value: V3UnifyRequestResponse = {};
 ```
 
 ## Fields

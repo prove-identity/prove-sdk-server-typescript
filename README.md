@@ -205,66 +205,43 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `v3TokenRequest` method may throw the following errors:
+[`ProveapiError`](./src/models/errors/proveapierror.ts) is the base class for all HTTP error responses. It has the following properties:
 
-| Error Type      | Status Code | Content Type     |
-| --------------- | ----------- | ---------------- |
-| errors.ErrorT   | 400         | application/json |
-| errors.Error401 | 401         | application/json |
-| errors.ErrorT   | 500         | application/json |
-| errors.SDKError | 4XX, 5XX    | \*/\*            |
+| Property                  | Type       | Description                                                                             |
+| ------------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `error.message`           | `string`   | Error message                                                                           |
+| `error.httpMeta.response` | `Response` | HTTP response. Access to headers and more.                                              |
+| `error.httpMeta.request`  | `Request`  | HTTP request. Access to headers and more.                                               |
+| `error.data$`             |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
-If the method throws an error and it is not captured by the known errors, it will default to throwing a `SDKError`.
-
+### Example
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
-import {
-  Error401,
-  ErrorT,
-  SDKValidationError,
-} from "@prove-identity/prove-api/models/errors";
+import * as errors from "@prove-identity/prove-api/models/errors";
 
 const proveapi = new Proveapi();
 
 async function run() {
-  let result;
   try {
-    result = await proveapi.v3.v3TokenRequest({
+    const result = await proveapi.v3.v3TokenRequest({
       clientId: "customer_id",
       clientSecret: "secret",
       grantType: "client_credentials",
     });
 
-    // Handle the result
     console.log(result);
-  } catch (err) {
-    switch (true) {
-      // The server response does not match the expected SDK schema
-      case (err instanceof SDKValidationError): {
-        // Pretty-print will provide a human-readable multi-line error message
-        console.error(err.pretty());
-        // Raw value may also be inspected
-        console.error(err.rawValue);
-        return;
-      }
-      case (err instanceof ErrorT): {
-        // Handle err.data$: ErrorTData
-        console.error(err);
-        return;
-      }
-      case (err instanceof Error401): {
-        // Handle err.data$: Error401Data
-        console.error(err);
-        return;
-      }
-      case (err instanceof ErrorT): {
-        // Handle err.data$: ErrorTData
-        console.error(err);
-        return;
-      }
-      default: {
-        // Other errors such as network errors, see HTTPClientErrors for more details
-        throw err;
+  } catch (error) {
+    // The base class for HTTP error responses
+    if (error instanceof errors.ProveapiError) {
+      console.log(error.message);
+      console.log(error.httpMeta.response.status);
+      console.log(error.httpMeta.response.headers);
+      console.log(error.httpMeta.request);
+
+      // Depending on the method different errors may be thrown
+      if (error instanceof errors.ErrorT) {
+        console.log(error.data$.code); // number
+        console.log(error.data$.message); // string
       }
     }
   }
@@ -274,17 +251,31 @@ run();
 
 ```
 
-Validation errors can also occur when either method arguments or data returned from the server do not match the expected format. The `SDKValidationError` that is thrown as a result will capture the raw value that failed validation in an attribute called `rawValue`. Additionally, a `pretty()` method is available on this error that can be used to log a nicely formatted multi-line string since validation errors can list many issues and the plain error string may be difficult read when debugging.
+### Error Classes
+**Primary errors:**
+* [`ProveapiError`](./src/models/errors/proveapierror.ts): The base class for HTTP error responses.
+  * [`ErrorT`](./src/models/errors/errort.ts): Bad Request. The server cannot process the request due to a client error.
+  * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`.
+  * [`Error403`](./src/models/errors/error403.ts): Forbidden. The server understood the request but refuses to authorize it. Status code `403`. *
 
-In some rare cases, the SDK can fail to get a response from the server or even make the request due to unexpected circumstances such as network conditions. These types of errors are captured in the `models/errors/httpclienterrors.ts` module:
+<details><summary>Less common errors (6)</summary>
 
-| HTTP Client Error                                    | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- |
-| RequestAbortedError                                  | HTTP request was aborted by the client               |
-| RequestTimeoutError                                  | HTTP request timed out due to an AbortSignal signal  |
-| ConnectionError                                      | HTTP client was unable to make a request to a server |
-| InvalidRequestError                                  | Any input used to create a request is invalid        |
-| UnexpectedClientError                                | Unrecognised or unexpected error                     |
+<br />
+
+**Network errors:**
+* [`ConnectionError`](./src/models/errors/httpclienterrors.ts): HTTP client was unable to make a request to a server.
+* [`RequestTimeoutError`](./src/models/errors/httpclienterrors.ts): HTTP request timed out due to an AbortSignal signal.
+* [`RequestAbortedError`](./src/models/errors/httpclienterrors.ts): HTTP request was aborted by the client.
+* [`InvalidRequestError`](./src/models/errors/httpclienterrors.ts): Any input used to create a request is invalid.
+* [`UnexpectedClientError`](./src/models/errors/httpclienterrors.ts): Unrecognised or unexpected error.
+
+
+**Inherit from [`ProveapiError`](./src/models/errors/proveapierror.ts)**:
+* [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
+
+</details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -294,12 +285,12 @@ In some rare cases, the SDK can fail to get a response from the server or even m
 
 You can override the default server globally by passing a server name to the `server: keyof typeof ServerList` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the names associated with the available servers:
 
-| Name      | Server                                  |
-| --------- | --------------------------------------- |
-| `uat-us`  | `https://platform.uat.proveapis.com`    |
-| `prod-us` | `https://platform.proveapis.com`        |
-| `uat-eu`  | `https://platform.uat.eu.proveapis.com` |
-| `prod-eu` | `https://platform.eu.proveapis.com`     |
+| Name      | Server                                  | Description        |
+| --------- | --------------------------------------- | ------------------ |
+| `uat-us`  | `https://platform.uat.proveapis.com`    | UAT for US Region  |
+| `prod-us` | `https://platform.proveapis.com`        | Prod for US Region |
+| `uat-eu`  | `https://platform.uat.eu.proveapis.com` | UAT for EU Region  |
+| `prod-eu` | `https://platform.eu.proveapis.com`     | Prod for EU Region |
 
 #### Example
 
@@ -317,7 +308,6 @@ async function run() {
     grantType: "client_credentials",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -342,7 +332,6 @@ async function run() {
     grantType: "client_credentials",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -429,7 +418,6 @@ async function run() {
     grantType: "client_credentials",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -467,7 +455,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -499,7 +486,6 @@ async function run() {
     grantType: "client_credentials",
   });
 
-  // Handle the result
   console.log(result);
 }
 
