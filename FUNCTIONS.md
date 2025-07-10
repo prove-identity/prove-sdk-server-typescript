@@ -21,7 +21,6 @@ specific category of applications.
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
 import { v3V3StartRequest } from "@prove-identity/prove-api/funcs/v3V3StartRequest.js";
-import { SDKValidationError } from "@prove-identity/prove-api/models/errors/sdkvalidationerror.js";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -44,28 +43,12 @@ async function run() {
     smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
     ssn: "0596",
   });
-
-  switch (true) {
-    case res.ok:
-      // The success case will be handled outside of the switch block
-      break;
-    case res.error instanceof SDKValidationError:
-      // Pretty-print validation errors.
-      return console.log(res.error.pretty());
-    case res.error instanceof Error:
-      return console.log(res.error);
-    default:
-      // TypeScript's type checking will fail on the following line if the above
-      // cases were not exhaustive.
-      res.error satisfies never;
-      throw new Error("Assertion failed: expected error checks to be exhaustive: " + res.error);
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3StartRequest failed:", res.error);
   }
-
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

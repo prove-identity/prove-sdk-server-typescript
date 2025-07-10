@@ -1,3 +1,11 @@
+/examples/node_modules
+/mcp-server
+/bin
+**/.speakeasy/temp/
+**/.speakeasy/logs/
+.env
+.env.local
+.env.*.local
 /.eslintcache
 /.speakeasy/reports
 /react-query

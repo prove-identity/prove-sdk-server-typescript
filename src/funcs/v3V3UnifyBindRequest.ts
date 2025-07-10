@@ -19,9 +19,11 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ProveapiError } from "../models/errors/proveapierror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
+import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
@@ -30,25 +32,55 @@ import { Result } from "../types/fp.js";
  * @remarks
  * This endpoint allows you to bind a Prove Key to a phone number of a Unify session and get the possession result.
  */
-export async function v3V3UnifyBindRequest(
+export function v3V3UnifyBindRequest(
   client: ProveapiCore,
   request?: components.V3UnifyBindRequest | undefined,
   options?: RequestOptions,
-): Promise<
+): APIPromise<
   Result<
     operations.V3UnifyBindRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
-    | errors.ErrorT
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | ProveapiError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
+> {
+  return new APIPromise($do(
+    client,
+    request,
+    options,
+  ));
+}
+
+async function $do(
+  client: ProveapiCore,
+  request?: components.V3UnifyBindRequest | undefined,
+  options?: RequestOptions,
+): Promise<
+  [
+    Result<
+      operations.V3UnifyBindRequestResponse,
+      | errors.ErrorT
+      | errors.Error401
+      | errors.Error403
+      | ProveapiError
+      | ResponseValidationError
+      | ConnectionError
+      | RequestAbortedError
+      | RequestTimeoutError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
+    >,
+    APICall,
+  ]
 > {
   const parsed = safeParse(
     request,
@@ -57,7 +89,7 @@ export async function v3V3UnifyBindRequest(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return parsed;
+    return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = payload === undefined
@@ -75,6 +107,8 @@ export async function v3V3UnifyBindRequest(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
+    options: client._options,
+    baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "V3UnifyBindRequest",
     oAuth2Scopes: [],
 
@@ -94,10 +128,11 @@ export async function v3V3UnifyBindRequest(
     path: path,
     headers: headers,
     body: body,
+    userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return requestRes;
+    return [requestRes, { status: "invalid" }];
   }
   const req = requestRes.value;
 
@@ -108,7 +143,7 @@ export async function v3V3UnifyBindRequest(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return doResult;
+    return [doResult, { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -121,14 +156,14 @@ export async function v3V3UnifyBindRequest(
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
-    | errors.ErrorT
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | ProveapiError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, operations.V3UnifyBindRequestResponse$inboundSchema, {
       hdrs: true,
@@ -142,8 +177,8 @@ export async function v3V3UnifyBindRequest(
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return result;
+    return [result, { status: "complete", request: req, response }];
   }
 
-  return result;
+  return [result, { status: "complete", request: req, response }];
 }

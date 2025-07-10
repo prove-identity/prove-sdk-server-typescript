@@ -5,21 +5,7 @@
 ```typescript
 import { V3StartRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3StartRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3StartResponse: {
-    authToken: "eyJhbGciOi...",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    next: {
-      "v3-validate": "/v3/validate",
-    },
-  },
-};
+let value: V3StartRequestResponse = {};
 ```
 
 ## Fields

@@ -5,21 +5,7 @@
 ```typescript
 import { V3TokenRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3TokenRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3TokenResponse: {
-    accessToken: "eyJ...",
-    expiresIn: 3600,
-    refreshExpiresIn: 3600,
-    refreshToken: "eyJ...",
-    tokenType: "Bearer",
-  },
-};
+let value: V3TokenRequestResponse = {};
 ```
 
 ## Fields

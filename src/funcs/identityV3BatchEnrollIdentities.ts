@@ -19,9 +19,11 @@ import {
   UnexpectedClientError,
 } from "../models/errors/httpclienterrors.js";
 import * as errors from "../models/errors/index.js";
-import { SDKError } from "../models/errors/sdkerror.js";
+import { ProveapiError } from "../models/errors/proveapierror.js";
+import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as operations from "../models/operations/index.js";
+import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
@@ -30,25 +32,55 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Enrolls multiple customers in a single request for efficient bulk operations (up to 100).
  */
-export async function identityV3BatchEnrollIdentities(
+export function identityV3BatchEnrollIdentities(
   client: ProveapiCore,
   request?: components.V3BatchEnrollIdentitiesRequest | undefined,
   options?: RequestOptions,
-): Promise<
+): APIPromise<
   Result<
     operations.V3BatchEnrollIdentitiesResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
-    | errors.ErrorT
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | ProveapiError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >
+> {
+  return new APIPromise($do(
+    client,
+    request,
+    options,
+  ));
+}
+
+async function $do(
+  client: ProveapiCore,
+  request?: components.V3BatchEnrollIdentitiesRequest | undefined,
+  options?: RequestOptions,
+): Promise<
+  [
+    Result<
+      operations.V3BatchEnrollIdentitiesResponse,
+      | errors.ErrorT
+      | errors.Error401
+      | errors.Error403
+      | ProveapiError
+      | ResponseValidationError
+      | ConnectionError
+      | RequestAbortedError
+      | RequestTimeoutError
+      | InvalidRequestError
+      | UnexpectedClientError
+      | SDKValidationError
+    >,
+    APICall,
+  ]
 > {
   const parsed = safeParse(
     request,
@@ -59,7 +91,7 @@ export async function identityV3BatchEnrollIdentities(
     "Input validation failed",
   );
   if (!parsed.ok) {
-    return parsed;
+    return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
   const body = payload === undefined
@@ -77,6 +109,8 @@ export async function identityV3BatchEnrollIdentities(
   const requestSecurity = resolveGlobalSecurity(securityInput);
 
   const context = {
+    options: client._options,
+    baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "V3BatchEnrollIdentities",
     oAuth2Scopes: [],
 
@@ -96,10 +130,11 @@ export async function identityV3BatchEnrollIdentities(
     path: path,
     headers: headers,
     body: body,
+    userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);
   if (!requestRes.ok) {
-    return requestRes;
+    return [requestRes, { status: "invalid" }];
   }
   const req = requestRes.value;
 
@@ -110,7 +145,7 @@ export async function identityV3BatchEnrollIdentities(
     retryCodes: context.retryCodes,
   });
   if (!doResult.ok) {
-    return doResult;
+    return [doResult, { status: "request-error", request: req }];
   }
   const response = doResult.value;
 
@@ -123,14 +158,14 @@ export async function identityV3BatchEnrollIdentities(
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
-    | errors.ErrorT
-    | SDKError
-    | SDKValidationError
-    | UnexpectedClientError
-    | InvalidRequestError
+    | ProveapiError
+    | ResponseValidationError
+    | ConnectionError
     | RequestAbortedError
     | RequestTimeoutError
-    | ConnectionError
+    | InvalidRequestError
+    | UnexpectedClientError
+    | SDKValidationError
   >(
     M.json(200, operations.V3BatchEnrollIdentitiesResponse$inboundSchema, {
       key: "V3BatchEnrollIdentitiesResponse",
@@ -143,8 +178,8 @@ export async function identityV3BatchEnrollIdentities(
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
-    return result;
+    return [result, { status: "complete", request: req, response }];
   }
 
-  return result;
+  return [result, { status: "complete", request: req, response }];
 }

@@ -6,8 +6,8 @@ import * as components from "../models/components/index.js";
 
 type OAuth2PasswordFlow = {
   username: string;
-  password?: string | undefined;
-  clientID: string;
+  password: string;
+  clientID?: string | undefined;
   clientSecret?: string | undefined;
   tokenURL: string;
 };
@@ -82,8 +82,12 @@ type SecurityInputOAuth2 = {
 
 type SecurityInputOAuth2ClientCredentials = {
   type: "oauth2:client_credentials";
-  value: string | null | undefined;
-  fieldName: string;
+  value:
+    | { clientID?: string | undefined; clientSecret?: string | undefined }
+    | null
+    | string
+    | undefined;
+  fieldName?: string;
 };
 
 type SecurityInputOAuth2PasswordCredentials = {
@@ -92,13 +96,13 @@ type SecurityInputOAuth2PasswordCredentials = {
     | string
     | null
     | undefined;
-  fieldName: string;
+  fieldName?: string;
 };
 
 type SecurityInputCustom = {
   type: "http:custom";
   value: any | null | undefined;
-  fieldName: string;
+  fieldName?: string;
 };
 
 export type SecurityInput =
@@ -134,6 +138,11 @@ export function resolveSecurity(
         return (
           typeof o.value === "string" && !!o.value
         );
+      } else if (o.type === "oauth2:client_credentials") {
+        if (typeof o.value == "string") {
+          return !!o.value;
+        }
+        return o.value.clientID != null || o.value.clientSecret != null;
       } else if (typeof o.value === "string") {
         return !!o.value;
       } else {
@@ -221,7 +230,9 @@ function applyBearer(
     value = `Bearer ${value}`;
   }
 
-  state.headers[spec.fieldName] = value;
+  if (spec.fieldName !== undefined) {
+    state.headers[spec.fieldName] = value;
+  }
 }
 
 export function resolveGlobalSecurity(

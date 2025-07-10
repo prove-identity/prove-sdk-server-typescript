@@ -5,12 +5,7 @@
 ```typescript
 import { HTTPMetadata } from "@prove-identity/prove-api/models/components";
 
-let value: HTTPMetadata = {
-  response: new Response("{\"message\": \"hello world\"}", {
-    headers: { "Content-Type": "application/json" },
-  }),
-  request: new Request("https://example.com"),
-};
+let value: HTTPMetadata = {};
 ```
 
 ## Fields

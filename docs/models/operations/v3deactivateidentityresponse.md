@@ -5,17 +5,7 @@
 ```typescript
 import { V3DeactivateIdentityResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3DeactivateIdentityResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3DeactivateIdentityResponse: {
-    success: true,
-  },
-};
+let value: V3DeactivateIdentityResponse = {};
 ```
 
 ## Fields

@@ -5,21 +5,7 @@
 ```typescript
 import { V3VerifyRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3VerifyRequestResponse = {
-  httpMeta: {
-    response: new Response("{\"message\": \"hello world\"}", {
-      headers: { "Content-Type": "application/json" },
-    }),
-    request: new Request("https://example.com"),
-  },
-  v3VerifyResponse: {
-    authToken: "eyJhbGciOi...",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    possessionResult: "pending",
-    success: "pending",
-    verifyResult: "pending",
-  },
-};
+let value: V3VerifyRequestResponse = {};
 ```
 
 ## Fields
