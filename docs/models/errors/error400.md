@@ -1,9 +1,9 @@
-# ErrorT
+# Error400
 
 ## Example Usage
 
 ```typescript
-import { ErrorT } from "@prove-identity/prove-api/models/errors";
+import { Error400 } from "@prove-identity/prove-api/models/errors";
 
 // No examples available for this model
 ```
@@ -12,5 +12,5 @@ import { ErrorT } from "@prove-identity/prove-api/models/errors";
 
 | Field                                                             | Type                                                              | Required                                                          | Description                                                       | Example                                                           |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
-| `code`                                                            | *number*                                                          | :heavy_minus_sign:                                                | An error code that describes the problem category of the request. | 8000                                                              |
-| `message`                                                         | *string*                                                          | :heavy_check_mark:                                                | The error message describing the problem with the request.        | error at prove, try again later                                   |
+| `code`                                                            | *number*                                                          | :heavy_minus_sign:                                                | An error code that describes the problem category of the request. | 8002                                                              |
+| `message`                                                         | *string*                                                          | :heavy_check_mark:                                                | The error message describing the problem with the request.        | not authorized                                                    |

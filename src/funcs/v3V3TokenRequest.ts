@@ -38,8 +38,9 @@ export function v3V3TokenRequest(
 ): APIPromise<
   Result<
     operations.V3TokenRequestResponse,
-    | errors.ErrorT
+    | errors.Error400
     | errors.Error401
+    | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
     | ConnectionError
@@ -65,8 +66,9 @@ async function $do(
   [
     Result<
       operations.V3TokenRequestResponse,
-      | errors.ErrorT
+      | errors.Error400
       | errors.Error401
+      | errors.ErrorT
       | ProveapiError
       | ResponseValidationError
       | ConnectionError
@@ -146,8 +148,9 @@ async function $do(
 
   const [result] = await M.match<
     operations.V3TokenRequestResponse,
-    | errors.ErrorT
+    | errors.Error400
     | errors.Error401
+    | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
     | ConnectionError
@@ -160,7 +163,7 @@ async function $do(
     M.json(200, operations.V3TokenRequestResponse$inboundSchema, {
       key: "V3TokenResponse",
     }),
-    M.jsonErr(400, errors.ErrorT$inboundSchema),
+    M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),
