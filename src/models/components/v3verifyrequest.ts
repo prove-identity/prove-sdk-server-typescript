@@ -9,7 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3VerifyRequest = {
   /**
-   * If true, the customer can re-enter the OTP pin up to three times. Code must also be implemented. See client-side SDK guide for more details.
+   * If true, the customer can re-enter the OTP up to three times. Code must also be implemented. See client-side SDK guide for more details.
    */
   allowOTPRetry?: boolean | undefined;
   /**
@@ -25,7 +25,7 @@ export type V3VerifyRequest = {
    */
   emailAddress?: string | undefined;
   /**
-   * The URL where the end user will be redirected at the end of the Instant Link flow. Required only when `flowType=desktop`. Acceptable characters are: alphanumeric with symbols '-._+=/:?'.
+   * The URL where the end user will be redirected at the end of the Instant Link flow. Required only when `flowType=desktop`. Acceptable characters are: alphanumeric with symbols '-._+=/:?'. Max length is 128 characters.
    */
   finalTargetUrl?: string | undefined;
   /**
@@ -41,7 +41,7 @@ export type V3VerifyRequest = {
    */
   phoneNumber: string;
   /**
-   * The type of device being user - either `desktop` for desktop web or `mobile` for iOS/Android native apps and mobile web.
+   * The type of device being used - either `desktop` if using a desktop, `mobile` for iOS/Android native apps and mobile web, or `none` if no possession check is required.
    */
   possessionType: string;
   /**
