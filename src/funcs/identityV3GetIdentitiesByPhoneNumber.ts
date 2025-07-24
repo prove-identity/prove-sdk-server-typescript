@@ -39,9 +39,10 @@ export function identityV3GetIdentitiesByPhoneNumber(
 ): APIPromise<
   Result<
     operations.V3GetIdentitiesByPhoneNumberResponse,
-    | errors.ErrorT
+    | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
     | ConnectionError
@@ -69,9 +70,10 @@ async function $do(
   [
     Result<
       operations.V3GetIdentitiesByPhoneNumberResponse,
-      | errors.ErrorT
+      | errors.Error400
       | errors.Error401
       | errors.Error403
+      | errors.ErrorT
       | ProveapiError
       | ResponseValidationError
       | ConnectionError
@@ -171,9 +173,10 @@ async function $do(
 
   const [result] = await M.match<
     operations.V3GetIdentitiesByPhoneNumberResponse,
-    | errors.ErrorT
+    | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
     | ConnectionError
@@ -186,7 +189,7 @@ async function $do(
     M.json(200, operations.V3GetIdentitiesByPhoneNumberResponse$inboundSchema, {
       key: "V3GetIdentitiesByPhoneNumberResponse",
     }),
-    M.jsonErr(400, errors.ErrorT$inboundSchema),
+    M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

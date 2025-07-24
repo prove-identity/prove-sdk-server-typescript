@@ -14,7 +14,7 @@
 * [v3UnifyStatusRequest](#v3unifystatusrequest) - Check Status
 * [v3ValidateRequest](#v3validaterequest) - Validate Phone Number
 * [v3VerifyRequest](#v3verifyrequest) - Initiate Verified Users Session
-* [v3VerifyStatusRequest](#v3verifystatusrequest) - Perform Checks for Verified Users Session
+* [v3VerifyStatusRequest](#v3verifystatusrequest) - Check Verification Result
 
 ## v3TokenRequest
 
@@ -86,7 +86,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -171,7 +171,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -289,7 +289,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -387,7 +387,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -483,7 +483,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -569,7 +569,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -655,7 +655,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -737,7 +737,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -837,7 +837,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -921,7 +921,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |

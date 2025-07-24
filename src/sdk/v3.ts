@@ -172,7 +172,7 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Perform Checks for Verified Users Session
+   * Check Verification Result
    *
    * @remarks
    * This endpoint allows you to perform the necessary checks for a Verified Users session.

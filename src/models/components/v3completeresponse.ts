@@ -19,7 +19,13 @@ import {
   KYCInternal$outboundSchema,
 } from "./kycinternal.js";
 
+export type V3CompleteResponseEvaluation = {};
+
 export type V3CompleteResponse = {
+  /**
+   * The evaluation result for the policy
+   */
+  evaluation?: { [k: string]: V3CompleteResponseEvaluation } | undefined;
   idv?: IDVDataInternal | undefined;
   kyc?: KYCInternal | undefined;
   /**
@@ -33,11 +39,63 @@ export type V3CompleteResponse = {
 };
 
 /** @internal */
+export const V3CompleteResponseEvaluation$inboundSchema: z.ZodType<
+  V3CompleteResponseEvaluation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type V3CompleteResponseEvaluation$Outbound = {};
+
+/** @internal */
+export const V3CompleteResponseEvaluation$outboundSchema: z.ZodType<
+  V3CompleteResponseEvaluation$Outbound,
+  z.ZodTypeDef,
+  V3CompleteResponseEvaluation
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace V3CompleteResponseEvaluation$ {
+  /** @deprecated use `V3CompleteResponseEvaluation$inboundSchema` instead. */
+  export const inboundSchema = V3CompleteResponseEvaluation$inboundSchema;
+  /** @deprecated use `V3CompleteResponseEvaluation$outboundSchema` instead. */
+  export const outboundSchema = V3CompleteResponseEvaluation$outboundSchema;
+  /** @deprecated use `V3CompleteResponseEvaluation$Outbound` instead. */
+  export type Outbound = V3CompleteResponseEvaluation$Outbound;
+}
+
+export function v3CompleteResponseEvaluationToJSON(
+  v3CompleteResponseEvaluation: V3CompleteResponseEvaluation,
+): string {
+  return JSON.stringify(
+    V3CompleteResponseEvaluation$outboundSchema.parse(
+      v3CompleteResponseEvaluation,
+    ),
+  );
+}
+
+export function v3CompleteResponseEvaluationFromJSON(
+  jsonString: string,
+): SafeParseResult<V3CompleteResponseEvaluation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3CompleteResponseEvaluation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3CompleteResponseEvaluation' from JSON`,
+  );
+}
+
+/** @internal */
 export const V3CompleteResponse$inboundSchema: z.ZodType<
   V3CompleteResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  evaluation: z.record(z.lazy(() => V3CompleteResponseEvaluation$inboundSchema))
+    .optional(),
   idv: IDVDataInternal$inboundSchema.optional(),
   kyc: KYCInternal$inboundSchema.optional(),
   next: z.record(z.string()),
@@ -46,6 +104,9 @@ export const V3CompleteResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3CompleteResponse$Outbound = {
+  evaluation?:
+    | { [k: string]: V3CompleteResponseEvaluation$Outbound }
+    | undefined;
   idv?: IDVDataInternal$Outbound | undefined;
   kyc?: KYCInternal$Outbound | undefined;
   next: { [k: string]: string };
@@ -58,6 +119,9 @@ export const V3CompleteResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3CompleteResponse
 > = z.object({
+  evaluation: z.record(
+    z.lazy(() => V3CompleteResponseEvaluation$outboundSchema),
+  ).optional(),
   idv: IDVDataInternal$outboundSchema.optional(),
   kyc: KYCInternal$outboundSchema.optional(),
   next: z.record(z.string()),
