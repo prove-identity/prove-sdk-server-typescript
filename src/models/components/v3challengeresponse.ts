@@ -13,7 +13,13 @@ import {
   V3ChallengeIndividualRequest$outboundSchema,
 } from "./v3challengeindividualrequest.js";
 
+export type Evaluation = {};
+
 export type V3ChallengeResponse = {
+  /**
+   * The evaluation result for the policy
+   */
+  evaluation?: { [k: string]: Evaluation } | undefined;
   individual?: V3ChallengeIndividualRequest | undefined;
   /**
    * The next set of allowed calls in the same flow.
@@ -26,11 +32,56 @@ export type V3ChallengeResponse = {
 };
 
 /** @internal */
+export const Evaluation$inboundSchema: z.ZodType<
+  Evaluation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type Evaluation$Outbound = {};
+
+/** @internal */
+export const Evaluation$outboundSchema: z.ZodType<
+  Evaluation$Outbound,
+  z.ZodTypeDef,
+  Evaluation
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Evaluation$ {
+  /** @deprecated use `Evaluation$inboundSchema` instead. */
+  export const inboundSchema = Evaluation$inboundSchema;
+  /** @deprecated use `Evaluation$outboundSchema` instead. */
+  export const outboundSchema = Evaluation$outboundSchema;
+  /** @deprecated use `Evaluation$Outbound` instead. */
+  export type Outbound = Evaluation$Outbound;
+}
+
+export function evaluationToJSON(evaluation: Evaluation): string {
+  return JSON.stringify(Evaluation$outboundSchema.parse(evaluation));
+}
+
+export function evaluationFromJSON(
+  jsonString: string,
+): SafeParseResult<Evaluation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Evaluation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Evaluation' from JSON`,
+  );
+}
+
+/** @internal */
 export const V3ChallengeResponse$inboundSchema: z.ZodType<
   V3ChallengeResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  evaluation: z.record(z.lazy(() => Evaluation$inboundSchema)).optional(),
   individual: V3ChallengeIndividualRequest$inboundSchema.optional(),
   next: z.record(z.string()),
   success: z.boolean(),
@@ -38,6 +89,7 @@ export const V3ChallengeResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3ChallengeResponse$Outbound = {
+  evaluation?: { [k: string]: Evaluation$Outbound } | undefined;
   individual?: V3ChallengeIndividualRequest$Outbound | undefined;
   next: { [k: string]: string };
   success: boolean;
@@ -49,6 +101,7 @@ export const V3ChallengeResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3ChallengeResponse
 > = z.object({
+  evaluation: z.record(z.lazy(() => Evaluation$outboundSchema)).optional(),
   individual: V3ChallengeIndividualRequest$outboundSchema.optional(),
   next: z.record(z.string()),
   success: z.boolean(),
