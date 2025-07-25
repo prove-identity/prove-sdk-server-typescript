@@ -25,7 +25,7 @@ export type V3CompleteResponse = {
   /**
    * The evaluation result for the policy
    */
-  evaluation?: { [k: string]: V3CompleteResponseEvaluation } | undefined;
+  evaluation?: { [k: string]: V3CompleteResponseEvaluation } | null | undefined;
   idv?: IDVDataInternal | undefined;
   kyc?: KYCInternal | undefined;
   /**
@@ -94,8 +94,9 @@ export const V3CompleteResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  evaluation: z.record(z.lazy(() => V3CompleteResponseEvaluation$inboundSchema))
-    .optional(),
+  evaluation: z.nullable(
+    z.record(z.lazy(() => V3CompleteResponseEvaluation$inboundSchema)),
+  ).optional(),
   idv: IDVDataInternal$inboundSchema.optional(),
   kyc: KYCInternal$inboundSchema.optional(),
   next: z.record(z.string()),
@@ -106,6 +107,7 @@ export const V3CompleteResponse$inboundSchema: z.ZodType<
 export type V3CompleteResponse$Outbound = {
   evaluation?:
     | { [k: string]: V3CompleteResponseEvaluation$Outbound }
+    | null
     | undefined;
   idv?: IDVDataInternal$Outbound | undefined;
   kyc?: KYCInternal$Outbound | undefined;
@@ -119,8 +121,8 @@ export const V3CompleteResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3CompleteResponse
 > = z.object({
-  evaluation: z.record(
-    z.lazy(() => V3CompleteResponseEvaluation$outboundSchema),
+  evaluation: z.nullable(
+    z.record(z.lazy(() => V3CompleteResponseEvaluation$outboundSchema)),
   ).optional(),
   idv: IDVDataInternal$outboundSchema.optional(),
   kyc: KYCInternal$outboundSchema.optional(),
