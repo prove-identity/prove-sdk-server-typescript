@@ -29,7 +29,7 @@ const proveapi = new Proveapi();
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -54,7 +54,7 @@ const proveapi = new ProveapiCore();
 
 async function run() {
   const res = await v3V3TokenRequest(proveapi, {
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -86,7 +86,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -171,7 +171,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -289,7 +289,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -387,7 +387,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -412,6 +412,7 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.v3.v3UnifyRequest({
     allowOTPRetry: true,
+    checkReputation: true,
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     finalTargetUrl: "https://www.example.com/landing-page",
@@ -447,6 +448,7 @@ const proveapi = new ProveapiCore({
 async function run() {
   const res = await v3V3UnifyRequest(proveapi, {
     allowOTPRetry: true,
+    checkReputation: true,
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     finalTargetUrl: "https://www.example.com/landing-page",
@@ -483,7 +485,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -569,7 +571,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -655,7 +657,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -737,7 +739,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -837,7 +839,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -921,7 +923,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |

@@ -7,7 +7,13 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type V3VerifyStatusResponseEvaluation = {};
+
 export type V3VerifyStatusResponse = {
+  /**
+   * The evaluation result for the policy
+   */
+  evaluation?: { [k: string]: V3VerifyStatusResponseEvaluation } | undefined;
   /**
    * A unique ID that Prove generates to refer to a specific identity.
    */
@@ -27,11 +33,64 @@ export type V3VerifyStatusResponse = {
 };
 
 /** @internal */
+export const V3VerifyStatusResponseEvaluation$inboundSchema: z.ZodType<
+  V3VerifyStatusResponseEvaluation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type V3VerifyStatusResponseEvaluation$Outbound = {};
+
+/** @internal */
+export const V3VerifyStatusResponseEvaluation$outboundSchema: z.ZodType<
+  V3VerifyStatusResponseEvaluation$Outbound,
+  z.ZodTypeDef,
+  V3VerifyStatusResponseEvaluation
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace V3VerifyStatusResponseEvaluation$ {
+  /** @deprecated use `V3VerifyStatusResponseEvaluation$inboundSchema` instead. */
+  export const inboundSchema = V3VerifyStatusResponseEvaluation$inboundSchema;
+  /** @deprecated use `V3VerifyStatusResponseEvaluation$outboundSchema` instead. */
+  export const outboundSchema = V3VerifyStatusResponseEvaluation$outboundSchema;
+  /** @deprecated use `V3VerifyStatusResponseEvaluation$Outbound` instead. */
+  export type Outbound = V3VerifyStatusResponseEvaluation$Outbound;
+}
+
+export function v3VerifyStatusResponseEvaluationToJSON(
+  v3VerifyStatusResponseEvaluation: V3VerifyStatusResponseEvaluation,
+): string {
+  return JSON.stringify(
+    V3VerifyStatusResponseEvaluation$outboundSchema.parse(
+      v3VerifyStatusResponseEvaluation,
+    ),
+  );
+}
+
+export function v3VerifyStatusResponseEvaluationFromJSON(
+  jsonString: string,
+): SafeParseResult<V3VerifyStatusResponseEvaluation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3VerifyStatusResponseEvaluation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3VerifyStatusResponseEvaluation' from JSON`,
+  );
+}
+
+/** @internal */
 export const V3VerifyStatusResponse$inboundSchema: z.ZodType<
   V3VerifyStatusResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  evaluation: z.record(
+    z.lazy(() => V3VerifyStatusResponseEvaluation$inboundSchema),
+  ).optional(),
   identityId: z.string().optional(),
   possessionResult: z.string(),
   success: z.string(),
@@ -40,6 +99,9 @@ export const V3VerifyStatusResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3VerifyStatusResponse$Outbound = {
+  evaluation?:
+    | { [k: string]: V3VerifyStatusResponseEvaluation$Outbound }
+    | undefined;
   identityId?: string | undefined;
   possessionResult: string;
   success: string;
@@ -52,6 +114,9 @@ export const V3VerifyStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyStatusResponse
 > = z.object({
+  evaluation: z.record(
+    z.lazy(() => V3VerifyStatusResponseEvaluation$outboundSchema),
+  ).optional(),
   identityId: z.string().optional(),
   possessionResult: z.string(),
   success: z.string(),

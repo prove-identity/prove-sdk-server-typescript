@@ -13,6 +13,10 @@ export type V3UnifyRequest = {
    */
   allowOTPRetry?: boolean | undefined;
   /**
+   * If true, TrustScore verification will be performed.
+   */
+  checkReputation?: boolean | undefined;
+  /**
    * A client-generated unique ID for a specific customer.
    */
   clientCustomerId?: string | undefined;
@@ -64,6 +68,7 @@ export const V3UnifyRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   allowOTPRetry: z.boolean().optional(),
+  checkReputation: z.boolean().optional(),
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
   finalTargetUrl: z.string().optional(),
@@ -76,6 +81,7 @@ export const V3UnifyRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type V3UnifyRequest$Outbound = {
   allowOTPRetry?: boolean | undefined;
+  checkReputation?: boolean | undefined;
   clientCustomerId?: string | undefined;
   clientRequestId?: string | undefined;
   finalTargetUrl?: string | undefined;
@@ -92,6 +98,7 @@ export const V3UnifyRequest$outboundSchema: z.ZodType<
   V3UnifyRequest
 > = z.object({
   allowOTPRetry: z.boolean().optional(),
+  checkReputation: z.boolean().optional(),
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
   finalTargetUrl: z.string().optional(),

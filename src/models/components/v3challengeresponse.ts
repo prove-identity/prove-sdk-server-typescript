@@ -19,7 +19,7 @@ export type V3ChallengeResponse = {
   /**
    * The evaluation result for the policy
    */
-  evaluation?: { [k: string]: Evaluation } | null | undefined;
+  evaluation?: { [k: string]: Evaluation } | undefined;
   individual?: V3ChallengeIndividualRequest | undefined;
   /**
    * The next set of allowed calls in the same flow.
@@ -81,8 +81,7 @@ export const V3ChallengeResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  evaluation: z.nullable(z.record(z.lazy(() => Evaluation$inboundSchema)))
-    .optional(),
+  evaluation: z.record(z.lazy(() => Evaluation$inboundSchema)).optional(),
   individual: V3ChallengeIndividualRequest$inboundSchema.optional(),
   next: z.record(z.string()),
   success: z.boolean(),
@@ -90,7 +89,7 @@ export const V3ChallengeResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3ChallengeResponse$Outbound = {
-  evaluation?: { [k: string]: Evaluation$Outbound } | null | undefined;
+  evaluation?: { [k: string]: Evaluation$Outbound } | undefined;
   individual?: V3ChallengeIndividualRequest$Outbound | undefined;
   next: { [k: string]: string };
   success: boolean;
@@ -102,8 +101,7 @@ export const V3ChallengeResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3ChallengeResponse
 > = z.object({
-  evaluation: z.nullable(z.record(z.lazy(() => Evaluation$outboundSchema)))
-    .optional(),
+  evaluation: z.record(z.lazy(() => Evaluation$outboundSchema)).optional(),
   individual: V3ChallengeIndividualRequest$outboundSchema.optional(),
   next: z.record(z.string()),
   success: z.boolean(),

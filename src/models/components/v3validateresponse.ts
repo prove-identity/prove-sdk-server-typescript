@@ -11,13 +11,16 @@ export type V3ValidateResponseEvaluation = {};
 
 export type V3ValidateResponse = {
   /**
-   * True if a DOB or SSN needs to be passed in on the next step.
+   * True if a DOB or SSN needs to be passed in on the next step. Only applicable to Pre-Fill. If implementing Prove Identity ignore this field.
+   *
+   * @remarks
+   * It will always return false for this use case.
    */
   challengeMissing: boolean;
   /**
    * The evaluation result for the policy
    */
-  evaluation?: { [k: string]: V3ValidateResponseEvaluation } | null | undefined;
+  evaluation?: { [k: string]: V3ValidateResponseEvaluation } | undefined;
   /**
    * The next set of allowed calls in the same flow.
    */
@@ -89,9 +92,8 @@ export const V3ValidateResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   challengeMissing: z.boolean(),
-  evaluation: z.nullable(
-    z.record(z.lazy(() => V3ValidateResponseEvaluation$inboundSchema)),
-  ).optional(),
+  evaluation: z.record(z.lazy(() => V3ValidateResponseEvaluation$inboundSchema))
+    .optional(),
   next: z.record(z.string()),
   phoneNumber: z.string().optional(),
   success: z.boolean(),
@@ -102,7 +104,6 @@ export type V3ValidateResponse$Outbound = {
   challengeMissing: boolean;
   evaluation?:
     | { [k: string]: V3ValidateResponseEvaluation$Outbound }
-    | null
     | undefined;
   next: { [k: string]: string };
   phoneNumber?: string | undefined;
@@ -116,8 +117,8 @@ export const V3ValidateResponse$outboundSchema: z.ZodType<
   V3ValidateResponse
 > = z.object({
   challengeMissing: z.boolean(),
-  evaluation: z.nullable(
-    z.record(z.lazy(() => V3ValidateResponseEvaluation$outboundSchema)),
+  evaluation: z.record(
+    z.lazy(() => V3ValidateResponseEvaluation$outboundSchema),
   ).optional(),
   next: z.record(z.string()),
   phoneNumber: z.string().optional(),
