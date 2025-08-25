@@ -174,6 +174,13 @@ run();
 <details open>
 <summary>Available methods</summary>
 
+### [domain](docs/sdks/domain/README.md)
+
+* [v3DomainID](docs/sdks/domain/README.md#v3domainid) - Get Domain Details
+* [v3DomainLink](docs/sdks/domain/README.md#v3domainlink) - # Create a request to connect the requested domain to the domain the request is made from.
+* [v3DomainLinked](docs/sdks/domain/README.md#v3domainlinked) - Get the list of domains that are linked to this domain.
+* [v3DomainUnlink](docs/sdks/domain/README.md#v3domainunlink) - # Remove a domain link or request.
+
 ### [identity](docs/sdks/identity/README.md)
 
 * [v3BatchGetIdentities](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
@@ -224,7 +231,7 @@ const proveapi = new Proveapi();
 async function run() {
   try {
     const result = await proveapi.v3.v3TokenRequest({
-      clientId: "customer_id",
+      clientID: "customer_id",
       clientSecret: "secret",
       grantType: "client_credentials",
     });
@@ -239,7 +246,7 @@ async function run() {
       console.log(error.httpMeta.request);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.Error400) {
+      if (error instanceof errors.ErrorT) {
         console.log(error.data$.code); // number
         console.log(error.data$.message); // string
       }
@@ -254,9 +261,8 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`ProveapiError`](./src/models/errors/proveapierror.ts): The base class for HTTP error responses.
-  * [`Error400`](./src/models/errors/error400.ts): Bad Request. The server cannot process the request due to a client error. Status code `400`.
+  * [`ErrorT`](./src/models/errors/errort.ts): Bad Request. The server cannot process the request due to a client error.
   * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`.
-  * [`ErrorT`](./src/models/errors/errort.ts): Internal Server Error. The server encountered an unexpected condition that prevented it from fulfilling the request. Status code `500`.
   * [`Error403`](./src/models/errors/error403.ts): Forbidden. The server understood the request but refuses to authorize it. Status code `403`. *
 
 <details><summary>Less common errors (6)</summary>
@@ -304,7 +310,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -328,7 +334,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -414,7 +420,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -440,7 +446,7 @@ const proveapi = new Proveapi();
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   }, {
@@ -482,7 +488,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientId: "customer_id",
+    clientID: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -510,6 +516,10 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`domainV3DomainID`](docs/sdks/domain/README.md#v3domainid) - Get Domain Details
+- [`domainV3DomainLink`](docs/sdks/domain/README.md#v3domainlink) - # Create a request to connect the requested domain to the domain the request is made from.
+- [`domainV3DomainLinked`](docs/sdks/domain/README.md#v3domainlinked) - Get the list of domains that are linked to this domain.
+- [`domainV3DomainUnlink`](docs/sdks/domain/README.md#v3domainunlink) - # Remove a domain link or request.
 - [`identityV3ActivateIdentity`](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
 - [`identityV3BatchEnrollIdentities`](docs/sdks/identity/README.md#v3batchenrollidentities) - Batch Enroll Identities
 - [`identityV3BatchGetIdentities`](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 0365c0bab44b24154e1ca4f9a238f652
+  docChecksum: 6e2a2fa27a0836ffe8b60528019008dc
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.12.1
-  configChecksum: 7565c3c019ef3c0aa8be76bbf82c7ac9
+  releaseVersion: 0.13.0
+  configChecksum: 29ab5651f4d5f16699f87e004e58faea
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -21,7 +21,6 @@ features:
     globalSecurity: 2.82.13
     globalSecurityCallbacks: 0.1.0
     globalServerURLs: 2.82.5
-    nullables: 0.1.1
     oauth2ClientCredentials: 0.4.1
     responseFormat: 0.2.3
     retries: 2.83.0
@@ -47,8 +46,12 @@ generatedFiles:
   - docs/models/components/idvdatainternal.md
   - docs/models/components/kycfieldtyperesponseinternal.md
   - docs/models/components/kycinternal.md
+  - docs/models/components/linkedfrom.md
+  - docs/models/components/linkedto.md
   - docs/models/components/lookupidentityitem.md
   - docs/models/components/postbatchresultitem.md
+  - docs/models/components/requestsfrom.md
+  - docs/models/components/requeststo.md
   - docs/models/components/security.md
   - docs/models/components/v3activateidentityrequest.md
   - docs/models/components/v3activateidentityresponse.md
@@ -66,6 +69,12 @@ generatedFiles:
   - docs/models/components/v3completeresponseevaluation.md
   - docs/models/components/v3deactivateidentityresponse.md
   - docs/models/components/v3disenrollidentityresponse.md
+  - docs/models/components/v3domainidresponse.md
+  - docs/models/components/v3domainlinkedresponse.md
+  - docs/models/components/v3domainlinkrequest.md
+  - docs/models/components/v3domainlinkresponse.md
+  - docs/models/components/v3domainunlinkrequest.md
+  - docs/models/components/v3domainunlinkresponse.md
   - docs/models/components/v3enrollidentityrequest.md
   - docs/models/components/v3enrollidentityresponse.md
   - docs/models/components/v3getidentitiesbyphonenumberresponse.md
@@ -77,18 +86,21 @@ generatedFiles:
   - docs/models/components/v3tokenresponse.md
   - docs/models/components/v3unifybindrequest.md
   - docs/models/components/v3unifybindresponse.md
+  - docs/models/components/v3unifybindresponseevaluation.md
   - docs/models/components/v3unifyrequest.md
   - docs/models/components/v3unifyresponse.md
   - docs/models/components/v3unifystatusrequest.md
   - docs/models/components/v3unifystatusresponse.md
+  - docs/models/components/v3unifystatusresponseevaluation.md
   - docs/models/components/v3validaterequest.md
   - docs/models/components/v3validateresponse.md
   - docs/models/components/v3validateresponseevaluation.md
   - docs/models/components/v3verifyrequest.md
   - docs/models/components/v3verifyresponse.md
+  - docs/models/components/v3verifyresponseevaluation.md
   - docs/models/components/v3verifystatusrequest.md
   - docs/models/components/v3verifystatusresponse.md
-  - docs/models/errors/error400.md
+  - docs/models/components/v3verifystatusresponseevaluation.md
   - docs/models/errors/error401.md
   - docs/models/errors/error403.md
   - docs/models/errors/errort.md
@@ -103,6 +115,10 @@ generatedFiles:
   - docs/models/operations/v3deactivateidentityresponse.md
   - docs/models/operations/v3disenrollidentityrequest.md
   - docs/models/operations/v3disenrollidentityresponse.md
+  - docs/models/operations/v3domainidresponse.md
+  - docs/models/operations/v3domainlinkedresponse.md
+  - docs/models/operations/v3domainlinkresponse.md
+  - docs/models/operations/v3domainunlinkresponse.md
   - docs/models/operations/v3enrollidentityresponse.md
   - docs/models/operations/v3getidentitiesbyphonenumberrequest.md
   - docs/models/operations/v3getidentitiesbyphonenumberresponse.md
@@ -116,6 +132,7 @@ generatedFiles:
   - docs/models/operations/v3validaterequestresponse.md
   - docs/models/operations/v3verifyrequestresponse.md
   - docs/models/operations/v3verifystatusrequestresponse.md
+  - docs/sdks/domain/README.md
   - docs/sdks/identity/README.md
   - docs/sdks/proveapi/README.md
   - docs/sdks/v3/README.md
@@ -127,6 +144,10 @@ generatedFiles:
   - jsr.json
   - package.json
   - src/core.ts
+  - src/funcs/domainV3DomainID.ts
+  - src/funcs/domainV3DomainLink.ts
+  - src/funcs/domainV3DomainLinked.ts
+  - src/funcs/domainV3DomainUnlink.ts
   - src/funcs/identityV3ActivateIdentity.ts
   - src/funcs/identityV3BatchEnrollIdentities.ts
   - src/funcs/identityV3BatchGetIdentities.ts
@@ -178,8 +199,12 @@ generatedFiles:
   - src/models/components/index.ts
   - src/models/components/kycfieldtyperesponseinternal.ts
   - src/models/components/kycinternal.ts
+  - src/models/components/linkedfrom.ts
+  - src/models/components/linkedto.ts
   - src/models/components/lookupidentityitem.ts
   - src/models/components/postbatchresultitem.ts
+  - src/models/components/requestsfrom.ts
+  - src/models/components/requeststo.ts
   - src/models/components/security.ts
   - src/models/components/v3activateidentityrequest.ts
   - src/models/components/v3activateidentityresponse.ts
@@ -196,6 +221,12 @@ generatedFiles:
   - src/models/components/v3completeresponse.ts
   - src/models/components/v3deactivateidentityresponse.ts
   - src/models/components/v3disenrollidentityresponse.ts
+  - src/models/components/v3domainidresponse.ts
+  - src/models/components/v3domainlinkedresponse.ts
+  - src/models/components/v3domainlinkrequest.ts
+  - src/models/components/v3domainlinkresponse.ts
+  - src/models/components/v3domainunlinkrequest.ts
+  - src/models/components/v3domainunlinkresponse.ts
   - src/models/components/v3enrollidentityrequest.ts
   - src/models/components/v3enrollidentityresponse.ts
   - src/models/components/v3getidentitiesbyphonenumberresponse.ts
@@ -218,7 +249,6 @@ generatedFiles:
   - src/models/components/v3verifystatusrequest.ts
   - src/models/components/v3verifystatusresponse.ts
   - src/models/errors/error.ts
-  - src/models/errors/error400.ts
   - src/models/errors/error401.ts
   - src/models/errors/error403.ts
   - src/models/errors/httpclienterrors.ts
@@ -235,6 +265,10 @@ generatedFiles:
   - src/models/operations/v3completerequest.ts
   - src/models/operations/v3deactivateidentity.ts
   - src/models/operations/v3disenrollidentity.ts
+  - src/models/operations/v3domainid.ts
+  - src/models/operations/v3domainlink.ts
+  - src/models/operations/v3domainlinked.ts
+  - src/models/operations/v3domainunlink.ts
   - src/models/operations/v3enrollidentity.ts
   - src/models/operations/v3getidentitiesbyphonenumber.ts
   - src/models/operations/v3getidentity.ts
@@ -246,6 +280,7 @@ generatedFiles:
   - src/models/operations/v3validaterequest.ts
   - src/models/operations/v3verifyrequest.ts
   - src/models/operations/v3verifystatusrequest.ts
+  - src/sdk/domain.ts
   - src/sdk/identity.ts
   - src/sdk/index.ts
   - src/sdk/sdk.ts
@@ -264,12 +299,12 @@ examples:
   V3TokenRequest:
     speakeasy-default-v3-token-request:
       requestBody:
-        application/x-www-form-urlencoded: {"client_id": "customer_id", "client_secret": "secret", "grant_type": "client_credentials"}
+        application/x-www-form-urlencoded: {"ClientID": "customer_id", "ClientSecret": "secret", "GrantType": "client_credentials"}
       responses:
         "200":
           application/json: {"access_token": "eyJ...", "expires_in": 3600, "refresh_expires_in": 3600, "refresh_token": "eyJ...", "token_type": "Bearer"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
@@ -282,7 +317,7 @@ examples:
         "200":
           application/json: {"evaluation": {"key": {}}, "individual": {"addresses": [{"address": "39 South Trail", "city": "San Antonio", "extendedAddress": "Apt 23", "postalCode": "78285", "region": "TX"}, {"address": "4861 Jay Junction", "city": "Boston", "extendedAddress": "Apt 78", "postalCode": "02208", "region": "MS"}], "dob": "1981-01-17", "emailAddresses": ["jdoe@example.com", "dsmith@example.com"], "firstName": "Tod", "lastName": "Weedall", "ssn": "265228370"}, "next": {"v3-complete": "/v3/complete"}, "success": true}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -328,7 +363,7 @@ examples:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "next": {"v3-validate": "/v3/validate"}}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -338,12 +373,12 @@ examples:
   V3UnifyRequest:
     speakeasy-default-v3-unify-request:
       requestBody:
-        application/json: {"allowOTPRetry": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "finalTargetUrl": "https://www.example.com/landing-page", "phoneNumber": "2001004011", "possessionType": "mobile", "rebind": true, "smsMessage": "#### is your verification code."}
+        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "finalTargetUrl": "https://www.example.com/landing-page", "phoneNumber": "2001004011", "possessionType": "mobile", "rebind": true, "smsMessage": "#### is your verification code."}
       responses:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "pending"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -356,9 +391,9 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
       responses:
         "200":
-          application/json: {"phoneNumber": "2001004011", "success": "true"}
+          application/json: {"evaluation": {"key": {}}, "phoneNumber": "2001004011", "success": "true"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -371,9 +406,9 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
       responses:
         "200":
-          application/json: {"phoneNumber": "2001004011", "success": "true"}
+          application/json: {"evaluation": {"key": {}}, "phoneNumber": "2001004011", "success": "true"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -388,7 +423,7 @@ examples:
         "200":
           application/json: {"challengeMissing": true, "evaluation": {"key": {}}, "next": {"v3-challenge": "/v3/challenge"}, "phoneNumber": "2001001686", "success": true}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -401,9 +436,9 @@ examples:
         application/json: {"allowOTPRetry": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "firstName": "Sheilakathryn", "lastName": "Butrimovich", "phoneNumber": "2001004011", "possessionType": "mobile", "smsMessage": "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone."}
       responses:
         "200":
-          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "possessionResult": "pending", "success": "pending", "verifyResult": "pending"}
+          application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "evaluation": {"key": {}}, "possessionResult": "pending", "success": "pending", "verifyResult": "pending"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -416,9 +451,9 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"identityId": "498ce2a7-a7c1-48aa-8bd3-77621f780919", "possessionResult": "true", "success": "true", "verifyResult": "true"}
+          application/json: {"evaluation": {"key": {}}, "identityId": "498ce2a7-a7c1-48aa-8bd3-77621f780919", "possessionResult": "true", "success": "true", "verifyResult": "true"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -431,7 +466,7 @@ examples:
         "200":
           application/json: {"lastKey": "fNqtI2wVPka+yAFC5qRtrQ==", "results": [{"identityId": "4a6317c1-4855-4900-b369-bed138f4ec00"}, {"identityId": "e53c0597-1cce-4d8f-bd1b-e0a10f875ac9"}]}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -446,7 +481,7 @@ examples:
         "200":
           application/json: {"identityId": "863189q5-5555-4c15-89ba-15d08710aecz", "success": true}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -461,7 +496,7 @@ examples:
         "200":
           application/json: {"results": [{"identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"error": "Invalid Phone Number"}]}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -477,7 +512,7 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -493,7 +528,7 @@ examples:
         "200":
           application/json: {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -511,7 +546,7 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -529,7 +564,7 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 8002, "message": "not authorized"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -545,7 +580,63 @@ examples:
         "200":
           application/json: {"items": [{"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}, {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}]}
         "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
           application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DomainID:
+    speakeasy-default-v3-domain-ID:
+      responses:
+        "200":
+          application/json: {"name": "My Company", "pcid": "123456123456"}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DomainLink:
+    speakeasy-default-v3-domain-link:
+      requestBody:
+        application/json: {"pcid": "pcid"}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DomainLinked:
+    speakeasy-default-v3-domain-linked:
+      responses:
+        "200":
+          application/json: {"linkedFrom": [{"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}, {"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}], "linkedTo": [{"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}, {"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}], "requestsFrom": [{"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString"}, {"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString"}], "requestsTo": [{"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString"}, {"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString"}]}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DomainUnlink:
+    speakeasy-default-v3-domain-unlink:
+      requestBody:
+        application/json: {"pcidFrom": "pcidFrom", "pcidTo": "pcidTo"}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":

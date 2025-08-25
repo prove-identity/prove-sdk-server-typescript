@@ -7,6 +7,8 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type V3VerifyResponseEvaluation = {};
+
 export type V3VerifyResponse = {
   /**
    * A bearer token for use by the Prove client SDK.
@@ -16,6 +18,10 @@ export type V3VerifyResponse = {
    * The unique ID that Prove generates for the flow. To continue the flow, the field will also be used for each of the subsequent API calls in the same flow - it cannot be reused outside of a single flow.
    */
   correlationId: string;
+  /**
+   * The evaluation result for the policy
+   */
+  evaluation?: { [k: string]: V3VerifyResponseEvaluation } | undefined;
   /**
    * The result of the possession check. Possible values are `pending` and `not_applicable`, based on the `possessionType` passed in the input. Clients will have to call the Verify Status API to get a result if `possessionResult=pending`.
    */
@@ -31,6 +37,54 @@ export type V3VerifyResponse = {
 };
 
 /** @internal */
+export const V3VerifyResponseEvaluation$inboundSchema: z.ZodType<
+  V3VerifyResponseEvaluation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type V3VerifyResponseEvaluation$Outbound = {};
+
+/** @internal */
+export const V3VerifyResponseEvaluation$outboundSchema: z.ZodType<
+  V3VerifyResponseEvaluation$Outbound,
+  z.ZodTypeDef,
+  V3VerifyResponseEvaluation
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace V3VerifyResponseEvaluation$ {
+  /** @deprecated use `V3VerifyResponseEvaluation$inboundSchema` instead. */
+  export const inboundSchema = V3VerifyResponseEvaluation$inboundSchema;
+  /** @deprecated use `V3VerifyResponseEvaluation$outboundSchema` instead. */
+  export const outboundSchema = V3VerifyResponseEvaluation$outboundSchema;
+  /** @deprecated use `V3VerifyResponseEvaluation$Outbound` instead. */
+  export type Outbound = V3VerifyResponseEvaluation$Outbound;
+}
+
+export function v3VerifyResponseEvaluationToJSON(
+  v3VerifyResponseEvaluation: V3VerifyResponseEvaluation,
+): string {
+  return JSON.stringify(
+    V3VerifyResponseEvaluation$outboundSchema.parse(v3VerifyResponseEvaluation),
+  );
+}
+
+export function v3VerifyResponseEvaluationFromJSON(
+  jsonString: string,
+): SafeParseResult<V3VerifyResponseEvaluation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3VerifyResponseEvaluation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3VerifyResponseEvaluation' from JSON`,
+  );
+}
+
+/** @internal */
 export const V3VerifyResponse$inboundSchema: z.ZodType<
   V3VerifyResponse,
   z.ZodTypeDef,
@@ -38,6 +92,8 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
+  evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$inboundSchema))
+    .optional(),
   possessionResult: z.string(),
   success: z.string(),
   verifyResult: z.string(),
@@ -47,6 +103,7 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
 export type V3VerifyResponse$Outbound = {
   authToken?: string | undefined;
   correlationId: string;
+  evaluation?: { [k: string]: V3VerifyResponseEvaluation$Outbound } | undefined;
   possessionResult: string;
   success: string;
   verifyResult: string;
@@ -60,6 +117,8 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
 > = z.object({
   authToken: z.string().optional(),
   correlationId: z.string(),
+  evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$outboundSchema))
+    .optional(),
   possessionResult: z.string(),
   success: z.string(),
   verifyResult: z.string(),

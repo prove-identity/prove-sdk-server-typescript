@@ -12,7 +12,7 @@ export type V3TokenRequest = {
   /**
    * The client ID retrieved from the [Developer Portal](https://developer.prove.com/reference/authentication).
    */
-  clientId: string;
+  clientID: string;
   /**
    * The client secret retrieved from the [Developer Portal](https://developer.prove.com/reference/authentication).
    */
@@ -29,22 +29,22 @@ export const V3TokenRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  client_id: z.string(),
-  client_secret: z.string(),
-  grant_type: z.string(),
+  ClientID: z.string(),
+  ClientSecret: z.string(),
+  GrantType: z.string(),
 }).transform((v) => {
   return remap$(v, {
-    "client_id": "clientId",
-    "client_secret": "clientSecret",
-    "grant_type": "grantType",
+    "ClientID": "clientID",
+    "ClientSecret": "clientSecret",
+    "GrantType": "grantType",
   });
 });
 
 /** @internal */
 export type V3TokenRequest$Outbound = {
-  client_id: string;
-  client_secret: string;
-  grant_type: string;
+  ClientID: string;
+  ClientSecret: string;
+  GrantType: string;
 };
 
 /** @internal */
@@ -53,14 +53,14 @@ export const V3TokenRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3TokenRequest
 > = z.object({
-  clientId: z.string(),
+  clientID: z.string(),
   clientSecret: z.string(),
   grantType: z.string(),
 }).transform((v) => {
   return remap$(v, {
-    clientId: "client_id",
-    clientSecret: "client_secret",
-    grantType: "grant_type",
+    clientID: "ClientID",
+    clientSecret: "ClientSecret",
+    grantType: "GrantType",
   });
 });
 

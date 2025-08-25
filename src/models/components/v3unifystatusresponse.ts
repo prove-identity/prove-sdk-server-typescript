@@ -7,7 +7,13 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+export type V3UnifyStatusResponseEvaluation = {};
+
 export type V3UnifyStatusResponse = {
+  /**
+   * The evaluation result for the policy.
+   */
+  evaluation?: { [k: string]: V3UnifyStatusResponseEvaluation } | undefined;
   /**
    * The number of the mobile phone used during the process.
    */
@@ -22,17 +28,73 @@ export type V3UnifyStatusResponse = {
 };
 
 /** @internal */
+export const V3UnifyStatusResponseEvaluation$inboundSchema: z.ZodType<
+  V3UnifyStatusResponseEvaluation,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+/** @internal */
+export type V3UnifyStatusResponseEvaluation$Outbound = {};
+
+/** @internal */
+export const V3UnifyStatusResponseEvaluation$outboundSchema: z.ZodType<
+  V3UnifyStatusResponseEvaluation$Outbound,
+  z.ZodTypeDef,
+  V3UnifyStatusResponseEvaluation
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace V3UnifyStatusResponseEvaluation$ {
+  /** @deprecated use `V3UnifyStatusResponseEvaluation$inboundSchema` instead. */
+  export const inboundSchema = V3UnifyStatusResponseEvaluation$inboundSchema;
+  /** @deprecated use `V3UnifyStatusResponseEvaluation$outboundSchema` instead. */
+  export const outboundSchema = V3UnifyStatusResponseEvaluation$outboundSchema;
+  /** @deprecated use `V3UnifyStatusResponseEvaluation$Outbound` instead. */
+  export type Outbound = V3UnifyStatusResponseEvaluation$Outbound;
+}
+
+export function v3UnifyStatusResponseEvaluationToJSON(
+  v3UnifyStatusResponseEvaluation: V3UnifyStatusResponseEvaluation,
+): string {
+  return JSON.stringify(
+    V3UnifyStatusResponseEvaluation$outboundSchema.parse(
+      v3UnifyStatusResponseEvaluation,
+    ),
+  );
+}
+
+export function v3UnifyStatusResponseEvaluationFromJSON(
+  jsonString: string,
+): SafeParseResult<V3UnifyStatusResponseEvaluation, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => V3UnifyStatusResponseEvaluation$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3UnifyStatusResponseEvaluation' from JSON`,
+  );
+}
+
+/** @internal */
 export const V3UnifyStatusResponse$inboundSchema: z.ZodType<
   V3UnifyStatusResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  evaluation: z.record(
+    z.lazy(() => V3UnifyStatusResponseEvaluation$inboundSchema),
+  ).optional(),
   phoneNumber: z.string(),
   success: z.string(),
 });
 
 /** @internal */
 export type V3UnifyStatusResponse$Outbound = {
+  evaluation?:
+    | { [k: string]: V3UnifyStatusResponseEvaluation$Outbound }
+    | undefined;
   phoneNumber: string;
   success: string;
 };
@@ -43,6 +105,9 @@ export const V3UnifyStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3UnifyStatusResponse
 > = z.object({
+  evaluation: z.record(
+    z.lazy(() => V3UnifyStatusResponseEvaluation$outboundSchema),
+  ).optional(),
   phoneNumber: z.string(),
   success: z.string(),
 });

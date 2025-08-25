@@ -15,7 +15,7 @@ actions:
 
             async function run() {
               const result = await proveapi.v3.v3TokenRequest({
-                clientId: "customer_id",
+                clientID: "customer_id",
                 clientSecret: "secret",
                 grantType: "client_credentials",
               });
@@ -86,6 +86,99 @@ actions:
                   lastName: "Weedall",
                   ssn: "265228370",
                 },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/domain/id"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DomainID
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.domain.v3DomainID();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/domain/link"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DomainLink
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.domain.v3DomainLink({
+                pcid: "pcid",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/domain/linked"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DomainLinked
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.domain.v3DomainLinked();
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/domain/unlink"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DomainUnlink
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.domain.v3DomainUnlink({
+                pcidFrom: "pcidFrom",
+                pcidTo: "pcidTo",
               });
 
               console.log(result);
@@ -341,6 +434,7 @@ actions:
             async function run() {
               const result = await proveapi.v3.v3UnifyRequest({
                 allowOTPRetry: true,
+                checkReputation: true,
                 clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
                 finalTargetUrl: "https://www.example.com/landing-page",

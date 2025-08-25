@@ -89,7 +89,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -177,7 +177,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -283,7 +283,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -362,7 +362,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -441,7 +441,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -524,7 +524,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -607,7 +607,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -686,7 +686,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
+| errors.ErrorT    | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |

@@ -14,6 +14,10 @@ export type V3StartRequest = {
   allowOTPRetry?: boolean | undefined;
   /**
    * The date of birth in one of these formats: YYYY-MM-DD, YYYY-MM, or MM-DD. Acceptable characters are: numeric with symbol '-'.
+   *
+   * @remarks
+   *
+   * It is recommended you do NOT pass this value into the Start step. Prove will attempt to pre-fill data using phone number only.
    */
   dob?: string | undefined;
   /**
@@ -50,6 +54,10 @@ export type V3StartRequest = {
   smsMessage?: string | undefined;
   /**
    * The full or last 4 digits of the social security number. Acceptable characters are: numeric.
+   *
+   * @remarks
+   *
+   * It is recommended you do NOT pass this value into the Start step. Prove will attempt to pre-fill data using phone number only.
    */
   ssn?: string | undefined;
 };
