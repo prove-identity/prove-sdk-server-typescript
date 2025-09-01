@@ -9,47 +9,50 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type V3DomainIDResponse = {
+export type V3DomainIDRequestResponse = {
   httpMeta: components.HTTPMetadata;
-  /**
-   * V3DomainIDResponse
-   */
   v3DomainIDResponse?: components.V3DomainIDResponse | undefined;
+  headers: { [k: string]: Array<string> };
 };
 
 /** @internal */
-export const V3DomainIDResponse$inboundSchema: z.ZodType<
-  V3DomainIDResponse,
+export const V3DomainIDRequestResponse$inboundSchema: z.ZodType<
+  V3DomainIDRequestResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   HttpMeta: components.HTTPMetadata$inboundSchema,
   V3DomainIDResponse: components.V3DomainIDResponse$inboundSchema.optional(),
+  Headers: z.record(z.array(z.string())),
 }).transform((v) => {
   return remap$(v, {
     "HttpMeta": "httpMeta",
     "V3DomainIDResponse": "v3DomainIDResponse",
+    "Headers": "headers",
   });
 });
 
 /** @internal */
-export type V3DomainIDResponse$Outbound = {
+export type V3DomainIDRequestResponse$Outbound = {
   HttpMeta: components.HTTPMetadata$Outbound;
   V3DomainIDResponse?: components.V3DomainIDResponse$Outbound | undefined;
+  Headers: { [k: string]: Array<string> };
 };
 
 /** @internal */
-export const V3DomainIDResponse$outboundSchema: z.ZodType<
-  V3DomainIDResponse$Outbound,
+export const V3DomainIDRequestResponse$outboundSchema: z.ZodType<
+  V3DomainIDRequestResponse$Outbound,
   z.ZodTypeDef,
-  V3DomainIDResponse
+  V3DomainIDRequestResponse
 > = z.object({
   httpMeta: components.HTTPMetadata$outboundSchema,
   v3DomainIDResponse: components.V3DomainIDResponse$outboundSchema.optional(),
+  headers: z.record(z.array(z.string())),
 }).transform((v) => {
   return remap$(v, {
     httpMeta: "HttpMeta",
     v3DomainIDResponse: "V3DomainIDResponse",
+    headers: "Headers",
   });
 });
 
@@ -57,29 +60,29 @@ export const V3DomainIDResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3DomainIDResponse$ {
-  /** @deprecated use `V3DomainIDResponse$inboundSchema` instead. */
-  export const inboundSchema = V3DomainIDResponse$inboundSchema;
-  /** @deprecated use `V3DomainIDResponse$outboundSchema` instead. */
-  export const outboundSchema = V3DomainIDResponse$outboundSchema;
-  /** @deprecated use `V3DomainIDResponse$Outbound` instead. */
-  export type Outbound = V3DomainIDResponse$Outbound;
+export namespace V3DomainIDRequestResponse$ {
+  /** @deprecated use `V3DomainIDRequestResponse$inboundSchema` instead. */
+  export const inboundSchema = V3DomainIDRequestResponse$inboundSchema;
+  /** @deprecated use `V3DomainIDRequestResponse$outboundSchema` instead. */
+  export const outboundSchema = V3DomainIDRequestResponse$outboundSchema;
+  /** @deprecated use `V3DomainIDRequestResponse$Outbound` instead. */
+  export type Outbound = V3DomainIDRequestResponse$Outbound;
 }
 
-export function v3DomainIDResponseToJSON(
-  v3DomainIDResponse: V3DomainIDResponse,
+export function v3DomainIDRequestResponseToJSON(
+  v3DomainIDRequestResponse: V3DomainIDRequestResponse,
 ): string {
   return JSON.stringify(
-    V3DomainIDResponse$outboundSchema.parse(v3DomainIDResponse),
+    V3DomainIDRequestResponse$outboundSchema.parse(v3DomainIDRequestResponse),
   );
 }
 
-export function v3DomainIDResponseFromJSON(
+export function v3DomainIDRequestResponseFromJSON(
   jsonString: string,
-): SafeParseResult<V3DomainIDResponse, SDKValidationError> {
+): SafeParseResult<V3DomainIDRequestResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3DomainIDResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3DomainIDResponse' from JSON`,
+    (x) => V3DomainIDRequestResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3DomainIDRequestResponse' from JSON`,
   );
 }

@@ -15,7 +15,7 @@ actions:
 
             async function run() {
               const result = await proveapi.v3.v3TokenRequest({
-                clientID: "customer_id",
+                clientId: "customer_id",
                 clientSecret: "secret",
                 grantType: "client_credentials",
               });
@@ -92,11 +92,11 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/v3/domain/id"]["post"]
+  - target: $["paths"]["/v3/domain/confirm-link"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
-          label: V3DomainID
+          label: V3DomainConfirmLinkRequest
           source: |-
             import { Proveapi } from "@prove-identity/prove-api";
 
@@ -108,7 +108,31 @@ actions:
             });
 
             async function run() {
-              const result = await proveapi.domain.v3DomainID();
+              const result = await proveapi.domain.v3DomainConfirmLinkRequest({
+                pcid: "pcid",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/domain/id"]["get"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DomainIDRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.domain.v3DomainIDRequest();
 
               console.log(result);
             }
@@ -118,7 +142,7 @@ actions:
     update:
       x-codeSamples:
         - lang: typescript
-          label: V3DomainLink
+          label: V3DomainLinkRequest
           source: |-
             import { Proveapi } from "@prove-identity/prove-api";
 
@@ -130,7 +154,7 @@ actions:
             });
 
             async function run() {
-              const result = await proveapi.domain.v3DomainLink({
+              const result = await proveapi.domain.v3DomainLinkRequest({
                 pcid: "pcid",
               });
 
@@ -142,7 +166,7 @@ actions:
     update:
       x-codeSamples:
         - lang: typescript
-          label: V3DomainLinked
+          label: V3DomainLinkedRequest
           source: |-
             import { Proveapi } from "@prove-identity/prove-api";
 
@@ -154,7 +178,7 @@ actions:
             });
 
             async function run() {
-              const result = await proveapi.domain.v3DomainLinked();
+              const result = await proveapi.domain.v3DomainLinkedRequest();
 
               console.log(result);
             }
@@ -164,7 +188,7 @@ actions:
     update:
       x-codeSamples:
         - lang: typescript
-          label: V3DomainUnlink
+          label: V3DomainUnlinkRequest
           source: |-
             import { Proveapi } from "@prove-identity/prove-api";
 
@@ -176,7 +200,7 @@ actions:
             });
 
             async function run() {
-              const result = await proveapi.domain.v3DomainUnlink({
+              const result = await proveapi.domain.v3DomainUnlinkRequest({
                 pcidFrom: "pcidFrom",
                 pcidTo: "pcidTo",
               });
@@ -185,7 +209,7 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/v3/identity/"]["get"]
+  - target: $["paths"]["/v3/identity"]["get"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -207,7 +231,7 @@ actions:
             }
 
             run();
-  - target: $["paths"]["/v3/identity/"]["post"]
+  - target: $["paths"]["/v3/identity"]["post"]
     update:
       x-codeSamples:
         - lang: typescript
@@ -254,14 +278,14 @@ actions:
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
                 items: [
                   {
-                    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-                    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-                    phoneNumber: "2001001695",
+                    clientName: "\"Client A\"",
+                    identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+                    pcid: "\"12345\"",
                   },
                   {
-                    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-                    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-                    phoneNumber: "2001001695",
+                    clientName: "\"Client A\"",
+                    identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+                    pcid: "\"12345\"",
                   },
                 ],
               });
@@ -331,6 +355,30 @@ actions:
 
             async function run() {
               const result = await proveapi.identity.v3ActivateIdentity("<id>", {
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v3/identity/{identityId}/cross-domain"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3CrossDomainIdentity
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.identity.v3CrossDomainIdentity("<id>", {
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
               });
 

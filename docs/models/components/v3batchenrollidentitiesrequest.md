@@ -11,14 +11,14 @@ let value: V3BatchEnrollIdentitiesRequest = {
   clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
   items: [
     {
-      clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-      deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-      phoneNumber: "2001001695",
+      clientName: "\"Client A\"",
+      identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+      pcid: "\"12345\"",
     },
     {
-      clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-      deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-      phoneNumber: "2001001695",
+      clientName: "\"Client A\"",
+      identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+      pcid: "\"12345\"",
     },
   ],
 };

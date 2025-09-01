@@ -1,15 +1,16 @@
-# V3DomainLinkedResponse
+# V3DomainLinkedRequestResponse
 
 ## Example Usage
 
 ```typescript
-import { V3DomainLinkedResponse } from "@prove-identity/prove-api/models/operations";
+import { V3DomainLinkedRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3DomainLinkedResponse = {
+let value: V3DomainLinkedRequestResponse = {
   headers: {
     "key": [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
 };

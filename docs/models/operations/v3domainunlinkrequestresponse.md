@@ -1,11 +1,11 @@
-# V3DomainUnlinkResponse
+# V3DomainUnlinkRequestResponse
 
 ## Example Usage
 
 ```typescript
-import { V3DomainUnlinkResponse } from "@prove-identity/prove-api/models/operations";
+import { V3DomainUnlinkRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3DomainUnlinkResponse = {};
+let value: V3DomainUnlinkRequestResponse = {};
 ```
 
 ## Fields

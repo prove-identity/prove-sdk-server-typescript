@@ -29,12 +29,12 @@ import { Result } from "../types/fp.js";
  * @remarks
  * Returns the accepted and pending links for this domain.
  */
-export function domainV3DomainLinked(
+export function domainV3DomainLinkedRequest(
   client: ProveapiCore,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3DomainLinkedResponse,
+    operations.V3DomainLinkedRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -60,7 +60,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.V3DomainLinkedResponse,
+      operations.V3DomainLinkedRequestResponse,
       | errors.ErrorT
       | errors.Error401
       | errors.Error403
@@ -88,7 +88,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "V3DomainLinked",
+    operationID: "V3DomainLinkedRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -130,7 +130,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3DomainLinkedResponse,
+    operations.V3DomainLinkedRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -143,7 +143,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.V3DomainLinkedResponse$inboundSchema, {
+    M.json(200, operations.V3DomainLinkedRequestResponse$inboundSchema, {
       hdrs: true,
       key: "V3DomainLinkedResponse",
     }),

@@ -5,6 +5,7 @@
 import { identityV3ActivateIdentity } from "../funcs/identityV3ActivateIdentity.js";
 import { identityV3BatchEnrollIdentities } from "../funcs/identityV3BatchEnrollIdentities.js";
 import { identityV3BatchGetIdentities } from "../funcs/identityV3BatchGetIdentities.js";
+import { identityV3CrossDomainIdentity } from "../funcs/identityV3CrossDomainIdentity.js";
 import { identityV3DeactivateIdentity } from "../funcs/identityV3DeactivateIdentity.js";
 import { identityV3DisenrollIdentity } from "../funcs/identityV3DisenrollIdentity.js";
 import { identityV3EnrollIdentity } from "../funcs/identityV3EnrollIdentity.js";
@@ -128,6 +129,27 @@ export class Identity extends ClientSDK {
       this,
       identityId,
       v3ActivateIdentityRequest,
+      options,
+    ));
+  }
+
+  /**
+   * Cross Domain Identity
+   *
+   * @remarks
+   * Retreives the list of identities from other linked accounts.
+   */
+  async v3CrossDomainIdentity(
+    identityId: string,
+    v3CrossDomainIdentityRequest?:
+      | components.V3CrossDomainIdentityRequest
+      | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3CrossDomainIdentityResponse> {
+    return unwrapAsync(identityV3CrossDomainIdentity(
+      this,
+      identityId,
+      v3CrossDomainIdentityRequest,
       options,
     ));
   }

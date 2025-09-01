@@ -8,7 +8,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3DomainLinkRequest = {
-  pcid?: string | undefined;
+  pcid: string;
 };
 
 /** @internal */
@@ -17,12 +17,12 @@ export const V3DomainLinkRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pcid: z.string().optional(),
+  pcid: z.string(),
 });
 
 /** @internal */
 export type V3DomainLinkRequest$Outbound = {
-  pcid?: string | undefined;
+  pcid: string;
 };
 
 /** @internal */
@@ -31,7 +31,7 @@ export const V3DomainLinkRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3DomainLinkRequest
 > = z.object({
-  pcid: z.string().optional(),
+  pcid: z.string(),
 });
 
 /**

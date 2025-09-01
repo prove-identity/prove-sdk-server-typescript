@@ -27,15 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * # Create a request to connect the requested domain to the domain the request is made from.
+ * Request a domain link
+ *
+ * @remarks
+ * Create a request to connect the requested domain to the domain the request is made from.
  */
-export function domainV3DomainLink(
+export function domainV3DomainLinkRequest(
   client: ProveapiCore,
   request?: components.V3DomainLinkRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3DomainLinkResponse,
+    operations.V3DomainLinkRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -63,7 +66,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.V3DomainLinkResponse,
+      operations.V3DomainLinkRequestResponse,
       | errors.ErrorT
       | errors.Error401
       | errors.Error403
@@ -106,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "V3DomainLink",
+    operationID: "V3DomainLinkRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -149,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3DomainLinkResponse,
+    operations.V3DomainLinkRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -162,7 +165,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.V3DomainLinkResponse$inboundSchema, {
+    M.json(200, operations.V3DomainLinkRequestResponse$inboundSchema, {
       key: "V3DomainLinkResponse",
     }),
     M.jsonErr(400, errors.ErrorT$inboundSchema),

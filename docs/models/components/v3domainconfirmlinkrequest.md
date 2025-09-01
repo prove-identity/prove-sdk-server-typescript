@@ -1,11 +1,11 @@
-# V3DomainLinkRequest
+# V3DomainConfirmLinkRequest
 
 ## Example Usage
 
 ```typescript
-import { V3DomainLinkRequest } from "@prove-identity/prove-api/models/components";
+import { V3DomainConfirmLinkRequest } from "@prove-identity/prove-api/models/components";
 
-let value: V3DomainLinkRequest = {
+let value: V3DomainConfirmLinkRequest = {
   pcid: "pcid",
 };
 ```
