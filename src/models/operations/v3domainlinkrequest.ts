@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type V3DomainLinkResponse = {
+export type V3DomainLinkRequestResponse = {
   httpMeta: components.HTTPMetadata;
   /**
    * V3DomainLinkResponse
@@ -18,8 +18,8 @@ export type V3DomainLinkResponse = {
 };
 
 /** @internal */
-export const V3DomainLinkResponse$inboundSchema: z.ZodType<
-  V3DomainLinkResponse,
+export const V3DomainLinkRequestResponse$inboundSchema: z.ZodType<
+  V3DomainLinkRequestResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -34,16 +34,16 @@ export const V3DomainLinkResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type V3DomainLinkResponse$Outbound = {
+export type V3DomainLinkRequestResponse$Outbound = {
   HttpMeta: components.HTTPMetadata$Outbound;
   V3DomainLinkResponse?: components.V3DomainLinkResponse$Outbound | undefined;
 };
 
 /** @internal */
-export const V3DomainLinkResponse$outboundSchema: z.ZodType<
-  V3DomainLinkResponse$Outbound,
+export const V3DomainLinkRequestResponse$outboundSchema: z.ZodType<
+  V3DomainLinkRequestResponse$Outbound,
   z.ZodTypeDef,
-  V3DomainLinkResponse
+  V3DomainLinkRequestResponse
 > = z.object({
   httpMeta: components.HTTPMetadata$outboundSchema,
   v3DomainLinkResponse: components.V3DomainLinkResponse$outboundSchema
@@ -59,29 +59,31 @@ export const V3DomainLinkResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3DomainLinkResponse$ {
-  /** @deprecated use `V3DomainLinkResponse$inboundSchema` instead. */
-  export const inboundSchema = V3DomainLinkResponse$inboundSchema;
-  /** @deprecated use `V3DomainLinkResponse$outboundSchema` instead. */
-  export const outboundSchema = V3DomainLinkResponse$outboundSchema;
-  /** @deprecated use `V3DomainLinkResponse$Outbound` instead. */
-  export type Outbound = V3DomainLinkResponse$Outbound;
+export namespace V3DomainLinkRequestResponse$ {
+  /** @deprecated use `V3DomainLinkRequestResponse$inboundSchema` instead. */
+  export const inboundSchema = V3DomainLinkRequestResponse$inboundSchema;
+  /** @deprecated use `V3DomainLinkRequestResponse$outboundSchema` instead. */
+  export const outboundSchema = V3DomainLinkRequestResponse$outboundSchema;
+  /** @deprecated use `V3DomainLinkRequestResponse$Outbound` instead. */
+  export type Outbound = V3DomainLinkRequestResponse$Outbound;
 }
 
-export function v3DomainLinkResponseToJSON(
-  v3DomainLinkResponse: V3DomainLinkResponse,
+export function v3DomainLinkRequestResponseToJSON(
+  v3DomainLinkRequestResponse: V3DomainLinkRequestResponse,
 ): string {
   return JSON.stringify(
-    V3DomainLinkResponse$outboundSchema.parse(v3DomainLinkResponse),
+    V3DomainLinkRequestResponse$outboundSchema.parse(
+      v3DomainLinkRequestResponse,
+    ),
   );
 }
 
-export function v3DomainLinkResponseFromJSON(
+export function v3DomainLinkRequestResponseFromJSON(
   jsonString: string,
-): SafeParseResult<V3DomainLinkResponse, SDKValidationError> {
+): SafeParseResult<V3DomainLinkRequestResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3DomainLinkResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3DomainLinkResponse' from JSON`,
+    (x) => V3DomainLinkRequestResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3DomainLinkRequestResponse' from JSON`,
   );
 }

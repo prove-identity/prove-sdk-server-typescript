@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type V3DomainUnlinkResponse = {
+export type V3DomainUnlinkRequestResponse = {
   httpMeta: components.HTTPMetadata;
   /**
    * V3DomainUnlinkResponse
@@ -18,8 +18,8 @@ export type V3DomainUnlinkResponse = {
 };
 
 /** @internal */
-export const V3DomainUnlinkResponse$inboundSchema: z.ZodType<
-  V3DomainUnlinkResponse,
+export const V3DomainUnlinkRequestResponse$inboundSchema: z.ZodType<
+  V3DomainUnlinkRequestResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -34,7 +34,7 @@ export const V3DomainUnlinkResponse$inboundSchema: z.ZodType<
 });
 
 /** @internal */
-export type V3DomainUnlinkResponse$Outbound = {
+export type V3DomainUnlinkRequestResponse$Outbound = {
   HttpMeta: components.HTTPMetadata$Outbound;
   V3DomainUnlinkResponse?:
     | components.V3DomainUnlinkResponse$Outbound
@@ -42,10 +42,10 @@ export type V3DomainUnlinkResponse$Outbound = {
 };
 
 /** @internal */
-export const V3DomainUnlinkResponse$outboundSchema: z.ZodType<
-  V3DomainUnlinkResponse$Outbound,
+export const V3DomainUnlinkRequestResponse$outboundSchema: z.ZodType<
+  V3DomainUnlinkRequestResponse$Outbound,
   z.ZodTypeDef,
-  V3DomainUnlinkResponse
+  V3DomainUnlinkRequestResponse
 > = z.object({
   httpMeta: components.HTTPMetadata$outboundSchema,
   v3DomainUnlinkResponse: components.V3DomainUnlinkResponse$outboundSchema
@@ -61,29 +61,31 @@ export const V3DomainUnlinkResponse$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3DomainUnlinkResponse$ {
-  /** @deprecated use `V3DomainUnlinkResponse$inboundSchema` instead. */
-  export const inboundSchema = V3DomainUnlinkResponse$inboundSchema;
-  /** @deprecated use `V3DomainUnlinkResponse$outboundSchema` instead. */
-  export const outboundSchema = V3DomainUnlinkResponse$outboundSchema;
-  /** @deprecated use `V3DomainUnlinkResponse$Outbound` instead. */
-  export type Outbound = V3DomainUnlinkResponse$Outbound;
+export namespace V3DomainUnlinkRequestResponse$ {
+  /** @deprecated use `V3DomainUnlinkRequestResponse$inboundSchema` instead. */
+  export const inboundSchema = V3DomainUnlinkRequestResponse$inboundSchema;
+  /** @deprecated use `V3DomainUnlinkRequestResponse$outboundSchema` instead. */
+  export const outboundSchema = V3DomainUnlinkRequestResponse$outboundSchema;
+  /** @deprecated use `V3DomainUnlinkRequestResponse$Outbound` instead. */
+  export type Outbound = V3DomainUnlinkRequestResponse$Outbound;
 }
 
-export function v3DomainUnlinkResponseToJSON(
-  v3DomainUnlinkResponse: V3DomainUnlinkResponse,
+export function v3DomainUnlinkRequestResponseToJSON(
+  v3DomainUnlinkRequestResponse: V3DomainUnlinkRequestResponse,
 ): string {
   return JSON.stringify(
-    V3DomainUnlinkResponse$outboundSchema.parse(v3DomainUnlinkResponse),
+    V3DomainUnlinkRequestResponse$outboundSchema.parse(
+      v3DomainUnlinkRequestResponse,
+    ),
   );
 }
 
-export function v3DomainUnlinkResponseFromJSON(
+export function v3DomainUnlinkRequestResponseFromJSON(
   jsonString: string,
-): SafeParseResult<V3DomainUnlinkResponse, SDKValidationError> {
+): SafeParseResult<V3DomainUnlinkRequestResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3DomainUnlinkResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3DomainUnlinkResponse' from JSON`,
+    (x) => V3DomainUnlinkRequestResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'V3DomainUnlinkRequestResponse' from JSON`,
   );
 }

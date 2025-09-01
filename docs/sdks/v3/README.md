@@ -29,7 +29,7 @@ const proveapi = new Proveapi();
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -54,7 +54,7 @@ const proveapi = new ProveapiCore();
 
 async function run() {
   const res = await v3V3TokenRequest(proveapi, {
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });

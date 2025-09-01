@@ -176,10 +176,11 @@ run();
 
 ### [domain](docs/sdks/domain/README.md)
 
-* [v3DomainID](docs/sdks/domain/README.md#v3domainid) - Get Domain Details
-* [v3DomainLink](docs/sdks/domain/README.md#v3domainlink) - # Create a request to connect the requested domain to the domain the request is made from.
-* [v3DomainLinked](docs/sdks/domain/README.md#v3domainlinked) - Get the list of domains that are linked to this domain.
-* [v3DomainUnlink](docs/sdks/domain/README.md#v3domainunlink) - # Remove a domain link or request.
+* [v3DomainConfirmLinkRequest](docs/sdks/domain/README.md#v3domainconfirmlinkrequest) - Confirm a domain link request
+* [v3DomainIDRequest](docs/sdks/domain/README.md#v3domainidrequest) - Get Domain Details
+* [v3DomainLinkRequest](docs/sdks/domain/README.md#v3domainlinkrequest) - Request a domain link
+* [v3DomainLinkedRequest](docs/sdks/domain/README.md#v3domainlinkedrequest) - Get the list of domains that are linked to this domain.
+* [v3DomainUnlinkRequest](docs/sdks/domain/README.md#v3domainunlinkrequest) - Remove a domain link or request
 
 ### [identity](docs/sdks/identity/README.md)
 
@@ -189,6 +190,7 @@ run();
 * [v3DisenrollIdentity](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
 * [v3GetIdentity](docs/sdks/identity/README.md#v3getidentity) - Get Identity
 * [v3ActivateIdentity](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
+* [v3CrossDomainIdentity](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
 * [v3DeactivateIdentity](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
 * [v3GetIdentitiesByPhoneNumber](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 
@@ -231,7 +233,7 @@ const proveapi = new Proveapi();
 async function run() {
   try {
     const result = await proveapi.v3.v3TokenRequest({
-      clientID: "customer_id",
+      clientId: "customer_id",
       clientSecret: "secret",
       grantType: "client_credentials",
     });
@@ -310,7 +312,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -334,7 +336,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -420,7 +422,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -446,7 +448,7 @@ const proveapi = new Proveapi();
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   }, {
@@ -488,7 +490,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3TokenRequest({
-    clientID: "customer_id",
+    clientId: "customer_id",
     clientSecret: "secret",
     grantType: "client_credentials",
   });
@@ -516,13 +518,15 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`domainV3DomainID`](docs/sdks/domain/README.md#v3domainid) - Get Domain Details
-- [`domainV3DomainLink`](docs/sdks/domain/README.md#v3domainlink) - # Create a request to connect the requested domain to the domain the request is made from.
-- [`domainV3DomainLinked`](docs/sdks/domain/README.md#v3domainlinked) - Get the list of domains that are linked to this domain.
-- [`domainV3DomainUnlink`](docs/sdks/domain/README.md#v3domainunlink) - # Remove a domain link or request.
+- [`domainV3DomainConfirmLinkRequest`](docs/sdks/domain/README.md#v3domainconfirmlinkrequest) - Confirm a domain link request
+- [`domainV3DomainIDRequest`](docs/sdks/domain/README.md#v3domainidrequest) - Get Domain Details
+- [`domainV3DomainLinkedRequest`](docs/sdks/domain/README.md#v3domainlinkedrequest) - Get the list of domains that are linked to this domain.
+- [`domainV3DomainLinkRequest`](docs/sdks/domain/README.md#v3domainlinkrequest) - Request a domain link
+- [`domainV3DomainUnlinkRequest`](docs/sdks/domain/README.md#v3domainunlinkrequest) - Remove a domain link or request
 - [`identityV3ActivateIdentity`](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
 - [`identityV3BatchEnrollIdentities`](docs/sdks/identity/README.md#v3batchenrollidentities) - Batch Enroll Identities
 - [`identityV3BatchGetIdentities`](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
+- [`identityV3CrossDomainIdentity`](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
 - [`identityV3DeactivateIdentity`](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
 - [`identityV3DisenrollIdentity`](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
 - [`identityV3EnrollIdentity`](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity

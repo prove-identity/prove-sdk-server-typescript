@@ -27,15 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * # Remove a domain link or request.
+ * Confirm a domain link request
+ *
+ * @remarks
+ * Confirms a given domain link request by validating the PCID.
  */
-export function domainV3DomainUnlink(
+export function domainV3DomainConfirmLinkRequest(
   client: ProveapiCore,
-  request?: components.V3DomainUnlinkRequest | undefined,
+  request?: components.V3DomainConfirmLinkRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3DomainUnlinkResponse,
+    operations.V3DomainConfirmLinkRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -58,12 +61,12 @@ export function domainV3DomainUnlink(
 
 async function $do(
   client: ProveapiCore,
-  request?: components.V3DomainUnlinkRequest | undefined,
+  request?: components.V3DomainConfirmLinkRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.V3DomainUnlinkResponse,
+      operations.V3DomainConfirmLinkRequestResponse,
       | errors.ErrorT
       | errors.Error401
       | errors.Error403
@@ -82,7 +85,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      components.V3DomainUnlinkRequest$outboundSchema.optional().parse(value),
+      components.V3DomainConfirmLinkRequest$outboundSchema.optional().parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -93,7 +98,7 @@ async function $do(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/domain/unlink")();
+  const path = pathToFunc("/v3/domain/confirm-link")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -106,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "V3DomainUnlink",
+    operationID: "V3DomainConfirmLinkRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -149,7 +154,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3DomainUnlinkResponse,
+    operations.V3DomainConfirmLinkRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -162,8 +167,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.V3DomainUnlinkResponse$inboundSchema, {
-      key: "V3DomainUnlinkResponse",
+    M.json(200, operations.V3DomainConfirmLinkRequestResponse$inboundSchema, {
+      key: "V3DomainConfirmLinkResponse",
     }),
     M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),

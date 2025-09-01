@@ -1,11 +1,11 @@
-# V3DomainLinkResponse
+# V3DomainLinkRequestResponse
 
 ## Example Usage
 
 ```typescript
-import { V3DomainLinkResponse } from "@prove-identity/prove-api/models/operations";
+import { V3DomainLinkRequestResponse } from "@prove-identity/prove-api/models/operations";
 
-let value: V3DomainLinkResponse = {};
+let value: V3DomainLinkRequestResponse = {};
 ```
 
 ## Fields

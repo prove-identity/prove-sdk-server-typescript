@@ -7,22 +7,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-/**
- * Represents a single identity that you wish to enroll.
- */
 export type IdentityItem = {
   /**
-   * A client-generated unique ID for a specific customer. This ID links calls related to the same customer, across different requests or sessions. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
+   * The name of the client associated with the identity.
    */
-  clientCustomerId?: string | undefined;
+  clientName: string;
   /**
-   * A string that is the unique identifier for the Prove Key on the device. Only applicable if you are leveraging Prove Unify.
+   * The Prove-generated unique ID for the specific identity.
    */
-  deviceId?: string | undefined;
+  identityId: string;
   /**
-   * The number of the consumer being enrolled. US phone numbers can be passed in with or without a leading +1. Acceptable characters are: alphanumeric with symbols '+'.
+   * The Prove Customer ID (PCID) associated with the identity.
    */
-  phoneNumber: string;
+  pcid: string;
 };
 
 /** @internal */
@@ -31,16 +28,16 @@ export const IdentityItem$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  clientCustomerId: z.string().optional(),
-  deviceId: z.string().optional(),
-  phoneNumber: z.string(),
+  clientName: z.string(),
+  identityId: z.string(),
+  pcid: z.string(),
 });
 
 /** @internal */
 export type IdentityItem$Outbound = {
-  clientCustomerId?: string | undefined;
-  deviceId?: string | undefined;
-  phoneNumber: string;
+  clientName: string;
+  identityId: string;
+  pcid: string;
 };
 
 /** @internal */
@@ -49,9 +46,9 @@ export const IdentityItem$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   IdentityItem
 > = z.object({
-  clientCustomerId: z.string().optional(),
-  deviceId: z.string().optional(),
-  phoneNumber: z.string(),
+  clientName: z.string(),
+  identityId: z.string(),
+  pcid: z.string(),
 });
 
 /**

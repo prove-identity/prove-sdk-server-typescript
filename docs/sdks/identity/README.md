@@ -11,6 +11,7 @@
 * [v3DisenrollIdentity](#v3disenrollidentity) - Disenroll Identity
 * [v3GetIdentity](#v3getidentity) - Get Identity
 * [v3ActivateIdentity](#v3activateidentity) - Activate Identity
+* [v3CrossDomainIdentity](#v3crossdomainidentity) - Cross Domain Identity
 * [v3DeactivateIdentity](#v3deactivateidentity) - Deactivate Identity
 * [v3GetIdentitiesByPhoneNumber](#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 
@@ -204,14 +205,14 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     items: [
       {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-        phoneNumber: "2001001695",
+        clientName: "\"Client A\"",
+        identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+        pcid: "\"12345\"",
       },
       {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-        phoneNumber: "2001001695",
+        clientName: "\"Client A\"",
+        identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+        pcid: "\"12345\"",
       },
     ],
   });
@@ -244,14 +245,14 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     items: [
       {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-        phoneNumber: "2001001695",
+        clientName: "\"Client A\"",
+        identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+        pcid: "\"12345\"",
       },
       {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
-        phoneNumber: "2001001695",
+        clientName: "\"Client A\"",
+        identityId: "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"",
+        pcid: "\"12345\"",
       },
     ],
   });
@@ -519,6 +520,89 @@ run();
 ### Response
 
 **Promise\<[operations.V3ActivateIdentityResponse](../../models/operations/v3activateidentityresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ErrorT    | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3CrossDomainIdentity
+
+Retreives the list of identities from other linked accounts.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3CrossDomainIdentity("<id>", {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3CrossDomainIdentity } from "@prove-identity/prove-api/funcs/identityV3CrossDomainIdentity.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3CrossDomainIdentity(proveapi, "<id>", {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3CrossDomainIdentity failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `identityId`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | A Prove-generated unique ID for a specific identity.                                                                                                                           |                                                                                                                                                                                |
+| `v3CrossDomainIdentityRequest`                                                                                                                                                 | [components.V3CrossDomainIdentityRequest](../../models/components/v3crossdomainidentityrequest.md)                                                                             | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            | [object Object]                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[operations.V3CrossDomainIdentityResponse](../../models/operations/v3crossdomainidentityresponse.md)\>**
 
 ### Errors
 

@@ -96,7 +96,7 @@ async function $do(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/identity/")();
+  const path = pathToFunc("/v3/identity")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

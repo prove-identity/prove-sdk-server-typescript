@@ -5,12 +5,95 @@
 
 ### Available Operations
 
-* [v3DomainID](#v3domainid) - Get Domain Details
-* [v3DomainLink](#v3domainlink) - # Create a request to connect the requested domain to the domain the request is made from.
-* [v3DomainLinked](#v3domainlinked) - Get the list of domains that are linked to this domain.
-* [v3DomainUnlink](#v3domainunlink) - # Remove a domain link or request.
+* [v3DomainConfirmLinkRequest](#v3domainconfirmlinkrequest) - Confirm a domain link request
+* [v3DomainIDRequest](#v3domainidrequest) - Get Domain Details
+* [v3DomainLinkRequest](#v3domainlinkrequest) - Request a domain link
+* [v3DomainLinkedRequest](#v3domainlinkedrequest) - Get the list of domains that are linked to this domain.
+* [v3DomainUnlinkRequest](#v3domainunlinkrequest) - Remove a domain link or request
 
-## v3DomainID
+## v3DomainConfirmLinkRequest
+
+Confirms a given domain link request by validating the PCID.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.domain.v3DomainConfirmLinkRequest({
+    pcid: "pcid",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { domainV3DomainConfirmLinkRequest } from "@prove-identity/prove-api/funcs/domainV3DomainConfirmLinkRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await domainV3DomainConfirmLinkRequest(proveapi, {
+    pcid: "pcid",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("domainV3DomainConfirmLinkRequest failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3DomainConfirmLinkRequest](../../models/components/v3domainconfirmlinkrequest.md)                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3DomainConfirmLinkRequestResponse](../../models/operations/v3domainconfirmlinkrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.ErrorT    | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3DomainIDRequest
 
 Returns the domain details.
 
@@ -27,7 +110,7 @@ const proveapi = new Proveapi({
 });
 
 async function run() {
-  const result = await proveapi.domain.v3DomainID();
+  const result = await proveapi.domain.v3DomainIDRequest();
 
   console.log(result);
 }
@@ -41,7 +124,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { domainV3DomainID } from "@prove-identity/prove-api/funcs/domainV3DomainID.js";
+import { domainV3DomainIDRequest } from "@prove-identity/prove-api/funcs/domainV3DomainIDRequest.js";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -53,12 +136,12 @@ const proveapi = new ProveapiCore({
 });
 
 async function run() {
-  const res = await domainV3DomainID(proveapi);
+  const res = await domainV3DomainIDRequest(proveapi);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("domainV3DomainID failed:", res.error);
+    console.log("domainV3DomainIDRequest failed:", res.error);
   }
 }
 
@@ -69,14 +152,13 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [string](../../models/.md)                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.V3DomainIDResponse](../../models/operations/v3domainidresponse.md)\>**
+**Promise\<[operations.V3DomainIDRequestResponse](../../models/operations/v3domainidrequestresponse.md)\>**
 
 ### Errors
 
@@ -88,9 +170,9 @@ run();
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## v3DomainLink
+## v3DomainLinkRequest
 
-# Create a request to connect the requested domain to the domain the request is made from.
+Create a request to connect the requested domain to the domain the request is made from.
 
 ### Example Usage
 
@@ -105,7 +187,7 @@ const proveapi = new Proveapi({
 });
 
 async function run() {
-  const result = await proveapi.domain.v3DomainLink({
+  const result = await proveapi.domain.v3DomainLinkRequest({
     pcid: "pcid",
   });
 
@@ -121,7 +203,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { domainV3DomainLink } from "@prove-identity/prove-api/funcs/domainV3DomainLink.js";
+import { domainV3DomainLinkRequest } from "@prove-identity/prove-api/funcs/domainV3DomainLinkRequest.js";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -133,14 +215,14 @@ const proveapi = new ProveapiCore({
 });
 
 async function run() {
-  const res = await domainV3DomainLink(proveapi, {
+  const res = await domainV3DomainLinkRequest(proveapi, {
     pcid: "pcid",
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("domainV3DomainLink failed:", res.error);
+    console.log("domainV3DomainLinkRequest failed:", res.error);
   }
 }
 
@@ -158,7 +240,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.V3DomainLinkResponse](../../models/operations/v3domainlinkresponse.md)\>**
+**Promise\<[operations.V3DomainLinkRequestResponse](../../models/operations/v3domainlinkrequestresponse.md)\>**
 
 ### Errors
 
@@ -170,7 +252,7 @@ run();
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## v3DomainLinked
+## v3DomainLinkedRequest
 
 Returns the accepted and pending links for this domain.
 
@@ -187,7 +269,7 @@ const proveapi = new Proveapi({
 });
 
 async function run() {
-  const result = await proveapi.domain.v3DomainLinked();
+  const result = await proveapi.domain.v3DomainLinkedRequest();
 
   console.log(result);
 }
@@ -201,7 +283,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { domainV3DomainLinked } from "@prove-identity/prove-api/funcs/domainV3DomainLinked.js";
+import { domainV3DomainLinkedRequest } from "@prove-identity/prove-api/funcs/domainV3DomainLinkedRequest.js";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -213,12 +295,12 @@ const proveapi = new ProveapiCore({
 });
 
 async function run() {
-  const res = await domainV3DomainLinked(proveapi);
+  const res = await domainV3DomainLinkedRequest(proveapi);
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("domainV3DomainLinked failed:", res.error);
+    console.log("domainV3DomainLinkedRequest failed:", res.error);
   }
 }
 
@@ -235,7 +317,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.V3DomainLinkedResponse](../../models/operations/v3domainlinkedresponse.md)\>**
+**Promise\<[operations.V3DomainLinkedRequestResponse](../../models/operations/v3domainlinkedrequestresponse.md)\>**
 
 ### Errors
 
@@ -247,9 +329,9 @@ run();
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## v3DomainUnlink
+## v3DomainUnlinkRequest
 
-# Remove a domain link or request.
+Remove a domain link or request between the requested domain and the domain the request is made from.
 
 ### Example Usage
 
@@ -264,7 +346,7 @@ const proveapi = new Proveapi({
 });
 
 async function run() {
-  const result = await proveapi.domain.v3DomainUnlink({
+  const result = await proveapi.domain.v3DomainUnlinkRequest({
     pcidFrom: "pcidFrom",
     pcidTo: "pcidTo",
   });
@@ -281,7 +363,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { domainV3DomainUnlink } from "@prove-identity/prove-api/funcs/domainV3DomainUnlink.js";
+import { domainV3DomainUnlinkRequest } from "@prove-identity/prove-api/funcs/domainV3DomainUnlinkRequest.js";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -293,7 +375,7 @@ const proveapi = new ProveapiCore({
 });
 
 async function run() {
-  const res = await domainV3DomainUnlink(proveapi, {
+  const res = await domainV3DomainUnlinkRequest(proveapi, {
     pcidFrom: "pcidFrom",
     pcidTo: "pcidTo",
   });
@@ -301,7 +383,7 @@ async function run() {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("domainV3DomainUnlink failed:", res.error);
+    console.log("domainV3DomainUnlinkRequest failed:", res.error);
   }
 }
 
@@ -319,7 +401,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.V3DomainUnlinkResponse](../../models/operations/v3domainunlinkresponse.md)\>**
+**Promise\<[operations.V3DomainUnlinkRequestResponse](../../models/operations/v3domainunlinkrequestresponse.md)\>**
 
 ### Errors
 

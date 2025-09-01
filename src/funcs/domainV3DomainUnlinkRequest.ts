@@ -3,13 +3,14 @@
  */
 
 import { ProveapiCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeJSON } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
+import * as components from "../models/components/index.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -26,21 +27,18 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Batch Get Identities
+ * Remove a domain link or request
  *
  * @remarks
- * Return a list of all identities you have enrolled in Identity Manager.
+ * Remove a domain link or request between the requested domain and the domain the request is made from.
  */
-export function identityV3BatchGetIdentities(
+export function domainV3DomainUnlinkRequest(
   client: ProveapiCore,
-  clientRequestId?: string | undefined,
-  limit?: number | undefined,
-  startKey?: string | undefined,
-  showInactive?: boolean | undefined,
+  request?: components.V3DomainUnlinkRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3BatchGetIdentitiesResponse,
+    operations.V3DomainUnlinkRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -56,25 +54,19 @@ export function identityV3BatchGetIdentities(
 > {
   return new APIPromise($do(
     client,
-    clientRequestId,
-    limit,
-    startKey,
-    showInactive,
+    request,
     options,
   ));
 }
 
 async function $do(
   client: ProveapiCore,
-  clientRequestId?: string | undefined,
-  limit?: number | undefined,
-  startKey?: string | undefined,
-  showInactive?: boolean | undefined,
+  request?: components.V3DomainUnlinkRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.V3BatchGetIdentitiesResponse,
+      operations.V3DomainUnlinkRequestResponse,
       | errors.ErrorT
       | errors.Error401
       | errors.Error403
@@ -90,35 +82,24 @@ async function $do(
     APICall,
   ]
 > {
-  const input: operations.V3BatchGetIdentitiesRequest = {
-    clientRequestId: clientRequestId,
-    limit: limit,
-    startKey: startKey,
-    showInactive: showInactive,
-  };
-
   const parsed = safeParse(
-    input,
+    request,
     (value) =>
-      operations.V3BatchGetIdentitiesRequest$outboundSchema.parse(value),
+      components.V3DomainUnlinkRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = null;
+  const body = payload === undefined
+    ? null
+    : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/identity")();
-
-  const query = encodeFormQuery({
-    "clientRequestId": payload.clientRequestId,
-    "limit": payload.limit,
-    "showInactive": payload.showInactive,
-    "startKey": payload.startKey,
-  });
+  const path = pathToFunc("/v3/domain/unlink")();
 
   const headers = new Headers(compactMap({
+    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -128,7 +109,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "V3BatchGetIdentities",
+    operationID: "V3DomainUnlinkRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -142,11 +123,10 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "GET",
+    method: "POST",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -172,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3BatchGetIdentitiesResponse,
+    operations.V3DomainUnlinkRequestResponse,
     | errors.ErrorT
     | errors.Error401
     | errors.Error403
@@ -185,8 +165,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.V3BatchGetIdentitiesResponse$inboundSchema, {
-      key: "V3BatchGetIdentitiesResponse",
+    M.json(200, operations.V3DomainUnlinkRequestResponse$inboundSchema, {
+      key: "V3DomainUnlinkResponse",
     }),
     M.jsonErr(400, errors.ErrorT$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
