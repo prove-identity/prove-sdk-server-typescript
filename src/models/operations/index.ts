@@ -24,5 +24,5 @@ export * from "./v3unifybindrequest.js";
 export * from "./v3unifyrequest.js";
 export * from "./v3unifystatusrequest.js";
 export * from "./v3validaterequest.js";
+export * from "./v3verifybatchrequest.js";
 export * from "./v3verifyrequest.js";
-export * from "./v3verifystatusrequest.js";

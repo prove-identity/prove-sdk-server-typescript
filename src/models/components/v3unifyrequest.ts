@@ -21,9 +21,25 @@ export type V3UnifyRequest = {
    */
   clientCustomerId?: string | undefined;
   /**
-   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
+   * A client-generated unique ID to identify a specific customer across business lines.
    */
-  clientRequestId?: string | undefined;
+  clientHumanId?: string | undefined;
+  /**
+   * A client-generated unique ID for a specific session. This can be used to identify specific requests.
+   *
+   * @remarks
+   * The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted.
+   * Do not include Personally Identifiable Information (PII) in this field.
+   */
+  clientRequestId: string;
+  /**
+   * The unique identifier for the Prove Key on the device.
+   */
+  deviceId?: string | undefined;
+  /**
+   * The email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
+   */
+  emailAddress?: string | undefined;
   /**
    * The URL where the end user will be redirected at the end of Instant Link flow. Required when `possessionType=desktop`.
    *
@@ -32,10 +48,15 @@ export type V3UnifyRequest = {
    */
   finalTargetUrl?: string | undefined;
   /**
+   * The IP address of the customer. Acceptable characters are: Alphanumeric with '.:' symbols.
+   */
+  ipAddress?: string | undefined;
+  /**
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    *
    * @remarks
-   * Required unless Mobile Auth is enabled.
+   *
+   * Required except when MobileAuth is used in US or a valid ProveID is provided.
    */
   phoneNumber?: string | undefined;
   /**
@@ -46,6 +67,14 @@ export type V3UnifyRequest = {
    * check is required.
    */
   possessionType: string;
+  /**
+   * A unique ID to identify a specific customer obtained from a previous successful authentication.
+   *
+   * @remarks
+   *
+   * Required if phoneNumber is not present and mobileAuth is not enabled in the US or phoneNumber is not present in the EU.
+   */
+  proveId?: string | undefined;
   /**
    * If `true`, rebinds the Prove Key with the newly verified phone number.
    */
@@ -70,10 +99,15 @@ export const V3UnifyRequest$inboundSchema: z.ZodType<
   allowOTPRetry: z.boolean().optional(),
   checkReputation: z.boolean().optional(),
   clientCustomerId: z.string().optional(),
-  clientRequestId: z.string().optional(),
+  clientHumanId: z.string().optional(),
+  clientRequestId: z.string(),
+  deviceId: z.string().optional(),
+  emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
+  ipAddress: z.string().optional(),
   phoneNumber: z.string().optional(),
   possessionType: z.string(),
+  proveId: z.string().optional(),
   rebind: z.boolean().optional(),
   smsMessage: z.string().optional(),
 });
@@ -83,10 +117,15 @@ export type V3UnifyRequest$Outbound = {
   allowOTPRetry?: boolean | undefined;
   checkReputation?: boolean | undefined;
   clientCustomerId?: string | undefined;
-  clientRequestId?: string | undefined;
+  clientHumanId?: string | undefined;
+  clientRequestId: string;
+  deviceId?: string | undefined;
+  emailAddress?: string | undefined;
   finalTargetUrl?: string | undefined;
+  ipAddress?: string | undefined;
   phoneNumber?: string | undefined;
   possessionType: string;
+  proveId?: string | undefined;
   rebind?: boolean | undefined;
   smsMessage?: string | undefined;
 };
@@ -100,10 +139,15 @@ export const V3UnifyRequest$outboundSchema: z.ZodType<
   allowOTPRetry: z.boolean().optional(),
   checkReputation: z.boolean().optional(),
   clientCustomerId: z.string().optional(),
-  clientRequestId: z.string().optional(),
+  clientHumanId: z.string().optional(),
+  clientRequestId: z.string(),
+  deviceId: z.string().optional(),
+  emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
+  ipAddress: z.string().optional(),
   phoneNumber: z.string().optional(),
   possessionType: z.string(),
+  proveId: z.string().optional(),
   rebind: z.boolean().optional(),
   smsMessage: z.string().optional(),
 });

@@ -7,7 +7,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type V3VerifyRequest = {
+export type VerifyItem = {
   /**
    * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions.  The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
    */
@@ -17,25 +17,21 @@ export type V3VerifyRequest = {
    */
   clientHumanId?: string | undefined;
   /**
-   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
-   */
-  clientRequestId?: string | undefined;
-  /**
    * The email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
    */
   emailAddress?: string | undefined;
   /**
-   * The first name of the individual. (required IF verificationType=VerifiedUser)
+   * The first name of the individual.
    */
-  firstName?: string | undefined;
+  firstName: string;
   /**
    * The IP address of the customer.
    */
   ipAddress?: string | undefined;
   /**
-   * The last name of the individual. (required IF verificationType=VerifiedUser)
+   * The last name of the individual.
    */
-  lastName?: string | undefined;
+  lastName: string;
   /**
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
@@ -47,84 +43,79 @@ export type V3VerifyRequest = {
   /**
    * The verification method based on the use case and authorization level.
    */
-  verificationType: string;
+  verificationType?: string | undefined;
 };
 
 /** @internal */
-export const V3VerifyRequest$inboundSchema: z.ZodType<
-  V3VerifyRequest,
+export const VerifyItem$inboundSchema: z.ZodType<
+  VerifyItem,
   z.ZodTypeDef,
   unknown
 > = z.object({
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
-  clientRequestId: z.string().optional(),
   emailAddress: z.string().optional(),
-  firstName: z.string().optional(),
+  firstName: z.string(),
   ipAddress: z.string().optional(),
-  lastName: z.string().optional(),
+  lastName: z.string(),
   phoneNumber: z.string(),
   userAgent: z.string().optional(),
-  verificationType: z.string(),
+  verificationType: z.string().optional(),
 });
 
 /** @internal */
-export type V3VerifyRequest$Outbound = {
+export type VerifyItem$Outbound = {
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
-  clientRequestId?: string | undefined;
   emailAddress?: string | undefined;
-  firstName?: string | undefined;
+  firstName: string;
   ipAddress?: string | undefined;
-  lastName?: string | undefined;
+  lastName: string;
   phoneNumber: string;
   userAgent?: string | undefined;
-  verificationType: string;
+  verificationType?: string | undefined;
 };
 
 /** @internal */
-export const V3VerifyRequest$outboundSchema: z.ZodType<
-  V3VerifyRequest$Outbound,
+export const VerifyItem$outboundSchema: z.ZodType<
+  VerifyItem$Outbound,
   z.ZodTypeDef,
-  V3VerifyRequest
+  VerifyItem
 > = z.object({
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
-  clientRequestId: z.string().optional(),
   emailAddress: z.string().optional(),
-  firstName: z.string().optional(),
+  firstName: z.string(),
   ipAddress: z.string().optional(),
-  lastName: z.string().optional(),
+  lastName: z.string(),
   phoneNumber: z.string(),
   userAgent: z.string().optional(),
-  verificationType: z.string(),
+  verificationType: z.string().optional(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace V3VerifyRequest$ {
-  /** @deprecated use `V3VerifyRequest$inboundSchema` instead. */
-  export const inboundSchema = V3VerifyRequest$inboundSchema;
-  /** @deprecated use `V3VerifyRequest$outboundSchema` instead. */
-  export const outboundSchema = V3VerifyRequest$outboundSchema;
-  /** @deprecated use `V3VerifyRequest$Outbound` instead. */
-  export type Outbound = V3VerifyRequest$Outbound;
+export namespace VerifyItem$ {
+  /** @deprecated use `VerifyItem$inboundSchema` instead. */
+  export const inboundSchema = VerifyItem$inboundSchema;
+  /** @deprecated use `VerifyItem$outboundSchema` instead. */
+  export const outboundSchema = VerifyItem$outboundSchema;
+  /** @deprecated use `VerifyItem$Outbound` instead. */
+  export type Outbound = VerifyItem$Outbound;
 }
 
-export function v3VerifyRequestToJSON(
-  v3VerifyRequest: V3VerifyRequest,
-): string {
-  return JSON.stringify(V3VerifyRequest$outboundSchema.parse(v3VerifyRequest));
+export function verifyItemToJSON(verifyItem: VerifyItem): string {
+  return JSON.stringify(VerifyItem$outboundSchema.parse(verifyItem));
 }
 
-export function v3VerifyRequestFromJSON(
+export function verifyItemFromJSON(
   jsonString: string,
-): SafeParseResult<V3VerifyRequest, SDKValidationError> {
+): SafeParseResult<VerifyItem, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3VerifyRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3VerifyRequest' from JSON`,
+    (x) => VerifyItem$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VerifyItem' from JSON`,
   );
 }
