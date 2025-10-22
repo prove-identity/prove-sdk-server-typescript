@@ -18,7 +18,7 @@ export type V3ValidateResponse = {
    */
   challengeMissing: boolean;
   /**
-   * The evaluation result for the policy
+   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
    */
   evaluation?: { [k: string]: V3ValidateResponseEvaluation } | undefined;
   /**

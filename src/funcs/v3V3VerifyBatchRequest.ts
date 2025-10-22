@@ -27,21 +27,22 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Check Verification Result
+ * Batch Verify Users
  *
  * @remarks
- * This endpoint allows you to perform the necessary checks for a Verified Users session.
+ * This endpoint allows you to batch verify and enroll users.
  */
-export function v3V3VerifyStatusRequest(
+export function v3V3VerifyBatchRequest(
   client: ProveapiCore,
-  request?: components.V3VerifyStatusRequest | undefined,
+  request?: components.V3VerifyBatchRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3VerifyStatusRequestResponse,
-    | errors.ErrorT
+    operations.V3VerifyBatchRequestResponse,
+    | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
     | ConnectionError
@@ -61,15 +62,16 @@ export function v3V3VerifyStatusRequest(
 
 async function $do(
   client: ProveapiCore,
-  request?: components.V3VerifyStatusRequest | undefined,
+  request?: components.V3VerifyBatchRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.V3VerifyStatusRequestResponse,
-      | errors.ErrorT
+      operations.V3VerifyBatchRequestResponse,
+      | errors.Error400
       | errors.Error401
       | errors.Error403
+      | errors.ErrorT
       | ProveapiError
       | ResponseValidationError
       | ConnectionError
@@ -85,7 +87,7 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      components.V3VerifyStatusRequest$outboundSchema.optional().parse(value),
+      components.V3VerifyBatchRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -96,7 +98,7 @@ async function $do(
     ? null
     : encodeJSON("body", payload, { explode: true });
 
-  const path = pathToFunc("/v3/verify-status")();
+  const path = pathToFunc("/v3/verify/batch")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
@@ -109,7 +111,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "V3VerifyStatusRequest",
+    operationID: "V3VerifyBatchRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -152,10 +154,11 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3VerifyStatusRequestResponse,
-    | errors.ErrorT
+    operations.V3VerifyBatchRequestResponse,
+    | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
     | ConnectionError
@@ -165,11 +168,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.V3VerifyStatusRequestResponse$inboundSchema, {
-      hdrs: true,
-      key: "V3VerifyStatusResponse",
+    M.json(200, operations.V3VerifyBatchRequestResponse$inboundSchema, {
+      key: "V3VerifyBatchResponse",
     }),
-    M.jsonErr(400, errors.ErrorT$inboundSchema),
+    M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),

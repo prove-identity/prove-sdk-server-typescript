@@ -11,13 +11,47 @@ export type V3UnifyStatusResponseEvaluation = {};
 
 export type V3UnifyStatusResponse = {
   /**
-   * The evaluation result for the policy.
+   * A client-generated unique ID to identify a specific customer across business lines.
+   *
+   * @remarks
+   * Required if success=true.
+   */
+  clientHumanId?: string | undefined;
+  /**
+   * A client-generated unique ID for a specific session. This can be used to identify specific requests.
+   *
+   * @remarks
+   * The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted.
+   * Do not include Personally Identifiable Information (PII) in this field.
+   */
+  clientRequestId?: string | undefined;
+  /**
+   * The unique identifier for the Prove Key on the device.
+   *
+   * @remarks
+   * Required if success=true.
+   */
+  deviceId?: string | undefined;
+  /**
+   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
    */
   evaluation?: { [k: string]: V3UnifyStatusResponseEvaluation } | undefined;
   /**
    * The number of the mobile phone used during the process.
+   *
+   * @remarks
+   *
+   * Required except when MobileAuth is used in US or a valid ProveID is provided.
    */
-  phoneNumber: string;
+  phoneNumber?: string | undefined;
+  /**
+   * A unique ID to identify a specific customer obtained from a successful possession check.
+   *
+   * @remarks
+   * If an existing value is available (e.g. from a previous successful possession check) then it should be returned, otherwise a new value should be generated if success=true.
+   * Required if success=true.
+   */
+  proveId?: string | undefined;
   /**
    * The result of the possession check.
    *
@@ -83,19 +117,27 @@ export const V3UnifyStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  clientHumanId: z.string().optional(),
+  clientRequestId: z.string().optional(),
+  deviceId: z.string().optional(),
   evaluation: z.record(
     z.lazy(() => V3UnifyStatusResponseEvaluation$inboundSchema),
   ).optional(),
-  phoneNumber: z.string(),
+  phoneNumber: z.string().optional(),
+  proveId: z.string().optional(),
   success: z.string(),
 });
 
 /** @internal */
 export type V3UnifyStatusResponse$Outbound = {
+  clientHumanId?: string | undefined;
+  clientRequestId?: string | undefined;
+  deviceId?: string | undefined;
   evaluation?:
     | { [k: string]: V3UnifyStatusResponseEvaluation$Outbound }
     | undefined;
-  phoneNumber: string;
+  phoneNumber?: string | undefined;
+  proveId?: string | undefined;
   success: string;
 };
 
@@ -105,10 +147,14 @@ export const V3UnifyStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3UnifyStatusResponse
 > = z.object({
+  clientHumanId: z.string().optional(),
+  clientRequestId: z.string().optional(),
+  deviceId: z.string().optional(),
   evaluation: z.record(
     z.lazy(() => V3UnifyStatusResponseEvaluation$outboundSchema),
   ).optional(),
-  phoneNumber: z.string(),
+  phoneNumber: z.string().optional(),
+  proveId: z.string().optional(),
   success: z.string(),
 });
 

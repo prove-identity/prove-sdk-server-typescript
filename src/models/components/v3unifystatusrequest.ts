@@ -9,7 +9,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3UnifyStatusRequest = {
   /**
-   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
+   * A client-generated unique ID for a specific session. This can be used to identify specific requests.
+   *
+   * @remarks
+   * The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted.
+   * Do not include Personally Identifiable Information (PII) in this field.
    */
   clientRequestId?: string | undefined;
   /**
@@ -21,6 +25,10 @@ export type V3UnifyStatusRequest = {
   correlationId?: string | undefined;
   /**
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'. Required when `possessionType=none` in the initial Unify request.
+   *
+   * @remarks
+   *
+   * Required except when MobileAuth is used in US or a valid ProveID is provided.
    */
   phoneNumber?: string | undefined;
 };

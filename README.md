@@ -206,7 +206,7 @@ run();
 * [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
 * [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Initiate Verified Users Session
-* [v3VerifyStatusRequest](docs/sdks/v3/README.md#v3verifystatusrequest) - Check Verification Result
+* [v3VerifyBatchRequest](docs/sdks/v3/README.md#v3verifybatchrequest) - Batch Verify Users
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -248,7 +248,7 @@ async function run() {
       console.log(error.httpMeta.request);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.ErrorT) {
+      if (error instanceof errors.Error400) {
         console.log(error.data$.code); // number
         console.log(error.data$.message); // string
       }
@@ -263,8 +263,9 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`ProveapiError`](./src/models/errors/proveapierror.ts): The base class for HTTP error responses.
-  * [`ErrorT`](./src/models/errors/errort.ts): Bad Request. The server cannot process the request due to a client error.
+  * [`Error400`](./src/models/errors/error400.ts): Bad Request. The server cannot process the request due to a client error. Status code `400`.
   * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`.
+  * [`ErrorT`](./src/models/errors/errort.ts): Internal Server Error. The server encountered an unexpected condition that prevented it from fulfilling the request. Status code `500`.
   * [`Error403`](./src/models/errors/error403.ts): Forbidden. The server understood the request but refuses to authorize it. Status code `403`. *
 
 <details><summary>Less common errors (6)</summary>
@@ -540,8 +541,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`v3V3UnifyRequest`](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
 - [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
+- [`v3V3VerifyBatchRequest`](docs/sdks/v3/README.md#v3verifybatchrequest) - Batch Verify Users
 - [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Initiate Verified Users Session
-- [`v3V3VerifyStatusRequest`](docs/sdks/v3/README.md#v3verifystatusrequest) - Check Verification Result
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->

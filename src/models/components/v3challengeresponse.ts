@@ -17,7 +17,7 @@ export type Evaluation = {};
 
 export type V3ChallengeResponse = {
   /**
-   * The evaluation result for the policy
+   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
    */
   evaluation?: { [k: string]: Evaluation } | undefined;
   individual?: V3ChallengeIndividualRequest | undefined;
