@@ -10,8 +10,8 @@ import { v3V3UnifyBindRequest } from "../funcs/v3V3UnifyBindRequest.js";
 import { v3V3UnifyRequest } from "../funcs/v3V3UnifyRequest.js";
 import { v3V3UnifyStatusRequest } from "../funcs/v3V3UnifyStatusRequest.js";
 import { v3V3ValidateRequest } from "../funcs/v3V3ValidateRequest.js";
+import { v3V3VerifyBatchRequest } from "../funcs/v3V3VerifyBatchRequest.js";
 import { v3V3VerifyRequest } from "../funcs/v3V3VerifyRequest.js";
-import { v3V3VerifyStatusRequest } from "../funcs/v3V3VerifyStatusRequest.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
@@ -172,16 +172,16 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Check Verification Result
+   * Batch Verify Users
    *
    * @remarks
-   * This endpoint allows you to perform the necessary checks for a Verified Users session.
+   * This endpoint allows you to batch verify and enroll users.
    */
-  async v3VerifyStatusRequest(
-    request?: components.V3VerifyStatusRequest | undefined,
+  async v3VerifyBatchRequest(
+    request?: components.V3VerifyBatchRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.V3VerifyStatusRequestResponse> {
-    return unwrapAsync(v3V3VerifyStatusRequest(
+  ): Promise<operations.V3VerifyBatchRequestResponse> {
+    return unwrapAsync(v3V3VerifyBatchRequest(
       this,
       request,
       options,

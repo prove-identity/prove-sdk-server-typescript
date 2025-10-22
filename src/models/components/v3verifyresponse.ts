@@ -6,34 +6,47 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  AdditionalIdentity,
+  AdditionalIdentity$inboundSchema,
+  AdditionalIdentity$Outbound,
+  AdditionalIdentity$outboundSchema,
+} from "./additionalidentity.js";
+import {
+  Identity,
+  Identity$inboundSchema,
+  Identity$Outbound,
+  Identity$outboundSchema,
+} from "./identity.js";
 
 export type V3VerifyResponseEvaluation = {};
 
 export type V3VerifyResponse = {
   /**
-   * A bearer token for use by the Prove client SDK.
+   * (required IF verificationType=VerifiedUser)
    */
-  authToken?: string | undefined;
+  additionalIdentities?: Array<AdditionalIdentity> | undefined;
+  /**
+   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
+   */
+  clientRequestId?: string | undefined;
   /**
    * The unique ID that Prove generates for the flow. To continue the flow, the field will also be used for each of the subsequent API calls in the same flow - it cannot be reused outside of a single flow.
    */
   correlationId: string;
   /**
-   * The evaluation result for the policy
+   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
    */
   evaluation?: { [k: string]: V3VerifyResponseEvaluation } | undefined;
+  identity: Identity;
   /**
-   * The result of the possession check. Possible values are `pending` and `not_applicable`, based on the `possessionType` passed in the input. Clients will have to call the Verify Status API to get a result if `possessionResult=pending`.
+   * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
-  possessionResult: string;
+  phoneNumber: string;
   /**
-   * The result of the combination of `verifyResult` and `possessionResult`. Possible values are `true`, `pending`, and `false`. The value will be `pending` until the results of both Verify and Possession are returned or one of them fails, blocking the other.
+   * The result of verification
    */
   success: string;
-  /**
-   * The result of the Verify process. Possible values are `success`, `pending`, and `failed`. If the Verify result is `pending`, clients will need to call the Verify Status API to get a result.
-   */
-  verifyResult: string;
 };
 
 /** @internal */
@@ -90,23 +103,25 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authToken: z.string().optional(),
+  additionalIdentities: z.array(AdditionalIdentity$inboundSchema).optional(),
+  clientRequestId: z.string().optional(),
   correlationId: z.string(),
   evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$inboundSchema))
     .optional(),
-  possessionResult: z.string(),
+  identity: Identity$inboundSchema,
+  phoneNumber: z.string(),
   success: z.string(),
-  verifyResult: z.string(),
 });
 
 /** @internal */
 export type V3VerifyResponse$Outbound = {
-  authToken?: string | undefined;
+  additionalIdentities?: Array<AdditionalIdentity$Outbound> | undefined;
+  clientRequestId?: string | undefined;
   correlationId: string;
   evaluation?: { [k: string]: V3VerifyResponseEvaluation$Outbound } | undefined;
-  possessionResult: string;
+  identity: Identity$Outbound;
+  phoneNumber: string;
   success: string;
-  verifyResult: string;
 };
 
 /** @internal */
@@ -115,13 +130,14 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyResponse
 > = z.object({
-  authToken: z.string().optional(),
+  additionalIdentities: z.array(AdditionalIdentity$outboundSchema).optional(),
+  clientRequestId: z.string().optional(),
   correlationId: z.string(),
   evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$outboundSchema))
     .optional(),
-  possessionResult: z.string(),
+  identity: Identity$outboundSchema,
+  phoneNumber: z.string(),
   success: z.string(),
-  verifyResult: z.string(),
 });
 
 /**

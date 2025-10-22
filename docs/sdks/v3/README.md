@@ -14,7 +14,7 @@
 * [v3UnifyStatusRequest](#v3unifystatusrequest) - Check Status
 * [v3ValidateRequest](#v3validaterequest) - Validate Phone Number
 * [v3VerifyRequest](#v3verifyrequest) - Initiate Verified Users Session
-* [v3VerifyStatusRequest](#v3verifystatusrequest) - Check Verification Result
+* [v3VerifyBatchRequest](#v3verifybatchrequest) - Batch Verify Users
 
 ## v3TokenRequest
 
@@ -86,7 +86,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
@@ -171,7 +171,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -289,7 +289,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -387,7 +387,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -414,10 +414,15 @@ async function run() {
     allowOTPRetry: true,
     checkReputation: true,
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientHumanId: "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+    emailAddress: "sbutrimovichb@who.int",
     finalTargetUrl: "https://www.example.com/landing-page",
+    ipAddress: "192.168.0.1",
     phoneNumber: "2001004011",
     possessionType: "mobile",
+    proveId: "a07b94ce-218c-461f-beda-d92480e40f61",
     rebind: true,
     smsMessage: "#### is your verification code.",
   });
@@ -450,10 +455,15 @@ async function run() {
     allowOTPRetry: true,
     checkReputation: true,
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientHumanId: "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+    emailAddress: "sbutrimovichb@who.int",
     finalTargetUrl: "https://www.example.com/landing-page",
+    ipAddress: "192.168.0.1",
     phoneNumber: "2001004011",
     possessionType: "mobile",
+    proveId: "a07b94ce-218c-461f-beda-d92480e40f61",
     rebind: true,
     smsMessage: "#### is your verification code.",
   });
@@ -485,7 +495,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -571,7 +581,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -657,7 +667,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -739,7 +749,7 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
@@ -763,16 +773,16 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3VerifyRequest({
-    allowOTPRetry: true,
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     emailAddress: "sbutrimovichb@who.int",
-    finalTargetUrl: "https://www.example.com/landing-page",
     firstName: "Sheilakathryn",
+    ipAddress: "192.168.1.1",
     lastName: "Butrimovich",
     phoneNumber: "2001004011",
-    possessionType: "mobile",
-    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+    verificationType: "verificationType",
   });
 
   console.log(result);
@@ -800,16 +810,16 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await v3V3VerifyRequest(proveapi, {
-    allowOTPRetry: true,
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     emailAddress: "sbutrimovichb@who.int",
-    finalTargetUrl: "https://www.example.com/landing-page",
     firstName: "Sheilakathryn",
+    ipAddress: "192.168.1.1",
     lastName: "Butrimovich",
     phoneNumber: "2001004011",
-    possessionType: "mobile",
-    smsMessage: "#### is your temporary code to continue your application. Caution: for your security, don't share this code with anyone.",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+    verificationType: "verificationType",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -839,15 +849,15 @@ run();
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## v3VerifyStatusRequest
+## v3VerifyBatchRequest
 
-This endpoint allows you to perform the necessary checks for a Verified Users session.
+This endpoint allows you to batch verify and enroll users.
 
 ### Example Usage
 
@@ -862,9 +872,32 @@ const proveapi = new Proveapi({
 });
 
 async function run() {
-  const result = await proveapi.v3.v3VerifyStatusRequest({
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+  const result = await proveapi.v3.v3VerifyBatchRequest({
+    clientRequestId: "clientRequestId",
+    items: [
+      {
+        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+        clientHumanId: "clientHumanId",
+        emailAddress: "sbutrimovichb@who.int",
+        firstName: "Sheilakathryn",
+        ipAddress: "192.168.1.1",
+        lastName: "Butrimovich",
+        phoneNumber: "2001004011",
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+        verificationType: "verificationType",
+      },
+      {
+        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+        clientHumanId: "clientHumanId",
+        emailAddress: "sbutrimovichb@who.int",
+        firstName: "Sheilakathryn",
+        ipAddress: "192.168.1.1",
+        lastName: "Butrimovich",
+        phoneNumber: "2001004011",
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+        verificationType: "verificationType",
+      },
+    ],
   });
 
   console.log(result);
@@ -879,7 +912,7 @@ The standalone function version of this method:
 
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { v3V3VerifyStatusRequest } from "@prove-identity/prove-api/funcs/v3V3VerifyStatusRequest.js";
+import { v3V3VerifyBatchRequest } from "@prove-identity/prove-api/funcs/v3V3VerifyBatchRequest.js";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -891,15 +924,38 @@ const proveapi = new ProveapiCore({
 });
 
 async function run() {
-  const res = await v3V3VerifyStatusRequest(proveapi, {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
+  const res = await v3V3VerifyBatchRequest(proveapi, {
+    clientRequestId: "clientRequestId",
+    items: [
+      {
+        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+        clientHumanId: "clientHumanId",
+        emailAddress: "sbutrimovichb@who.int",
+        firstName: "Sheilakathryn",
+        ipAddress: "192.168.1.1",
+        lastName: "Butrimovich",
+        phoneNumber: "2001004011",
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+        verificationType: "verificationType",
+      },
+      {
+        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+        clientHumanId: "clientHumanId",
+        emailAddress: "sbutrimovichb@who.int",
+        firstName: "Sheilakathryn",
+        ipAddress: "192.168.1.1",
+        lastName: "Butrimovich",
+        phoneNumber: "2001004011",
+        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+        verificationType: "verificationType",
+      },
+    ],
   });
   if (res.ok) {
     const { value: result } = res;
     console.log(result);
   } else {
-    console.log("v3V3VerifyStatusRequest failed:", res.error);
+    console.log("v3V3VerifyBatchRequest failed:", res.error);
   }
 }
 
@@ -910,20 +966,20 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.V3VerifyStatusRequest](../../models/components/v3verifystatusrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.V3VerifyBatchRequest](../../models/components/v3verifybatchrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[operations.V3VerifyStatusRequestResponse](../../models/operations/v3verifystatusrequestresponse.md)\>**
+**Promise\<[operations.V3VerifyBatchRequestResponse](../../models/operations/v3verifybatchrequestresponse.md)\>**
 
 ### Errors
 
 | Error Type       | Status Code      | Content Type     |
 | ---------------- | ---------------- | ---------------- |
-| errors.ErrorT    | 400              | application/json |
+| errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
 | errors.ErrorT    | 500              | application/json |
