@@ -174,6 +174,12 @@ run();
 <details open>
 <summary>Available methods</summary>
 
+### [auth](docs/sdks/auth/README.md)
+
+* [authContinueRequest](docs/sdks/auth/README.md#authcontinuerequest) - AuthContinue /v1/server/auth/continue
+* [authFinishRequest](docs/sdks/auth/README.md#authfinishrequest) - AuthFinish /v1/server/auth/finish
+* [authStartRequest](docs/sdks/auth/README.md#authstartrequest) - AuthStart /v1/server/auth/start
+
 ### [domain](docs/sdks/domain/README.md)
 
 * [v3DomainConfirmLinkRequest](docs/sdks/domain/README.md#v3domainconfirmlinkrequest) - Confirm a domain link request
@@ -263,9 +269,9 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`ProveapiError`](./src/models/errors/proveapierror.ts): The base class for HTTP error responses.
-  * [`Error400`](./src/models/errors/error400.ts): Bad Request. The server cannot process the request due to a client error. Status code `400`.
-  * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`.
+  * [`Error400`](./src/models/errors/error400.ts): Error400 is a custom error for HTTP 400. This is used to support distinguishing between HTTP 400 and 500 in Speakeasy SDKs. Status code `400`.
   * [`ErrorT`](./src/models/errors/errort.ts): Internal Server Error. The server encountered an unexpected condition that prevented it from fulfilling the request. Status code `500`.
+  * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`. *
   * [`Error403`](./src/models/errors/error403.ts): Forbidden. The server understood the request but refuses to authorize it. Status code `403`. *
 
 <details><summary>Less common errors (6)</summary>
@@ -519,6 +525,9 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
+- [`authAuthContinueRequest`](docs/sdks/auth/README.md#authcontinuerequest) - AuthContinue /v1/server/auth/continue
+- [`authAuthFinishRequest`](docs/sdks/auth/README.md#authfinishrequest) - AuthFinish /v1/server/auth/finish
+- [`authAuthStartRequest`](docs/sdks/auth/README.md#authstartrequest) - AuthStart /v1/server/auth/start
 - [`domainV3DomainConfirmLinkRequest`](docs/sdks/domain/README.md#v3domainconfirmlinkrequest) - Confirm a domain link request
 - [`domainV3DomainIDRequest`](docs/sdks/domain/README.md#v3domainidrequest) - Get Domain Details
 - [`domainV3DomainLinkedRequest`](docs/sdks/domain/README.md#v3domainlinkedrequest) - Get the list of domains that are linked to this domain.

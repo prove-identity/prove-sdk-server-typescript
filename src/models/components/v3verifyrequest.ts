@@ -7,7 +7,24 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "bot", "prefill", "prefillForBiz", "identityResolution".
+ */
+export enum VerificationType {
+  Bot = "bot",
+  VerifiedUser = "verifiedUser",
+  AccountOpening = "accountOpening",
+  Prefill = "prefill",
+  PrefillForBiz = "prefillForBiz",
+  IdentityResolution = "identityResolution",
+}
+
 export type V3VerifyRequest = {
+  /**
+   * An optional list of add-on features. Current allowed values: "ageEstimation"
+   */
+  addOnFeature?: Array<string> | undefined;
+  businessName?: string | undefined;
   /**
    * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions.  The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
    */
@@ -20,6 +37,10 @@ export type V3VerifyRequest = {
    * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
    */
   clientRequestId?: string | undefined;
+  /**
+   * TODO: comments and validation
+   */
+  dateOfBirth?: string | undefined;
   /**
    * The email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
    */
@@ -36,19 +57,42 @@ export type V3VerifyRequest = {
    * The last name of the individual. (required IF verificationType=VerifiedUser)
    */
   lastName?: string | undefined;
+  nationalId?: string | undefined;
   /**
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
+  proveId?: string | undefined;
   /**
    * The User agent of the customer.
    */
   userAgent?: string | undefined;
   /**
-   * The verification method based on the use case and authorization level.
+   * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "bot", "prefill", "prefillForBiz", "identityResolution".
    */
-  verificationType: string;
+  verificationType: VerificationType;
 };
+
+/** @internal */
+export const VerificationType$inboundSchema: z.ZodNativeEnum<
+  typeof VerificationType
+> = z.nativeEnum(VerificationType);
+
+/** @internal */
+export const VerificationType$outboundSchema: z.ZodNativeEnum<
+  typeof VerificationType
+> = VerificationType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace VerificationType$ {
+  /** @deprecated use `VerificationType$inboundSchema` instead. */
+  export const inboundSchema = VerificationType$inboundSchema;
+  /** @deprecated use `VerificationType$outboundSchema` instead. */
+  export const outboundSchema = VerificationType$outboundSchema;
+}
 
 /** @internal */
 export const V3VerifyRequest$inboundSchema: z.ZodType<
@@ -56,28 +100,38 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  addOnFeature: z.array(z.string()).optional(),
+  businessName: z.string().optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
+  dateOfBirth: z.string().optional(),
   emailAddress: z.string().optional(),
   firstName: z.string().optional(),
   ipAddress: z.string().optional(),
   lastName: z.string().optional(),
+  nationalId: z.string().optional(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
   userAgent: z.string().optional(),
-  verificationType: z.string(),
+  verificationType: VerificationType$inboundSchema,
 });
 
 /** @internal */
 export type V3VerifyRequest$Outbound = {
+  addOnFeature?: Array<string> | undefined;
+  businessName?: string | undefined;
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
+  dateOfBirth?: string | undefined;
   emailAddress?: string | undefined;
   firstName?: string | undefined;
   ipAddress?: string | undefined;
   lastName?: string | undefined;
+  nationalId?: string | undefined;
   phoneNumber: string;
+  proveId?: string | undefined;
   userAgent?: string | undefined;
   verificationType: string;
 };
@@ -88,16 +142,21 @@ export const V3VerifyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyRequest
 > = z.object({
+  addOnFeature: z.array(z.string()).optional(),
+  businessName: z.string().optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
+  dateOfBirth: z.string().optional(),
   emailAddress: z.string().optional(),
   firstName: z.string().optional(),
   ipAddress: z.string().optional(),
   lastName: z.string().optional(),
+  nationalId: z.string().optional(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
   userAgent: z.string().optional(),
-  verificationType: z.string(),
+  verificationType: VerificationType$outboundSchema,
 });
 
 /**

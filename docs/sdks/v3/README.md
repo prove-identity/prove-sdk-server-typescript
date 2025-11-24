@@ -763,6 +763,7 @@ This endpoint allows you to initiate a Verified Users session.
 
 ```typescript
 import { Proveapi } from "@prove-identity/prove-api";
+import { VerificationType } from "@prove-identity/prove-api/models/components";
 
 const proveapi = new Proveapi({
   security: {
@@ -773,16 +774,23 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3VerifyRequest({
+    addOnFeature: [
+      "ageEstimation",
+    ],
+    businessName: "businessName",
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    emailAddress: "sbutrimovichb@who.int",
-    firstName: "Sheilakathryn",
+    dateOfBirth: "dateOfBirth",
+    emailAddress: "ecoldman1h@storify.com",
+    firstName: "Elena",
     ipAddress: "192.168.1.1",
-    lastName: "Butrimovich",
-    phoneNumber: "2001004011",
+    lastName: "Coldman",
+    nationalId: "nationalId",
+    phoneNumber: "2001004053",
+    proveId: "proveId",
     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-    verificationType: "verificationType",
+    verificationType: VerificationType.VerifiedUser,
   });
 
   console.log(result);
@@ -798,6 +806,7 @@ The standalone function version of this method:
 ```typescript
 import { ProveapiCore } from "@prove-identity/prove-api/core.js";
 import { v3V3VerifyRequest } from "@prove-identity/prove-api/funcs/v3V3VerifyRequest.js";
+import { VerificationType } from "@prove-identity/prove-api/models/components";
 
 // Use `ProveapiCore` for best tree-shaking performance.
 // You can create one instance of it to use across an application.
@@ -810,16 +819,23 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await v3V3VerifyRequest(proveapi, {
+    addOnFeature: [
+      "ageEstimation",
+    ],
+    businessName: "businessName",
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-    emailAddress: "sbutrimovichb@who.int",
-    firstName: "Sheilakathryn",
+    dateOfBirth: "dateOfBirth",
+    emailAddress: "ecoldman1h@storify.com",
+    firstName: "Elena",
     ipAddress: "192.168.1.1",
-    lastName: "Butrimovich",
-    phoneNumber: "2001004011",
+    lastName: "Coldman",
+    nationalId: "nationalId",
+    phoneNumber: "2001004053",
+    proveId: "proveId",
     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-    verificationType: "verificationType",
+    verificationType: VerificationType.VerifiedUser,
   });
   if (res.ok) {
     const { value: result } = res;
@@ -878,22 +894,24 @@ async function run() {
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         clientHumanId: "clientHumanId",
-        emailAddress: "sbutrimovichb@who.int",
-        firstName: "Sheilakathryn",
+        emailAddress: "ecoldman1h@storify.com",
+        firstName: "Elena",
         ipAddress: "192.168.1.1",
-        lastName: "Butrimovich",
-        phoneNumber: "2001004011",
+        lastName: "Coldman",
+        phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
         verificationType: "verificationType",
       },
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         clientHumanId: "clientHumanId",
-        emailAddress: "sbutrimovichb@who.int",
-        firstName: "Sheilakathryn",
+        emailAddress: "ecoldman1h@storify.com",
+        firstName: "Elena",
         ipAddress: "192.168.1.1",
-        lastName: "Butrimovich",
-        phoneNumber: "2001004011",
+        lastName: "Coldman",
+        phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
         verificationType: "verificationType",
       },
@@ -930,22 +948,24 @@ async function run() {
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         clientHumanId: "clientHumanId",
-        emailAddress: "sbutrimovichb@who.int",
-        firstName: "Sheilakathryn",
+        emailAddress: "ecoldman1h@storify.com",
+        firstName: "Elena",
         ipAddress: "192.168.1.1",
-        lastName: "Butrimovich",
-        phoneNumber: "2001004011",
+        lastName: "Coldman",
+        phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
         verificationType: "verificationType",
       },
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         clientHumanId: "clientHumanId",
-        emailAddress: "sbutrimovichb@who.int",
-        firstName: "Sheilakathryn",
+        emailAddress: "ecoldman1h@storify.com",
+        firstName: "Elena",
         ipAddress: "192.168.1.1",
-        lastName: "Butrimovich",
-        phoneNumber: "2001004011",
+        lastName: "Coldman",
+        phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
         verificationType: "verificationType",
       },

@@ -24,6 +24,189 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/v1/server/auth/continue"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: AuthContinueRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.auth.authContinueRequest({
+                authId: "713189b8-5555-4b08-83ba-75d08780aebd",
+                requestId: "eba12f3a-5555-47bc-b85d-21c0cbc4b973",
+                subjects: {
+                  mobile: {
+                    claim: {
+                      mobileNumber: "12065550100",
+                    },
+                  },
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/server/auth/finish"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: AuthFinishRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.auth.authFinishRequest({
+                authId: "eba12f3a-5555-47bc-b85d-21c0cbc4b973",
+              });
+
+              console.log(result);
+            }
+
+            run();
+  - target: $["paths"]["/v1/server/auth/start"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: AuthStartRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.auth.authStartRequest({
+                callbackUrl: "https://example.com/webhook",
+                delivery: {
+                  push: {
+                    notification: {
+                      body: "Do you want to allow login from this device?",
+                      confirmBtn: "Confirm",
+                      denyBtn: "Deny",
+                      originatingDevice: "iPhone12",
+                      originatingIp: "198.51.100.10",
+                      title: "Confirm Login",
+                    },
+                  },
+                  scan: {
+                    notification: {
+                      body: "Please confirm you are trying to sign in...",
+                      confirmBtn: "Confirm",
+                      denyBtn: "Deny",
+                      originatingDevice: "Google Chrome on Windows",
+                      originatingIp: "198.51.100.10",
+                      title: "Confirm Sign In",
+                    },
+                  },
+                },
+                requestId: "eba12f3a-5555-47bc-b85d-21c0cbc4b973",
+                subjects: {
+                  card: {
+                    authenticators: {
+                      airKey: {
+                        claim: {
+                          puids: [
+                            "puids",
+                            "puids",
+                          ],
+                        },
+                        testMode: "testMode",
+                      },
+                    },
+                  },
+                  device: {
+                    authenticators: {
+                      passive: {
+                        allowPasscodeFallback: true,
+                        userVerificationLevel: "userVerificationLevel",
+                      },
+                    },
+                    claim: {
+                      deviceId: "deviceId",
+                    },
+                  },
+                  mobile: {
+                    authenticators: {
+                      instant: {
+                        consent: {
+                          collectedTimestamp: "2022-02-17T00:00:00Z",
+                          description: "Customer Application Name",
+                          status: "optedIn",
+                          transactionId: "eba12f3a-5555-47bc-b85d-21c0cbc4b973",
+                        },
+                        testMode: "testMode",
+                      },
+                      instantlink: {
+                        allowMobileNumberRePrompt: true,
+                        finalTargetUrl: "https://example.com/finishpage",
+                        messageText: "Please click the link to authenticate your mobile number: ####",
+                        sourceIp: "123...",
+                        subscriptionCustomerId: "123",
+                        testMode: "testMode",
+                      },
+                      otp: {
+                        allowMobileNumberRePrompt: true,
+                        allowOtpRetry: true,
+                        messageText: "Your pin is: ####",
+                        testMode: "testMode",
+                      },
+                      passive: {
+                        cacheResult: true,
+                        localDomain: true,
+                        maxAge: 7776000,
+                        testMode: "testMode",
+                      },
+                      universal: {
+                        finalTargetUrl: "https://example.com/finishpage",
+                        testMode: "testMode",
+                      },
+                    },
+                    claim: {
+                      mobileNumber: "12065550100",
+                    },
+                  },
+                  user: {
+                    authenticators: {
+                      docv: {},
+                      passive: {
+                        userVerificationLevel: "userVerificationLevel",
+                      },
+                      ppb: {},
+                      present: {},
+                    },
+                    claim: {
+                      provided: true,
+                      userId: "eba12f3a-5555-47bc-b85d-21c0cbc4b973",
+                    },
+                  },
+                },
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/v3/challenge"]["post"]
     update:
       x-codeSamples:
@@ -584,6 +767,7 @@ actions:
           label: V3VerifyRequest
           source: |-
             import { Proveapi } from "@prove-identity/prove-api";
+            import { VerificationType } from "@prove-identity/prove-api/models/components";
 
             const proveapi = new Proveapi({
               security: {
@@ -594,16 +778,23 @@ actions:
 
             async function run() {
               const result = await proveapi.v3.v3VerifyRequest({
+                addOnFeature: [
+                  "ageEstimation",
+                ],
+                businessName: "businessName",
                 clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                 clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-                emailAddress: "sbutrimovichb@who.int",
-                firstName: "Sheilakathryn",
+                dateOfBirth: "dateOfBirth",
+                emailAddress: "ecoldman1h@storify.com",
+                firstName: "Elena",
                 ipAddress: "192.168.1.1",
-                lastName: "Butrimovich",
-                phoneNumber: "2001004011",
+                lastName: "Coldman",
+                nationalId: "nationalId",
+                phoneNumber: "2001004053",
+                proveId: "proveId",
                 userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-                verificationType: "verificationType",
+                verificationType: VerificationType.VerifiedUser,
               });
 
               console.log(result);
@@ -632,22 +823,24 @@ actions:
                   {
                     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                     clientHumanId: "clientHumanId",
-                    emailAddress: "sbutrimovichb@who.int",
-                    firstName: "Sheilakathryn",
+                    emailAddress: "ecoldman1h@storify.com",
+                    firstName: "Elena",
                     ipAddress: "192.168.1.1",
-                    lastName: "Butrimovich",
-                    phoneNumber: "2001004011",
+                    lastName: "Coldman",
+                    phoneNumber: "2001004053",
+                    proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
                     verificationType: "verificationType",
                   },
                   {
                     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                     clientHumanId: "clientHumanId",
-                    emailAddress: "sbutrimovichb@who.int",
-                    firstName: "Sheilakathryn",
+                    emailAddress: "ecoldman1h@storify.com",
+                    firstName: "Elena",
                     ipAddress: "192.168.1.1",
-                    lastName: "Butrimovich",
-                    phoneNumber: "2001004011",
+                    lastName: "Coldman",
+                    phoneNumber: "2001004053",
+                    proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
                     userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
                     verificationType: "verificationType",
                   },
