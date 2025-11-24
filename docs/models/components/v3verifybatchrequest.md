@@ -16,7 +16,6 @@ let value: V3VerifyBatchRequest = {
       ipAddress: "192.168.1.1",
       lastName: "Coldman",
       phoneNumber: "2001004053",
-      proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
       userAgent:
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
       verificationType: "verificationType",
@@ -29,7 +28,6 @@ let value: V3VerifyBatchRequest = {
       ipAddress: "192.168.1.1",
       lastName: "Coldman",
       phoneNumber: "2001004053",
-      proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
       userAgent:
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
       verificationType: "verificationType",

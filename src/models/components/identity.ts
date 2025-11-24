@@ -19,26 +19,17 @@ export type Identity = {
    * Prove’s tiered confidence metric, ranging from -1 to 3, that dynamically adapts to user behavior and various authentication keys. It allows for adaptive security policies, meaning you can require different levels of verification for different types of transactions.
    */
   assuranceLevel: string;
-  /**
-   * (required IF verificationType=VerifiedUser)
-   */
-  clientHumanId?: string | undefined;
-  /**
-   * TODO: comments and validation
-   */
-  dateOfBirth?: string | undefined;
   emails?: Array<string> | undefined;
   /**
-   * The first name of the individual. (required IF verificationType=VerifiedUser)
+   * The input first name. (required IF verificationType=VerifiedUser)
    */
   firstName?: string | undefined;
   /**
-   * The last name of the individual. (required IF verificationType=VerifiedUser)
+   * The input last name. (required IF verificationType=VerifiedUser)
    */
   lastName?: string | undefined;
   maxAge?: number | undefined;
   minAge?: number | undefined;
-  nationalId?: string | undefined;
   /**
    * Codes explaining the verification outcome
    */
@@ -53,14 +44,11 @@ export const Identity$inboundSchema: z.ZodType<
 > = z.object({
   addresses: z.array(Address$inboundSchema).optional(),
   assuranceLevel: z.string(),
-  clientHumanId: z.string().optional(),
-  dateOfBirth: z.string().optional(),
   emails: z.array(z.string()).optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
   maxAge: z.number().int().optional(),
   minAge: z.number().int().optional(),
-  nationalId: z.string().optional(),
   reasons: z.array(z.string()),
 });
 
@@ -68,14 +56,11 @@ export const Identity$inboundSchema: z.ZodType<
 export type Identity$Outbound = {
   addresses?: Array<Address$Outbound> | undefined;
   assuranceLevel: string;
-  clientHumanId?: string | undefined;
-  dateOfBirth?: string | undefined;
   emails?: Array<string> | undefined;
   firstName?: string | undefined;
   lastName?: string | undefined;
   maxAge?: number | undefined;
   minAge?: number | undefined;
-  nationalId?: string | undefined;
   reasons: Array<string>;
 };
 
@@ -87,14 +72,11 @@ export const Identity$outboundSchema: z.ZodType<
 > = z.object({
   addresses: z.array(Address$outboundSchema).optional(),
   assuranceLevel: z.string(),
-  clientHumanId: z.string().optional(),
-  dateOfBirth: z.string().optional(),
   emails: z.array(z.string()).optional(),
   firstName: z.string().optional(),
   lastName: z.string().optional(),
   maxAge: z.number().int().optional(),
   minAge: z.number().int().optional(),
-  nationalId: z.string().optional(),
   reasons: z.array(z.string()),
 });
 
