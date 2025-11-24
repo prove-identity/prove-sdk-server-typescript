@@ -24,7 +24,7 @@ export type V3CrossDomainIdentityResponse = {
   /**
    * The list of identities from other linked accounts.
    */
-  identites: Array<IdentityItem>;
+  identities: Array<IdentityItem>;
 };
 
 /** @internal */
@@ -34,13 +34,13 @@ export const V3CrossDomainIdentityResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   count: z.number().int(),
-  identites: z.array(IdentityItem$inboundSchema),
+  identities: z.array(IdentityItem$inboundSchema),
 });
 
 /** @internal */
 export type V3CrossDomainIdentityResponse$Outbound = {
   count: number;
-  identites: Array<IdentityItem$Outbound>;
+  identities: Array<IdentityItem$Outbound>;
 };
 
 /** @internal */
@@ -50,7 +50,7 @@ export const V3CrossDomainIdentityResponse$outboundSchema: z.ZodType<
   V3CrossDomainIdentityResponse
 > = z.object({
   count: z.number().int(),
-  identites: z.array(IdentityItem$outboundSchema),
+  identities: z.array(IdentityItem$outboundSchema),
 });
 
 /**

@@ -7,17 +7,23 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
-  AdditionalIdentity,
-  AdditionalIdentity$inboundSchema,
-  AdditionalIdentity$Outbound,
-  AdditionalIdentity$outboundSchema,
-} from "./additionalidentity.js";
+  Business,
+  Business$inboundSchema,
+  Business$Outbound,
+  Business$outboundSchema,
+} from "./business.js";
 import {
   Identity,
   Identity$inboundSchema,
   Identity$Outbound,
   Identity$outboundSchema,
 } from "./identity.js";
+import {
+  LinkedAccount,
+  LinkedAccount$inboundSchema,
+  LinkedAccount$Outbound,
+  LinkedAccount$outboundSchema,
+} from "./linkedaccount.js";
 
 export type V3VerifyResponseEvaluation = {};
 
@@ -25,7 +31,16 @@ export type V3VerifyResponse = {
   /**
    * (required IF verificationType=VerifiedUser)
    */
-  additionalIdentities?: Array<AdditionalIdentity> | undefined;
+  additionalIdentities?: Array<Identity> | undefined;
+  /**
+   * TODO: usage comment. Chances are this will be a part of Identity struct.
+   */
+  businesses?: Array<Business> | undefined;
+  /**
+   * Client-generated identifier for a given customer. This is returned as passed into the request.
+   */
+  clientCustomerId?: string | undefined;
+  clientHumanId?: string | undefined;
   /**
    * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
    */
@@ -38,11 +53,21 @@ export type V3VerifyResponse = {
    * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
    */
   evaluation?: { [k: string]: V3VerifyResponseEvaluation } | undefined;
-  identity: Identity;
+  identity?: Identity | undefined;
+  linkedAccounts?: Array<LinkedAccount> | undefined;
   /**
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
+  proveAccountId?: string | undefined;
+  /**
+   * (required IF verificationType=VerifiedUser)
+   */
+  proveId?: string | undefined;
+  /**
+   * (required IF verificationType=VerifiedUser)
+   */
+  provePhoneAlias?: string | undefined;
   /**
    * The result of verification
    */
@@ -103,24 +128,38 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  additionalIdentities: z.array(AdditionalIdentity$inboundSchema).optional(),
+  additionalIdentities: z.array(Identity$inboundSchema).optional(),
+  businesses: z.array(Business$inboundSchema).optional(),
+  clientCustomerId: z.string().optional(),
+  clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   correlationId: z.string(),
   evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$inboundSchema))
     .optional(),
-  identity: Identity$inboundSchema,
+  identity: Identity$inboundSchema.optional(),
+  linkedAccounts: z.array(LinkedAccount$inboundSchema).optional(),
   phoneNumber: z.string(),
+  proveAccountId: z.string().optional(),
+  proveId: z.string().optional(),
+  provePhoneAlias: z.string().optional(),
   success: z.string(),
 });
 
 /** @internal */
 export type V3VerifyResponse$Outbound = {
-  additionalIdentities?: Array<AdditionalIdentity$Outbound> | undefined;
+  additionalIdentities?: Array<Identity$Outbound> | undefined;
+  businesses?: Array<Business$Outbound> | undefined;
+  clientCustomerId?: string | undefined;
+  clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
   correlationId: string;
   evaluation?: { [k: string]: V3VerifyResponseEvaluation$Outbound } | undefined;
-  identity: Identity$Outbound;
+  identity?: Identity$Outbound | undefined;
+  linkedAccounts?: Array<LinkedAccount$Outbound> | undefined;
   phoneNumber: string;
+  proveAccountId?: string | undefined;
+  proveId?: string | undefined;
+  provePhoneAlias?: string | undefined;
   success: string;
 };
 
@@ -130,13 +169,20 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyResponse
 > = z.object({
-  additionalIdentities: z.array(AdditionalIdentity$outboundSchema).optional(),
+  additionalIdentities: z.array(Identity$outboundSchema).optional(),
+  businesses: z.array(Business$outboundSchema).optional(),
+  clientCustomerId: z.string().optional(),
+  clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   correlationId: z.string(),
   evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$outboundSchema))
     .optional(),
-  identity: Identity$outboundSchema,
+  identity: Identity$outboundSchema.optional(),
+  linkedAccounts: z.array(LinkedAccount$outboundSchema).optional(),
   phoneNumber: z.string(),
+  proveAccountId: z.string().optional(),
+  proveId: z.string().optional(),
+  provePhoneAlias: z.string().optional(),
   success: z.string(),
 });
 
