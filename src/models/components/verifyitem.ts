@@ -36,7 +36,6 @@ export type VerifyItem = {
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
-  proveId?: string | undefined;
   /**
    * The User agent of the customer.
    */
@@ -60,7 +59,6 @@ export const VerifyItem$inboundSchema: z.ZodType<
   ipAddress: z.string().optional(),
   lastName: z.string(),
   phoneNumber: z.string(),
-  proveId: z.string().optional(),
   userAgent: z.string().optional(),
   verificationType: z.string().optional(),
 });
@@ -74,7 +72,6 @@ export type VerifyItem$Outbound = {
   ipAddress?: string | undefined;
   lastName: string;
   phoneNumber: string;
-  proveId?: string | undefined;
   userAgent?: string | undefined;
   verificationType?: string | undefined;
 };
@@ -92,7 +89,6 @@ export const VerifyItem$outboundSchema: z.ZodType<
   ipAddress: z.string().optional(),
   lastName: z.string(),
   phoneNumber: z.string(),
-  proveId: z.string().optional(),
   userAgent: z.string().optional(),
   verificationType: z.string().optional(),
 });
