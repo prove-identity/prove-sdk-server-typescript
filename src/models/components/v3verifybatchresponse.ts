@@ -15,11 +15,11 @@ import {
 
 export type V3VerifyBatchResponse = {
   /**
-   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
+   * The input ClientRequestID.
    */
   clientRequestId?: string | undefined;
   /**
-   * The unique ID that Prove generates for the flow. To continue the flow, the field will also be used for each of the subsequent API calls in the same flow - it cannot be reused outside of a single flow.
+   * The unique ID that Prove generates for the flow.
    */
   correlationId: string;
   results?: Array<VerifyBatchResultItem> | undefined;

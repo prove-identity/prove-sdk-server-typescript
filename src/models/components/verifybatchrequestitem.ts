@@ -7,7 +7,7 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type VerifyItem = {
+export type VerifyBatchRequestItem = {
   /**
    * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions.  The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
    */
@@ -36,6 +36,7 @@ export type VerifyItem = {
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
+  proveId?: string | undefined;
   /**
    * The User agent of the customer.
    */
@@ -43,12 +44,12 @@ export type VerifyItem = {
   /**
    * The verification method based on the use case and authorization level.
    */
-  verificationType?: string | undefined;
+  verificationType: string;
 };
 
 /** @internal */
-export const VerifyItem$inboundSchema: z.ZodType<
-  VerifyItem,
+export const VerifyBatchRequestItem$inboundSchema: z.ZodType<
+  VerifyBatchRequestItem,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -59,12 +60,13 @@ export const VerifyItem$inboundSchema: z.ZodType<
   ipAddress: z.string().optional(),
   lastName: z.string(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
   userAgent: z.string().optional(),
-  verificationType: z.string().optional(),
+  verificationType: z.string(),
 });
 
 /** @internal */
-export type VerifyItem$Outbound = {
+export type VerifyBatchRequestItem$Outbound = {
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
   emailAddress?: string | undefined;
@@ -72,15 +74,16 @@ export type VerifyItem$Outbound = {
   ipAddress?: string | undefined;
   lastName: string;
   phoneNumber: string;
+  proveId?: string | undefined;
   userAgent?: string | undefined;
-  verificationType?: string | undefined;
+  verificationType: string;
 };
 
 /** @internal */
-export const VerifyItem$outboundSchema: z.ZodType<
-  VerifyItem$Outbound,
+export const VerifyBatchRequestItem$outboundSchema: z.ZodType<
+  VerifyBatchRequestItem$Outbound,
   z.ZodTypeDef,
-  VerifyItem
+  VerifyBatchRequestItem
 > = z.object({
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
@@ -89,33 +92,38 @@ export const VerifyItem$outboundSchema: z.ZodType<
   ipAddress: z.string().optional(),
   lastName: z.string(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
   userAgent: z.string().optional(),
-  verificationType: z.string().optional(),
+  verificationType: z.string(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace VerifyItem$ {
-  /** @deprecated use `VerifyItem$inboundSchema` instead. */
-  export const inboundSchema = VerifyItem$inboundSchema;
-  /** @deprecated use `VerifyItem$outboundSchema` instead. */
-  export const outboundSchema = VerifyItem$outboundSchema;
-  /** @deprecated use `VerifyItem$Outbound` instead. */
-  export type Outbound = VerifyItem$Outbound;
+export namespace VerifyBatchRequestItem$ {
+  /** @deprecated use `VerifyBatchRequestItem$inboundSchema` instead. */
+  export const inboundSchema = VerifyBatchRequestItem$inboundSchema;
+  /** @deprecated use `VerifyBatchRequestItem$outboundSchema` instead. */
+  export const outboundSchema = VerifyBatchRequestItem$outboundSchema;
+  /** @deprecated use `VerifyBatchRequestItem$Outbound` instead. */
+  export type Outbound = VerifyBatchRequestItem$Outbound;
 }
 
-export function verifyItemToJSON(verifyItem: VerifyItem): string {
-  return JSON.stringify(VerifyItem$outboundSchema.parse(verifyItem));
+export function verifyBatchRequestItemToJSON(
+  verifyBatchRequestItem: VerifyBatchRequestItem,
+): string {
+  return JSON.stringify(
+    VerifyBatchRequestItem$outboundSchema.parse(verifyBatchRequestItem),
+  );
 }
 
-export function verifyItemFromJSON(
+export function verifyBatchRequestItemFromJSON(
   jsonString: string,
-): SafeParseResult<VerifyItem, SDKValidationError> {
+): SafeParseResult<VerifyBatchRequestItem, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => VerifyItem$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'VerifyItem' from JSON`,
+    (x) => VerifyBatchRequestItem$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'VerifyBatchRequestItem' from JSON`,
   );
 }

@@ -158,7 +158,7 @@ export class V3 extends ClientSDK {
    * Initiate Verified Users Session
    *
    * @remarks
-   * This endpoint allows you to initiate a Verified Users session.
+   * This endpoint allows you to verify a user depending on your particular use case.
    */
   async v3VerifyRequest(
     request?: components.V3VerifyRequest | undefined,

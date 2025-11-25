@@ -7,18 +7,21 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
-  VerifyItem,
-  VerifyItem$inboundSchema,
-  VerifyItem$Outbound,
-  VerifyItem$outboundSchema,
-} from "./verifyitem.js";
+  VerifyBatchRequestItem,
+  VerifyBatchRequestItem$inboundSchema,
+  VerifyBatchRequestItem$Outbound,
+  VerifyBatchRequestItem$outboundSchema,
+} from "./verifybatchrequestitem.js";
 
 export type V3VerifyBatchRequest = {
+  /**
+   * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
+   */
   clientRequestId?: string | undefined;
   /**
    * Batch of verify requests to process. The array length cannot exceed 1000 items.
    */
-  items: Array<VerifyItem>;
+  items: Array<VerifyBatchRequestItem>;
 };
 
 /** @internal */
@@ -28,13 +31,13 @@ export const V3VerifyBatchRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   clientRequestId: z.string().optional(),
-  items: z.array(VerifyItem$inboundSchema),
+  items: z.array(VerifyBatchRequestItem$inboundSchema),
 });
 
 /** @internal */
 export type V3VerifyBatchRequest$Outbound = {
   clientRequestId?: string | undefined;
-  items: Array<VerifyItem$Outbound>;
+  items: Array<VerifyBatchRequestItem$Outbound>;
 };
 
 /** @internal */
@@ -44,7 +47,7 @@ export const V3VerifyBatchRequest$outboundSchema: z.ZodType<
   V3VerifyBatchRequest
 > = z.object({
   clientRequestId: z.string().optional(),
-  items: z.array(VerifyItem$outboundSchema),
+  items: z.array(VerifyBatchRequestItem$outboundSchema),
 });
 
 /**
