@@ -155,7 +155,7 @@ export class V3 extends ClientSDK {
   }
 
   /**
-   * Initiate Verified Users Session
+   * Verify User
    *
    * @remarks
    * This endpoint allows you to verify a user depending on your particular use case.

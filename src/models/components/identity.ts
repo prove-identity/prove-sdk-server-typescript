@@ -13,11 +13,11 @@ export type Identity = {
    */
   assuranceLevel: string;
   /**
-   * The input first name.
+   * The first name of the identity.
    */
   firstName?: string | undefined;
   /**
-   * The input last name.
+   * The last name of the identity.
    */
   lastName?: string | undefined;
   /**
