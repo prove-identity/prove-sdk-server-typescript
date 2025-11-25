@@ -27,7 +27,7 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Initiate Verified Users Session
+ * Verify User
  *
  * @remarks
  * This endpoint allows you to verify a user depending on your particular use case.
