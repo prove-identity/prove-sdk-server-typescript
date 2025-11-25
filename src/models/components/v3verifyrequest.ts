@@ -21,15 +21,11 @@ export enum VerificationType {
 
 export type V3VerifyRequest = {
   /**
-   * An optional list of add-on features. Current allowed values: "ageEstimation"
-   */
-  addOnFeature?: Array<string> | undefined;
-  /**
-   * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions.  The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
+   * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
    */
   clientCustomerId?: string | undefined;
   /**
-   * An optional client-generated unique ID our Enterprise customer inputs for that consumer across business lines. If the Enterprise customer has been able to identify a consumer across business lines and has a unique identifier for the consumer, they would input this value to Prove.The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include personally identifiable information (PII) in this field.
+   * An optional client-generated unique ID our Enterprise customer inputs for that consumer across business lines. If the Enterprise customer has been able to identify a consumer across business lines and has a unique identifier for the consumer, they would input this value to Prove. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include personally identifiable information (PII) in this field.
    */
   clientHumanId?: string | undefined;
   /**
@@ -41,7 +37,7 @@ export type V3VerifyRequest = {
    */
   emailAddress?: string | undefined;
   /**
-   * The first name of the individual. (required IF verificationType=VerifiedUser)
+   * The first name of the individual.
    */
   firstName?: string | undefined;
   /**
@@ -49,7 +45,7 @@ export type V3VerifyRequest = {
    */
   ipAddress?: string | undefined;
   /**
-   * The last name of the individual. (required IF verificationType=VerifiedUser)
+   * The last name of the individual.
    */
   lastName?: string | undefined;
   /**
@@ -93,7 +89,6 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  addOnFeature: z.array(z.string()).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
@@ -108,7 +103,6 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3VerifyRequest$Outbound = {
-  addOnFeature?: Array<string> | undefined;
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
@@ -127,7 +121,6 @@ export const V3VerifyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyRequest
 > = z.object({
-  addOnFeature: z.array(z.string()).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),

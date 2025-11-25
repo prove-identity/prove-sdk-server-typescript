@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Initiate Verified Users Session
  *
  * @remarks
- * This endpoint allows you to initiate a Verified Users session.
+ * This endpoint allows you to verify a user depending on your particular use case.
  */
 export function v3V3VerifyRequest(
   client: ProveapiCore,

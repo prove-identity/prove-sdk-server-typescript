@@ -17,7 +17,7 @@ export type V3VerifyResponseEvaluation = {};
 
 export type V3VerifyResponse = {
   /**
-   * (required IF verificationType=VerifiedUser)
+   * Additional Identities found as part of the verification flow.
    */
   additionalIdentities?: Array<Identity> | undefined;
   /**
@@ -37,7 +37,7 @@ export type V3VerifyResponse = {
    */
   correlationId: string;
   /**
-   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
+   * The evaluation result for the policy. This will contain keys titled "authentication" and "risk" that encompass the different evaluation categories.
    */
   evaluation?: { [k: string]: V3VerifyResponseEvaluation } | undefined;
   identity?: Identity | undefined;
@@ -47,20 +47,14 @@ export type V3VerifyResponse = {
   phoneNumber: string;
   /**
    * A Prove-generated identifier for the consumer.
-   *
-   * @remarks
-   * (required IF verificationType=VerifiedUser)
    */
   proveId?: string | undefined;
   /**
    * A persistent ID that uniquely identifies a telephone subscriber.
-   *
-   * @remarks
-   * (required IF verificationType=VerifiedUser)
    */
   provePhoneAlias?: string | undefined;
   /**
-   * The result of verification.
+   * The result of verification. This can be "true" or "false".
    */
   success: string;
 };

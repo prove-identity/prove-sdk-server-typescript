@@ -757,7 +757,7 @@ run();
 
 ## v3VerifyRequest
 
-This endpoint allows you to initiate a Verified Users session.
+This endpoint allows you to verify a user depending on your particular use case.
 
 ### Example Usage
 
@@ -774,9 +774,6 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3VerifyRequest({
-    addOnFeature: [
-      "ageEstimation",
-    ],
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
@@ -815,9 +812,6 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await v3V3VerifyRequest(proveapi, {
-    addOnFeature: [
-      "ageEstimation",
-    ],
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
@@ -881,7 +875,7 @@ const proveapi = new Proveapi({
 
 async function run() {
   const result = await proveapi.v3.v3VerifyBatchRequest({
-    clientRequestId: "clientRequestId",
+    clientRequestId: "3d1215f7-ec3f-4fd2-9894-7b46f00e31a6",
     items: [
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
@@ -891,8 +885,9 @@ async function run() {
         ipAddress: "192.168.1.1",
         lastName: "Coldman",
         phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verificationType",
+        verificationType: "verifiedUser",
       },
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
@@ -902,8 +897,9 @@ async function run() {
         ipAddress: "192.168.1.1",
         lastName: "Coldman",
         phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verificationType",
+        verificationType: "verifiedUser",
       },
     ],
   });
@@ -933,7 +929,7 @@ const proveapi = new ProveapiCore({
 
 async function run() {
   const res = await v3V3VerifyBatchRequest(proveapi, {
-    clientRequestId: "clientRequestId",
+    clientRequestId: "3d1215f7-ec3f-4fd2-9894-7b46f00e31a6",
     items: [
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
@@ -943,8 +939,9 @@ async function run() {
         ipAddress: "192.168.1.1",
         lastName: "Coldman",
         phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verificationType",
+        verificationType: "verifiedUser",
       },
       {
         clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
@@ -954,8 +951,9 @@ async function run() {
         ipAddress: "192.168.1.1",
         lastName: "Coldman",
         phoneNumber: "2001004053",
+        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
         userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verificationType",
+        verificationType: "verifiedUser",
       },
     ],
   });

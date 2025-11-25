@@ -7,23 +7,11 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
-  Business,
-  Business$inboundSchema,
-  Business$Outbound,
-  Business$outboundSchema,
-} from "./business.js";
-import {
   Identity,
   Identity$inboundSchema,
   Identity$Outbound,
   Identity$outboundSchema,
 } from "./identity.js";
-import {
-  LinkedAccount,
-  LinkedAccount$inboundSchema,
-  LinkedAccount$Outbound,
-  LinkedAccount$outboundSchema,
-} from "./linkedaccount.js";
 
 export type VerifyBatchResultItemEvaluation = {};
 
@@ -36,10 +24,6 @@ export type VerifyBatchResultItem = {
    * Prove’s tiered confidence metric, ranging from -1 to 3, that dynamically adapts to user behavior and various authentication keys. It allows for adaptive security policies, meaning you can require different levels of verification for different types of transactions.
    */
   assuranceLevel: string;
-  /**
-   * TODO: usage comment. Chances are this will be a part of Identity struct.
-   */
-  businesses?: Array<Business> | undefined;
   /**
    * The input ClientCustomerID.
    */
@@ -56,16 +40,14 @@ export type VerifyBatchResultItem = {
    */
   error?: string | undefined;
   /**
-   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
+   * The evaluation result for the policy. This will contain keys titled "authentication" and "risk" that encompass the different evaluation categories.
    */
   evaluation?: { [k: string]: VerifyBatchResultItemEvaluation } | undefined;
   identity?: Identity | undefined;
-  linkedAccounts?: Array<LinkedAccount> | undefined;
   /**
    * The input phone number.
    */
   phoneNumber: string;
-  proveAccountId?: string | undefined;
   /**
    * A Prove-generated identifier for the consumer.
    *
@@ -81,7 +63,7 @@ export type VerifyBatchResultItem = {
    */
   provePhoneAlias?: string | undefined;
   /**
-   * The result of verification.
+   * The result of verification. This can be "true" or "false".
    */
   success: string;
 };
@@ -144,7 +126,6 @@ export const VerifyBatchResultItem$inboundSchema: z.ZodType<
 > = z.object({
   additionalIdentities: z.array(Identity$inboundSchema).optional(),
   assuranceLevel: z.string(),
-  businesses: z.array(Business$inboundSchema).optional(),
   clientCustomerId: z.string(),
   clientHumanId: z.string().optional(),
   error: z.string().optional(),
@@ -152,9 +133,7 @@ export const VerifyBatchResultItem$inboundSchema: z.ZodType<
     z.lazy(() => VerifyBatchResultItemEvaluation$inboundSchema),
   ).optional(),
   identity: Identity$inboundSchema.optional(),
-  linkedAccounts: z.array(LinkedAccount$inboundSchema).optional(),
   phoneNumber: z.string(),
-  proveAccountId: z.string().optional(),
   proveId: z.string().optional(),
   provePhoneAlias: z.string().optional(),
   success: z.string(),
@@ -164,7 +143,6 @@ export const VerifyBatchResultItem$inboundSchema: z.ZodType<
 export type VerifyBatchResultItem$Outbound = {
   additionalIdentities?: Array<Identity$Outbound> | undefined;
   assuranceLevel: string;
-  businesses?: Array<Business$Outbound> | undefined;
   clientCustomerId: string;
   clientHumanId?: string | undefined;
   error?: string | undefined;
@@ -172,9 +150,7 @@ export type VerifyBatchResultItem$Outbound = {
     | { [k: string]: VerifyBatchResultItemEvaluation$Outbound }
     | undefined;
   identity?: Identity$Outbound | undefined;
-  linkedAccounts?: Array<LinkedAccount$Outbound> | undefined;
   phoneNumber: string;
-  proveAccountId?: string | undefined;
   proveId?: string | undefined;
   provePhoneAlias?: string | undefined;
   success: string;
@@ -188,7 +164,6 @@ export const VerifyBatchResultItem$outboundSchema: z.ZodType<
 > = z.object({
   additionalIdentities: z.array(Identity$outboundSchema).optional(),
   assuranceLevel: z.string(),
-  businesses: z.array(Business$outboundSchema).optional(),
   clientCustomerId: z.string(),
   clientHumanId: z.string().optional(),
   error: z.string().optional(),
@@ -196,9 +171,7 @@ export const VerifyBatchResultItem$outboundSchema: z.ZodType<
     z.lazy(() => VerifyBatchResultItemEvaluation$outboundSchema),
   ).optional(),
   identity: Identity$outboundSchema.optional(),
-  linkedAccounts: z.array(LinkedAccount$outboundSchema).optional(),
   phoneNumber: z.string(),
-  proveAccountId: z.string().optional(),
   proveId: z.string().optional(),
   provePhoneAlias: z.string().optional(),
   success: z.string(),
