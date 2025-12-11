@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: f00d26adbae9db156ed666d96e873ade
+  docChecksum: ec1c6cfd4883cd786a316477e9c1f914
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.3
-  configChecksum: 0f2546014f9493e3bdb7c74dd8b8c756
+  releaseVersion: 0.14.4
+  configChecksum: 97f981e11f3c487149186a5482a31c71
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -615,6 +615,18 @@ examples:
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
           application/json: {"code": 1000, "message": "error occurred"}
+    Response with Success Evaluation:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
+      responses:
+        "200":
+          application/json: {"clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "evaluation": {"authentication": {}, "identification": {}, "success": {}}, "phoneNumber": "2001004011", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "success": "true"}
+    Response with Failed Evaluation:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
+      responses:
+        "200":
+          application/json: {"evaluation": {"authentication": {}, "identification": {}, "success": {}}, "phoneNumber": "2001004011", "success": "false"}
   V3ValidateRequest:
     speakeasy-default-v3-validate-request:
       requestBody:

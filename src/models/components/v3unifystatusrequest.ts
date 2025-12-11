@@ -22,7 +22,7 @@ export type V3UnifyStatusRequest = {
    * @remarks
    * from the v3/unify endpoint and cannot be reused outside of a single flow.
    */
-  correlationId?: string | undefined;
+  correlationId: string;
   /**
    * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'. Required when `possessionType=none` in the initial Unify request.
    *
@@ -40,14 +40,14 @@ export const V3UnifyStatusRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   clientRequestId: z.string().optional(),
-  correlationId: z.string().optional(),
+  correlationId: z.string(),
   phoneNumber: z.string().optional(),
 });
 
 /** @internal */
 export type V3UnifyStatusRequest$Outbound = {
   clientRequestId?: string | undefined;
-  correlationId?: string | undefined;
+  correlationId: string;
   phoneNumber?: string | undefined;
 };
 
@@ -58,7 +58,7 @@ export const V3UnifyStatusRequest$outboundSchema: z.ZodType<
   V3UnifyStatusRequest
 > = z.object({
   clientRequestId: z.string().optional(),
-  correlationId: z.string().optional(),
+  correlationId: z.string(),
   phoneNumber: z.string().optional(),
 });
 
