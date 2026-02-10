@@ -607,7 +607,6 @@ async function run() {
   const result = await proveapi.v3.v3UnifyStatusRequest({
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    phoneNumber: "2001004011",
   });
 
   console.log(result);
@@ -637,7 +636,6 @@ async function run() {
   const res = await v3V3UnifyStatusRequest(proveapi, {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     correlationId: "713189b8-5555-4b08-83ba-75d08780aebd",
-    phoneNumber: "2001004011",
   });
   if (res.ok) {
     const { value: result } = res;
