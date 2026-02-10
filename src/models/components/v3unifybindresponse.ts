@@ -43,7 +43,7 @@ export type V3UnifyBindResponse = {
    *
    * @remarks
    *
-   * Required except when MobileAuth is used in US or a valid ProveID is provided.
+   * Required
    */
   phoneNumber?: string | undefined;
   /**

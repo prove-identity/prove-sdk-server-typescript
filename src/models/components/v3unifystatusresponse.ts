@@ -33,7 +33,7 @@ export type V3UnifyStatusResponse = {
    */
   deviceId?: string | undefined;
   /**
-   * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
+   * The evaluation result for the policy. This will contain keys titled "authentication" and "risk" that encompass the different evaluation categories.
    */
   evaluation?: { [k: string]: V3UnifyStatusResponseEvaluation } | undefined;
   /**
