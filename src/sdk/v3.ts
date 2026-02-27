@@ -4,6 +4,7 @@
 
 import { v3V3ChallengeRequest } from "../funcs/v3V3ChallengeRequest.js";
 import { v3V3CompleteRequest } from "../funcs/v3V3CompleteRequest.js";
+import { v3V3DeviceRevokeRequest } from "../funcs/v3V3DeviceRevokeRequest.js";
 import { v3V3StartRequest } from "../funcs/v3V3StartRequest.js";
 import { v3V3TokenRequest } from "../funcs/v3V3TokenRequest.js";
 import { v3V3UnifyBindRequest } from "../funcs/v3V3UnifyBindRequest.js";
@@ -63,6 +64,24 @@ export class V3 extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.V3CompleteRequestResponse> {
     return unwrapAsync(v3V3CompleteRequest(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Revoke Device
+   *
+   * @remarks
+   * This endpoint allows you to revoke a Prove Key device, marking it as inactive
+   * so it can no longer be used in an auth flow.
+   */
+  async v3DeviceRevokeRequest(
+    request?: components.V3DeviceRevokeRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3DeviceRevokeRequestResponse> {
+    return unwrapAsync(v3V3DeviceRevokeRequest(
       this,
       request,
       options,

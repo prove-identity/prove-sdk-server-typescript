@@ -12,6 +12,7 @@ export type LinkedTo = {
   acceptedString?: string | undefined;
   name?: string | undefined;
   pcid?: string | undefined;
+  scopes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -24,6 +25,7 @@ export const LinkedTo$inboundSchema: z.ZodType<
   acceptedString: z.string().optional(),
   name: z.string().optional(),
   pcid: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
 });
 
 /** @internal */
@@ -32,6 +34,7 @@ export type LinkedTo$Outbound = {
   acceptedString?: string | undefined;
   name?: string | undefined;
   pcid?: string | undefined;
+  scopes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -44,6 +47,7 @@ export const LinkedTo$outboundSchema: z.ZodType<
   acceptedString: z.string().optional(),
   name: z.string().optional(),
   pcid: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
 });
 
 /**

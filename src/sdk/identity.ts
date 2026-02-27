@@ -9,6 +9,7 @@ import { identityV3CrossDomainIdentity } from "../funcs/identityV3CrossDomainIde
 import { identityV3DeactivateIdentity } from "../funcs/identityV3DeactivateIdentity.js";
 import { identityV3DisenrollIdentity } from "../funcs/identityV3DisenrollIdentity.js";
 import { identityV3EnrollIdentity } from "../funcs/identityV3EnrollIdentity.js";
+import { identityV3FetchRequest } from "../funcs/identityV3FetchRequest.js";
 import { identityV3GetIdentitiesByPhoneNumber } from "../funcs/identityV3GetIdentitiesByPhoneNumber.js";
 import { identityV3GetIdentity } from "../funcs/identityV3GetIdentity.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -17,6 +18,27 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Identity extends ClientSDK {
+  /**
+   * Fetch Identity Attributes
+   *
+   * @remarks
+   * Fetch actual identity attribute values (e.g., walletID) based on the customer ProveID and attribute UUID.
+   */
+  async v3FetchRequest(
+    proveId: string,
+    attributeId: string,
+    clientRequestId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3FetchRequestResponse> {
+    return unwrapAsync(identityV3FetchRequest(
+      this,
+      proveId,
+      attributeId,
+      clientRequestId,
+      options,
+    ));
+  }
+
   /**
    * Batch Get Identities
    *

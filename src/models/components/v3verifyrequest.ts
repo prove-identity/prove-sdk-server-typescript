@@ -6,6 +6,12 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  IdentityAttribute,
+  IdentityAttribute$inboundSchema,
+  IdentityAttribute$Outbound,
+  IdentityAttribute$outboundSchema,
+} from "./identityattribute.js";
 
 /**
  * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "bot", "prefill", "prefillForBiz", "identityResolution".
@@ -41,6 +47,10 @@ export type V3VerifyRequest = {
    */
   firstName?: string | undefined;
   /**
+   * An optional list of identity attributes
+   */
+  identityAttributes?: Array<IdentityAttribute> | undefined;
+  /**
    * The public IP address of the session of the individual. Acceptable characters
    */
   ipAddress?: string | undefined;
@@ -49,7 +59,11 @@ export type V3VerifyRequest = {
    */
   lastName?: string | undefined;
   /**
-   * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
+   * The mobile phone number. US and Canada phone numbers can be passed in with or without a leading `+1`.
+   *
+   * @remarks
+   * International phone numbers require a leading `+` followed by the country code. Use the appropriate endpoint URL
+   * based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
   /**
@@ -94,6 +108,7 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
   clientRequestId: z.string().optional(),
   emailAddress: z.string().optional(),
   firstName: z.string().optional(),
+  identityAttributes: z.array(IdentityAttribute$inboundSchema).optional(),
   ipAddress: z.string().optional(),
   lastName: z.string().optional(),
   phoneNumber: z.string(),
@@ -108,6 +123,7 @@ export type V3VerifyRequest$Outbound = {
   clientRequestId?: string | undefined;
   emailAddress?: string | undefined;
   firstName?: string | undefined;
+  identityAttributes?: Array<IdentityAttribute$Outbound> | undefined;
   ipAddress?: string | undefined;
   lastName?: string | undefined;
   phoneNumber: string;
@@ -126,6 +142,7 @@ export const V3VerifyRequest$outboundSchema: z.ZodType<
   clientRequestId: z.string().optional(),
   emailAddress: z.string().optional(),
   firstName: z.string().optional(),
+  identityAttributes: z.array(IdentityAttribute$outboundSchema).optional(),
   ipAddress: z.string().optional(),
   lastName: z.string().optional(),
   phoneNumber: z.string(),

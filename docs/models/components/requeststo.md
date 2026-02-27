@@ -10,6 +10,10 @@ let value: RequestsTo = {
   pcid: "pcid",
   requestedAt: 5,
   requestedString: "requestedString",
+  scopes: [
+    "scopes",
+    "scopes",
+  ],
 };
 ```
 
@@ -21,3 +25,4 @@ let value: RequestsTo = {
 | `pcid`             | *string*           | :heavy_minus_sign: | N/A                |
 | `requestedAt`      | *number*           | :heavy_minus_sign: | N/A                |
 | `requestedString`  | *string*           | :heavy_minus_sign: | N/A                |
+| `scopes`           | *string*[]         | :heavy_minus_sign: | N/A                |

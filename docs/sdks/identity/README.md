@@ -5,6 +5,7 @@
 
 ### Available Operations
 
+* [v3FetchRequest](#v3fetchrequest) - Fetch Identity Attributes
 * [v3BatchGetIdentities](#v3batchgetidentities) - Batch Get Identities
 * [v3EnrollIdentity](#v3enrollidentity) - Enroll Identity
 * [v3BatchEnrollIdentities](#v3batchenrollidentities) - Batch Enroll Identities
@@ -14,6 +15,87 @@
 * [v3CrossDomainIdentity](#v3crossdomainidentity) - Cross Domain Identity
 * [v3DeactivateIdentity](#v3deactivateidentity) - Deactivate Identity
 * [v3GetIdentitiesByPhoneNumber](#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
+
+## v3FetchRequest
+
+Fetch actual identity attribute values (e.g., walletID) based on the customer ProveID and attribute UUID.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3FetchRequest("<id>", "<id>");
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3FetchRequest } from "@prove-identity/prove-api/funcs/identityV3FetchRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3FetchRequest(proveapi, "<id>", "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3FetchRequest failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `proveId`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A unique Prove-generated identifier for the enrolled identity (UUID).                                                                                                                                                                                                                        |
+| `attributeId`                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A unique identifier for the identity attribute (UUID), as returned by the discover endpoint.                                                                                                                                                                                                 |
+| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. |
+| `options`                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                        |
+| `options.fetchOptions`                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                               |
+| `options.retries`                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                             |
+
+### Response
+
+**Promise\<[operations.V3FetchRequestResponse](../../models/operations/v3fetchrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.Error404  | 404              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3BatchGetIdentities
 
@@ -117,6 +199,12 @@ async function run() {
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+    identityAttributes: [
+      {
+        attributeType: "myWalletId",
+        attributeValue: "token123",
+      },
+    ],
     phoneNumber: "2001001695",
   });
 
@@ -148,6 +236,12 @@ async function run() {
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+    identityAttributes: [
+      {
+        attributeType: "myWalletId",
+        attributeValue: "token123",
+      },
+    ],
     phoneNumber: "2001001695",
   });
   if (res.ok) {

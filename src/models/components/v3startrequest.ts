@@ -37,7 +37,14 @@ export type V3StartRequest = {
    */
   ipAddress?: string | undefined;
   /**
-   * The number of the mobile phone. Refer to the [Prove Pre-Fill Implementation guide](https://developer.prove.com/docs/prove-pre-fill-implementation-guide#implement-prove-pre-fill) and [Prove Identity Implementation guide](https://developer.prove.com/docs/prove-identity-implementation-guide#implement-prove-identity) for situations where this field is not required. Acceptable characters are: alphanumeric with symbols '+'.
+   * The number of the mobile phone.
+   *
+   * @remarks
+   * US and Canada phone numbers can be passed in with or without a leading `+1`.
+   * International phone numbers require a leading `+` followed by the country code.
+   * Refer to the [Prove Pre-Fill Implementation guide](https://developer.prove.com/docs/prove-pre-fill-implementation-guide#implement-prove-pre-fill) and
+   * [Prove Identity Implementation guide](https://developer.prove.com/docs/prove-identity-implementation-guide#implement-prove-identity) for situations
+   * where this field is not required. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber?: string | undefined;
   /**

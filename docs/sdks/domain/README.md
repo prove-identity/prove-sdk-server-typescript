@@ -189,6 +189,10 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.domain.v3DomainLinkRequest({
     pcid: "pcid",
+    scopes: [
+      "scopes",
+      "scopes",
+    ],
   });
 
   console.log(result);
@@ -217,6 +221,10 @@ const proveapi = new ProveapiCore({
 async function run() {
   const res = await domainV3DomainLinkRequest(proveapi, {
     pcid: "pcid",
+    scopes: [
+      "scopes",
+      "scopes",
+    ],
   });
   if (res.ok) {
     const { value: result } = res;

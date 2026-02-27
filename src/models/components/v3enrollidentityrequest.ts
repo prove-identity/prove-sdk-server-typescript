@@ -6,6 +6,12 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  IdentityAttribute,
+  IdentityAttribute$inboundSchema,
+  IdentityAttribute$Outbound,
+  IdentityAttribute$outboundSchema,
+} from "./identityattribute.js";
 
 /**
  * Request body for the V3 Enroll Identity API.
@@ -24,7 +30,14 @@ export type V3EnrollIdentityRequest = {
    */
   deviceId?: string | undefined;
   /**
-   * The number of the consumer being enrolled. US phone numbers can be passed in with or without a leading +1. Acceptable characters are: alphanumeric with symbols '+'.
+   * Attributes is a list of objects contains attribute Type and Value.
+   */
+  identityAttributes?: Array<IdentityAttribute> | undefined;
+  /**
+   * The number of the consumer being enrolled. US and Canada phone numbers can be passed in with or without a leading `+1`.
+   *
+   * @remarks
+   * International phone numbers require a leading `+` followed by the country code. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
 };
@@ -38,6 +51,7 @@ export const V3EnrollIdentityRequest$inboundSchema: z.ZodType<
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
   deviceId: z.string().optional(),
+  identityAttributes: z.array(IdentityAttribute$inboundSchema).optional(),
   phoneNumber: z.string(),
 });
 
@@ -46,6 +60,7 @@ export type V3EnrollIdentityRequest$Outbound = {
   clientCustomerId?: string | undefined;
   clientRequestId?: string | undefined;
   deviceId?: string | undefined;
+  identityAttributes?: Array<IdentityAttribute$Outbound> | undefined;
   phoneNumber: string;
 };
 
@@ -58,6 +73,7 @@ export const V3EnrollIdentityRequest$outboundSchema: z.ZodType<
   clientCustomerId: z.string().optional(),
   clientRequestId: z.string().optional(),
   deviceId: z.string().optional(),
+  identityAttributes: z.array(IdentityAttribute$outboundSchema).optional(),
   phoneNumber: z.string(),
 });
 

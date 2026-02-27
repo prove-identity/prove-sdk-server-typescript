@@ -12,6 +12,7 @@ export type RequestsFrom = {
   pcid?: string | undefined;
   requestedAt?: number | undefined;
   requestedString?: string | undefined;
+  scopes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -24,6 +25,7 @@ export const RequestsFrom$inboundSchema: z.ZodType<
   pcid: z.string().optional(),
   requestedAt: z.number().int().optional(),
   requestedString: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
 });
 
 /** @internal */
@@ -32,6 +34,7 @@ export type RequestsFrom$Outbound = {
   pcid?: string | undefined;
   requestedAt?: number | undefined;
   requestedString?: string | undefined;
+  scopes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -44,6 +47,7 @@ export const RequestsFrom$outboundSchema: z.ZodType<
   pcid: z.string().optional(),
   requestedAt: z.number().int().optional(),
   requestedString: z.string().optional(),
+  scopes: z.array(z.string()).optional(),
 });
 
 /**
