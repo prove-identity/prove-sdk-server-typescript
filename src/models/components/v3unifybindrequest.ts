@@ -24,7 +24,11 @@ export type V3UnifyBindRequest = {
    */
   correlationId: string;
   /**
-   * The mobile phone number. US phone numbers can be passed in with or without a leading `+1`. International phone numbers require a leading `+1`. Use the appropriate endpoint URL based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'. Required when `possessionType=none` in the initial Unify request.
+   * The mobile phone number. US and Canada phone numbers can be passed in with or without a leading `+1`.
+   *
+   * @remarks
+   * International phone numbers require a leading `+` followed by the country code. Use the appropriate endpoint URL
+   * based on the region the number originates from. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
 };

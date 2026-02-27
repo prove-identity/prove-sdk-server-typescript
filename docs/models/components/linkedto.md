@@ -10,6 +10,10 @@ let value: LinkedTo = {
   acceptedString: "acceptedString",
   name: "name",
   pcid: "pcid",
+  scopes: [
+    "scopes",
+    "scopes",
+  ],
 };
 ```
 
@@ -21,3 +25,4 @@ let value: LinkedTo = {
 | `acceptedString`   | *string*           | :heavy_minus_sign: | N/A                |
 | `name`             | *string*           | :heavy_minus_sign: | N/A                |
 | `pcid`             | *string*           | :heavy_minus_sign: | N/A                |
+| `scopes`           | *string*[]         | :heavy_minus_sign: | N/A                |

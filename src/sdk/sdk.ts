@@ -3,6 +3,7 @@
  */
 
 import { ClientSDK } from "../lib/sdks.js";
+import { Auth } from "./auth.js";
 import { Domain } from "./domain.js";
 import { Identity } from "./identity.js";
 import { V3 } from "./v3.js";
@@ -11,6 +12,11 @@ export class Proveapi extends ClientSDK {
   private _v3?: V3;
   get v3(): V3 {
     return (this._v3 ??= new V3(this._options));
+  }
+
+  private _auth?: Auth;
+  get auth(): Auth {
+    return (this._auth ??= new Auth(this._options));
   }
 
   private _domain?: Domain;

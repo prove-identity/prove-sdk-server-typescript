@@ -8,6 +8,7 @@
 * [v3TokenRequest](#v3tokenrequest) - Request OAuth Token
 * [v3ChallengeRequest](#v3challengerequest) - Submit Challenge
 * [v3CompleteRequest](#v3completerequest) - Complete Flow
+* [v3DeviceRevokeRequest](#v3devicerevokerequest) - Revoke Device
 * [v3StartRequest](#v3startrequest) - Start Flow
 * [v3UnifyRequest](#v3unifyrequest) - Initiate Possession Check
 * [v3UnifyBindRequest](#v3unifybindrequest) - Bind Prove Key
@@ -284,6 +285,91 @@ run();
 ### Response
 
 **Promise\<[operations.V3CompleteRequestResponse](../../models/operations/v3completerequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3DeviceRevokeRequest
+
+This endpoint allows you to revoke a Prove Key device, marking it as inactive
+so it can no longer be used in an auth flow.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.v3.v3DeviceRevokeRequest({
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { v3V3DeviceRevokeRequest } from "@prove-identity/prove-api/funcs/v3V3DeviceRevokeRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await v3V3DeviceRevokeRequest(proveapi, {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+    deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("v3V3DeviceRevokeRequest failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.V3DeviceRevokeRequest](../../models/components/v3devicerevokerequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.V3DeviceRevokeRequestResponse](../../models/operations/v3devicerevokerequestresponse.md)\>**
 
 ### Errors
 
@@ -777,6 +863,12 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     emailAddress: "ecoldman1h@storify.com",
     firstName: "Elena",
+    identityAttributes: [
+      {
+        attributeType: "walletId",
+        attributeValue: "wallet123",
+      },
+    ],
     ipAddress: "192.168.1.1",
     lastName: "Coldman",
     phoneNumber: "2001004053",
@@ -815,6 +907,12 @@ async function run() {
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     emailAddress: "ecoldman1h@storify.com",
     firstName: "Elena",
+    identityAttributes: [
+      {
+        attributeType: "walletId",
+        attributeValue: "wallet123",
+      },
+    ],
     ipAddress: "192.168.1.1",
     lastName: "Coldman",
     phoneNumber: "2001004053",

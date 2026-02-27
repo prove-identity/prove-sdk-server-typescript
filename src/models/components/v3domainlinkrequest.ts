@@ -9,6 +9,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3DomainLinkRequest = {
   pcid: string;
+  scopes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -18,11 +19,13 @@ export const V3DomainLinkRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   pcid: z.string(),
+  scopes: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type V3DomainLinkRequest$Outbound = {
   pcid: string;
+  scopes?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -32,6 +35,7 @@ export const V3DomainLinkRequest$outboundSchema: z.ZodType<
   V3DomainLinkRequest
 > = z.object({
   pcid: z.string(),
+  scopes: z.array(z.string()).optional(),
 });
 
 /**
