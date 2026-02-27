@@ -7,6 +7,10 @@ import { V3DomainLinkRequest } from "@prove-identity/prove-api/models/components
 
 let value: V3DomainLinkRequest = {
   pcid: "pcid",
+  scopes: [
+    "scopes",
+    "scopes",
+  ],
 };
 ```
 
@@ -15,3 +19,4 @@ let value: V3DomainLinkRequest = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `pcid`             | *string*           | :heavy_check_mark: | N/A                |
+| `scopes`           | *string*[]         | :heavy_minus_sign: | N/A                |

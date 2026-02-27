@@ -12,12 +12,20 @@ let value: V3DomainLinkedResponse = {
       acceptedString: "acceptedString",
       name: "name",
       pcid: "pcid",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
     {
       acceptedAt: 0,
       acceptedString: "acceptedString",
       name: "name",
       pcid: "pcid",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
   ],
   linkedTo: [
@@ -26,12 +34,20 @@ let value: V3DomainLinkedResponse = {
       acceptedString: "acceptedString",
       name: "name",
       pcid: "pcid",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
     {
       acceptedAt: 6,
       acceptedString: "acceptedString",
       name: "name",
       pcid: "pcid",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
   ],
   requestsFrom: [
@@ -40,12 +56,20 @@ let value: V3DomainLinkedResponse = {
       pcid: "pcid",
       requestedAt: 1,
       requestedString: "requestedString",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
     {
       name: "name",
       pcid: "pcid",
       requestedAt: 1,
       requestedString: "requestedString",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
   ],
   requestsTo: [
@@ -54,12 +78,20 @@ let value: V3DomainLinkedResponse = {
       pcid: "pcid",
       requestedAt: 5,
       requestedString: "requestedString",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
     {
       name: "name",
       pcid: "pcid",
       requestedAt: 5,
       requestedString: "requestedString",
+      scopes: [
+        "scopes",
+        "scopes",
+      ],
     },
   ],
 };

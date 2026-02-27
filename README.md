@@ -200,6 +200,7 @@ run();
 * [v3TokenRequest](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth Token
 * [v3ChallengeRequest](docs/sdks/v3/README.md#v3challengerequest) - Submit Challenge
 * [v3CompleteRequest](docs/sdks/v3/README.md#v3completerequest) - Complete Flow
+* [v3DeviceRevokeRequest](docs/sdks/v3/README.md#v3devicerevokerequest) - Revoke Device
 * [v3StartRequest](docs/sdks/v3/README.md#v3startrequest) - Start Flow
 * [v3UnifyRequest](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
 * [v3UnifyBindRequest](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key
@@ -535,6 +536,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`identityV3GetIdentity`](docs/sdks/identity/README.md#v3getidentity) - Get Identity
 - [`v3V3ChallengeRequest`](docs/sdks/v3/README.md#v3challengerequest) - Submit Challenge
 - [`v3V3CompleteRequest`](docs/sdks/v3/README.md#v3completerequest) - Complete Flow
+- [`v3V3DeviceRevokeRequest`](docs/sdks/v3/README.md#v3devicerevokerequest) - Revoke Device
 - [`v3V3StartRequest`](docs/sdks/v3/README.md#v3startrequest) - Start Flow
 - [`v3V3TokenRequest`](docs/sdks/v3/README.md#v3tokenrequest) - Request OAuth Token
 - [`v3V3UnifyBindRequest`](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key

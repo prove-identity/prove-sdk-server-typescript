@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 64cef79b47ecf5ed392784a4ff68cb6f
+  docChecksum: 155b85b67a6246cde3e9c736cadbe5c4
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.5
-  configChecksum: 5b5fc768505378f9cf1e590111144980
+  releaseVersion: 0.14.6
+  configChecksum: 52163e2854263690d7cb6168adbe0b0c
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -44,6 +44,7 @@ generatedFiles:
   - docs/models/components/getbatchidentityitem.md
   - docs/models/components/httpmetadata.md
   - docs/models/components/identity.md
+  - docs/models/components/identityattribute.md
   - docs/models/components/identityitem.md
   - docs/models/components/idvdatainternal.md
   - docs/models/components/kycfieldtyperesponseinternal.md
@@ -72,6 +73,8 @@ generatedFiles:
   - docs/models/components/v3crossdomainidentityrequest.md
   - docs/models/components/v3crossdomainidentityresponse.md
   - docs/models/components/v3deactivateidentityresponse.md
+  - docs/models/components/v3devicerevokerequest.md
+  - docs/models/components/v3devicerevokeresponse.md
   - docs/models/components/v3disenrollidentityresponse.md
   - docs/models/components/v3domainconfirmlinkrequest.md
   - docs/models/components/v3domainconfirmlinkresponse.md
@@ -125,6 +128,7 @@ generatedFiles:
   - docs/models/operations/v3crossdomainidentityresponse.md
   - docs/models/operations/v3deactivateidentityrequest.md
   - docs/models/operations/v3deactivateidentityresponse.md
+  - docs/models/operations/v3devicerevokerequestresponse.md
   - docs/models/operations/v3disenrollidentityrequest.md
   - docs/models/operations/v3disenrollidentityresponse.md
   - docs/models/operations/v3domainconfirmlinkrequestresponse.md
@@ -173,6 +177,7 @@ generatedFiles:
   - src/funcs/identityV3GetIdentity.ts
   - src/funcs/v3V3ChallengeRequest.ts
   - src/funcs/v3V3CompleteRequest.ts
+  - src/funcs/v3V3DeviceRevokeRequest.ts
   - src/funcs/v3V3StartRequest.ts
   - src/funcs/v3V3TokenRequest.ts
   - src/funcs/v3V3UnifyBindRequest.ts
@@ -210,6 +215,7 @@ generatedFiles:
   - src/models/components/getbatchidentityitem.ts
   - src/models/components/httpmetadata.ts
   - src/models/components/identity.ts
+  - src/models/components/identityattribute.ts
   - src/models/components/identityitem.ts
   - src/models/components/idvdatainternal.ts
   - src/models/components/index.ts
@@ -238,6 +244,8 @@ generatedFiles:
   - src/models/components/v3crossdomainidentityrequest.ts
   - src/models/components/v3crossdomainidentityresponse.ts
   - src/models/components/v3deactivateidentityresponse.ts
+  - src/models/components/v3devicerevokerequest.ts
+  - src/models/components/v3devicerevokeresponse.ts
   - src/models/components/v3disenrollidentityresponse.ts
   - src/models/components/v3domainconfirmlinkrequest.ts
   - src/models/components/v3domainconfirmlinkresponse.ts
@@ -288,6 +296,7 @@ generatedFiles:
   - src/models/operations/v3completerequest.ts
   - src/models/operations/v3crossdomainidentity.ts
   - src/models/operations/v3deactivateidentity.ts
+  - src/models/operations/v3devicerevokerequest.ts
   - src/models/operations/v3disenrollidentity.ts
   - src/models/operations/v3domainconfirmlinkrequest.ts
   - src/models/operations/v3domainidrequest.ts
@@ -506,7 +515,7 @@ examples:
   V3VerifyRequest:
     speakeasy-default-v3-verify-request:
       requestBody:
-        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "ecoldman1h@storify.com", "firstName": "Elena", "ipAddress": "192.168.1.1", "lastName": "Coldman", "phoneNumber": "2001004053", "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0", "verificationType": "verifiedUser"}
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "ecoldman1h@storify.com", "firstName": "Elena", "identityAttributes": [{"attributeType": "walletId", "attributeValue": "81985529216486900"}], "ipAddress": "192.168.1.1", "lastName": "Coldman", "phoneNumber": "2001004053", "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0", "verificationType": "verifiedUser"}
       responses:
         "200":
           application/json: {"additionalIdentities": [{"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}, {"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}], "clientCustomerId": "261ffa66-961a-4f90-8d93-6c85a450633d", "clientHumanId": "261ffa66-961a-4f90-8d93-6c85a450633d", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "evaluation": {"authentication": {}, "identification": {}}, "identity": {"assuranceLevel": "AL2", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL2a]"]}, "phoneNumber": "2001004053", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "4B2C41FC4VKDEO100F960011D0AD4A8050MEK19P4SF9PD23EFE27CD2C76A6FAA8375E60AC0550604F6G32D9ED60E06262CCC570F3C15F2D16900184E", "success": "true"}
@@ -747,7 +756,7 @@ examples:
   V3DomainLinkRequest:
     speakeasy-default-v3-domain-link-request:
       requestBody:
-        application/json: {"pcid": "pcid"}
+        application/json: {"pcid": "pcid", "scopes": ["scopes", "scopes"]}
       responses:
         "200":
           application/json: {"success": true}
@@ -763,7 +772,7 @@ examples:
     speakeasy-default-v3-domain-linked-request:
       responses:
         "200":
-          application/json: {"linkedFrom": [{"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}, {"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}], "linkedTo": [{"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}, {"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid"}], "requestsFrom": [{"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString"}, {"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString"}], "requestsTo": [{"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString"}, {"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString"}]}
+          application/json: {"linkedFrom": [{"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}, {"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}], "linkedTo": [{"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}, {"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}], "requestsFrom": [{"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}, {"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}], "requestsTo": [{"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}, {"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}]}
         "400":
           application/json: {"code": 8002, "message": "not authorized"}
         "401":
@@ -853,5 +862,20 @@ examples:
           application/json: {"code": 1001, "message": "invalid request"}
         "500":
           application/json: {"code": 1000, "message": "error occurred"}
+  V3DeviceRevokeRequest:
+    speakeasy-default-v3-device-revoke-request:
+      requestBody:
+        application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc"}
+      responses:
+        "200":
+          application/json: {"success": true}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
 examplesVersion: 1.0.2
 generatedTests: {}

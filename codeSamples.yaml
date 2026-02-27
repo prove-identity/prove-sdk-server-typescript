@@ -92,6 +92,31 @@ actions:
             }
 
             run();
+  - target: $["paths"]["/v3/device/revoke"]["post"]
+    update:
+      x-codeSamples:
+        - lang: typescript
+          label: V3DeviceRevokeRequest
+          source: |-
+            import { Proveapi } from "@prove-identity/prove-api";
+
+            const proveapi = new Proveapi({
+              security: {
+                clientID: "<YOUR_CLIENT_ID_HERE>",
+                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+              },
+            });
+
+            async function run() {
+              const result = await proveapi.v3.v3DeviceRevokeRequest({
+                clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+                deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
+              });
+
+              console.log(result);
+            }
+
+            run();
   - target: $["paths"]["/v3/domain/confirm-link"]["post"]
     update:
       x-codeSamples:
@@ -156,6 +181,10 @@ actions:
             async function run() {
               const result = await proveapi.domain.v3DomainLinkRequest({
                 pcid: "pcid",
+                scopes: [
+                  "scopes",
+                  "scopes",
+                ],
               });
 
               console.log(result);
@@ -599,6 +628,12 @@ actions:
                 clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
                 emailAddress: "ecoldman1h@storify.com",
                 firstName: "Elena",
+                identityAttributes: [
+                  {
+                    attributeType: "walletId",
+                    attributeValue: "81985529216486900",
+                  },
+                ],
                 ipAddress: "192.168.1.1",
                 lastName: "Coldman",
                 phoneNumber: "2001004053",

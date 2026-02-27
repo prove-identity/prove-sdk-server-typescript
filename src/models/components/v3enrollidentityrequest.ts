@@ -24,7 +24,10 @@ export type V3EnrollIdentityRequest = {
    */
   deviceId?: string | undefined;
   /**
-   * The number of the consumer being enrolled. US phone numbers can be passed in with or without a leading +1. Acceptable characters are: alphanumeric with symbols '+'.
+   * The number of the consumer being enrolled. US and Canada phone numbers can be passed in with or without a leading `+1`.
+   *
+   * @remarks
+   * International phone numbers require a leading `+` followed by the country code. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
 };
