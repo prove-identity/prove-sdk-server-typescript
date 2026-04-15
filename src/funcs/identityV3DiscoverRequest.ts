@@ -183,7 +183,8 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, operations.V3DiscoverRequestResponse$inboundSchema, {
-      key: "V3FetchResponse",
+      hdrs: true,
+      key: "V3DiscoverResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),

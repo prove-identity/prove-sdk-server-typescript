@@ -23,9 +23,10 @@ export type V3DiscoverRequestRequest = {
 export type V3DiscoverRequestResponse = {
   httpMeta: components.HTTPMetadata;
   /**
-   * V3FetchResponse
+   * Successful Request.
    */
-  v3FetchResponse?: components.V3FetchResponse | undefined;
+  v3DiscoverResponse?: components.V3DiscoverResponse | undefined;
+  headers: { [k: string]: Array<string> };
 };
 
 /** @internal */
@@ -92,18 +93,21 @@ export const V3DiscoverRequestResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   HttpMeta: components.HTTPMetadata$inboundSchema,
-  V3FetchResponse: components.V3FetchResponse$inboundSchema.optional(),
+  V3DiscoverResponse: components.V3DiscoverResponse$inboundSchema.optional(),
+  Headers: z.record(z.array(z.string())),
 }).transform((v) => {
   return remap$(v, {
     "HttpMeta": "httpMeta",
-    "V3FetchResponse": "v3FetchResponse",
+    "V3DiscoverResponse": "v3DiscoverResponse",
+    "Headers": "headers",
   });
 });
 
 /** @internal */
 export type V3DiscoverRequestResponse$Outbound = {
   HttpMeta: components.HTTPMetadata$Outbound;
-  V3FetchResponse?: components.V3FetchResponse$Outbound | undefined;
+  V3DiscoverResponse?: components.V3DiscoverResponse$Outbound | undefined;
+  Headers: { [k: string]: Array<string> };
 };
 
 /** @internal */
@@ -113,11 +117,13 @@ export const V3DiscoverRequestResponse$outboundSchema: z.ZodType<
   V3DiscoverRequestResponse
 > = z.object({
   httpMeta: components.HTTPMetadata$outboundSchema,
-  v3FetchResponse: components.V3FetchResponse$outboundSchema.optional(),
+  v3DiscoverResponse: components.V3DiscoverResponse$outboundSchema.optional(),
+  headers: z.record(z.array(z.string())),
 }).transform((v) => {
   return remap$(v, {
     httpMeta: "HttpMeta",
-    v3FetchResponse: "V3FetchResponse",
+    v3DiscoverResponse: "V3DiscoverResponse",
+    headers: "Headers",
   });
 });
 
