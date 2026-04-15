@@ -13,7 +13,7 @@ export type V3ActivateIdentityRequest = {
   /**
    * A Prove-generated unique ID for a specific identity.
    */
-  identityId: string;
+  proveId: string;
   v3ActivateIdentityRequest?: components.V3ActivateIdentityRequest | undefined;
 };
 
@@ -33,7 +33,7 @@ export const V3ActivateIdentityRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  identityId: z.string(),
+  proveId: z.string(),
   V3ActivateIdentityRequest: components.V3ActivateIdentityRequest$inboundSchema
     .optional(),
 }).transform((v) => {
@@ -44,7 +44,7 @@ export const V3ActivateIdentityRequest$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3ActivateIdentityRequest$Outbound = {
-  identityId: string;
+  proveId: string;
   V3ActivateIdentityRequest?:
     | components.V3ActivateIdentityRequest$Outbound
     | undefined;
@@ -56,7 +56,7 @@ export const V3ActivateIdentityRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3ActivateIdentityRequest
 > = z.object({
-  identityId: z.string(),
+  proveId: z.string(),
   v3ActivateIdentityRequest: components.V3ActivateIdentityRequest$outboundSchema
     .optional(),
 }).transform((v) => {

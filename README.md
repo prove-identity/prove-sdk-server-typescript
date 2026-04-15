@@ -174,12 +174,6 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [auth](docs/sdks/auth/README.md)
-
-* [authContinueRequest](docs/sdks/auth/README.md#authcontinuerequest) - AuthContinue /v1/server/auth/continue
-* [authFinishRequest](docs/sdks/auth/README.md#authfinishrequest) - AuthFinish /v1/server/auth/finish
-* [authStartRequest](docs/sdks/auth/README.md#authstartrequest) - AuthStart /v1/server/auth/start
-
 ### [domain](docs/sdks/domain/README.md)
 
 * [v3DomainConfirmLinkRequest](docs/sdks/domain/README.md#v3domainconfirmlinkrequest) - Confirm a domain link request
@@ -190,16 +184,17 @@ run();
 
 ### [identity](docs/sdks/identity/README.md)
 
+* [v3DiscoverRequest](docs/sdks/identity/README.md#v3discoverrequest) - Discover Identity Attributes
 * [v3FetchRequest](docs/sdks/identity/README.md#v3fetchrequest) - Fetch Identity Attributes
 * [v3BatchGetIdentities](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
 * [v3EnrollIdentity](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity
 * [v3BatchEnrollIdentities](docs/sdks/identity/README.md#v3batchenrollidentities) - Batch Enroll Identities
+* [v3CrossDomainIdentity](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
+* [v3GetIdentitiesByPhoneNumber](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 * [v3DisenrollIdentity](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
 * [v3GetIdentity](docs/sdks/identity/README.md#v3getidentity) - Get Identity
 * [v3ActivateIdentity](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
-* [v3CrossDomainIdentity](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
 * [v3DeactivateIdentity](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
-* [v3GetIdentitiesByPhoneNumber](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 
 
 ### [v3](docs/sdks/v3/README.md)
@@ -271,9 +266,9 @@ run();
 ### Error Classes
 **Primary errors:**
 * [`ProveapiError`](./src/models/errors/proveapierror.ts): The base class for HTTP error responses.
-  * [`Error400`](./src/models/errors/error400.ts): Error400 is a custom error for HTTP 400. This is used to support distinguishing between HTTP 400 and 500 in Speakeasy SDKs. Status code `400`.
+  * [`Error400`](./src/models/errors/error400.ts): Bad Request. The server cannot process the request due to a client error. Status code `400`.
+  * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`.
   * [`ErrorT`](./src/models/errors/errort.ts): Internal Server Error. The server encountered an unexpected condition that prevented it from fulfilling the request. Status code `500`.
-  * [`Error401`](./src/models/errors/error401.ts): Unauthorized. Authentication is required and has failed or has not been provided. Status code `401`. *
   * [`Error403`](./src/models/errors/error403.ts): Forbidden. The server understood the request but refuses to authorize it. Status code `403`. *
 
 <details><summary>Less common errors (7)</summary>
@@ -289,7 +284,7 @@ run();
 
 
 **Inherit from [`ProveapiError`](./src/models/errors/proveapierror.ts)**:
-* [`Error404`](./src/models/errors/error404.ts): Not Found. The server cannot find the requested resource. Status code `404`. Applicable to 1 of 29 methods.*
+* [`Error404`](./src/models/errors/error404.ts): Not Found. The server cannot find the requested resource. Status code `404`. Applicable to 3 of 27 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -528,9 +523,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 
 <summary>Available standalone functions</summary>
 
-- [`authAuthContinueRequest`](docs/sdks/auth/README.md#authcontinuerequest) - AuthContinue /v1/server/auth/continue
-- [`authAuthFinishRequest`](docs/sdks/auth/README.md#authfinishrequest) - AuthFinish /v1/server/auth/finish
-- [`authAuthStartRequest`](docs/sdks/auth/README.md#authstartrequest) - AuthStart /v1/server/auth/start
 - [`domainV3DomainConfirmLinkRequest`](docs/sdks/domain/README.md#v3domainconfirmlinkrequest) - Confirm a domain link request
 - [`domainV3DomainIDRequest`](docs/sdks/domain/README.md#v3domainidrequest) - Get Domain Details
 - [`domainV3DomainLinkedRequest`](docs/sdks/domain/README.md#v3domainlinkedrequest) - Get the list of domains that are linked to this domain.
@@ -541,6 +533,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`identityV3BatchGetIdentities`](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
 - [`identityV3CrossDomainIdentity`](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
 - [`identityV3DeactivateIdentity`](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
+- [`identityV3DiscoverRequest`](docs/sdks/identity/README.md#v3discoverrequest) - Discover Identity Attributes
 - [`identityV3DisenrollIdentity`](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
 - [`identityV3EnrollIdentity`](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity
 - [`identityV3FetchRequest`](docs/sdks/identity/README.md#v3fetchrequest) - Fetch Identity Attributes

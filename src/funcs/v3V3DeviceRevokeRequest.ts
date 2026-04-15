@@ -43,6 +43,7 @@ export function v3V3DeviceRevokeRequest(
     | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.Error404
     | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
@@ -72,6 +73,7 @@ async function $do(
       | errors.Error400
       | errors.Error401
       | errors.Error403
+      | errors.Error404
       | errors.ErrorT
       | ProveapiError
       | ResponseValidationError
@@ -141,7 +143,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -159,6 +161,7 @@ async function $do(
     | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.Error404
     | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
@@ -176,6 +179,7 @@ async function $do(
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
+    M.jsonErr(404, errors.Error404$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

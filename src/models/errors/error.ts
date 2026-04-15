@@ -7,18 +7,18 @@ import { ProveapiError } from "./proveapierror.js";
 
 export type ErrorTData = {
   /**
-   * Code is an internal error code that describes the problem category of the request.
+   * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
   /**
-   * Message is an error message describing the problem with the request.
+   * The error message describing the problem with the request.
    */
   message: string;
 };
 
 export class ErrorT extends ProveapiError {
   /**
-   * Code is an internal error code that describes the problem category of the request.
+   * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
 

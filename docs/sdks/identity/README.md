@@ -5,16 +5,99 @@
 
 ### Available Operations
 
+* [v3DiscoverRequest](#v3discoverrequest) - Discover Identity Attributes
 * [v3FetchRequest](#v3fetchrequest) - Fetch Identity Attributes
 * [v3BatchGetIdentities](#v3batchgetidentities) - Batch Get Identities
 * [v3EnrollIdentity](#v3enrollidentity) - Enroll Identity
 * [v3BatchEnrollIdentities](#v3batchenrollidentities) - Batch Enroll Identities
+* [v3CrossDomainIdentity](#v3crossdomainidentity) - Cross Domain Identity
+* [v3GetIdentitiesByPhoneNumber](#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 * [v3DisenrollIdentity](#v3disenrollidentity) - Disenroll Identity
 * [v3GetIdentity](#v3getidentity) - Get Identity
 * [v3ActivateIdentity](#v3activateidentity) - Activate Identity
-* [v3CrossDomainIdentity](#v3crossdomainidentity) - Cross Domain Identity
 * [v3DeactivateIdentity](#v3deactivateidentity) - Deactivate Identity
-* [v3GetIdentitiesByPhoneNumber](#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
+
+## v3DiscoverRequest
+
+Discover which identity attributes (e.g., walletID, email) are available for a given ProveID.
+This endpoint returns a list of attribute IDs and their corresponding issuer IDs, which can then
+be used to fetch actual attribute values in the /v3/fetch endpoint.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3DiscoverRequest("<id>");
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3DiscoverRequest } from "@prove-identity/prove-api/funcs/identityV3DiscoverRequest.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3DiscoverRequest(proveapi, "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3DiscoverRequest failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `proveId`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A unique Prove-generated identifier for the enrolled identity (UUID).                                                                                                                                                                                                                        |
+| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. |
+| `options`                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                        |
+| `options.fetchOptions`                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                               |
+| `options.retries`                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                             |
+
+### Response
+
+**Promise\<[operations.V3DiscoverRequestResponse](../../models/operations/v3discoverrequestresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.Error404  | 404              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
 ## v3FetchRequest
 
@@ -197,6 +280,7 @@ const proveapi = new Proveapi({
 async function run() {
   const result = await proveapi.identity.v3EnrollIdentity({
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
     identityAttributes: [
@@ -234,6 +318,7 @@ const proveapi = new ProveapiCore({
 async function run() {
   const res = await identityV3EnrollIdentity(proveapi, {
     clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+    clientHumanId: "aad25769-23bb-458c-80db-50296a82c91b",
     clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
     deviceId: "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc",
     identityAttributes: [
@@ -384,247 +469,6 @@ run();
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## v3DisenrollIdentity
-
-Disenrolls an identity from Identity Manager. If you wish to monitor in future, re-enrollment of that identity is required.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.identity.v3DisenrollIdentity("<id>");
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { identityV3DisenrollIdentity } from "@prove-identity/prove-api/funcs/identityV3DisenrollIdentity.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await identityV3DisenrollIdentity(proveapi, "<id>");
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("identityV3DisenrollIdentity failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `identityId`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A Prove-generated unique ID for a specific identity.                                                                                                                                                                                                                                         |
-| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. |
-| `options`                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                        |
-| `options.fetchOptions`                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                               |
-| `options.retries`                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                             |
-
-### Response
-
-**Promise\<[operations.V3DisenrollIdentityResponse](../../models/operations/v3disenrollidentityresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error401  | 401              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
-## v3GetIdentity
-
-Return details of an identity given the identity ID.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.identity.v3GetIdentity("<id>");
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { identityV3GetIdentity } from "@prove-identity/prove-api/funcs/identityV3GetIdentity.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await identityV3GetIdentity(proveapi, "<id>");
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("identityV3GetIdentity failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `identityId`                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A unique Prove-generated identifier for the enrolled identity.                                                                                                                                                                                                                               |
-| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. |
-| `options`                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                        |
-| `options.fetchOptions`                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                               |
-| `options.retries`                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                             |
-
-### Response
-
-**Promise\<[operations.V3GetIdentityResponse](../../models/operations/v3getidentityresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error401  | 401              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
-## v3ActivateIdentity
-
-Sets an identity as active for monitoring.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.identity.v3ActivateIdentity("<id>", {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { identityV3ActivateIdentity } from "@prove-identity/prove-api/funcs/identityV3ActivateIdentity.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await identityV3ActivateIdentity(proveapi, "<id>", {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("identityV3ActivateIdentity failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `identityId`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | A Prove-generated unique ID for a specific identity.                                                                                                                           |                                                                                                                                                                                |
-| `v3ActivateIdentityRequest`                                                                                                                                                    | [components.V3ActivateIdentityRequest](../../models/components/v3activateidentityrequest.md)                                                                                   | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            | [object Object]                                                                                                                                                                |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
-
-### Response
-
-**Promise\<[operations.V3ActivateIdentityResponse](../../models/operations/v3activateidentityresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error401  | 401              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
 ## v3CrossDomainIdentity
 
 Retreives the list of identities from other linked accounts.
@@ -708,89 +552,6 @@ run();
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
-## v3DeactivateIdentity
-
-Stops webhook notifications without disenrolling the identity.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.identity.v3DeactivateIdentity("<id>", {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { identityV3DeactivateIdentity } from "@prove-identity/prove-api/funcs/identityV3DeactivateIdentity.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await identityV3DeactivateIdentity(proveapi, "<id>", {
-    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("identityV3DeactivateIdentity failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `identityId`                                                                                                                                                                   | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | A Prove-generated unique ID for a specific identity.                                                                                                                           |                                                                                                                                                                                |
-| `v3IdentityDeactivateRequest`                                                                                                                                                  | [components.V3IdentityDeactivateRequest](../../models/components/v3identitydeactivaterequest.md)                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            | [object Object]                                                                                                                                                                |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
-
-### Response
-
-**Promise\<[operations.V3DeactivateIdentityResponse](../../models/operations/v3deactivateidentityresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error401  | 401              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
 ## v3GetIdentitiesByPhoneNumber
 
 Return list of all identities you have enrolled that are associated with this phone number.
@@ -859,6 +620,330 @@ run();
 ### Response
 
 **Promise\<[operations.V3GetIdentitiesByPhoneNumberResponse](../../models/operations/v3getidentitiesbyphonenumberresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3DisenrollIdentity
+
+Disenrolls an identity from Identity Manager. If you wish to monitor in future, re-enrollment of that identity is required.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3DisenrollIdentity("<id>");
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3DisenrollIdentity } from "@prove-identity/prove-api/funcs/identityV3DisenrollIdentity.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3DisenrollIdentity(proveapi, "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3DisenrollIdentity failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `proveId`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A Prove-generated unique ID for a specific identity.                                                                                                                                                                                                                                         |
+| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. |
+| `options`                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                        |
+| `options.fetchOptions`                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                               |
+| `options.retries`                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                             |
+
+### Response
+
+**Promise\<[operations.V3DisenrollIdentityResponse](../../models/operations/v3disenrollidentityresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3GetIdentity
+
+Return details of an identity given the prove ID.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3GetIdentity("<id>");
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3GetIdentity } from "@prove-identity/prove-api/funcs/identityV3GetIdentity.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3GetIdentity(proveapi, "<id>");
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3GetIdentity failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `proveId`                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                                           | A unique Prove-generated identifier for the enrolled identity.                                                                                                                                                                                                                               |
+| `clientRequestId`                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field. |
+| `options`                                                                                                                                                                                                                                                                                    | RequestOptions                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Used to set various options for making HTTP requests.                                                                                                                                                                                                                                        |
+| `options.fetchOptions`                                                                                                                                                                                                                                                                       | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed.                                                                                                               |
+| `options.retries`                                                                                                                                                                                                                                                                            | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                           | Enables retrying HTTP requests under certain failure conditions.                                                                                                                                                                                                                             |
+
+### Response
+
+**Promise\<[operations.V3GetIdentityResponse](../../models/operations/v3getidentityresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3ActivateIdentity
+
+Sets an identity as active for monitoring.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3ActivateIdentity("<id>", {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3ActivateIdentity } from "@prove-identity/prove-api/funcs/identityV3ActivateIdentity.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3ActivateIdentity(proveapi, "<id>", {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3ActivateIdentity failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `proveId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | A Prove-generated unique ID for a specific identity.                                                                                                                           |                                                                                                                                                                                |
+| `v3ActivateIdentityRequest`                                                                                                                                                    | [components.V3ActivateIdentityRequest](../../models/components/v3activateidentityrequest.md)                                                                                   | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            | [object Object]                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[operations.V3ActivateIdentityResponse](../../models/operations/v3activateidentityresponse.md)\>**
+
+### Errors
+
+| Error Type       | Status Code      | Content Type     |
+| ---------------- | ---------------- | ---------------- |
+| errors.Error400  | 400              | application/json |
+| errors.Error401  | 401              | application/json |
+| errors.Error403  | 403              | application/json |
+| errors.ErrorT    | 500              | application/json |
+| errors.SDKError  | 4XX, 5XX         | \*/\*            |
+
+## v3DeactivateIdentity
+
+Stops webhook notifications without disenrolling the identity.
+
+### Example Usage
+
+```typescript
+import { Proveapi } from "@prove-identity/prove-api";
+
+const proveapi = new Proveapi({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const result = await proveapi.identity.v3DeactivateIdentity("<id>", {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { ProveapiCore } from "@prove-identity/prove-api/core.js";
+import { identityV3DeactivateIdentity } from "@prove-identity/prove-api/funcs/identityV3DeactivateIdentity.js";
+
+// Use `ProveapiCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const proveapi = new ProveapiCore({
+  security: {
+    clientID: "<YOUR_CLIENT_ID_HERE>",
+    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
+  },
+});
+
+async function run() {
+  const res = await identityV3DeactivateIdentity(proveapi, "<id>", {
+    clientRequestId: "71010d88-d0e7-4a24-9297-d1be6fefde81",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("identityV3DeactivateIdentity failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    | Example                                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `proveId`                                                                                                                                                                      | *string*                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | A Prove-generated unique ID for a specific identity.                                                                                                                           |                                                                                                                                                                                |
+| `v3IdentityDeactivateRequest`                                                                                                                                                  | [components.V3IdentityDeactivateRequest](../../models/components/v3identitydeactivaterequest.md)                                                                               | :heavy_minus_sign:                                                                                                                                                             | N/A                                                                                                                                                                            | [object Object]                                                                                                                                                                |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |                                                                                                                                                                                |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |                                                                                                                                                                                |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |                                                                                                                                                                                |
+
+### Response
+
+**Promise\<[operations.V3DeactivateIdentityResponse](../../models/operations/v3deactivateidentityresponse.md)\>**
 
 ### Errors
 

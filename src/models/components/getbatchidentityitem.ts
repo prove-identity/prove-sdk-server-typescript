@@ -11,7 +11,7 @@ export type GetBatchIdentityItem = {
   /**
    * A unique Prove-generated identifier for the enrolled identity. This is a UUID that can be used to reference the identity in future requests.
    */
-  identityId?: string | undefined;
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -20,12 +20,12 @@ export const GetBatchIdentityItem$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  identityId: z.string().optional(),
+  proveId: z.string().optional(),
 });
 
 /** @internal */
 export type GetBatchIdentityItem$Outbound = {
-  identityId?: string | undefined;
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -34,7 +34,7 @@ export const GetBatchIdentityItem$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   GetBatchIdentityItem
 > = z.object({
-  identityId: z.string().optional(),
+  proveId: z.string().optional(),
 });
 
 /**

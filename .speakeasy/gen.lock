@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: a1cabeebfee7d9b887987bbe82430bfb
+  docChecksum: bdeb668b3eac5d40e90d9ecaf79421c6
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.6
-  configChecksum: 52163e2854263690d7cb6168adbe0b0c
+  releaseVersion: 0.14.7
+  configChecksum: 1bb66fc0f4a9ee5e2b747db091a6b087
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -35,79 +35,13 @@ generatedFiles:
   - USAGE.md
   - docs/lib/utils/retryconfig.md
   - docs/models/components/amltypelistresponseinternal.md
-  - docs/models/components/authcontinuerequest.md
-  - docs/models/components/authcontinuerequestsubjectmobile.md
-  - docs/models/components/authcontinuerequestsubjectmobileclaim.md
-  - docs/models/components/authcontinuerequestsubjects.md
-  - docs/models/components/authcontinueresponse.md
-  - docs/models/components/authcontinueresponseerror.md
-  - docs/models/components/authcontinueresponsesubjectcardresult.md
-  - docs/models/components/authcontinueresponsesubjectmobileresult.md
-  - docs/models/components/authcontinueresponsesubjectsresults.md
-  - docs/models/components/authfinishrequest.md
-  - docs/models/components/authfinishresponse.md
-  - docs/models/components/authfinishresponsecarderror.md
-  - docs/models/components/authfinishresponsedelivery.md
-  - docs/models/components/authfinishresponseerror.md
-  - docs/models/components/authfinishresponsepushdelivery.md
-  - docs/models/components/authfinishresponsepushdeliveryextras.md
-  - docs/models/components/authfinishresponserawsignals.md
-  - docs/models/components/authfinishresponsescandelivery.md
-  - docs/models/components/authfinishresponsescandeliveryextras.md
-  - docs/models/components/authfinishresponsesubjectcardresultsuccess.md
-  - docs/models/components/authfinishresponsesubjectcardresultsuccessclaim.md
-  - docs/models/components/authfinishresponsesubjectcardsresult.md
-  - docs/models/components/authfinishresponsesubjectdeviceresult.md
-  - docs/models/components/authfinishresponsesubjectdeviceresultsuccess.md
-  - docs/models/components/authfinishresponsesubjectdeviceresultsuccessclaim.md
-  - docs/models/components/authfinishresponsesubjectdeviceresultsuccessextras.md
-  - docs/models/components/authfinishresponsesubjectmobileresult.md
-  - docs/models/components/authfinishresponsesubjectmobileresultsuccess.md
-  - docs/models/components/authfinishresponsesubjectmobileresultsuccessclaim.md
-  - docs/models/components/authfinishresponsesubjectmobileresultsuccessextras.md
-  - docs/models/components/authfinishresponsesubjects.md
-  - docs/models/components/authfinishresponsesubjectuserresult.md
-  - docs/models/components/authfinishresponsesubjectuserresultsuccess.md
-  - docs/models/components/authfinishresponsesubjectuserresultsuccessclaim.md
-  - docs/models/components/authfinishresponseuserextras.md
-  - docs/models/components/authstartrequest.md
-  - docs/models/components/authstartrequestdelivery.md
-  - docs/models/components/authstartrequestdeliverypush.md
-  - docs/models/components/authstartrequestdeliverypushnotification.md
-  - docs/models/components/authstartrequestdeliveryscan.md
-  - docs/models/components/authstartrequestdeliveryscannotification.md
-  - docs/models/components/authstartrequestinstantauthconsent.md
-  - docs/models/components/authstartrequestsubjectcard.md
-  - docs/models/components/authstartrequestsubjectcardauthenticatorairkey.md
-  - docs/models/components/authstartrequestsubjectcardauthenticatorairkeyclaim.md
-  - docs/models/components/authstartrequestsubjectcardauthenticators.md
-  - docs/models/components/authstartrequestsubjectdevice.md
-  - docs/models/components/authstartrequestsubjectdeviceauthenticatorpassive.md
-  - docs/models/components/authstartrequestsubjectdeviceauthenticators.md
-  - docs/models/components/authstartrequestsubjectdeviceclaim.md
-  - docs/models/components/authstartrequestsubjectmobile.md
-  - docs/models/components/authstartrequestsubjectmobileauthenticatorinstant.md
-  - docs/models/components/authstartrequestsubjectmobileauthenticatorinstantlink.md
-  - docs/models/components/authstartrequestsubjectmobileauthenticatorotp.md
-  - docs/models/components/authstartrequestsubjectmobileauthenticatorpassive.md
-  - docs/models/components/authstartrequestsubjectmobileauthenticators.md
-  - docs/models/components/authstartrequestsubjectmobileauthenticatoruniversal.md
-  - docs/models/components/authstartrequestsubjectmobileclaim.md
-  - docs/models/components/authstartrequestsubjects.md
-  - docs/models/components/authstartrequestsubjectuser.md
-  - docs/models/components/authstartrequestsubjectuserauthenticatorpassive.md
-  - docs/models/components/authstartrequestsubjectuserauthenticators.md
-  - docs/models/components/authstartrequestsubjectuserclaim.md
-  - docs/models/components/authstartresponse.md
   - docs/models/components/datasourceaddressresponseinternal.md
   - docs/models/components/datasourceemailaddressresponseinternal.md
   - docs/models/components/datasourceidentifiersresponseinternal.md
   - docs/models/components/datasourceinternal.md
   - docs/models/components/datasourcenameresponseinternal.md
-  - docs/models/components/docv.md
   - docs/models/components/evaluation.md
   - docs/models/components/fetchresult.md
-  - docs/models/components/fingerprint.md
   - docs/models/components/getbatchidentityitem.md
   - docs/models/components/httpmetadata.md
   - docs/models/components/identity.md
@@ -120,15 +54,9 @@ generatedFiles:
   - docs/models/components/linkedto.md
   - docs/models/components/lookupidentityitem.md
   - docs/models/components/postbatchresultitem.md
-  - docs/models/components/ppb.md
-  - docs/models/components/present.md
-  - docs/models/components/pushtoken.md
   - docs/models/components/requestsfrom.md
   - docs/models/components/requeststo.md
   - docs/models/components/security.md
-  - docs/models/components/subjectdeviceresultsuccessextrastrust.md
-  - docs/models/components/subscores.md
-  - docs/models/components/usertrustscore.md
   - docs/models/components/v3activateidentityrequest.md
   - docs/models/components/v3activateidentityresponse.md
   - docs/models/components/v3batchenrollidentitiesrequest.md
@@ -192,9 +120,6 @@ generatedFiles:
   - docs/models/errors/error403.md
   - docs/models/errors/error404.md
   - docs/models/errors/errort.md
-  - docs/models/operations/authcontinuerequestresponse.md
-  - docs/models/operations/authfinishrequestresponse.md
-  - docs/models/operations/authstartrequestresponse.md
   - docs/models/operations/v3activateidentityrequest.md
   - docs/models/operations/v3activateidentityresponse.md
   - docs/models/operations/v3batchenrollidentitiesresponse.md
@@ -207,6 +132,8 @@ generatedFiles:
   - docs/models/operations/v3deactivateidentityrequest.md
   - docs/models/operations/v3deactivateidentityresponse.md
   - docs/models/operations/v3devicerevokerequestresponse.md
+  - docs/models/operations/v3discoverrequestrequest.md
+  - docs/models/operations/v3discoverrequestresponse.md
   - docs/models/operations/v3disenrollidentityrequest.md
   - docs/models/operations/v3disenrollidentityresponse.md
   - docs/models/operations/v3domainconfirmlinkrequestresponse.md
@@ -229,7 +156,6 @@ generatedFiles:
   - docs/models/operations/v3validaterequestresponse.md
   - docs/models/operations/v3verifybatchrequestresponse.md
   - docs/models/operations/v3verifyrequestresponse.md
-  - docs/sdks/auth/README.md
   - docs/sdks/domain/README.md
   - docs/sdks/identity/README.md
   - docs/sdks/proveapi/README.md
@@ -242,9 +168,6 @@ generatedFiles:
   - jsr.json
   - package.json
   - src/core.ts
-  - src/funcs/authAuthContinueRequest.ts
-  - src/funcs/authAuthFinishRequest.ts
-  - src/funcs/authAuthStartRequest.ts
   - src/funcs/domainV3DomainConfirmLinkRequest.ts
   - src/funcs/domainV3DomainIDRequest.ts
   - src/funcs/domainV3DomainLinkRequest.ts
@@ -255,6 +178,7 @@ generatedFiles:
   - src/funcs/identityV3BatchGetIdentities.ts
   - src/funcs/identityV3CrossDomainIdentity.ts
   - src/funcs/identityV3DeactivateIdentity.ts
+  - src/funcs/identityV3DiscoverRequest.ts
   - src/funcs/identityV3DisenrollIdentity.ts
   - src/funcs/identityV3EnrollIdentity.ts
   - src/funcs/identityV3FetchRequest.ts
@@ -292,70 +216,6 @@ generatedFiles:
   - src/lib/security.ts
   - src/lib/url.ts
   - src/models/components/amltypelistresponseinternal.ts
-  - src/models/components/authcontinuerequest.ts
-  - src/models/components/authcontinuerequestsubjectmobile.ts
-  - src/models/components/authcontinuerequestsubjectmobileclaim.ts
-  - src/models/components/authcontinuerequestsubjects.ts
-  - src/models/components/authcontinueresponse.ts
-  - src/models/components/authcontinueresponseerror.ts
-  - src/models/components/authcontinueresponsesubjectcardresult.ts
-  - src/models/components/authcontinueresponsesubjectmobileresult.ts
-  - src/models/components/authcontinueresponsesubjectsresults.ts
-  - src/models/components/authfinishrequest.ts
-  - src/models/components/authfinishresponse.ts
-  - src/models/components/authfinishresponsecarderror.ts
-  - src/models/components/authfinishresponsedelivery.ts
-  - src/models/components/authfinishresponseerror.ts
-  - src/models/components/authfinishresponsepushdelivery.ts
-  - src/models/components/authfinishresponsepushdeliveryextras.ts
-  - src/models/components/authfinishresponserawsignals.ts
-  - src/models/components/authfinishresponsescandelivery.ts
-  - src/models/components/authfinishresponsescandeliveryextras.ts
-  - src/models/components/authfinishresponsesubjectcardresultsuccess.ts
-  - src/models/components/authfinishresponsesubjectcardresultsuccessclaim.ts
-  - src/models/components/authfinishresponsesubjectcardsresult.ts
-  - src/models/components/authfinishresponsesubjectdeviceresult.ts
-  - src/models/components/authfinishresponsesubjectdeviceresultsuccess.ts
-  - src/models/components/authfinishresponsesubjectdeviceresultsuccessclaim.ts
-  - src/models/components/authfinishresponsesubjectdeviceresultsuccessextras.ts
-  - src/models/components/authfinishresponsesubjectmobileresult.ts
-  - src/models/components/authfinishresponsesubjectmobileresultsuccess.ts
-  - src/models/components/authfinishresponsesubjectmobileresultsuccessclaim.ts
-  - src/models/components/authfinishresponsesubjectmobileresultsuccessextras.ts
-  - src/models/components/authfinishresponsesubjects.ts
-  - src/models/components/authfinishresponsesubjectuserresult.ts
-  - src/models/components/authfinishresponsesubjectuserresultsuccess.ts
-  - src/models/components/authfinishresponsesubjectuserresultsuccessclaim.ts
-  - src/models/components/authfinishresponseuserextras.ts
-  - src/models/components/authstartrequest.ts
-  - src/models/components/authstartrequestdelivery.ts
-  - src/models/components/authstartrequestdeliverypush.ts
-  - src/models/components/authstartrequestdeliverypushnotification.ts
-  - src/models/components/authstartrequestdeliveryscan.ts
-  - src/models/components/authstartrequestdeliveryscannotification.ts
-  - src/models/components/authstartrequestinstantauthconsent.ts
-  - src/models/components/authstartrequestsubjectcard.ts
-  - src/models/components/authstartrequestsubjectcardauthenticatorairkey.ts
-  - src/models/components/authstartrequestsubjectcardauthenticatorairkeyclaim.ts
-  - src/models/components/authstartrequestsubjectcardauthenticators.ts
-  - src/models/components/authstartrequestsubjectdevice.ts
-  - src/models/components/authstartrequestsubjectdeviceauthenticatorpassive.ts
-  - src/models/components/authstartrequestsubjectdeviceauthenticators.ts
-  - src/models/components/authstartrequestsubjectdeviceclaim.ts
-  - src/models/components/authstartrequestsubjectmobile.ts
-  - src/models/components/authstartrequestsubjectmobileauthenticatorinstant.ts
-  - src/models/components/authstartrequestsubjectmobileauthenticatorinstantlink.ts
-  - src/models/components/authstartrequestsubjectmobileauthenticatorotp.ts
-  - src/models/components/authstartrequestsubjectmobileauthenticatorpassive.ts
-  - src/models/components/authstartrequestsubjectmobileauthenticators.ts
-  - src/models/components/authstartrequestsubjectmobileauthenticatoruniversal.ts
-  - src/models/components/authstartrequestsubjectmobileclaim.ts
-  - src/models/components/authstartrequestsubjects.ts
-  - src/models/components/authstartrequestsubjectuser.ts
-  - src/models/components/authstartrequestsubjectuserauthenticatorpassive.ts
-  - src/models/components/authstartrequestsubjectuserauthenticators.ts
-  - src/models/components/authstartrequestsubjectuserclaim.ts
-  - src/models/components/authstartresponse.ts
   - src/models/components/datasourceaddressresponseinternal.ts
   - src/models/components/datasourceemailaddressresponseinternal.ts
   - src/models/components/datasourceidentifiersresponseinternal.ts
@@ -375,13 +235,9 @@ generatedFiles:
   - src/models/components/linkedto.ts
   - src/models/components/lookupidentityitem.ts
   - src/models/components/postbatchresultitem.ts
-  - src/models/components/pushtoken.ts
   - src/models/components/requestsfrom.ts
   - src/models/components/requeststo.ts
   - src/models/components/security.ts
-  - src/models/components/subjectdeviceresultsuccessextrastrust.ts
-  - src/models/components/subscores.ts
-  - src/models/components/usertrustscore.ts
   - src/models/components/v3activateidentityrequest.ts
   - src/models/components/v3activateidentityresponse.ts
   - src/models/components/v3batchenrollidentitiesrequest.ts
@@ -444,9 +300,6 @@ generatedFiles:
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkerror.ts
   - src/models/errors/sdkvalidationerror.ts
-  - src/models/operations/authcontinuerequest.ts
-  - src/models/operations/authfinishrequest.ts
-  - src/models/operations/authstartrequest.ts
   - src/models/operations/index.ts
   - src/models/operations/v3activateidentity.ts
   - src/models/operations/v3batchenrollidentities.ts
@@ -456,6 +309,7 @@ generatedFiles:
   - src/models/operations/v3crossdomainidentity.ts
   - src/models/operations/v3deactivateidentity.ts
   - src/models/operations/v3devicerevokerequest.ts
+  - src/models/operations/v3discoverrequest.ts
   - src/models/operations/v3disenrollidentity.ts
   - src/models/operations/v3domainconfirmlinkrequest.ts
   - src/models/operations/v3domainidrequest.ts
@@ -474,7 +328,6 @@ generatedFiles:
   - src/models/operations/v3validaterequest.ts
   - src/models/operations/v3verifybatchrequest.ts
   - src/models/operations/v3verifyrequest.ts
-  - src/sdk/auth.ts
   - src/sdk/domain.ts
   - src/sdk/identity.ts
   - src/sdk/index.ts
@@ -499,11 +352,11 @@ examples:
         "200":
           application/json: {"access_token": "eyJ...", "expires_in": 3600, "refresh_expires_in": 3600, "refresh_token": "eyJ...", "token_type": "Bearer"}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3ChallengeRequest:
     speakeasy-default-v3-challenge-request:
       requestBody:
@@ -582,28 +435,28 @@ examples:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "next": {"v3-validate": "/v3/validate"}}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3UnifyRequest:
     speakeasy-default-v3-unify-request:
       requestBody:
-        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.0.1", "phoneNumber": "2001004011", "possessionType": "mobile", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "rebind": true, "smsMessage": "#### is your verification code."}
+        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.0.1", "mobileAuthEnabled": true, "phoneNumber": "2001004011", "possessionType": "mobile", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "rebind": true, "smsMessage": "#### is your verification code."}
       responses:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "pending"}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3UnifyBindRequest:
     speakeasy-default-v3-unify-bind-request:
       requestBody:
@@ -612,13 +465,13 @@ examples:
         "200":
           application/json: {"clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "evaluation": {"key": {}}, "phoneNumber": "2001004011", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "success": "true"}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3UnifyStatusRequest:
     speakeasy-default-v3-unify-status-request:
       requestBody:
@@ -681,13 +534,13 @@ examples:
         "200":
           application/json: {"additionalIdentities": [{"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}, {"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}], "clientCustomerId": "261ffa66-961a-4f90-8d93-6c85a450633d", "clientHumanId": "261ffa66-961a-4f90-8d93-6c85a450633d", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "evaluation": {"authentication": {}, "identification": {}}, "identity": {"assuranceLevel": "AL2", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL2a]"]}, "phoneNumber": "2001004053", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "4B2C41FC4VKDEO100F960011D0AD4A8050MEK19P4SF9PD23EFE27CD2C76A6FAA8375E60AC0550604F6G32D9ED60E06262CCC570F3C15F2D16900184E", "success": "true"}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3VerifyStatusRequest:
     speakeasy-default-v3-verify-status-request:
       requestBody:
@@ -707,113 +560,117 @@ examples:
     speakeasy-default-v3-batch-get-identities:
       responses:
         "200":
-          application/json: {"lastKey": "fNqtI2wVPka+yAFC5qRtrQ==", "results": [{"identityId": "4a6317c1-4855-4900-b369-bed138f4ec00"}, {"identityId": "e53c0597-1cce-4d8f-bd1b-e0a10f875ac9"}]}
+          application/json: {"lastKey": "fNqtI2wVPka+yAFC5qRtrQ==", "results": [{"proveId": "4a6317c1-4855-4900-b369-bed138f4ec00"}, {"proveId": "e53c0597-1cce-4d8f-bd1b-e0a10f875ac9"}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3EnrollIdentity:
     speakeasy-default-v3-enroll-identity:
       requestBody:
-        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityAttributes": [{"attributeType": "myWalletId", "attributeValue": "token123"}], "phoneNumber": "2001001695"}
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityAttributes": [{"attributeType": "myWalletId", "attributeValue": "token123"}], "phoneNumber": "2001001695"}
       responses:
         "200":
-          application/json: {"identityId": "863189q5-5555-4c15-89ba-15d08710aecz", "success": true}
+          application/json: {"proveId": "863189q5-5555-4c15-89ba-15d08710aecz", "success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3BatchEnrollIdentities:
     speakeasy-default-v3-batch-enroll-identities:
       requestBody:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "items": [{"clientName": "\"Client A\"", "identityId": "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"", "pcid": "\"12345\""}, {"clientName": "\"Client A\"", "identityId": "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"", "pcid": "\"12345\""}]}
       responses:
         "200":
-          application/json: {"results": [{"identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"error": "Invalid Phone Number"}]}
+          application/json: {"results": [{"proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"error": "Invalid Phone Number"}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DisenrollIdentity:
     speakeasy-default-v3-disenroll-identity:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       responses:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3GetIdentity:
     speakeasy-default-v3-get-identity:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       responses:
         "200":
-          application/json: {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}
+          application/json: {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "lineType": "mobile", "phoneNumber": "2001001695", "proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3ActivateIdentity:
     speakeasy-default-v3-activate-identity:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       requestBody:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81"}
       responses:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DeactivateIdentity:
     speakeasy-default-v3-deactivate-identity:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       requestBody:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81"}
       responses:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3GetIdentitiesByPhoneNumber:
     speakeasy-default-v3-get-identities-by-phone-number:
       parameters:
@@ -821,15 +678,15 @@ examples:
           mobileNumber: "<value>"
       responses:
         "200":
-          application/json: {"items": [{"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}, {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}]}
+          application/json: {"items": [{"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "lineType": "mobile", "phoneNumber": "2001001695", "proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "lineType": "mobile", "phoneNumber": "2001001695", "proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DomainID:
     speakeasy-default-v3-domain-ID:
       responses:
@@ -894,26 +751,26 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DomainIDRequest:
     speakeasy-default-v3-domain-ID-request:
       responses:
         "200":
-          application/json: {"name": "My Company", "pcid": "123456"}
+          application/json: {"issuerId": "issuerId", "name": "My Company", "pcid": "123456"}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DomainLinkRequest:
     speakeasy-default-v3-domain-link-request:
       requestBody:
@@ -922,26 +779,26 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DomainLinkedRequest:
     speakeasy-default-v3-domain-linked-request:
       responses:
         "200":
           application/json: {"linkedFrom": [{"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}, {"acceptedAt": 0, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}], "linkedTo": [{"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}, {"acceptedAt": 6, "acceptedString": "acceptedString", "name": "name", "pcid": "pcid", "scopes": ["scopes", "scopes"]}], "requestsFrom": [{"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}, {"name": "name", "pcid": "pcid", "requestedAt": 1, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}], "requestsTo": [{"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}, {"name": "name", "pcid": "pcid", "requestedAt": 5, "requestedString": "requestedString", "scopes": ["scopes", "scopes"]}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3DomainUnlinkRequest:
     speakeasy-default-v3-domain-unlink-request:
       requestBody:
@@ -950,13 +807,13 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3CrossDomainIdentity:
     speakeasy-default-v3-cross-domain-identity:
       parameters:
@@ -968,13 +825,13 @@ examples:
         "200":
           application/json: {"count": 5, "identities": [{"clientName": "Client A", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "pcid": "12345"}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   V3VerifyBatchRequest:
     speakeasy-default-v3-verify-batch-request:
       requestBody:
@@ -983,13 +840,13 @@ examples:
         "200":
           application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "results": [{"additionalIdentities": [{"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}, {"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}], "assuranceLevel": "AL-1", "clientCustomerId": "261ffa66-961a-4f90-8d93-6c85a450633d", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "error": "", "evaluation": {"authentication": {}, "identification": {}}, "identity": {"assuranceLevel": "AL2", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL1a]"]}, "phoneNumber": "2001004053", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "4B2C41FC4VKDEO100F960011D0AD4A8050MEK19P4SF9PD23EFE27CD2C76A6FAA8375E60AC0550604F6G32D9ED60E06262CCC570F3C15F2D16900184E", "success": "true"}, {"additionalIdentities": [{"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}, {"assuranceLevel": "AL-1", "firstName": "Elena", "lastName": "Coldman", "reasons": ["[AL-1a] (Poor quality identity)"]}], "assuranceLevel": "AL-1", "clientCustomerId": "261ffa66-961a-4f90-8d93-6c85a450633d", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "error": "", "evaluation": {"authentication": {}, "risk": {}, "success": {}}, "identity": {"assuranceLevel": "AL0", "firstName": "Alf", "lastName": "Novotni", "reasons": ["[AL0b]"]}, "phoneNumber": "2001004054", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "4B2C41FC4VKDEO100F960011D0AD4A8050MEK19P4SF9PD23EFE27CD2C76A6FAA8375E60AC0550604F6G32D9ED60E06262CCC570F3C15F2D16900184E", "success": "false"}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
   AuthContinueRequest:
     speakeasy-default-auth-continue-request:
       requestBody:
@@ -1031,13 +888,15 @@ examples:
         "200":
           application/json: {"success": true}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+        "404":
+          application/json: {"code": 8011, "message": "Identity Not Found"}
   V3FetchRequest:
     speakeasy-default-v3-fetch-request:
       parameters:
@@ -1048,7 +907,7 @@ examples:
         "200":
           application/json: {"results": [{"attributeId": "550e8400-e29b-41d4-a716-446655440000", "attributeValue": "ext-wallet-992834", "issuerId": "Aeropay"}, {"attributeId": "550e8400-e29b-41d4-a716-446655440000", "attributeValue": "ext-wallet-992834", "issuerId": "Aeropay"}]}
         "400":
-          application/json: {"code": 1001, "message": "invalid request"}
+          application/json: {"code": 8002, "message": "not authorized"}
         "401":
           application/json: {"code": 8002, "message": "not authorized"}
         "403":
@@ -1056,6 +915,24 @@ examples:
         "404":
           application/json: {"code": 8011, "message": "Identity Not Found"}
         "500":
-          application/json: {"code": 1000, "message": "error occurred"}
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
+  V3DiscoverRequest:
+    speakeasy-default-v3-discover-request:
+      parameters:
+        query:
+          proveId: "<id>"
+      responses:
+        "200":
+          application/json: {"results": [{"attributeId": "550e8400-e29b-41d4-a716-446655440000", "attributeValue": "ext-wallet-992834", "issuerId": "Aeropay"}, {"attributeId": "550e8400-e29b-41d4-a716-446655440000", "attributeValue": "ext-wallet-992834", "issuerId": "Aeropay"}]}
+        "400":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "404":
+          application/json: {"code": 8011, "message": "Identity Not Found"}
+        "500":
+          application/json: {"code": 8000, "message": "error at prove, try again later"}
 examplesVersion: 1.0.2
 generatedTests: {}

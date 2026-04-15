@@ -22,6 +22,10 @@ export type V3EnrollIdentityRequest = {
    */
   clientCustomerId?: string | undefined;
   /**
+   * An optional client-generated unique ID our Enterprise customer inputs for that consumer across business lines. If the Enterprise customer has been able to identify a consumer across business lines and has a unique identifier for the consumer, they would input this value to Prove. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include personally identifiable information (PII) in this field.
+   */
+  clientHumanId?: string | undefined;
+  /**
    * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
    */
   clientRequestId?: string | undefined;
@@ -49,6 +53,7 @@ export const V3EnrollIdentityRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   clientCustomerId: z.string().optional(),
+  clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   deviceId: z.string().optional(),
   identityAttributes: z.array(IdentityAttribute$inboundSchema).optional(),
@@ -58,6 +63,7 @@ export const V3EnrollIdentityRequest$inboundSchema: z.ZodType<
 /** @internal */
 export type V3EnrollIdentityRequest$Outbound = {
   clientCustomerId?: string | undefined;
+  clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
   deviceId?: string | undefined;
   identityAttributes?: Array<IdentityAttribute$Outbound> | undefined;
@@ -71,6 +77,7 @@ export const V3EnrollIdentityRequest$outboundSchema: z.ZodType<
   V3EnrollIdentityRequest
 > = z.object({
   clientCustomerId: z.string().optional(),
+  clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   deviceId: z.string().optional(),
   identityAttributes: z.array(IdentityAttribute$outboundSchema).optional(),

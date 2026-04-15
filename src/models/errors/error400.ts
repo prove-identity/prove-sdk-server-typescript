@@ -5,32 +5,20 @@
 import * as z from "zod";
 import { ProveapiError } from "./proveapierror.js";
 
-/**
- * Error400 is a custom error for HTTP 400. This is used to support distinguishing
- *
- * @remarks
- * between HTTP 400 and 500 in Speakeasy SDKs.
- */
 export type Error400Data = {
   /**
-   * Code is an internal error code that describes the problem category of the request.
+   * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
   /**
-   * Message is an error message describing the problem with the request.
+   * The error message describing the problem with the request.
    */
   message: string;
 };
 
-/**
- * Error400 is a custom error for HTTP 400. This is used to support distinguishing
- *
- * @remarks
- * between HTTP 400 and 500 in Speakeasy SDKs.
- */
 export class Error400 extends ProveapiError {
   /**
-   * Code is an internal error code that describes the problem category of the request.
+   * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
 

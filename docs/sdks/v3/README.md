@@ -378,6 +378,7 @@ run();
 | errors.Error400  | 400              | application/json |
 | errors.Error401  | 401              | application/json |
 | errors.Error403  | 403              | application/json |
+| errors.Error404  | 404              | application/json |
 | errors.ErrorT    | 500              | application/json |
 | errors.SDKError  | 4XX, 5XX         | \*/\*            |
 
@@ -506,6 +507,7 @@ async function run() {
     emailAddress: "sbutrimovichb@who.int",
     finalTargetUrl: "https://www.example.com/landing-page",
     ipAddress: "192.168.0.1",
+    mobileAuthEnabled: true,
     phoneNumber: "2001004011",
     possessionType: "mobile",
     proveId: "a07b94ce-218c-461f-beda-d92480e40f61",
@@ -547,6 +549,7 @@ async function run() {
     emailAddress: "sbutrimovichb@who.int",
     finalTargetUrl: "https://www.example.com/landing-page",
     ipAddress: "192.168.0.1",
+    mobileAuthEnabled: true,
     phoneNumber: "2001004011",
     possessionType: "mobile",
     proveId: "a07b94ce-218c-461f-beda-d92480e40f61",

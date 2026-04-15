@@ -7,6 +7,7 @@ import { identityV3BatchEnrollIdentities } from "../funcs/identityV3BatchEnrollI
 import { identityV3BatchGetIdentities } from "../funcs/identityV3BatchGetIdentities.js";
 import { identityV3CrossDomainIdentity } from "../funcs/identityV3CrossDomainIdentity.js";
 import { identityV3DeactivateIdentity } from "../funcs/identityV3DeactivateIdentity.js";
+import { identityV3DiscoverRequest } from "../funcs/identityV3DiscoverRequest.js";
 import { identityV3DisenrollIdentity } from "../funcs/identityV3DisenrollIdentity.js";
 import { identityV3EnrollIdentity } from "../funcs/identityV3EnrollIdentity.js";
 import { identityV3FetchRequest } from "../funcs/identityV3FetchRequest.js";
@@ -18,6 +19,27 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Identity extends ClientSDK {
+  /**
+   * Discover Identity Attributes
+   *
+   * @remarks
+   * Discover which identity attributes (e.g., walletID, email) are available for a given ProveID.
+   * This endpoint returns a list of attribute IDs and their corresponding issuer IDs, which can then
+   * be used to fetch actual attribute values in the /v3/fetch endpoint.
+   */
+  async v3DiscoverRequest(
+    proveId: string,
+    clientRequestId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3DiscoverRequestResponse> {
+    return unwrapAsync(identityV3DiscoverRequest(
+      this,
+      proveId,
+      clientRequestId,
+      options,
+    ));
+  }
+
   /**
    * Fetch Identity Attributes
    *
@@ -97,65 +119,6 @@ export class Identity extends ClientSDK {
   }
 
   /**
-   * Disenroll Identity
-   *
-   * @remarks
-   * Disenrolls an identity from Identity Manager. If you wish to monitor in future, re-enrollment of that identity is required.
-   */
-  async v3DisenrollIdentity(
-    identityId: string,
-    clientRequestId?: string | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3DisenrollIdentityResponse> {
-    return unwrapAsync(identityV3DisenrollIdentity(
-      this,
-      identityId,
-      clientRequestId,
-      options,
-    ));
-  }
-
-  /**
-   * Get Identity
-   *
-   * @remarks
-   * Return details of an identity given the identity ID.
-   */
-  async v3GetIdentity(
-    identityId: string,
-    clientRequestId?: string | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3GetIdentityResponse> {
-    return unwrapAsync(identityV3GetIdentity(
-      this,
-      identityId,
-      clientRequestId,
-      options,
-    ));
-  }
-
-  /**
-   * Activate Identity
-   *
-   * @remarks
-   * Sets an identity as active for monitoring.
-   */
-  async v3ActivateIdentity(
-    identityId: string,
-    v3ActivateIdentityRequest?:
-      | components.V3ActivateIdentityRequest
-      | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3ActivateIdentityResponse> {
-    return unwrapAsync(identityV3ActivateIdentity(
-      this,
-      identityId,
-      v3ActivateIdentityRequest,
-      options,
-    ));
-  }
-
-  /**
    * Cross Domain Identity
    *
    * @remarks
@@ -177,27 +140,6 @@ export class Identity extends ClientSDK {
   }
 
   /**
-   * Deactivate Identity
-   *
-   * @remarks
-   * Stops webhook notifications without disenrolling the identity.
-   */
-  async v3DeactivateIdentity(
-    identityId: string,
-    v3IdentityDeactivateRequest?:
-      | components.V3IdentityDeactivateRequest
-      | undefined,
-    options?: RequestOptions,
-  ): Promise<operations.V3DeactivateIdentityResponse> {
-    return unwrapAsync(identityV3DeactivateIdentity(
-      this,
-      identityId,
-      v3IdentityDeactivateRequest,
-      options,
-    ));
-  }
-
-  /**
    * Get Identities By Phone Number
    *
    * @remarks
@@ -212,6 +154,86 @@ export class Identity extends ClientSDK {
       this,
       mobileNumber,
       clientRequestId,
+      options,
+    ));
+  }
+
+  /**
+   * Disenroll Identity
+   *
+   * @remarks
+   * Disenrolls an identity from Identity Manager. If you wish to monitor in future, re-enrollment of that identity is required.
+   */
+  async v3DisenrollIdentity(
+    proveId: string,
+    clientRequestId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3DisenrollIdentityResponse> {
+    return unwrapAsync(identityV3DisenrollIdentity(
+      this,
+      proveId,
+      clientRequestId,
+      options,
+    ));
+  }
+
+  /**
+   * Get Identity
+   *
+   * @remarks
+   * Return details of an identity given the prove ID.
+   */
+  async v3GetIdentity(
+    proveId: string,
+    clientRequestId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3GetIdentityResponse> {
+    return unwrapAsync(identityV3GetIdentity(
+      this,
+      proveId,
+      clientRequestId,
+      options,
+    ));
+  }
+
+  /**
+   * Activate Identity
+   *
+   * @remarks
+   * Sets an identity as active for monitoring.
+   */
+  async v3ActivateIdentity(
+    proveId: string,
+    v3ActivateIdentityRequest?:
+      | components.V3ActivateIdentityRequest
+      | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3ActivateIdentityResponse> {
+    return unwrapAsync(identityV3ActivateIdentity(
+      this,
+      proveId,
+      v3ActivateIdentityRequest,
+      options,
+    ));
+  }
+
+  /**
+   * Deactivate Identity
+   *
+   * @remarks
+   * Stops webhook notifications without disenrolling the identity.
+   */
+  async v3DeactivateIdentity(
+    proveId: string,
+    v3IdentityDeactivateRequest?:
+      | components.V3IdentityDeactivateRequest
+      | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.V3DeactivateIdentityResponse> {
+    return unwrapAsync(identityV3DeactivateIdentity(
+      this,
+      proveId,
+      v3IdentityDeactivateRequest,
       options,
     ));
   }

@@ -14,10 +14,10 @@ import {
 } from "./identityattribute.js";
 
 /**
- * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "bot", "prefill", "prefillForBiz", "identityResolution".
+ * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution".
  */
 export enum VerificationType {
-  Bot = "bot",
+  HumanAssurance = "humanAssurance",
   VerifiedUser = "verifiedUser",
   AccountOpening = "accountOpening",
   Prefill = "prefill",
@@ -71,7 +71,7 @@ export type V3VerifyRequest = {
    */
   userAgent?: string | undefined;
   /**
-   * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "bot", "prefill", "prefillForBiz", "identityResolution".
+   * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution".
    */
   verificationType: VerificationType;
 };

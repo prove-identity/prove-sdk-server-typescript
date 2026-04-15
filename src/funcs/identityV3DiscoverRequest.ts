@@ -3,14 +3,13 @@
  */
 
 import { ProveapiCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { RequestOptions } from "../lib/sdks.js";
 import { extractSecurity, resolveGlobalSecurity } from "../lib/security.js";
 import { pathToFunc } from "../lib/url.js";
-import * as components from "../models/components/index.js";
 import {
   ConnectionError,
   InvalidRequestError,
@@ -27,21 +26,25 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * AuthFinish /v1/server/auth/finish
+ * Discover Identity Attributes
  *
  * @remarks
- * To complete the auth flow and get the authentication result, send this AuthFinish request.
- *
- * Production URL: https://oapi.prove-auth.proveapis.com/v1/server/auth/finish
+ * Discover which identity attributes (e.g., walletID, email) are available for a given ProveID.
+ * This endpoint returns a list of attribute IDs and their corresponding issuer IDs, which can then
+ * be used to fetch actual attribute values in the /v3/fetch endpoint.
  */
-export function authAuthFinishRequest(
+export function identityV3DiscoverRequest(
   client: ProveapiCore,
-  request?: components.AuthFinishRequest | undefined,
+  proveId: string,
+  clientRequestId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.AuthFinishRequestResponse,
+    operations.V3DiscoverRequestResponse,
     | errors.Error400
+    | errors.Error401
+    | errors.Error403
+    | errors.Error404
     | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
@@ -55,20 +58,25 @@ export function authAuthFinishRequest(
 > {
   return new APIPromise($do(
     client,
-    request,
+    proveId,
+    clientRequestId,
     options,
   ));
 }
 
 async function $do(
   client: ProveapiCore,
-  request?: components.AuthFinishRequest | undefined,
+  proveId: string,
+  clientRequestId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      operations.AuthFinishRequestResponse,
+      operations.V3DiscoverRequestResponse,
       | errors.Error400
+      | errors.Error401
+      | errors.Error403
+      | errors.Error404
       | errors.ErrorT
       | ProveapiError
       | ResponseValidationError
@@ -82,24 +90,30 @@ async function $do(
     APICall,
   ]
 > {
+  const input: operations.V3DiscoverRequestRequest = {
+    proveId: proveId,
+    clientRequestId: clientRequestId,
+  };
+
   const parsed = safeParse(
-    request,
-    (value) =>
-      components.AuthFinishRequest$outboundSchema.optional().parse(value),
+    input,
+    (value) => operations.V3DiscoverRequestRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = payload === undefined
-    ? null
-    : encodeJSON("body", payload, { explode: true });
+  const body = null;
 
-  const path = pathToFunc("/v1/server/auth/finish")();
+  const path = pathToFunc("/v3/discover")();
+
+  const query = encodeFormQuery({
+    "clientRequestId": payload.clientRequestId,
+    "proveId": payload.proveId,
+  });
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -109,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "AuthFinishRequest",
+    operationID: "V3DiscoverRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -123,10 +137,11 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "POST",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
+    query: query,
     body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
@@ -138,7 +153,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -152,8 +167,11 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.AuthFinishRequestResponse,
+    operations.V3DiscoverRequestResponse,
     | errors.Error400
+    | errors.Error401
+    | errors.Error403
+    | errors.Error404
     | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
@@ -164,10 +182,13 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.AuthFinishRequestResponse$inboundSchema, {
-      key: "AuthFinishResponse",
+    M.json(200, operations.V3DiscoverRequestResponse$inboundSchema, {
+      key: "V3FetchResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
+    M.jsonErr(401, errors.Error401$inboundSchema),
+    M.jsonErr(403, errors.Error403$inboundSchema),
+    M.jsonErr(404, errors.Error404$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

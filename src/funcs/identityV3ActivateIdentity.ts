@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function identityV3ActivateIdentity(
   client: ProveapiCore,
-  identityId: string,
+  proveId: string,
   v3ActivateIdentityRequest?: components.V3ActivateIdentityRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -56,7 +56,7 @@ export function identityV3ActivateIdentity(
 > {
   return new APIPromise($do(
     client,
-    identityId,
+    proveId,
     v3ActivateIdentityRequest,
     options,
   ));
@@ -64,7 +64,7 @@ export function identityV3ActivateIdentity(
 
 async function $do(
   client: ProveapiCore,
-  identityId: string,
+  proveId: string,
   v3ActivateIdentityRequest?: components.V3ActivateIdentityRequest | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -88,7 +88,7 @@ async function $do(
   ]
 > {
   const input: operations.V3ActivateIdentityRequest = {
-    identityId: identityId,
+    proveId: proveId,
     v3ActivateIdentityRequest: v3ActivateIdentityRequest,
   };
 
@@ -106,13 +106,13 @@ async function $do(
   });
 
   const pathParams = {
-    identityId: encodeSimple("identityId", payload.identityId, {
+    proveId: encodeSimple("proveId", payload.proveId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v3/identity/{identityId}/activate")(pathParams);
+  const path = pathToFunc("/v3/identity/{proveId}/activate")(pathParams);
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",

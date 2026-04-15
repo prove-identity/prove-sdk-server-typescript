@@ -29,11 +29,11 @@ import { Result } from "../types/fp.js";
  * Get Identity
  *
  * @remarks
- * Return details of an identity given the identity ID.
+ * Return details of an identity given the prove ID.
  */
 export function identityV3GetIdentity(
   client: ProveapiCore,
-  identityId: string,
+  proveId: string,
   clientRequestId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -55,7 +55,7 @@ export function identityV3GetIdentity(
 > {
   return new APIPromise($do(
     client,
-    identityId,
+    proveId,
     clientRequestId,
     options,
   ));
@@ -63,7 +63,7 @@ export function identityV3GetIdentity(
 
 async function $do(
   client: ProveapiCore,
-  identityId: string,
+  proveId: string,
   clientRequestId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -87,7 +87,7 @@ async function $do(
   ]
 > {
   const input: operations.V3GetIdentityRequest = {
-    identityId: identityId,
+    proveId: proveId,
     clientRequestId: clientRequestId,
   };
 
@@ -103,13 +103,13 @@ async function $do(
   const body = null;
 
   const pathParams = {
-    identityId: encodeSimple("identityId", payload.identityId, {
+    proveId: encodeSimple("proveId", payload.proveId, {
       explode: false,
       charEncoding: "percent",
     }),
   };
 
-  const path = pathToFunc("/v3/identity/{identityId}")(pathParams);
+  const path = pathToFunc("/v3/identity/{proveId}")(pathParams);
 
   const query = encodeFormQuery({
     "clientRequestId": payload.clientRequestId,
