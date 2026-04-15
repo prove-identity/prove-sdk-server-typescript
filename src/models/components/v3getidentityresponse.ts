@@ -40,10 +40,6 @@ export type V3GetIdentityResponse = {
    */
   deviceId?: string | undefined;
   /**
-   * A unique Prove-generated identifier for the enrolled identity. This is a UUID that can be used to reference the identity in future requests.
-   */
-  identityId?: string | undefined;
-  /**
    * The type of line associated with this identity/mobile number.
    */
   lineType?: string | undefined;
@@ -55,6 +51,10 @@ export type V3GetIdentityResponse = {
    * require a leading `+` followed by the country code. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
+  /**
+   * A unique Prove-generated identifier for the enrolled identity. This is a UUID that can be used to reference the identity in future requests.
+   */
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -70,9 +70,9 @@ export const V3GetIdentityResponse$inboundSchema: z.ZodType<
   createdAt: z.number().int().optional(),
   creationString: z.string().optional(),
   deviceId: z.string().optional(),
-  identityId: z.string().optional(),
   lineType: z.string().optional(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
 });
 
 /** @internal */
@@ -84,9 +84,9 @@ export type V3GetIdentityResponse$Outbound = {
   createdAt?: number | undefined;
   creationString?: string | undefined;
   deviceId?: string | undefined;
-  identityId?: string | undefined;
   lineType?: string | undefined;
   phoneNumber: string;
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -102,9 +102,9 @@ export const V3GetIdentityResponse$outboundSchema: z.ZodType<
   createdAt: z.number().int().optional(),
   creationString: z.string().optional(),
   deviceId: z.string().optional(),
-  identityId: z.string().optional(),
   lineType: z.string().optional(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
 });
 
 /**

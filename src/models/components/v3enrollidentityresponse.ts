@@ -14,7 +14,7 @@ export type V3EnrollIdentityResponse = {
   /**
    * A unique Prove-generated identifier for the enrolled identity. This is a UUID that can be used to reference the identity in future requests.
    */
-  identityId: string;
+  proveId: string;
   /**
    * If true, the request was successful and the identity was created.
    */
@@ -27,13 +27,13 @@ export const V3EnrollIdentityResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  identityId: z.string(),
+  proveId: z.string(),
   success: z.boolean(),
 });
 
 /** @internal */
 export type V3EnrollIdentityResponse$Outbound = {
-  identityId: string;
+  proveId: string;
   success: boolean;
 };
 
@@ -43,7 +43,7 @@ export const V3EnrollIdentityResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3EnrollIdentityResponse
 > = z.object({
-  identityId: z.string(),
+  proveId: z.string(),
   success: z.boolean(),
 });
 

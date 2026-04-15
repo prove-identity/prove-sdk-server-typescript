@@ -3,7 +3,7 @@
  */
 
 import { ProveapiCore } from "../core.js";
-import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -26,22 +26,25 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get Identity
+ * Discover Identity Attributes
  *
  * @remarks
- * Return details of an identity given the prove ID.
+ * Discover which identity attributes (e.g., walletID, email) are available for a given ProveID.
+ * This endpoint returns a list of attribute IDs and their corresponding issuer IDs, which can then
+ * be used to fetch actual attribute values in the /v3/fetch endpoint.
  */
-export function identityV3GetIdentity(
+export function identityV3DiscoverRequest(
   client: ProveapiCore,
   proveId: string,
   clientRequestId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.V3GetIdentityResponse,
+    operations.V3DiscoverRequestResponse,
     | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.Error404
     | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
@@ -69,10 +72,11 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.V3GetIdentityResponse,
+      operations.V3DiscoverRequestResponse,
       | errors.Error400
       | errors.Error401
       | errors.Error403
+      | errors.Error404
       | errors.ErrorT
       | ProveapiError
       | ResponseValidationError
@@ -86,14 +90,14 @@ async function $do(
     APICall,
   ]
 > {
-  const input: operations.V3GetIdentityRequest = {
+  const input: operations.V3DiscoverRequestRequest = {
     proveId: proveId,
     clientRequestId: clientRequestId,
   };
 
   const parsed = safeParse(
     input,
-    (value) => operations.V3GetIdentityRequest$outboundSchema.parse(value),
+    (value) => operations.V3DiscoverRequestRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -102,17 +106,11 @@ async function $do(
   const payload = parsed.value;
   const body = null;
 
-  const pathParams = {
-    proveId: encodeSimple("proveId", payload.proveId, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/v3/identity/{proveId}")(pathParams);
+  const path = pathToFunc("/v3/discover")();
 
   const query = encodeFormQuery({
     "clientRequestId": payload.clientRequestId,
+    "proveId": payload.proveId,
   });
 
   const headers = new Headers(compactMap({
@@ -125,7 +123,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "V3GetIdentity",
+    operationID: "V3DiscoverRequest",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -155,7 +153,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "403", "4XX", "500", "5XX"],
+    errorCodes: ["400", "401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -169,10 +167,11 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.V3GetIdentityResponse,
+    operations.V3DiscoverRequestResponse,
     | errors.Error400
     | errors.Error401
     | errors.Error403
+    | errors.Error404
     | errors.ErrorT
     | ProveapiError
     | ResponseValidationError
@@ -183,12 +182,14 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.V3GetIdentityResponse$inboundSchema, {
-      key: "V3GetIdentityResponse",
+    M.json(200, operations.V3DiscoverRequestResponse$inboundSchema, {
+      hdrs: true,
+      key: "V3DiscoverResponse",
     }),
     M.jsonErr(400, errors.Error400$inboundSchema),
     M.jsonErr(401, errors.Error401$inboundSchema),
     M.jsonErr(403, errors.Error403$inboundSchema),
+    M.jsonErr(404, errors.Error404$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

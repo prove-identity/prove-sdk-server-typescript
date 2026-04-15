@@ -13,6 +13,7 @@ export * from "./v3completerequest.js";
 export * from "./v3crossdomainidentity.js";
 export * from "./v3deactivateidentity.js";
 export * from "./v3devicerevokerequest.js";
+export * from "./v3discoverrequest.js";
 export * from "./v3disenrollidentity.js";
 export * from "./v3domainconfirmlinkrequest.js";
 export * from "./v3domainidrequest.js";

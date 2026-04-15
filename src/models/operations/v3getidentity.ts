@@ -13,7 +13,7 @@ export type V3GetIdentityRequest = {
   /**
    * A unique Prove-generated identifier for the enrolled identity.
    */
-  identityId: string;
+  proveId: string;
   /**
    * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
    */
@@ -34,13 +34,13 @@ export const V3GetIdentityRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  identityId: z.string(),
+  proveId: z.string(),
   clientRequestId: z.string().optional(),
 });
 
 /** @internal */
 export type V3GetIdentityRequest$Outbound = {
-  identityId: string;
+  proveId: string;
   clientRequestId?: string | undefined;
 };
 
@@ -50,7 +50,7 @@ export const V3GetIdentityRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3GetIdentityRequest
 > = z.object({
-  identityId: z.string(),
+  proveId: z.string(),
   clientRequestId: z.string().optional(),
 });
 

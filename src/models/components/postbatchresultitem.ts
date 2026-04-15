@@ -18,7 +18,7 @@ export type PostBatchResultItem = {
   /**
    * A unique Prove-generated identifier for the enrolled identity. This is a UUID that can be used to reference the identity in future requests.
    */
-  identityId?: string | undefined;
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -28,13 +28,13 @@ export const PostBatchResultItem$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   error: z.string().optional(),
-  identityId: z.string().optional(),
+  proveId: z.string().optional(),
 });
 
 /** @internal */
 export type PostBatchResultItem$Outbound = {
   error?: string | undefined;
-  identityId?: string | undefined;
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -44,7 +44,7 @@ export const PostBatchResultItem$outboundSchema: z.ZodType<
   PostBatchResultItem
 > = z.object({
   error: z.string().optional(),
-  identityId: z.string().optional(),
+  proveId: z.string().optional(),
 });
 
 /**

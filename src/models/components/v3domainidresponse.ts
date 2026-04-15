@@ -9,6 +9,10 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type V3DomainIDResponse = {
   /**
+   * Issuer ID
+   */
+  issuerId: string;
+  /**
    * Customer friendly name
    */
   name: string;
@@ -24,12 +28,14 @@ export const V3DomainIDResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  issuerId: z.string(),
   name: z.string(),
   pcid: z.string(),
 });
 
 /** @internal */
 export type V3DomainIDResponse$Outbound = {
+  issuerId: string;
   name: string;
   pcid: string;
 };
@@ -40,6 +46,7 @@ export const V3DomainIDResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3DomainIDResponse
 > = z.object({
+  issuerId: z.string(),
   name: z.string(),
   pcid: z.string(),
 });

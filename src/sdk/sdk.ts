@@ -19,13 +19,13 @@ export class Proveapi extends ClientSDK {
     return (this._auth ??= new Auth(this._options));
   }
 
-  private _domain?: Domain;
-  get domain(): Domain {
-    return (this._domain ??= new Domain(this._options));
-  }
-
   private _identity?: Identity;
   get identity(): Identity {
     return (this._identity ??= new Identity(this._options));
+  }
+
+  private _domain?: Domain;
+  get domain(): Domain {
+    return (this._domain ??= new Domain(this._options));
   }
 }

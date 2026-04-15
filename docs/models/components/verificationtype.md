@@ -1,6 +1,6 @@
 # VerificationType
 
-The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "bot", "prefill", "prefillForBiz", "identityResolution".
+The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution".
 
 ## Example Usage
 
@@ -14,7 +14,7 @@ let value: VerificationType = VerificationType.VerifiedUser;
 
 | Name                 | Value                |
 | -------------------- | -------------------- |
-| `Bot`                | bot                  |
+| `HumanAssurance`     | humanAssurance       |
 | `VerifiedUser`       | verifiedUser         |
 | `AccountOpening`     | accountOpening       |
 | `Prefill`            | prefill              |

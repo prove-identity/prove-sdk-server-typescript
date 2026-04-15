@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: a1cabeebfee7d9b887987bbe82430bfb
+  docChecksum: 324c7662dd3c61bde7b11dce25e66949
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.6
-  configChecksum: 52163e2854263690d7cb6168adbe0b0c
+  releaseVersion: 0.14.8
+  configChecksum: f195f7f2f27c101af42d7ab510f7cfb3
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -125,6 +125,7 @@ generatedFiles:
   - docs/models/components/pushtoken.md
   - docs/models/components/requestsfrom.md
   - docs/models/components/requeststo.md
+  - docs/models/components/result.md
   - docs/models/components/security.md
   - docs/models/components/subjectdeviceresultsuccessextrastrust.md
   - docs/models/components/subscores.md
@@ -148,6 +149,7 @@ generatedFiles:
   - docs/models/components/v3deactivateidentityresponse.md
   - docs/models/components/v3devicerevokerequest.md
   - docs/models/components/v3devicerevokeresponse.md
+  - docs/models/components/v3discoverresponse.md
   - docs/models/components/v3disenrollidentityresponse.md
   - docs/models/components/v3domainconfirmlinkrequest.md
   - docs/models/components/v3domainconfirmlinkresponse.md
@@ -207,6 +209,8 @@ generatedFiles:
   - docs/models/operations/v3deactivateidentityrequest.md
   - docs/models/operations/v3deactivateidentityresponse.md
   - docs/models/operations/v3devicerevokerequestresponse.md
+  - docs/models/operations/v3discoverrequestrequest.md
+  - docs/models/operations/v3discoverrequestresponse.md
   - docs/models/operations/v3disenrollidentityrequest.md
   - docs/models/operations/v3disenrollidentityresponse.md
   - docs/models/operations/v3domainconfirmlinkrequestresponse.md
@@ -255,6 +259,7 @@ generatedFiles:
   - src/funcs/identityV3BatchGetIdentities.ts
   - src/funcs/identityV3CrossDomainIdentity.ts
   - src/funcs/identityV3DeactivateIdentity.ts
+  - src/funcs/identityV3DiscoverRequest.ts
   - src/funcs/identityV3DisenrollIdentity.ts
   - src/funcs/identityV3EnrollIdentity.ts
   - src/funcs/identityV3FetchRequest.ts
@@ -378,6 +383,7 @@ generatedFiles:
   - src/models/components/pushtoken.ts
   - src/models/components/requestsfrom.ts
   - src/models/components/requeststo.ts
+  - src/models/components/result.ts
   - src/models/components/security.ts
   - src/models/components/subjectdeviceresultsuccessextrastrust.ts
   - src/models/components/subscores.ts
@@ -400,6 +406,7 @@ generatedFiles:
   - src/models/components/v3deactivateidentityresponse.ts
   - src/models/components/v3devicerevokerequest.ts
   - src/models/components/v3devicerevokeresponse.ts
+  - src/models/components/v3discoverresponse.ts
   - src/models/components/v3disenrollidentityresponse.ts
   - src/models/components/v3domainconfirmlinkrequest.ts
   - src/models/components/v3domainconfirmlinkresponse.ts
@@ -456,6 +463,7 @@ generatedFiles:
   - src/models/operations/v3crossdomainidentity.ts
   - src/models/operations/v3deactivateidentity.ts
   - src/models/operations/v3devicerevokerequest.ts
+  - src/models/operations/v3discoverrequest.ts
   - src/models/operations/v3disenrollidentity.ts
   - src/models/operations/v3domainconfirmlinkrequest.ts
   - src/models/operations/v3domainidrequest.ts
@@ -592,7 +600,7 @@ examples:
   V3UnifyRequest:
     speakeasy-default-v3-unify-request:
       requestBody:
-        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.0.1", "phoneNumber": "2001004011", "possessionType": "mobile", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "rebind": true, "smsMessage": "#### is your verification code."}
+        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.0.1", "mobileAuthEnabled": true, "phoneNumber": "2001004011", "possessionType": "mobile", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "rebind": true, "smsMessage": "#### is your verification code."}
       responses:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "pending"}
@@ -707,7 +715,7 @@ examples:
     speakeasy-default-v3-batch-get-identities:
       responses:
         "200":
-          application/json: {"lastKey": "fNqtI2wVPka+yAFC5qRtrQ==", "results": [{"identityId": "4a6317c1-4855-4900-b369-bed138f4ec00"}, {"identityId": "e53c0597-1cce-4d8f-bd1b-e0a10f875ac9"}]}
+          application/json: {"lastKey": "fNqtI2wVPka+yAFC5qRtrQ==", "results": [{"proveId": "4a6317c1-4855-4900-b369-bed138f4ec00"}, {"proveId": "e53c0597-1cce-4d8f-bd1b-e0a10f875ac9"}]}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -719,10 +727,10 @@ examples:
   V3EnrollIdentity:
     speakeasy-default-v3-enroll-identity:
       requestBody:
-        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityAttributes": [{"attributeType": "myWalletId", "attributeValue": "token123"}], "phoneNumber": "2001001695"}
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityAttributes": [{"attributeType": "myWalletId", "attributeValue": "token123"}], "phoneNumber": "2001001695"}
       responses:
         "200":
-          application/json: {"identityId": "863189q5-5555-4c15-89ba-15d08710aecz", "success": true}
+          application/json: {"proveId": "863189q5-5555-4c15-89ba-15d08710aecz", "success": true}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -737,7 +745,7 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "items": [{"clientName": "\"Client A\"", "identityId": "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"", "pcid": "\"12345\""}, {"clientName": "\"Client A\"", "identityId": "\"e0f78bc2-f748-4eda-9d29-d756844507fc\"", "pcid": "\"12345\""}]}
       responses:
         "200":
-          application/json: {"results": [{"identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"error": "Invalid Phone Number"}]}
+          application/json: {"results": [{"proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"error": "Invalid Phone Number"}]}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -751,6 +759,7 @@ examples:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       responses:
         "200":
           application/json: {"success": true}
@@ -767,9 +776,10 @@ examples:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       responses:
         "200":
-          application/json: {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}
+          application/json: {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "lineType": "mobile", "phoneNumber": "2001001695", "proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -783,6 +793,7 @@ examples:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       requestBody:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81"}
       responses:
@@ -801,6 +812,7 @@ examples:
       parameters:
         path:
           identityId: "<id>"
+          proveId: "<id>"
       requestBody:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81"}
       responses:
@@ -821,7 +833,7 @@ examples:
           mobileNumber: "<value>"
       responses:
         "200":
-          application/json: {"items": [{"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}, {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "identityId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "lineType": "mobile", "phoneNumber": "2001001695"}]}
+          application/json: {"items": [{"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "lineType": "mobile", "phoneNumber": "2001001695", "proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}, {"active": true, "carrier": "Verizon", "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "countryCode": "US", "createdAt": 1747671792, "creationString": "2025-05-19T16:23:12.475Z", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "lineType": "mobile", "phoneNumber": "2001001695", "proveId": "e0f78bc2-f748-4eda-9d29-d756844507fc"}]}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -905,7 +917,7 @@ examples:
     speakeasy-default-v3-domain-ID-request:
       responses:
         "200":
-          application/json: {"name": "My Company", "pcid": "123456"}
+          application/json: {"issuerId": "issuerId", "name": "My Company", "pcid": "123456"}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -1038,6 +1050,8 @@ examples:
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
           application/json: {"code": 1000, "message": "error occurred"}
+        "404":
+          application/json: {"code": 8011, "message": "Identity Not Found"}
   V3FetchRequest:
     speakeasy-default-v3-fetch-request:
       parameters:
@@ -1047,6 +1061,24 @@ examples:
       responses:
         "200":
           application/json: {"results": [{"attributeId": "550e8400-e29b-41d4-a716-446655440000", "attributeValue": "ext-wallet-992834", "issuerId": "Aeropay"}, {"attributeId": "550e8400-e29b-41d4-a716-446655440000", "attributeValue": "ext-wallet-992834", "issuerId": "Aeropay"}]}
+        "400":
+          application/json: {"code": 1001, "message": "invalid request"}
+        "401":
+          application/json: {"code": 8002, "message": "not authorized"}
+        "403":
+          application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
+        "404":
+          application/json: {"code": 8011, "message": "Identity Not Found"}
+        "500":
+          application/json: {"code": 1000, "message": "error occurred"}
+  V3DiscoverRequest:
+    speakeasy-default-v3-discover-request:
+      parameters:
+        query:
+          proveId: "<id>"
+      responses:
+        "200":
+          application/json: {"results": [{"attributeId": "123e4567-e89b-12d3-a456-426614174000", "issuerId": "\"prove\""}, {"attributeId": "123e4567-e89b-12d3-a456-426614174000", "issuerId": "\"prove\""}]}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":

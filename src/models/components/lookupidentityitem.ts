@@ -40,10 +40,6 @@ export type LookupIdentityItem = {
    */
   deviceId?: string | undefined;
   /**
-   * A Prove-generated unique ID for a specific identity.
-   */
-  identityId?: string | undefined;
-  /**
    * The type of line associated with this identity/mobile number.
    */
   lineType?: string | undefined;
@@ -55,6 +51,10 @@ export type LookupIdentityItem = {
    * require a leading `+` followed by the country code. Acceptable characters are: alphanumeric with symbols '+'.
    */
   phoneNumber: string;
+  /**
+   * A Prove-generated unique ID for a specific identity.
+   */
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -70,9 +70,9 @@ export const LookupIdentityItem$inboundSchema: z.ZodType<
   createdAt: z.number().int().optional(),
   creationString: z.string().optional(),
   deviceId: z.string().optional(),
-  identityId: z.string().optional(),
   lineType: z.string().optional(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
 });
 
 /** @internal */
@@ -84,9 +84,9 @@ export type LookupIdentityItem$Outbound = {
   createdAt?: number | undefined;
   creationString?: string | undefined;
   deviceId?: string | undefined;
-  identityId?: string | undefined;
   lineType?: string | undefined;
   phoneNumber: string;
+  proveId?: string | undefined;
 };
 
 /** @internal */
@@ -102,9 +102,9 @@ export const LookupIdentityItem$outboundSchema: z.ZodType<
   createdAt: z.number().int().optional(),
   creationString: z.string().optional(),
   deviceId: z.string().optional(),
-  identityId: z.string().optional(),
   lineType: z.string().optional(),
   phoneNumber: z.string(),
+  proveId: z.string().optional(),
 });
 
 /**

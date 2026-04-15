@@ -190,16 +190,17 @@ run();
 
 ### [identity](docs/sdks/identity/README.md)
 
+* [v3DiscoverRequest](docs/sdks/identity/README.md#v3discoverrequest) - Discover Identity Attributes
 * [v3FetchRequest](docs/sdks/identity/README.md#v3fetchrequest) - Fetch Identity Attributes
 * [v3BatchGetIdentities](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
 * [v3EnrollIdentity](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity
 * [v3BatchEnrollIdentities](docs/sdks/identity/README.md#v3batchenrollidentities) - Batch Enroll Identities
+* [v3CrossDomainIdentity](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
+* [v3GetIdentitiesByPhoneNumber](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 * [v3DisenrollIdentity](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
 * [v3GetIdentity](docs/sdks/identity/README.md#v3getidentity) - Get Identity
 * [v3ActivateIdentity](docs/sdks/identity/README.md#v3activateidentity) - Activate Identity
-* [v3CrossDomainIdentity](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
 * [v3DeactivateIdentity](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
-* [v3GetIdentitiesByPhoneNumber](docs/sdks/identity/README.md#v3getidentitiesbyphonenumber) - Get Identities By Phone Number
 
 
 ### [v3](docs/sdks/v3/README.md)
@@ -289,7 +290,7 @@ run();
 
 
 **Inherit from [`ProveapiError`](./src/models/errors/proveapierror.ts)**:
-* [`Error404`](./src/models/errors/error404.ts): Not Found. The server cannot find the requested resource. Status code `404`. Applicable to 1 of 29 methods.*
+* [`Error404`](./src/models/errors/error404.ts): Not Found. The server cannot find the requested resource. Status code `404`. Applicable to 3 of 30 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -541,6 +542,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`identityV3BatchGetIdentities`](docs/sdks/identity/README.md#v3batchgetidentities) - Batch Get Identities
 - [`identityV3CrossDomainIdentity`](docs/sdks/identity/README.md#v3crossdomainidentity) - Cross Domain Identity
 - [`identityV3DeactivateIdentity`](docs/sdks/identity/README.md#v3deactivateidentity) - Deactivate Identity
+- [`identityV3DiscoverRequest`](docs/sdks/identity/README.md#v3discoverrequest) - Discover Identity Attributes
 - [`identityV3DisenrollIdentity`](docs/sdks/identity/README.md#v3disenrollidentity) - Disenroll Identity
 - [`identityV3EnrollIdentity`](docs/sdks/identity/README.md#v3enrollidentity) - Enroll Identity
 - [`identityV3FetchRequest`](docs/sdks/identity/README.md#v3fetchrequest) - Fetch Identity Attributes

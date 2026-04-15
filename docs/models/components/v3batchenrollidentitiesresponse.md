@@ -10,7 +10,7 @@ import { V3BatchEnrollIdentitiesResponse } from "@prove-identity/prove-api/model
 let value: V3BatchEnrollIdentitiesResponse = {
   results: [
     {
-      identityId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
+      proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
     },
     {
       error: "Invalid Phone Number",
