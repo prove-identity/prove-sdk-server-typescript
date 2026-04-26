@@ -7,6 +7,12 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
+  Business,
+  Business$inboundSchema,
+  Business$Outbound,
+  Business$outboundSchema,
+} from "./business.js";
+import {
   Identity,
   Identity$inboundSchema,
   Identity$Outbound,
@@ -20,6 +26,10 @@ export type V3VerifyResponse = {
    * Additional Identities found as part of the verification flow.
    */
   additionalIdentities?: Array<Identity> | undefined;
+  /**
+   * Businesses is used for business prefill.
+   */
+  businesses?: Array<Business> | undefined;
   /**
    * The input ClientCustomerID.
    */
@@ -41,6 +51,10 @@ export type V3VerifyResponse = {
    */
   evaluation?: { [k: string]: V3VerifyResponseEvaluation } | undefined;
   identity?: Identity | undefined;
+  /**
+   * IsEnrolled indicates whether the identity was successfully enrolled into Identity Manager.
+   */
+  isEnrolled?: boolean | undefined;
   /**
    * The input phone number.
    */
@@ -114,6 +128,7 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   additionalIdentities: z.array(Identity$inboundSchema).optional(),
+  businesses: z.array(Business$inboundSchema).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
@@ -121,6 +136,7 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$inboundSchema))
     .optional(),
   identity: Identity$inboundSchema.optional(),
+  isEnrolled: z.boolean().optional(),
   phoneNumber: z.string(),
   proveId: z.string().optional(),
   provePhoneAlias: z.string().optional(),
@@ -130,12 +146,14 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type V3VerifyResponse$Outbound = {
   additionalIdentities?: Array<Identity$Outbound> | undefined;
+  businesses?: Array<Business$Outbound> | undefined;
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
   correlationId: string;
   evaluation?: { [k: string]: V3VerifyResponseEvaluation$Outbound } | undefined;
   identity?: Identity$Outbound | undefined;
+  isEnrolled?: boolean | undefined;
   phoneNumber: string;
   proveId?: string | undefined;
   provePhoneAlias?: string | undefined;
@@ -149,6 +167,7 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   V3VerifyResponse
 > = z.object({
   additionalIdentities: z.array(Identity$outboundSchema).optional(),
+  businesses: z.array(Business$outboundSchema).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
@@ -156,6 +175,7 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$outboundSchema))
     .optional(),
   identity: Identity$outboundSchema.optional(),
+  isEnrolled: z.boolean().optional(),
   phoneNumber: z.string(),
   proveId: z.string().optional(),
   provePhoneAlias: z.string().optional(),
