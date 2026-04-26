@@ -214,7 +214,7 @@ run();
 * [v3UnifyBindRequest](docs/sdks/v3/README.md#v3unifybindrequest) - Bind Prove Key
 * [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
-* [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Verify User
+* [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Verify
 * [v3VerifyBatchRequest](docs/sdks/v3/README.md#v3verifybatchrequest) - Batch Verify Users
 
 </details>
@@ -558,7 +558,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
 - [`v3V3VerifyBatchRequest`](docs/sdks/v3/README.md#v3verifybatchrequest) - Batch Verify Users
-- [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Verify User
+- [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Verify
 
 </details>
 <!-- End Standalone functions [standalone-funcs] -->
