@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 324c7662dd3c61bde7b11dce25e66949
+  docChecksum: c18ca7de08346358d979cfafad80cdbc
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.8
-  configChecksum: f195f7f2f27c101af42d7ab510f7cfb3
+  releaseVersion: 0.14.9
+  configChecksum: 04695adf6ed7e01c509c0f1d1b489a89
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -34,6 +34,7 @@ generatedFiles:
   - RUNTIMES.md
   - USAGE.md
   - docs/lib/utils/retryconfig.md
+  - docs/models/components/address.md
   - docs/models/components/amltypelistresponseinternal.md
   - docs/models/components/authcontinuerequest.md
   - docs/models/components/authcontinuerequestsubjectmobile.md
@@ -99,6 +100,8 @@ generatedFiles:
   - docs/models/components/authstartrequestsubjectuserauthenticators.md
   - docs/models/components/authstartrequestsubjectuserclaim.md
   - docs/models/components/authstartresponse.md
+  - docs/models/components/business.md
+  - docs/models/components/businessaddress.md
   - docs/models/components/datasourceaddressresponseinternal.md
   - docs/models/components/datasourceemailaddressresponseinternal.md
   - docs/models/components/datasourceidentifiersresponseinternal.md
@@ -123,6 +126,8 @@ generatedFiles:
   - docs/models/components/ppb.md
   - docs/models/components/present.md
   - docs/models/components/pushtoken.md
+  - docs/models/components/registrationfiling.md
+  - docs/models/components/relatedperson.md
   - docs/models/components/requestsfrom.md
   - docs/models/components/requeststo.md
   - docs/models/components/result.md
@@ -296,6 +301,7 @@ generatedFiles:
   - src/lib/sdks.ts
   - src/lib/security.ts
   - src/lib/url.ts
+  - src/models/components/address.ts
   - src/models/components/amltypelistresponseinternal.ts
   - src/models/components/authcontinuerequest.ts
   - src/models/components/authcontinuerequestsubjectmobile.ts
@@ -361,6 +367,8 @@ generatedFiles:
   - src/models/components/authstartrequestsubjectuserauthenticators.ts
   - src/models/components/authstartrequestsubjectuserclaim.ts
   - src/models/components/authstartresponse.ts
+  - src/models/components/business.ts
+  - src/models/components/businessaddress.ts
   - src/models/components/datasourceaddressresponseinternal.ts
   - src/models/components/datasourceemailaddressresponseinternal.ts
   - src/models/components/datasourceidentifiersresponseinternal.ts
@@ -381,6 +389,8 @@ generatedFiles:
   - src/models/components/lookupidentityitem.ts
   - src/models/components/postbatchresultitem.ts
   - src/models/components/pushtoken.ts
+  - src/models/components/registrationfiling.ts
+  - src/models/components/relatedperson.ts
   - src/models/components/requestsfrom.ts
   - src/models/components/requeststo.ts
   - src/models/components/result.ts
@@ -696,6 +706,12 @@ examples:
           application/json: {"code": 8003, "message": "Access forbidden: insufficient permissions"}
         "500":
           application/json: {"code": 1000, "message": "error occurred"}
+    Prefill consumer identity (synthetic):
+      requestBody:
+        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "ecoldman1h@storify.com", "firstName": "Elena", "identityAttributes": [{"attributeType": "walletId", "attributeValue": "wallet123"}], "ipAddress": "192.168.1.1", "lastName": "Coldman", "phoneNumber": "2001004053", "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0", "verificationType": "verifiedUser"}
+      responses:
+        "200":
+          application/json: {"clientRequestId": "client-synthetic-prefill-001", "correlationId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "evaluation": {"authentication": {}, "identification": {}, "risk": {}}, "identity": {"addresses": [{"address": "100 Synthetic St", "city": "Exampletown", "extendedAddress": "Unit 1", "region": "EX", "zipCode": "00001"}, {"address": "200 Placeholder Rd", "city": "Demo City", "extendedAddress": "", "region": "DM", "zipCode": "00002"}], "assuranceLevel": "AL3", "dateOfBirth": "1990-06-15", "emails": ["sample.person@example.invalid", "s.person@example.invalid"], "firstName": "Sample", "lastName": "Person", "nationalId": "900-00-0000", "reasons": ["AL3a"]}, "isEnrolled": true, "phoneNumber": "+15555550123", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "SYNTHPFA00000000000000000000000000000000000000000000000000000001", "success": "true"}
   V3VerifyStatusRequest:
     speakeasy-default-v3-verify-status-request:
       requestBody:
