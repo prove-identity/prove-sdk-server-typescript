@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: c18ca7de08346358d979cfafad80cdbc
+  docChecksum: 2606b2a497037963034da8bce20aaeb5
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.9
-  configChecksum: 04695adf6ed7e01c509c0f1d1b489a89
+  releaseVersion: 0.14.10
+  configChecksum: 400b53fe2ccf2aefb832ba37f665f30d
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -108,7 +108,6 @@ generatedFiles:
   - docs/models/components/datasourceinternal.md
   - docs/models/components/datasourcenameresponseinternal.md
   - docs/models/components/docv.md
-  - docs/models/components/evaluation.md
   - docs/models/components/fetchresult.md
   - docs/models/components/fingerprint.md
   - docs/models/components/getbatchidentityitem.md
@@ -148,7 +147,6 @@ generatedFiles:
   - docs/models/components/v3completeindividualrequest.md
   - docs/models/components/v3completerequest.md
   - docs/models/components/v3completeresponse.md
-  - docs/models/components/v3completeresponseevaluation.md
   - docs/models/components/v3crossdomainidentityrequest.md
   - docs/models/components/v3crossdomainidentityresponse.md
   - docs/models/components/v3deactivateidentityresponse.md
@@ -176,24 +174,15 @@ generatedFiles:
   - docs/models/components/v3tokenresponse.md
   - docs/models/components/v3unifybindrequest.md
   - docs/models/components/v3unifybindresponse.md
-  - docs/models/components/v3unifybindresponseevaluation.md
   - docs/models/components/v3unifyrequest.md
   - docs/models/components/v3unifyresponse.md
   - docs/models/components/v3unifystatusrequest.md
   - docs/models/components/v3unifystatusresponse.md
-  - docs/models/components/v3unifystatusresponseevaluation.md
   - docs/models/components/v3validaterequest.md
   - docs/models/components/v3validateresponse.md
-  - docs/models/components/v3validateresponseevaluation.md
-  - docs/models/components/v3verifybatchrequest.md
-  - docs/models/components/v3verifybatchresponse.md
   - docs/models/components/v3verifyrequest.md
   - docs/models/components/v3verifyresponse.md
-  - docs/models/components/v3verifyresponseevaluation.md
   - docs/models/components/verificationtype.md
-  - docs/models/components/verifybatchrequestitem.md
-  - docs/models/components/verifybatchresultitem.md
-  - docs/models/components/verifybatchresultitemevaluation.md
   - docs/models/errors/error400.md
   - docs/models/errors/error401.md
   - docs/models/errors/error403.md
@@ -236,7 +225,6 @@ generatedFiles:
   - docs/models/operations/v3unifyrequestresponse.md
   - docs/models/operations/v3unifystatusrequestresponse.md
   - docs/models/operations/v3validaterequestresponse.md
-  - docs/models/operations/v3verifybatchrequestresponse.md
   - docs/models/operations/v3verifyrequestresponse.md
   - docs/sdks/auth/README.md
   - docs/sdks/domain/README.md
@@ -279,7 +267,6 @@ generatedFiles:
   - src/funcs/v3V3UnifyRequest.ts
   - src/funcs/v3V3UnifyStatusRequest.ts
   - src/funcs/v3V3ValidateRequest.ts
-  - src/funcs/v3V3VerifyBatchRequest.ts
   - src/funcs/v3V3VerifyRequest.ts
   - src/hooks/clientcredentials.ts
   - src/hooks/hooks.ts
@@ -444,12 +431,8 @@ generatedFiles:
   - src/models/components/v3unifystatusresponse.ts
   - src/models/components/v3validaterequest.ts
   - src/models/components/v3validateresponse.ts
-  - src/models/components/v3verifybatchrequest.ts
-  - src/models/components/v3verifybatchresponse.ts
   - src/models/components/v3verifyrequest.ts
   - src/models/components/v3verifyresponse.ts
-  - src/models/components/verifybatchrequestitem.ts
-  - src/models/components/verifybatchresultitem.ts
   - src/models/errors/error.ts
   - src/models/errors/error400.ts
   - src/models/errors/error401.ts
@@ -490,7 +473,6 @@ generatedFiles:
   - src/models/operations/v3unifyrequest.ts
   - src/models/operations/v3unifystatusrequest.ts
   - src/models/operations/v3validaterequest.ts
-  - src/models/operations/v3verifybatchrequest.ts
   - src/models/operations/v3verifyrequest.ts
   - src/sdk/auth.ts
   - src/sdk/domain.ts
@@ -542,13 +524,13 @@ examples:
         application/json: {"correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "dob": "1981-01", "ssn": "0596"}
       responses:
         "200":
-          application/json: {"evaluation": {"authentication": {}, "identification": {}, "success": {}}, "next": {"v3-complete": "/v3/complete"}, "success": true}
+          application/json: {"evaluation": {"authentication": {"result": "pass"}, "identification": {"result": "pass"}, "success": true}, "next": {"v3-complete": "/v3/complete"}, "success": true}
     Response with Failed Evaluation:
       requestBody:
         application/json: {"correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "dob": "1981-01", "ssn": "0596"}
       responses:
         "200":
-          application/json: {"evaluation": {"authentication": {}, "identification": {}, "success": {}}, "next": {"v3-complete": "/v3/complete"}, "success": false}
+          application/json: {"evaluation": {"authentication": {"failureReasons": {"9003": "Identity is not found."}, "result": "fail"}, "identification": {"failureReasons": {"9003": "Identity is not found."}, "result": "fail"}, "success": false}, "next": {"v3-complete": "/v3/complete"}, "success": false}
   V3CompleteRequest:
     Standard Response:
       requestBody:
@@ -585,13 +567,13 @@ examples:
         application/json: {"correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "individual": {"addresses": [{"address": "39 South Trail", "city": "San Antonio", "extendedAddress": "Apt 23", "postalCode": "78285", "region": "TX"}], "dob": "1981-01", "emailAddresses": ["jdoe@example.com"], "firstName": "Tod", "lastName": "Weedall", "ssn": "265228370"}}
       responses:
         "200":
-          application/json: {"evaluation": {"authentication": {}, "identification": {}}, "next": {"done": "done"}, "success": true}
+          application/json: {"evaluation": {"authentication": {"result": "pass"}, "identification": {"result": "pass"}}, "next": {"done": "done"}, "success": true}
     Response with Failed Evaluation:
       requestBody:
         application/json: {"correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "individual": {"addresses": [{"address": "39 South Trail", "city": "San Antonio", "extendedAddress": "Apt 23", "postalCode": "78285", "region": "TX"}], "dob": "1981-01", "emailAddresses": ["jdoe@example.com"], "firstName": "Tod", "lastName": "Weedall", "ssn": "265228370"}}
       responses:
         "200":
-          application/json: {"evaluation": {"authentication": {}, "identification": {}}, "next": {"done": "done"}, "success": false}
+          application/json: {"evaluation": {"authentication": {"failureReasons": {"9161": "Very short tenure association between phone number and identity.", "9171": "Potential injection attack due to 2 identities both with short tenure association to the phone number.", "9180": "No phone ownership confirmed using 4 elements."}, "result": "fail"}, "identification": {"failureReasons": {"9001": "Identification is not confirmed using 4 elements."}, "result": "fail"}}, "next": {"done": "done"}, "success": false}
   V3StartRequest:
     speakeasy-default-v3-start-request:
       requestBody:
@@ -610,7 +592,7 @@ examples:
   V3UnifyRequest:
     speakeasy-default-v3-unify-request:
       requestBody:
-        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.0.1", "mobileAuthEnabled": true, "phoneNumber": "2001004011", "possessionType": "mobile", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "rebind": true, "smsMessage": "#### is your verification code."}
+        application/json: {"allowOTPRetry": true, "checkReputation": true, "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "emailAddress": "sbutrimovichb@who.int", "finalTargetUrl": "https://www.example.com/landing-page", "ipAddress": "192.168.0.1", "phoneNumber": "2001004011", "possessionType": "mobile", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "rebind": true, "smsMessage": "#### is your verification code."}
       responses:
         "200":
           application/json: {"authToken": "eyJhbGciOi...", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "success": "pending"}
@@ -628,7 +610,7 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd", "phoneNumber": "2001004011"}
       responses:
         "200":
-          application/json: {"clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "evaluation": {"key": {}}, "phoneNumber": "2001004011", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "success": "true"}
+          application/json: {"clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "evaluation": {"key": "{}"}, "phoneNumber": "2001004011", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "success": "true"}
         "400":
           application/json: {"code": 1001, "message": "invalid request"}
         "401":
@@ -657,13 +639,13 @@ examples:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "evaluation": {"authentication": {}, "identification": {}, "success": {}}, "phoneNumber": "2001004011", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "success": "true"}
+          application/json: {"clientHumanId": "7bfbb91d-9df8-4ec0-99a6-de05ecc23a9e", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "deviceId": "bf9ea15d-7dfa-4bb4-a64c-6c26b53472fc", "evaluation": {"authentication": {"result": "pass"}, "identification": {"result": "pass"}, "success": true}, "phoneNumber": "2001004011", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "success": "true"}
     Response with Failed Evaluation:
       requestBody:
         application/json: {"clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"evaluation": {"authentication": {}, "identification": {}, "success": {}}, "phoneNumber": "2001004011", "success": "false"}
+          application/json: {"evaluation": {"authentication": {"failureReasons": {"9100": "Phone possession incomplete."}}, "identification": {"result": "pass"}, "success": false}, "phoneNumber": "2001004011", "success": "false"}
   V3ValidateRequest:
     speakeasy-default-v3-validate-request:
       requestBody:
@@ -684,13 +666,13 @@ examples:
         application/json: {"correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"challengeMissing": true, "evaluation": {"authentication": {}, "success": {}}, "next": {"v3-challenge": "/v3/challenge"}, "success": true}
+          application/json: {"challengeMissing": true, "evaluation": {"authentication": {"result": "pass"}, "success": true}, "next": {"v3-challenge": "/v3/challenge"}, "success": true}
     Response with Failed Evaluation:
       requestBody:
         application/json: {"correlationId": "713189b8-5555-4b08-83ba-75d08780aebd"}
       responses:
         "200":
-          application/json: {"challengeMissing": true, "evaluation": {"authentication": {}, "success": {}}, "next": {"v3-challenge": "/v3/challenge"}, "success": false}
+          application/json: {"challengeMissing": true, "evaluation": {"authentication": {"failureReasons": {"9131": "Indicates the phone number is at a higher risk for fraud due to being listed as a non-mobile line on the Override Services Registry (OSR).", "9133": "The phone is not trusted based on the Trust Score."}, "result": "fail"}, "success": false}, "next": {"v3-challenge": "/v3/challenge"}, "success": false}
   V3VerifyRequest:
     speakeasy-default-v3-verify-request:
       requestBody:
@@ -711,7 +693,7 @@ examples:
         application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "ecoldman1h@storify.com", "firstName": "Elena", "identityAttributes": [{"attributeType": "walletId", "attributeValue": "wallet123"}], "ipAddress": "192.168.1.1", "lastName": "Coldman", "phoneNumber": "2001004053", "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0", "verificationType": "verifiedUser"}
       responses:
         "200":
-          application/json: {"clientRequestId": "client-synthetic-prefill-001", "correlationId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "evaluation": {"authentication": {}, "identification": {}, "risk": {}}, "identity": {"addresses": [{"address": "100 Synthetic St", "city": "Exampletown", "extendedAddress": "Unit 1", "region": "EX", "zipCode": "00001"}, {"address": "200 Placeholder Rd", "city": "Demo City", "extendedAddress": "", "region": "DM", "zipCode": "00002"}], "assuranceLevel": "AL3", "dateOfBirth": "1990-06-15", "emails": ["sample.person@example.invalid", "s.person@example.invalid"], "firstName": "Sample", "lastName": "Person", "nationalId": "900-00-0000", "reasons": ["AL3a"]}, "isEnrolled": true, "phoneNumber": "+15555550123", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "SYNTHPFA00000000000000000000000000000000000000000000000000000001", "success": "true"}
+          application/json: {"clientRequestId": "client-synthetic-prefill-001", "correlationId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "evaluation": {"authentication": {"result": "pass"}, "identification": {"result": "pass"}, "risk": {"result": "pass"}}, "identity": {"addresses": [{"address": "100 Synthetic St", "city": "Exampletown", "extendedAddress": "Unit 1", "region": "EX", "zipCode": "00001"}, {"address": "200 Placeholder Rd", "city": "Demo City", "extendedAddress": "", "region": "DM", "zipCode": "00002"}], "assuranceLevel": "AL3", "dateOfBirth": "1990-06-15", "emails": ["sample.person@example.invalid", "s.person@example.invalid"], "firstName": "Sample", "lastName": "Person", "nationalId": "900-00-0000", "reasons": ["AL3a"]}, "isEnrolled": true, "phoneNumber": "+15555550123", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "SYNTHPFA00000000000000000000000000000000000000000000000000000001", "success": "true"}
   V3VerifyStatusRequest:
     speakeasy-default-v3-verify-status-request:
       requestBody:

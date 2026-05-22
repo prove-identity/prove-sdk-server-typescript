@@ -7,8 +7,6 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
-export type V3ValidateResponseEvaluation = {};
-
 export type V3ValidateResponse = {
   /**
    * True if a DOB or SSN needs to be passed in on the next step. Only applicable to Pre-Fill. If implementing Prove Identity ignore this field.
@@ -20,7 +18,7 @@ export type V3ValidateResponse = {
   /**
    * The evaluation result for the policy. This is an upcoming field but is not yet enabled.
    */
-  evaluation?: { [k: string]: V3ValidateResponseEvaluation } | undefined;
+  evaluation?: { [k: string]: any } | undefined;
   /**
    * The next set of allowed calls in the same flow.
    */
@@ -36,64 +34,13 @@ export type V3ValidateResponse = {
 };
 
 /** @internal */
-export const V3ValidateResponseEvaluation$inboundSchema: z.ZodType<
-  V3ValidateResponseEvaluation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type V3ValidateResponseEvaluation$Outbound = {};
-
-/** @internal */
-export const V3ValidateResponseEvaluation$outboundSchema: z.ZodType<
-  V3ValidateResponseEvaluation$Outbound,
-  z.ZodTypeDef,
-  V3ValidateResponseEvaluation
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace V3ValidateResponseEvaluation$ {
-  /** @deprecated use `V3ValidateResponseEvaluation$inboundSchema` instead. */
-  export const inboundSchema = V3ValidateResponseEvaluation$inboundSchema;
-  /** @deprecated use `V3ValidateResponseEvaluation$outboundSchema` instead. */
-  export const outboundSchema = V3ValidateResponseEvaluation$outboundSchema;
-  /** @deprecated use `V3ValidateResponseEvaluation$Outbound` instead. */
-  export type Outbound = V3ValidateResponseEvaluation$Outbound;
-}
-
-export function v3ValidateResponseEvaluationToJSON(
-  v3ValidateResponseEvaluation: V3ValidateResponseEvaluation,
-): string {
-  return JSON.stringify(
-    V3ValidateResponseEvaluation$outboundSchema.parse(
-      v3ValidateResponseEvaluation,
-    ),
-  );
-}
-
-export function v3ValidateResponseEvaluationFromJSON(
-  jsonString: string,
-): SafeParseResult<V3ValidateResponseEvaluation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => V3ValidateResponseEvaluation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3ValidateResponseEvaluation' from JSON`,
-  );
-}
-
-/** @internal */
 export const V3ValidateResponse$inboundSchema: z.ZodType<
   V3ValidateResponse,
   z.ZodTypeDef,
   unknown
 > = z.object({
   challengeMissing: z.boolean(),
-  evaluation: z.record(z.lazy(() => V3ValidateResponseEvaluation$inboundSchema))
-    .optional(),
+  evaluation: z.record(z.any()).optional(),
   next: z.record(z.string()),
   phoneNumber: z.string().optional(),
   success: z.boolean(),
@@ -102,9 +49,7 @@ export const V3ValidateResponse$inboundSchema: z.ZodType<
 /** @internal */
 export type V3ValidateResponse$Outbound = {
   challengeMissing: boolean;
-  evaluation?:
-    | { [k: string]: V3ValidateResponseEvaluation$Outbound }
-    | undefined;
+  evaluation?: { [k: string]: any } | undefined;
   next: { [k: string]: string };
   phoneNumber?: string | undefined;
   success: boolean;
@@ -117,9 +62,7 @@ export const V3ValidateResponse$outboundSchema: z.ZodType<
   V3ValidateResponse
 > = z.object({
   challengeMissing: z.boolean(),
-  evaluation: z.record(
-    z.lazy(() => V3ValidateResponseEvaluation$outboundSchema),
-  ).optional(),
+  evaluation: z.record(z.any()).optional(),
   next: z.record(z.string()),
   phoneNumber: z.string().optional(),
   success: z.boolean(),

@@ -19,8 +19,6 @@ import {
   Identity$outboundSchema,
 } from "./identity.js";
 
-export type V3VerifyResponseEvaluation = {};
-
 export type V3VerifyResponse = {
   /**
    * Additional Identities found as part of the verification flow.
@@ -49,7 +47,7 @@ export type V3VerifyResponse = {
   /**
    * The evaluation result for the policy. This will contain keys titled "authentication" and "risk" that encompass the different evaluation categories.
    */
-  evaluation?: { [k: string]: V3VerifyResponseEvaluation } | undefined;
+  evaluation?: { [k: string]: any } | undefined;
   identity?: Identity | undefined;
   /**
    * IsEnrolled indicates whether the identity was successfully enrolled into Identity Manager.
@@ -74,54 +72,6 @@ export type V3VerifyResponse = {
 };
 
 /** @internal */
-export const V3VerifyResponseEvaluation$inboundSchema: z.ZodType<
-  V3VerifyResponseEvaluation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type V3VerifyResponseEvaluation$Outbound = {};
-
-/** @internal */
-export const V3VerifyResponseEvaluation$outboundSchema: z.ZodType<
-  V3VerifyResponseEvaluation$Outbound,
-  z.ZodTypeDef,
-  V3VerifyResponseEvaluation
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace V3VerifyResponseEvaluation$ {
-  /** @deprecated use `V3VerifyResponseEvaluation$inboundSchema` instead. */
-  export const inboundSchema = V3VerifyResponseEvaluation$inboundSchema;
-  /** @deprecated use `V3VerifyResponseEvaluation$outboundSchema` instead. */
-  export const outboundSchema = V3VerifyResponseEvaluation$outboundSchema;
-  /** @deprecated use `V3VerifyResponseEvaluation$Outbound` instead. */
-  export type Outbound = V3VerifyResponseEvaluation$Outbound;
-}
-
-export function v3VerifyResponseEvaluationToJSON(
-  v3VerifyResponseEvaluation: V3VerifyResponseEvaluation,
-): string {
-  return JSON.stringify(
-    V3VerifyResponseEvaluation$outboundSchema.parse(v3VerifyResponseEvaluation),
-  );
-}
-
-export function v3VerifyResponseEvaluationFromJSON(
-  jsonString: string,
-): SafeParseResult<V3VerifyResponseEvaluation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => V3VerifyResponseEvaluation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3VerifyResponseEvaluation' from JSON`,
-  );
-}
-
-/** @internal */
 export const V3VerifyResponse$inboundSchema: z.ZodType<
   V3VerifyResponse,
   z.ZodTypeDef,
@@ -133,8 +83,7 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   correlationId: z.string(),
-  evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$inboundSchema))
-    .optional(),
+  evaluation: z.record(z.any()).optional(),
   identity: Identity$inboundSchema.optional(),
   isEnrolled: z.boolean().optional(),
   phoneNumber: z.string(),
@@ -151,7 +100,7 @@ export type V3VerifyResponse$Outbound = {
   clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
   correlationId: string;
-  evaluation?: { [k: string]: V3VerifyResponseEvaluation$Outbound } | undefined;
+  evaluation?: { [k: string]: any } | undefined;
   identity?: Identity$Outbound | undefined;
   isEnrolled?: boolean | undefined;
   phoneNumber: string;
@@ -172,8 +121,7 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   correlationId: z.string(),
-  evaluation: z.record(z.lazy(() => V3VerifyResponseEvaluation$outboundSchema))
-    .optional(),
+  evaluation: z.record(z.any()).optional(),
   identity: Identity$outboundSchema.optional(),
   isEnrolled: z.boolean().optional(),
   phoneNumber: z.string(),

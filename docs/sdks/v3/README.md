@@ -15,7 +15,6 @@
 * [v3UnifyStatusRequest](#v3unifystatusrequest) - Check Status
 * [v3ValidateRequest](#v3validaterequest) - Validate Phone Number
 * [v3VerifyRequest](#v3verifyrequest) - Verify
-* [v3VerifyBatchRequest](#v3verifybatchrequest) - Batch Verify Users
 
 ## v3TokenRequest
 
@@ -507,7 +506,6 @@ async function run() {
     emailAddress: "sbutrimovichb@who.int",
     finalTargetUrl: "https://www.example.com/landing-page",
     ipAddress: "192.168.0.1",
-    mobileAuthEnabled: true,
     phoneNumber: "2001004011",
     possessionType: "mobile",
     proveId: "a07b94ce-218c-461f-beda-d92480e40f61",
@@ -549,7 +547,6 @@ async function run() {
     emailAddress: "sbutrimovichb@who.int",
     finalTargetUrl: "https://www.example.com/landing-page",
     ipAddress: "192.168.0.1",
-    mobileAuthEnabled: true,
     phoneNumber: "2001004011",
     possessionType: "mobile",
     proveId: "a07b94ce-218c-461f-beda-d92480e40f61",
@@ -995,140 +992,6 @@ run();
 ### Response
 
 **Promise\<[operations.V3VerifyRequestResponse](../../models/operations/v3verifyrequestresponse.md)\>**
-
-### Errors
-
-| Error Type       | Status Code      | Content Type     |
-| ---------------- | ---------------- | ---------------- |
-| errors.Error400  | 400              | application/json |
-| errors.Error401  | 401              | application/json |
-| errors.Error403  | 403              | application/json |
-| errors.ErrorT    | 500              | application/json |
-| errors.SDKError  | 4XX, 5XX         | \*/\*            |
-
-## v3VerifyBatchRequest
-
-This endpoint allows you to batch verify and enroll users.
-
-### Example Usage
-
-```typescript
-import { Proveapi } from "@prove-identity/prove-api";
-
-const proveapi = new Proveapi({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const result = await proveapi.v3.v3VerifyBatchRequest({
-    clientRequestId: "3d1215f7-ec3f-4fd2-9894-7b46f00e31a6",
-    items: [
-      {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        clientHumanId: "clientHumanId",
-        emailAddress: "ecoldman1h@storify.com",
-        firstName: "Elena",
-        ipAddress: "192.168.1.1",
-        lastName: "Coldman",
-        phoneNumber: "2001004053",
-        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verifiedUser",
-      },
-      {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        clientHumanId: "clientHumanId",
-        emailAddress: "ecoldman1h@storify.com",
-        firstName: "Elena",
-        ipAddress: "192.168.1.1",
-        lastName: "Coldman",
-        phoneNumber: "2001004053",
-        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verifiedUser",
-      },
-    ],
-  });
-
-  console.log(result);
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { ProveapiCore } from "@prove-identity/prove-api/core.js";
-import { v3V3VerifyBatchRequest } from "@prove-identity/prove-api/funcs/v3V3VerifyBatchRequest.js";
-
-// Use `ProveapiCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const proveapi = new ProveapiCore({
-  security: {
-    clientID: "<YOUR_CLIENT_ID_HERE>",
-    clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-  },
-});
-
-async function run() {
-  const res = await v3V3VerifyBatchRequest(proveapi, {
-    clientRequestId: "3d1215f7-ec3f-4fd2-9894-7b46f00e31a6",
-    items: [
-      {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        clientHumanId: "clientHumanId",
-        emailAddress: "ecoldman1h@storify.com",
-        firstName: "Elena",
-        ipAddress: "192.168.1.1",
-        lastName: "Coldman",
-        phoneNumber: "2001004053",
-        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verifiedUser",
-      },
-      {
-        clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        clientHumanId: "clientHumanId",
-        emailAddress: "ecoldman1h@storify.com",
-        firstName: "Elena",
-        ipAddress: "192.168.1.1",
-        lastName: "Coldman",
-        phoneNumber: "2001004053",
-        proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-        userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-        verificationType: "verifiedUser",
-      },
-    ],
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    console.log(result);
-  } else {
-    console.log("v3V3VerifyBatchRequest failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.V3VerifyBatchRequest](../../models/components/v3verifybatchrequest.md)                                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.V3VerifyBatchRequestResponse](../../models/operations/v3verifybatchrequestresponse.md)\>**
 
 ### Errors
 
