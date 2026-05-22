@@ -215,7 +215,6 @@ run();
 * [v3UnifyStatusRequest](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
 * [v3ValidateRequest](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
 * [v3VerifyRequest](docs/sdks/v3/README.md#v3verifyrequest) - Verify
-* [v3VerifyBatchRequest](docs/sdks/v3/README.md#v3verifybatchrequest) - Batch Verify Users
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -290,7 +289,7 @@ run();
 
 
 **Inherit from [`ProveapiError`](./src/models/errors/proveapierror.ts)**:
-* [`Error404`](./src/models/errors/error404.ts): Not Found. The server cannot find the requested resource. Status code `404`. Applicable to 3 of 30 methods.*
+* [`Error404`](./src/models/errors/error404.ts): Not Found. The server cannot find the requested resource. Status code `404`. Applicable to 3 of 29 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -557,7 +556,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`v3V3UnifyRequest`](docs/sdks/v3/README.md#v3unifyrequest) - Initiate Possession Check
 - [`v3V3UnifyStatusRequest`](docs/sdks/v3/README.md#v3unifystatusrequest) - Check Status
 - [`v3V3ValidateRequest`](docs/sdks/v3/README.md#v3validaterequest) - Validate Phone Number
-- [`v3V3VerifyBatchRequest`](docs/sdks/v3/README.md#v3verifybatchrequest) - Batch Verify Users
 - [`v3V3VerifyRequest`](docs/sdks/v3/README.md#v3verifyrequest) - Verify
 
 </details>

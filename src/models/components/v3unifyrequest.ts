@@ -52,13 +52,6 @@ export type V3UnifyRequest = {
    */
   ipAddress?: string | undefined;
   /**
-   * A workaround input parameter to indicate if Mobile Auth should be enabled for this Unified Auth session.
-   *
-   * @remarks
-   * This input parameter should not be communicated to any customer except Bumble.
-   */
-  mobileAuthEnabled?: boolean | undefined;
-  /**
    * The mobile phone number. US and Canada phone numbers can be passed in with or without a leading `+1`.
    *
    * @remarks
@@ -114,7 +107,6 @@ export const V3UnifyRequest$inboundSchema: z.ZodType<
   emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
   ipAddress: z.string().optional(),
-  mobileAuthEnabled: z.boolean().optional(),
   phoneNumber: z.string().optional(),
   possessionType: z.string(),
   proveId: z.string().optional(),
@@ -133,7 +125,6 @@ export type V3UnifyRequest$Outbound = {
   emailAddress?: string | undefined;
   finalTargetUrl?: string | undefined;
   ipAddress?: string | undefined;
-  mobileAuthEnabled?: boolean | undefined;
   phoneNumber?: string | undefined;
   possessionType: string;
   proveId?: string | undefined;
@@ -156,7 +147,6 @@ export const V3UnifyRequest$outboundSchema: z.ZodType<
   emailAddress: z.string().optional(),
   finalTargetUrl: z.string().optional(),
   ipAddress: z.string().optional(),
-  mobileAuthEnabled: z.boolean().optional(),
   phoneNumber: z.string().optional(),
   possessionType: z.string(),
   proveId: z.string().optional(),

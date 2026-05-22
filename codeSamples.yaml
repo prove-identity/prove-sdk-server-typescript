@@ -753,7 +753,6 @@ actions:
                 emailAddress: "sbutrimovichb@who.int",
                 finalTargetUrl: "https://www.example.com/landing-page",
                 ipAddress: "192.168.0.1",
-                mobileAuthEnabled: true,
                 phoneNumber: "2001004011",
                 possessionType: "mobile",
                 proveId: "a07b94ce-218c-461f-beda-d92480e40f61",
@@ -874,56 +873,6 @@ actions:
                 phoneNumber: "2001004053",
                 userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
                 verificationType: VerificationType.VerifiedUser,
-              });
-
-              console.log(result);
-            }
-
-            run();
-  - target: $["paths"]["/v3/verify/batch"]["post"]
-    update:
-      x-codeSamples:
-        - lang: typescript
-          label: V3VerifyBatchRequest
-          source: |-
-            import { Proveapi } from "@prove-identity/prove-api";
-
-            const proveapi = new Proveapi({
-              security: {
-                clientID: "<YOUR_CLIENT_ID_HERE>",
-                clientSecret: "<YOUR_CLIENT_SECRET_HERE>",
-              },
-            });
-
-            async function run() {
-              const result = await proveapi.v3.v3VerifyBatchRequest({
-                clientRequestId: "3d1215f7-ec3f-4fd2-9894-7b46f00e31a6",
-                items: [
-                  {
-                    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-                    clientHumanId: "clientHumanId",
-                    emailAddress: "ecoldman1h@storify.com",
-                    firstName: "Elena",
-                    ipAddress: "192.168.1.1",
-                    lastName: "Coldman",
-                    phoneNumber: "2001004053",
-                    proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-                    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-                    verificationType: "verifiedUser",
-                  },
-                  {
-                    clientCustomerId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-                    clientHumanId: "clientHumanId",
-                    emailAddress: "ecoldman1h@storify.com",
-                    firstName: "Elena",
-                    ipAddress: "192.168.1.1",
-                    lastName: "Coldman",
-                    phoneNumber: "2001004053",
-                    proveId: "e0f78bc2-f748-4eda-9d29-d756844507fc",
-                    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-                    verificationType: "verifiedUser",
-                  },
-                ],
               });
 
               console.log(result);

@@ -20,6 +20,10 @@ export type Identity = {
    */
   assuranceLevel: string;
   /**
+   * The unique ID that we generate for the identity.
+   */
+  clientHumanId?: string | undefined;
+  /**
    * TODO: comments and validation
    */
   dateOfBirth?: string | undefined;
@@ -49,6 +53,7 @@ export const Identity$inboundSchema: z.ZodType<
 > = z.object({
   addresses: z.array(Address$inboundSchema).optional(),
   assuranceLevel: z.string(),
+  clientHumanId: z.string().optional(),
   dateOfBirth: z.string().optional(),
   emails: z.array(z.string()).optional(),
   firstName: z.string().optional(),
@@ -63,6 +68,7 @@ export const Identity$inboundSchema: z.ZodType<
 export type Identity$Outbound = {
   addresses?: Array<Address$Outbound> | undefined;
   assuranceLevel: string;
+  clientHumanId?: string | undefined;
   dateOfBirth?: string | undefined;
   emails?: Array<string> | undefined;
   firstName?: string | undefined;
@@ -81,6 +87,7 @@ export const Identity$outboundSchema: z.ZodType<
 > = z.object({
   addresses: z.array(Address$outboundSchema).optional(),
   assuranceLevel: z.string(),
+  clientHumanId: z.string().optional(),
   dateOfBirth: z.string().optional(),
   emails: z.array(z.string()).optional(),
   firstName: z.string().optional(),
