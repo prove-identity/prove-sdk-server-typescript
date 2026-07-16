@@ -19,11 +19,21 @@ import {
   Identity$outboundSchema,
 } from "./identity.js";
 
+export type Signals = {};
+
 export type V3VerifyResponse = {
   /**
    * Additional Identities found as part of the verification flow.
    */
   additionalIdentities?: Array<Identity> | undefined;
+  /**
+   * AddressMatchScore is the fuzzy address match score (0–100) produced during validate flow.
+   *
+   * @remarks
+   * Absent when no address was provided in the request.
+   * Only present for verificationType=validate.
+   */
+  addressMatchScore?: number | undefined;
   /**
    * Businesses is used for business prefill.
    */
@@ -45,7 +55,7 @@ export type V3VerifyResponse = {
    */
   correlationId: string;
   /**
-   * The evaluation result for the policy. This will contain keys titled "authentication" and "risk" that encompass the different evaluation categories.
+   * Policy evaluation outputs from Luna. May include authentication, identification, and risk categories. Omitted from the response when evaluation.includeEvaluation is not enabled.
    */
   evaluation?: { [k: string]: any } | undefined;
   identity?: Identity | undefined;
@@ -54,9 +64,25 @@ export type V3VerifyResponse = {
    */
   isEnrolled?: boolean | undefined;
   /**
+   * NameMatchScore is the fuzzy name match score (0–100) produced during validate flow.
+   *
+   * @remarks
+   * Absent when name scoring was not performed.
+   * Only present for verificationType=validate.
+   */
+  nameMatchScore?: number | undefined;
+  /**
    * The input phone number.
    */
   phoneNumber: string;
+  /**
+   * PreviousCorrelationID is the correlationId from the prefill response that preceded this
+   *
+   * @remarks
+   * validate request. Set to an empty string when no preceding prefill was cached.
+   * Only present for verificationType=validate.
+   */
+  previousCorrelationId?: string | undefined;
   /**
    * A Prove-generated identifier for the consumer.
    */
@@ -66,10 +92,65 @@ export type V3VerifyResponse = {
    */
   provePhoneAlias?: string | undefined;
   /**
-   * The result of verification. This can be "true" or "false".
+   * Signals
    */
-  success: string;
+  signals?: Array<{ [k: string]: Signals }> | undefined;
+  /**
+   * The result of verification. This can be "true" or "false".
+   *
+   * @remarks
+   * Omitted from the response when blank.
+   */
+  success?: string | undefined;
+  /**
+   * ValidationStatus indicates whether all configured thresholds passed.
+   *
+   * @remarks
+   * Only present for verificationType=validate.
+   */
+  validationStatus?: boolean | undefined;
 };
+
+/** @internal */
+export const Signals$inboundSchema: z.ZodType<Signals, z.ZodTypeDef, unknown> =
+  z.object({});
+
+/** @internal */
+export type Signals$Outbound = {};
+
+/** @internal */
+export const Signals$outboundSchema: z.ZodType<
+  Signals$Outbound,
+  z.ZodTypeDef,
+  Signals
+> = z.object({});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace Signals$ {
+  /** @deprecated use `Signals$inboundSchema` instead. */
+  export const inboundSchema = Signals$inboundSchema;
+  /** @deprecated use `Signals$outboundSchema` instead. */
+  export const outboundSchema = Signals$outboundSchema;
+  /** @deprecated use `Signals$Outbound` instead. */
+  export type Outbound = Signals$Outbound;
+}
+
+export function signalsToJSON(signals: Signals): string {
+  return JSON.stringify(Signals$outboundSchema.parse(signals));
+}
+
+export function signalsFromJSON(
+  jsonString: string,
+): SafeParseResult<Signals, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Signals$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Signals' from JSON`,
+  );
+}
 
 /** @internal */
 export const V3VerifyResponse$inboundSchema: z.ZodType<
@@ -78,6 +159,7 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   additionalIdentities: z.array(Identity$inboundSchema).optional(),
+  addressMatchScore: z.number().int().optional(),
   businesses: z.array(Business$inboundSchema).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
@@ -86,15 +168,20 @@ export const V3VerifyResponse$inboundSchema: z.ZodType<
   evaluation: z.record(z.any()).optional(),
   identity: Identity$inboundSchema.optional(),
   isEnrolled: z.boolean().optional(),
+  nameMatchScore: z.number().int().optional(),
   phoneNumber: z.string(),
+  previousCorrelationId: z.string().optional(),
   proveId: z.string().optional(),
   provePhoneAlias: z.string().optional(),
-  success: z.string(),
+  signals: z.array(z.record(z.lazy(() => Signals$inboundSchema))).optional(),
+  success: z.string().optional(),
+  validationStatus: z.boolean().optional(),
 });
 
 /** @internal */
 export type V3VerifyResponse$Outbound = {
   additionalIdentities?: Array<Identity$Outbound> | undefined;
+  addressMatchScore?: number | undefined;
   businesses?: Array<Business$Outbound> | undefined;
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
@@ -103,10 +190,14 @@ export type V3VerifyResponse$Outbound = {
   evaluation?: { [k: string]: any } | undefined;
   identity?: Identity$Outbound | undefined;
   isEnrolled?: boolean | undefined;
+  nameMatchScore?: number | undefined;
   phoneNumber: string;
+  previousCorrelationId?: string | undefined;
   proveId?: string | undefined;
   provePhoneAlias?: string | undefined;
-  success: string;
+  signals?: Array<{ [k: string]: Signals$Outbound }> | undefined;
+  success?: string | undefined;
+  validationStatus?: boolean | undefined;
 };
 
 /** @internal */
@@ -116,6 +207,7 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   V3VerifyResponse
 > = z.object({
   additionalIdentities: z.array(Identity$outboundSchema).optional(),
+  addressMatchScore: z.number().int().optional(),
   businesses: z.array(Business$outboundSchema).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
@@ -124,10 +216,14 @@ export const V3VerifyResponse$outboundSchema: z.ZodType<
   evaluation: z.record(z.any()).optional(),
   identity: Identity$outboundSchema.optional(),
   isEnrolled: z.boolean().optional(),
+  nameMatchScore: z.number().int().optional(),
   phoneNumber: z.string(),
+  previousCorrelationId: z.string().optional(),
   proveId: z.string().optional(),
   provePhoneAlias: z.string().optional(),
-  success: z.string(),
+  signals: z.array(z.record(z.lazy(() => Signals$outboundSchema))).optional(),
+  success: z.string().optional(),
+  validationStatus: z.boolean().optional(),
 });
 
 /**

@@ -7,6 +7,12 @@ import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
+  Address,
+  Address$inboundSchema,
+  Address$Outbound,
+  Address$outboundSchema,
+} from "./address.js";
+import {
   IdentityAttribute,
   IdentityAttribute$inboundSchema,
   IdentityAttribute$Outbound,
@@ -14,7 +20,7 @@ import {
 } from "./identityattribute.js";
 
 /**
- * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution".
+ * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution", "validate".
  */
 export enum VerificationType {
   HumanAssurance = "humanAssurance",
@@ -23,9 +29,17 @@ export enum VerificationType {
   Prefill = "prefill",
   PrefillForBiz = "prefillForBiz",
   IdentityResolution = "identityResolution",
+  Validate = "validate",
 }
 
 export type V3VerifyRequest = {
+  /**
+   * An optional list of addresses submitted by the user for validation. Used with verificationType=validate
+   *
+   * @remarks
+   * to validate user-edited addresses against data-service records via SmartyStreets normalisation.
+   */
+  addresses?: Array<Address> | undefined;
   /**
    * A client-generated unique ID for a specific customer. This can be used by clients to link calls related to the same customer, across different requests or sessions. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Prove does not offer any functionality around the Client Customer ID. Do not include personally identifiable information (PII) in this field.
    */
@@ -38,6 +52,10 @@ export type V3VerifyRequest = {
    * A client-generated unique ID for a specific session. This can be used to identify specific requests. The format of this ID is defined by the client - Prove recommends using a GUID, but any format can be accepted. Do not include Personally Identifiable Information (PII) in this field.
    */
   clientRequestId?: string | undefined;
+  /**
+   * Indicates whether the consumer has provided consent. Accepts true or false. Defaults to false if not provided.
+   */
+  consent?: boolean | undefined;
   /**
    * The email address of the customer. Acceptable characters are: alphanumeric with symbols '@.+'.
    */
@@ -67,11 +85,18 @@ export type V3VerifyRequest = {
    */
   phoneNumber: string;
   /**
+   * PreviousCorrelationID is the correlationId returned by the preceding prefill response.
+   *
+   * @remarks
+   * When provided, it is echoed back in the validate response to link the two flows.
+   */
+  previousCorrelationId?: string | undefined;
+  /**
    * The User agent of the session of the individual.
    */
   userAgent?: string | undefined;
   /**
-   * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution".
+   * The verification method based on the use case and authorization level. Current allowed values: "verifiedUser", "accountOpening", "humanAssurance", "prefill", "prefillForBiz", "identityResolution", "validate".
    */
   verificationType: VerificationType;
 };
@@ -103,30 +128,36 @@ export const V3VerifyRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  addresses: z.array(Address$inboundSchema).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
+  consent: z.boolean().optional(),
   emailAddress: z.string().optional(),
   firstName: z.string().optional(),
   identityAttributes: z.array(IdentityAttribute$inboundSchema).optional(),
   ipAddress: z.string().optional(),
   lastName: z.string().optional(),
   phoneNumber: z.string(),
+  previousCorrelationId: z.string().optional(),
   userAgent: z.string().optional(),
   verificationType: VerificationType$inboundSchema,
 });
 
 /** @internal */
 export type V3VerifyRequest$Outbound = {
+  addresses?: Array<Address$Outbound> | undefined;
   clientCustomerId?: string | undefined;
   clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
+  consent?: boolean | undefined;
   emailAddress?: string | undefined;
   firstName?: string | undefined;
   identityAttributes?: Array<IdentityAttribute$Outbound> | undefined;
   ipAddress?: string | undefined;
   lastName?: string | undefined;
   phoneNumber: string;
+  previousCorrelationId?: string | undefined;
   userAgent?: string | undefined;
   verificationType: string;
 };
@@ -137,15 +168,18 @@ export const V3VerifyRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3VerifyRequest
 > = z.object({
+  addresses: z.array(Address$outboundSchema).optional(),
   clientCustomerId: z.string().optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
+  consent: z.boolean().optional(),
   emailAddress: z.string().optional(),
   firstName: z.string().optional(),
   identityAttributes: z.array(IdentityAttribute$outboundSchema).optional(),
   ipAddress: z.string().optional(),
   lastName: z.string().optional(),
   phoneNumber: z.string(),
+  previousCorrelationId: z.string().optional(),
   userAgent: z.string().optional(),
   verificationType: VerificationType$outboundSchema,
 });

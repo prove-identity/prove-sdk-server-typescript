@@ -183,11 +183,11 @@ export class V3 extends ClientSDK {
    * Use `verificationType` = `prefill` for consumer identity pre-fill. Requires the appropriate pre-fill product on the token.
    * Response fields vary by flow; for pre-fill, `identity` may include name, contact, address, and assurance fields, and
    * `evaluation` may include `authentication`, `identification`, and `risk` objects with a `result` (for example `pass` or `fail`).
+   * Evaluation is omitted from the response when `evaluation.includeEvaluation` is not enabled.
    *
    * Illustrative **200** response body for this flow (values are synthetic, not real data):
    *
    * {
-   * "success": "true",
    * "correlationId": "11111111-2222-3333-4444-555555555555",
    * "phoneNumber": "+15555550123",
    * "proveId": "22222222-3333-4444-5555-666666666666",

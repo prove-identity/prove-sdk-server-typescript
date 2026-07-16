@@ -6,8 +6,15 @@ import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
+import {
+  AuthenticationResults,
+  AuthenticationResults$inboundSchema,
+  AuthenticationResults$Outbound,
+  AuthenticationResults$outboundSchema,
+} from "./authenticationresults.js";
 
 export type V3UnifyStatusResponse = {
+  authenticationResults?: AuthenticationResults | undefined;
   /**
    * A client-generated unique ID to identify a specific customer across business lines.
    *
@@ -65,6 +72,7 @@ export const V3UnifyStatusResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  authenticationResults: AuthenticationResults$inboundSchema.optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   deviceId: z.string().optional(),
@@ -76,6 +84,7 @@ export const V3UnifyStatusResponse$inboundSchema: z.ZodType<
 
 /** @internal */
 export type V3UnifyStatusResponse$Outbound = {
+  authenticationResults?: AuthenticationResults$Outbound | undefined;
   clientHumanId?: string | undefined;
   clientRequestId?: string | undefined;
   deviceId?: string | undefined;
@@ -91,6 +100,7 @@ export const V3UnifyStatusResponse$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   V3UnifyStatusResponse
 > = z.object({
+  authenticationResults: AuthenticationResults$outboundSchema.optional(),
   clientHumanId: z.string().optional(),
   clientRequestId: z.string().optional(),
   deviceId: z.string().optional(),

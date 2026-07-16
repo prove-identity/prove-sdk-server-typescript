@@ -13,6 +13,7 @@ export * from "./authcontinueresponseerror.js";
 export * from "./authcontinueresponsesubjectcardresult.js";
 export * from "./authcontinueresponsesubjectmobileresult.js";
 export * from "./authcontinueresponsesubjectsresults.js";
+export * from "./authenticationresults.js";
 export * from "./authfinishrequest.js";
 export * from "./authfinishresponse.js";
 export * from "./authfinishresponsecarderror.js";

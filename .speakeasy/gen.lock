@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: a84d4042-f2ee-4a15-a6ed-f9a5bffa02d0
 management:
-  docChecksum: 2606b2a497037963034da8bce20aaeb5
+  docChecksum: b79ae79a4f4e6bd4050b20e5ffe6ea5f
   docVersion: 1.0.0
   speakeasyVersion: 1.580.1
   generationVersion: 2.656.3
-  releaseVersion: 0.14.10
-  configChecksum: 400b53fe2ccf2aefb832ba37f665f30d
+  releaseVersion: 0.14.11
+  configChecksum: 92b677d1bbfe40dd1cb0dabf262e3b1a
   repoURL: https://github.com/prove-identity/prove-sdk-server-typescript.git
   installationURL: https://github.com/prove-identity/prove-sdk-server-typescript
   published: true
@@ -45,6 +45,7 @@ generatedFiles:
   - docs/models/components/authcontinueresponsesubjectcardresult.md
   - docs/models/components/authcontinueresponsesubjectmobileresult.md
   - docs/models/components/authcontinueresponsesubjectsresults.md
+  - docs/models/components/authenticationresults.md
   - docs/models/components/authfinishrequest.md
   - docs/models/components/authfinishresponse.md
   - docs/models/components/authfinishresponsecarderror.md
@@ -131,6 +132,7 @@ generatedFiles:
   - docs/models/components/requeststo.md
   - docs/models/components/result.md
   - docs/models/components/security.md
+  - docs/models/components/signals.md
   - docs/models/components/subjectdeviceresultsuccessextrastrust.md
   - docs/models/components/subscores.md
   - docs/models/components/usertrustscore.md
@@ -299,6 +301,7 @@ generatedFiles:
   - src/models/components/authcontinueresponsesubjectcardresult.ts
   - src/models/components/authcontinueresponsesubjectmobileresult.ts
   - src/models/components/authcontinueresponsesubjectsresults.ts
+  - src/models/components/authenticationresults.ts
   - src/models/components/authfinishrequest.ts
   - src/models/components/authfinishresponse.ts
   - src/models/components/authfinishresponsecarderror.ts
@@ -690,7 +693,7 @@ examples:
           application/json: {"code": 1000, "message": "error occurred"}
     Prefill consumer identity (synthetic):
       requestBody:
-        application/json: {"clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "emailAddress": "ecoldman1h@storify.com", "firstName": "Elena", "identityAttributes": [{"attributeType": "walletId", "attributeValue": "wallet123"}], "ipAddress": "192.168.1.1", "lastName": "Coldman", "phoneNumber": "2001004053", "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0", "verificationType": "verifiedUser"}
+        application/json: {"addresses": [{"address": "123 Main St", "city": "Springfield", "extendedAddress": "Apt 2", "region": "IL", "zipCode": "62701"}], "clientCustomerId": "e0f78bc2-f748-4eda-9d29-d756844507fc", "clientHumanId": "aad25769-23bb-458c-80db-50296a82c91b", "clientRequestId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "consent": true, "emailAddress": "ecoldman1h@storify.com", "firstName": "Elena", "identityAttributes": [{"attributeType": "walletId", "attributeValue": "wallet123"}], "ipAddress": "192.168.1.1", "lastName": "Coldman", "phoneNumber": "2001004053", "previousCorrelationId": "713189b8-5555-4b08-83ba-75d08780aebd", "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0", "verificationType": "verifiedUser"}
       responses:
         "200":
           application/json: {"clientRequestId": "client-synthetic-prefill-001", "correlationId": "71010d88-d0e7-4a24-9297-d1be6fefde81", "evaluation": {"authentication": {"result": "pass"}, "identification": {"result": "pass"}, "risk": {"result": "pass"}}, "identity": {"addresses": [{"address": "100 Synthetic St", "city": "Exampletown", "extendedAddress": "Unit 1", "region": "EX", "zipCode": "00001"}, {"address": "200 Placeholder Rd", "city": "Demo City", "extendedAddress": "", "region": "DM", "zipCode": "00002"}], "assuranceLevel": "AL3", "dateOfBirth": "1990-06-15", "emails": ["sample.person@example.invalid", "s.person@example.invalid"], "firstName": "Sample", "lastName": "Person", "nationalId": "900-00-0000", "reasons": ["AL3a"]}, "isEnrolled": true, "phoneNumber": "+15555550123", "proveId": "a07b94ce-218c-461f-beda-d92480e40f61", "provePhoneAlias": "SYNTHPFA00000000000000000000000000000000000000000000000000000001", "success": "true"}
