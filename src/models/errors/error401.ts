@@ -7,9 +7,17 @@ import { ProveapiError } from "./proveapierror.js";
 
 export type Error401Data = {
   /**
+   * The input ClientRequestID, echoed when provided on the request.
+   */
+  clientRequestId?: string | undefined;
+  /**
    * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
+  /**
+   * The correlation ID for the flow, echoed when available.
+   */
+  correlationId?: string | undefined;
   /**
    * The error message describing the problem with the request.
    */
@@ -18,9 +26,17 @@ export type Error401Data = {
 
 export class Error401 extends ProveapiError {
   /**
+   * The input ClientRequestID, echoed when provided on the request.
+   */
+  clientRequestId?: string | undefined;
+  /**
    * An error code that describes the problem category of the request.
    */
   code?: number | undefined;
+  /**
+   * The correlation ID for the flow, echoed when available.
+   */
+  correlationId?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: Error401Data;
@@ -32,7 +48,9 @@ export class Error401 extends ProveapiError {
     const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
     super(message, httpMeta);
     this.data$ = err;
+    if (err.clientRequestId != null) this.clientRequestId = err.clientRequestId;
     if (err.code != null) this.code = err.code;
+    if (err.correlationId != null) this.correlationId = err.correlationId;
 
     this.name = "Error401";
   }
@@ -44,7 +62,9 @@ export const Error401$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  clientRequestId: z.string().optional(),
   code: z.number().int().optional(),
+  correlationId: z.string().optional(),
   message: z.string(),
   request$: z.instanceof(Request),
   response$: z.instanceof(Response),
@@ -60,7 +80,9 @@ export const Error401$inboundSchema: z.ZodType<
 
 /** @internal */
 export type Error401$Outbound = {
+  clientRequestId?: string | undefined;
   code?: number | undefined;
+  correlationId?: string | undefined;
   message: string;
 };
 
@@ -72,7 +94,9 @@ export const Error401$outboundSchema: z.ZodType<
 > = z.instanceof(Error401)
   .transform(v => v.data$)
   .pipe(z.object({
+    clientRequestId: z.string().optional(),
     code: z.number().int().optional(),
+    correlationId: z.string().optional(),
     message: z.string(),
   }));
 
