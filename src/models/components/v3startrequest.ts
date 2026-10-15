@@ -25,7 +25,7 @@ export type V3StartRequest = {
    */
   emailAddress?: string | undefined;
   /**
-   * The URL where the end user will be redirected at the end of the Instant Link flow. Required only when `flowType=desktop`. Acceptable characters are: alphanumeric with symbols '-._+=/:?'. Max length is 128 characters.
+   * The URL where the end user will be redirected at the end of the Instant Link flow. Required only when `flowType=desktop`. Acceptable characters are: alphanumeric with symbols '-._+=/:?'. Max length is 2048 characters.
    */
   finalTargetUrl?: string | undefined;
   /**
