@@ -9,6 +9,10 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type AuthenticationResults = {
   /**
+   * An indication of the last authentication method used when the Prove Key was created.
+   */
+  keySource?: string | undefined;
+  /**
    * An indication of which mobile authentication method was used.
    */
   mobile?: string | undefined;
@@ -20,11 +24,13 @@ export const AuthenticationResults$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  keySource: z.string().optional(),
   mobile: z.string().optional(),
 });
 
 /** @internal */
 export type AuthenticationResults$Outbound = {
+  keySource?: string | undefined;
   mobile?: string | undefined;
 };
 
@@ -34,6 +40,7 @@ export const AuthenticationResults$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AuthenticationResults
 > = z.object({
+  keySource: z.string().optional(),
   mobile: z.string().optional(),
 });
 

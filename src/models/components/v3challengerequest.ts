@@ -17,6 +17,10 @@ export type V3ChallengeRequest = {
    */
   dob?: string | undefined;
   /**
+   * The email address of the individual.
+   */
+  email?: string | undefined;
+  /**
    * The full or last 4 numbers of the social security number. Acceptable characters are: numeric.
    */
   ssn?: string | undefined;
@@ -30,6 +34,7 @@ export const V3ChallengeRequest$inboundSchema: z.ZodType<
 > = z.object({
   correlationId: z.string(),
   dob: z.string().optional(),
+  email: z.string().optional(),
   ssn: z.string().optional(),
 });
 
@@ -37,6 +42,7 @@ export const V3ChallengeRequest$inboundSchema: z.ZodType<
 export type V3ChallengeRequest$Outbound = {
   correlationId: string;
   dob?: string | undefined;
+  email?: string | undefined;
   ssn?: string | undefined;
 };
 
@@ -48,6 +54,7 @@ export const V3ChallengeRequest$outboundSchema: z.ZodType<
 > = z.object({
   correlationId: z.string(),
   dob: z.string().optional(),
+  email: z.string().optional(),
   ssn: z.string().optional(),
 });
 
